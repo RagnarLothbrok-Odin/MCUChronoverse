@@ -1,16 +1,11 @@
 import { createServerClient } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { supabaseConfig } from "./app/lib/supabase/config";
+import type { Database } from "./app/lib/supabase/types";
 
 export async function proxy(request: NextRequest) {
     let response = NextResponse.next({ request });
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-
-    if (!url || !key) {
-        return response;
-    }
-
-    const supabase = createServerClient(url, key, {
+    const supabase = createServerClient<Database>(supabaseConfig.url, supabaseConfig.key, {
         cookies: {
             getAll() {
                 return request.cookies.getAll();
@@ -32,7 +27,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-    matcher: [
-        "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-    ],
+    matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"],
 };

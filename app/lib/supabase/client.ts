@@ -1,12 +1,12 @@
 import { createBrowserClient } from "@supabase/ssr";
+import { supabaseConfig } from "./config";
+import type { Database } from "./types";
+
+let browserClient: ReturnType<typeof createBrowserClient<Database>> | undefined;
 
 export function createClient() {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-
-    if (!(url && key)) {
-        throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY");
+    if (!browserClient) {
+        browserClient = createBrowserClient<Database>(supabaseConfig.url, supabaseConfig.key);
     }
-
-    return createBrowserClient(url, key);
+    return browserClient;
 }

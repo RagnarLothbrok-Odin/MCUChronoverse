@@ -61,7 +61,7 @@ export function AuthMenu() {
         setOauthError(null);
         setMessage(null);
         const { error: oauthSignInError } = await createClient().auth.signInWithOAuth({
-            options: { redirectTo: window.location.origin },
+            options: { redirectTo: `${window.location.origin}/auth/callback` },
             provider: "discord",
         });
         if (oauthSignInError) {
@@ -87,7 +87,11 @@ export function AuthMenu() {
         const result =
             mode === "sign-in"
                 ? await supabase.auth.signInWithPassword({ email, password })
-                : await supabase.auth.signUp({ email, password });
+                : await supabase.auth.signUp({
+                      email,
+                      options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
+                      password,
+                  });
         if (result.error) {
             setEmailError(describeEmailAuthError(result.error.message, mode));
         } else if (mode === "sign-up" && !result.data.session) {
