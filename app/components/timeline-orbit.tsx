@@ -3,7 +3,6 @@
 import { Html, OrbitControls, Sparkles, Stars } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
-    type ChangeEvent,
     type MouseEvent,
     Suspense,
     useCallback,
@@ -736,20 +735,6 @@ export function TimelineOrbit({
     const initialX = timelineNodePosition(0, entries.length).x;
     const safeFocusIndex = Math.min(Math.max(focusIndex, 0), Math.max(entries.length - 1, 0));
     const focusX = timelineNodePosition(safeFocusIndex, entries.length).x;
-    const zoomLevel = Math.round(
-        ((MAX_ZOOM_DISTANCE - zoomDistance) / (MAX_ZOOM_DISTANCE - MIN_ZOOM_DISTANCE)) * 100
-    );
-
-    const handleZoomChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        const nextZoomLevel = Number(event.currentTarget.value);
-        if (!Number.isFinite(nextZoomLevel)) {
-            return;
-        }
-        const clampedZoomLevel = MathUtils.clamp(nextZoomLevel, 0, 100);
-        setZoomDistance(
-            MAX_ZOOM_DISTANCE - (clampedZoomLevel / 100) * (MAX_ZOOM_DISTANCE - MIN_ZOOM_DISTANCE)
-        );
-    }, []);
     const handleZoomDistanceChange = useCallback((nextDistance: number) => {
         const roundedDistance = Math.round(nextDistance * 10) / 10;
         setZoomDistance((current) =>
@@ -843,29 +828,6 @@ export function TimelineOrbit({
                     />
                 </Suspense>
             </Canvas>
-            <fieldset aria-label="Timeline zoom" className="timeline-zoom-control">
-                <div className="timeline-zoom-heading">
-                    <span className="timeline-zoom-label">Zoom</span>
-                    <span className="timeline-zoom-value">{zoomLevel}%</span>
-                </div>
-                <div className="timeline-zoom-slider">
-                    <div
-                        aria-hidden="true"
-                        className="timeline-zoom-slider-fill"
-                        style={{ width: `${zoomLevel}%` }}
-                    />
-                    <input
-                        aria-label="Timeline zoom"
-                        className="focus-ring timeline-zoom-input"
-                        max="100"
-                        min="0"
-                        onChange={handleZoomChange}
-                        step="1"
-                        type="range"
-                        value={zoomLevel}
-                    />
-                </div>
-            </fieldset>
         </div>
     );
 }
