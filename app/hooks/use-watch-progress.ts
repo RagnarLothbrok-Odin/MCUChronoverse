@@ -162,6 +162,7 @@ export function useWatchProgress() {
     }, []);
 
     return {
+        authReady,
         loaded,
         resetWatchProgress,
         signOut,

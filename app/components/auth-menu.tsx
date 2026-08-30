@@ -289,7 +289,7 @@ export function AuthMenu() {
                         <input
                             autoComplete={mode === "sign-in" ? "current-password" : "new-password"}
                             disabled={busy}
-                            minLength={8}
+                            minLength={mode === "sign-in" ? 6 : 8}
                             onChange={handlePasswordChange}
                             required
                             type="password"

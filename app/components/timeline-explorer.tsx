@@ -216,6 +216,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const [focusRequest, setFocusRequest] = useState<FocusRequest>({ index: 0, key: 0 });
     const [selectedEntry, setSelectedEntry] = useState<TimelineEntry | null>(null);
     const {
+        authReady,
         loaded: watchProgressLoaded,
         resetWatchProgress,
         signOut,
@@ -285,6 +286,12 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const activeEntry = visibleEntries[safeTimelineIndex];
     const activeFilterCount =
         filters.types.length + filters.phases.length + (filters.query ? 1 : 0);
+    let accountActionLabel = "Checking account...";
+    if (authReady) {
+        accountActionLabel = authUser
+            ? "Sign out of synced archive"
+            : "Sign in to sync across devices";
+    }
     const watchedVisibleCount = visibleEntries.filter((entry) =>
         watchedSlugs.includes(entry.slug)
     ).length;
@@ -620,12 +627,11 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                             </button>
                             <button
                                 className="focus-ring timeline-watchlist-account"
+                                disabled={!authReady}
                                 onClick={handleWatchMenuAuth}
                                 type="button"
                             >
-                                {authUser
-                                    ? "Sign out of synced archive"
-                                    : "Sign in to sync across devices"}
+                                {accountActionLabel}
                             </button>
                             {authUser && syncError ? (
                                 <p className="timeline-watchlist-sync-error">

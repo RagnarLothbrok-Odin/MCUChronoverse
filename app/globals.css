@@ -1177,9 +1177,14 @@ a {
 .timeline-watchlist-account {
   width: 100%;
   min-height: 2.5rem;
+  padding: 0.7rem;
   margin-top: 0.65rem;
-  font-size: 0.68rem;
-  color: rgb(255 255 255 / 68%);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.55rem;
+  color: rgb(255 173 85 / 78%);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
   background: rgb(255 255 255 / 6%);
   border: 1px solid rgb(255 255 255 / 14%);
   border-radius: 0.7rem;
@@ -1193,9 +1198,14 @@ a {
   text-align: center;
 }
 
-.timeline-watchlist-account:hover {
+.timeline-watchlist-account:hover:not(:disabled) {
   color: #fff;
   border-color: rgb(255 173 85 / 70%);
+}
+
+.timeline-watchlist-account:disabled {
+  cursor: wait;
+  opacity: 0.45;
 }
 
 .timeline-auth-divider {
@@ -1250,15 +1260,6 @@ a {
 .timeline-auth-switch:disabled {
   cursor: wait;
   opacity: 0.45;
-}
-
-.timeline-watchlist-account {
-  padding: 0.7rem;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.55rem;
-  color: rgb(255 173 85 / 78%);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
 }
 
 .timeline-auth-error,
