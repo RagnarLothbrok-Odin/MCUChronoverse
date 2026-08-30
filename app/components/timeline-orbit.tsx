@@ -135,14 +135,22 @@ function CameraRig({ focusKey, focusX }: CameraRigProps) {
         if (!Number.isFinite(destination.current)) {
             return;
         }
-        camera.position.x = MathUtils.damp(camera.position.x, destination.current, 7, delta);
         if (isTargetableControls(controls)) {
-            controls.target.x = MathUtils.damp(controls.target.x, destination.current, 7, delta);
+            const currentTargetX = controls.target.x;
+            const nextTargetX = MathUtils.damp(currentTargetX, destination.current, 7, delta);
+            controls.target.x = nextTargetX;
+            camera.position.x += nextTargetX - currentTargetX;
             controls.update();
-        }
-        if (Math.abs(camera.position.x - destination.current) < 0.01) {
-            destination.current = Number.NaN;
+            if (Math.abs(nextTargetX - destination.current) < 0.01) {
+                destination.current = Number.NaN;
+            }
         } else {
+            camera.position.x = MathUtils.damp(camera.position.x, destination.current, 7, delta);
+            if (Math.abs(camera.position.x - destination.current) < 0.01) {
+                destination.current = Number.NaN;
+            }
+        }
+        if (Number.isFinite(destination.current)) {
             invalidate();
         }
     });
