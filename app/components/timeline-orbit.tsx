@@ -379,11 +379,20 @@ function updateZoomDistance({
 interface CameraRigProps {
     focusKey: number;
     focusX: number;
+    initialX: number;
     onZoomDistanceChange: (distance: number) => void;
+    sceneKey: string;
     zoomDistance: number;
 }
 
-function CameraRig({ focusKey, focusX, onZoomDistanceChange, zoomDistance }: CameraRigProps) {
+function CameraRig({
+    focusKey,
+    focusX,
+    initialX,
+    onZoomDistanceChange,
+    sceneKey,
+    zoomDistance,
+}: CameraRigProps) {
     const camera = useThree((state) => state.camera);
     const controls = useThree((state) => state.controls);
     const invalidate = useThree((state) => state.invalidate);
@@ -391,6 +400,7 @@ function CameraRig({ focusKey, focusX, onZoomDistanceChange, zoomDistance }: Cam
     const targetZoomDistance = useRef(zoomDistance);
     const appliedZoomDistance = useRef(Number.NaN);
     const cameraOffset = useRef(new Vector3());
+    const appliedSceneKey = useRef("");
 
     useEffect(() => {
         destination.current = focusX;
@@ -404,6 +414,19 @@ function CameraRig({ focusKey, focusX, onZoomDistanceChange, zoomDistance }: Cam
 
     useFrame((_, delta) => {
         const timelineControls = isTargetableControls(controls) ? controls : null;
+        if (timelineControls && appliedSceneKey.current !== sceneKey) {
+            const resetDistance = MathUtils.clamp(
+                targetZoomDistance.current,
+                MIN_ZOOM_DISTANCE,
+                MAX_ZOOM_DISTANCE
+            );
+            timelineControls.target.set(initialX, 0, 0);
+            camera.position.set(initialX, 0, resetDistance);
+            timelineControls.update();
+            appliedZoomDistance.current = resetDistance;
+            appliedSceneKey.current = sceneKey;
+            destination.current = Number.NaN;
+        }
         if (!(timelineControls || Number.isFinite(destination.current))) {
             return;
         }
@@ -619,10 +642,10 @@ interface TimelineSceneProps {
     entries: readonly TimelineEntry[];
     focusKey: number;
     focusX: number;
-    initialX: number;
     onSelect: (slug: string) => void;
     onZoomDistanceChange: (distance: number) => void;
     reducedMotion: boolean;
+    sceneKey: string;
     selectedSlug?: string;
     zoomDistance: number;
 }
@@ -632,12 +655,12 @@ function TimelineScene({
     entries,
     focusKey,
     focusX,
-    initialX,
     onSelect,
     reducedMotion,
     selectedSlug,
     onZoomDistanceChange,
     zoomDistance,
+    sceneKey,
 }: TimelineSceneProps) {
     const points = useMemo(
         () =>
@@ -649,7 +672,6 @@ function TimelineScene({
     );
     const curve = useMemo(() => createTimelineCurve(points), [points]);
     const span = Math.max((entries.length - 1) * 2.2, 4);
-    const initialTarget = useMemo<[number, number, number]>(() => [initialX, 0, 0], [initialX]);
 
     return (
         <>
@@ -698,13 +720,14 @@ function TimelineScene({
                 makeDefault
                 maxDistance={MAX_ZOOM_DISTANCE}
                 minDistance={MIN_ZOOM_DISTANCE}
-                target={initialTarget}
                 zoomSpeed={0.7}
             />
             <CameraRig
                 focusKey={focusKey}
                 focusX={focusX}
+                initialX={points[0]?.x ?? 0}
                 onZoomDistanceChange={onZoomDistanceChange}
+                sceneKey={sceneKey}
                 zoomDistance={zoomDistance}
             />
         </>
@@ -732,7 +755,11 @@ export function TimelineOrbit({
     const [compact, setCompact] = useState(false);
     const [zoomDistance, setZoomDistance] = useState(DEFAULT_ZOOM_DISTANCE);
     const [zoomStorageReady, setZoomStorageReady] = useState(false);
-    const initialX = timelineNodePosition(0, entries.length).x;
+    const cameraSettings = useMemo(
+        () => ({ fov: 43, position: [0, 0, 10.5] as [number, number, number] }),
+        []
+    );
+    const sceneKey = useMemo(() => entries.map((entry) => entry.slug).join("|"), [entries]);
     const safeFocusIndex = Math.min(Math.max(focusIndex, 0), Math.max(entries.length - 1, 0));
     const focusX = timelineNodePosition(safeFocusIndex, entries.length).x;
     const handleZoomDistanceChange = useCallback((nextDistance: number) => {
@@ -809,7 +836,7 @@ export function TimelineOrbit({
     return (
         <div className="relative h-full w-full">
             <Canvas
-                camera={{ fov: 43, position: [initialX, 0, 10.5] }}
+                camera={cameraSettings}
                 dpr={compact ? 1 : [1, 1.5]}
                 frameloop={reducedMotion ? "demand" : "always"}
             >
@@ -819,10 +846,10 @@ export function TimelineOrbit({
                         entries={entries}
                         focusKey={focusKey}
                         focusX={focusX}
-                        initialX={initialX}
                         onSelect={onSelect}
                         onZoomDistanceChange={handleZoomDistanceChange}
                         reducedMotion={reducedMotion}
+                        sceneKey={sceneKey}
                         selectedSlug={selectedSlug}
                         zoomDistance={zoomDistance}
                     />
