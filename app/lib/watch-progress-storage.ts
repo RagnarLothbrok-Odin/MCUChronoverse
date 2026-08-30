@@ -1,55 +1,110 @@
 export const WATCH_PROGRESS_STORAGE_KEY = "mcu-chronoverse:watch-progress";
 export const LEGACY_WATCHED_STORAGE_KEY = "mcu-chronoverse:watched";
 
-export interface WatchProgressSnapshot {
+export interface WatchProgressStore {
+    accounts: Record<string, string[]>;
+    anonymousSlugs: string[];
+    version: 2;
+}
+
+interface LegacyOwnedSnapshot {
     ownerId: string | null;
     slugs: string[];
     version: 1;
 }
 
-function isStringArray(value: unknown): value is string[] {
-    return Array.isArray(value) && value.every((item) => typeof item === "string");
+function uniqueStrings(value: unknown) {
+    if (!(Array.isArray(value) && value.every((item) => typeof item === "string"))) {
+        return null;
+    }
+    return [...new Set(value)];
 }
 
-export function parseWatchProgressSnapshot(
+function parseAccounts(value: unknown) {
+    if (typeof value !== "object" || value === null || Array.isArray(value)) {
+        return null;
+    }
+
+    const accounts: Record<string, string[]> = {};
+    for (const [userId, slugs] of Object.entries(value)) {
+        const parsedSlugs = uniqueStrings(slugs);
+        if (!(userId && parsedSlugs)) {
+            return null;
+        }
+        accounts[userId] = parsedSlugs;
+    }
+    return accounts;
+}
+
+function emptyStore(): WatchProgressStore {
+    return { accounts: {}, anonymousSlugs: [], version: 2 };
+}
+
+function migrateOwnedSnapshot(value: unknown): WatchProgressStore | null {
+    if (typeof value !== "object" || value === null || !("version" in value)) {
+        return null;
+    }
+    const snapshot = value as Partial<LegacyOwnedSnapshot>;
+    const slugs = uniqueStrings(snapshot.slugs);
+    if (
+        snapshot.version !== 1 ||
+        !slugs ||
+        !(typeof snapshot.ownerId === "string" || snapshot.ownerId === null)
+    ) {
+        return null;
+    }
+    return snapshot.ownerId
+        ? { accounts: { [snapshot.ownerId]: slugs }, anonymousSlugs: [], version: 2 }
+        : { accounts: {}, anonymousSlugs: slugs, version: 2 };
+}
+
+export function parseWatchProgressStore(
     storedValue: string | null,
     legacyValue: string | null = null
-): WatchProgressSnapshot {
+): WatchProgressStore {
     try {
         const parsed: unknown = storedValue ? JSON.parse(storedValue) : null;
-        if (
-            typeof parsed === "object" &&
-            parsed !== null &&
-            "version" in parsed &&
-            parsed.version === 1 &&
-            "ownerId" in parsed &&
-            (typeof parsed.ownerId === "string" || parsed.ownerId === null) &&
-            "slugs" in parsed &&
-            isStringArray(parsed.slugs)
-        ) {
-            return { ownerId: parsed.ownerId, slugs: [...new Set(parsed.slugs)], version: 1 };
+        if (typeof parsed === "object" && parsed !== null && "version" in parsed) {
+            if (parsed.version === 2 && "accounts" in parsed && "anonymousSlugs" in parsed) {
+                const accounts = parseAccounts(parsed.accounts);
+                const anonymousSlugs = uniqueStrings(parsed.anonymousSlugs);
+                if (accounts && anonymousSlugs) {
+                    return { accounts, anonymousSlugs, version: 2 };
+                }
+            }
+            const migrated = migrateOwnedSnapshot(parsed);
+            if (migrated) {
+                return migrated;
+            }
         }
     } catch {
-        // Invalid local data is discarded below.
+        // Invalid local data falls through to the older storage format.
     }
 
     try {
-        const parsedLegacy: unknown = legacyValue ? JSON.parse(legacyValue) : null;
-        if (isStringArray(parsedLegacy)) {
-            return { ownerId: null, slugs: [...new Set(parsedLegacy)], version: 1 };
+        const legacySlugs = uniqueStrings(legacyValue ? JSON.parse(legacyValue) : null);
+        if (legacySlugs) {
+            return { accounts: {}, anonymousSlugs: legacySlugs, version: 2 };
         }
     } catch {
         // Invalid legacy data is discarded below.
     }
 
-    return { ownerId: null, slugs: [], version: 1 };
+    return emptyStore();
 }
 
-export function mergeWatchProgress(
-    remoteSlugs: string[],
-    localSnapshot: WatchProgressSnapshot,
-    userId: string
-) {
-    const localBelongsToUser = localSnapshot.ownerId === null || localSnapshot.ownerId === userId;
-    return [...new Set([...remoteSlugs, ...(localBelongsToUser ? localSnapshot.slugs : [])])];
+export function readScopedProgress(store: WatchProgressStore, userId: string | null) {
+    return userId ? (store.accounts[userId] ?? []) : store.anonymousSlugs;
+}
+
+export function writeScopedProgress(
+    store: WatchProgressStore,
+    userId: string | null,
+    slugs: string[]
+): WatchProgressStore {
+    const uniqueSlugs = [...new Set(slugs)];
+    if (!userId) {
+        return { ...store, anonymousSlugs: uniqueSlugs };
+    }
+    return { ...store, accounts: { ...store.accounts, [userId]: uniqueSlugs } };
 }

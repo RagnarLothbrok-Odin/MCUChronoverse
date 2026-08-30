@@ -12,21 +12,6 @@ export async function readRemoteWatchProgress(userId: string) {
     return data.map(({ entry_slug }) => entry_slug);
 }
 
-export async function addRemoteWatchProgress(userId: string, slugs: string[]) {
-    if (slugs.length === 0) {
-        return;
-    }
-    const { error } = await createClient()
-        .from("watch_progress")
-        .upsert(
-            slugs.map((entry_slug) => ({ entry_slug, user_id: userId })),
-            { onConflict: "user_id,entry_slug" }
-        );
-    if (error) {
-        throw error;
-    }
-}
-
 export async function setRemoteWatchStatus(userId: string, slug: string, watched: boolean) {
     const query = watched
         ? createClient()

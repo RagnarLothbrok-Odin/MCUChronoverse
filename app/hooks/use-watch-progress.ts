@@ -4,33 +4,33 @@ import type { User } from "@supabase/supabase-js";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createClient } from "../lib/supabase/client";
 import {
-    addRemoteWatchProgress,
     clearRemoteWatchProgress,
     readRemoteWatchProgress,
     setRemoteWatchStatus,
 } from "../lib/supabase/watch-progress";
 import {
     LEGACY_WATCHED_STORAGE_KEY,
-    mergeWatchProgress,
-    parseWatchProgressSnapshot,
+    parseWatchProgressStore,
+    readScopedProgress,
     WATCH_PROGRESS_STORAGE_KEY,
-    type WatchProgressSnapshot,
+    type WatchProgressStore,
+    writeScopedProgress,
 } from "../lib/watch-progress-storage";
 
-function readLocalSnapshot() {
+function readLocalStore() {
     try {
-        return parseWatchProgressSnapshot(
+        return parseWatchProgressStore(
             window.localStorage.getItem(WATCH_PROGRESS_STORAGE_KEY),
             window.localStorage.getItem(LEGACY_WATCHED_STORAGE_KEY)
         );
     } catch {
-        return parseWatchProgressSnapshot(null);
+        return parseWatchProgressStore(null);
     }
 }
 
-function writeLocalSnapshot(snapshot: WatchProgressSnapshot) {
+function writeLocalStore(store: WatchProgressStore) {
     try {
-        window.localStorage.setItem(WATCH_PROGRESS_STORAGE_KEY, JSON.stringify(snapshot));
+        window.localStorage.setItem(WATCH_PROGRESS_STORAGE_KEY, JSON.stringify(store));
         window.localStorage.removeItem(LEGACY_WATCHED_STORAGE_KEY);
     } catch {
         // In-memory progress remains available when browser storage is restricted.
@@ -43,7 +43,7 @@ export function useWatchProgress() {
     const [loaded, setLoaded] = useState(false);
     const [syncError, setSyncError] = useState(false);
     const [watchedSlugs, setWatchedSlugs] = useState<string[]>([]);
-    const ownerId = useRef<string | null>(null);
+    const progressStore = useRef<WatchProgressStore>(parseWatchProgressStore(null));
     const watchedSlugsRef = useRef<string[]>([]);
     const writeQueue = useRef(Promise.resolve());
     const userId = user?.id ?? null;
@@ -56,11 +56,12 @@ export function useWatchProgress() {
             .catch(() => setSyncError(true));
     }, []);
 
-    const setLocalProgress = useCallback((slugs: string[], snapshotOwner: string | null) => {
-        ownerId.current = snapshotOwner;
+    const setScopedProgress = useCallback((slugs: string[], scopeUserId: string | null) => {
+        const nextStore = writeScopedProgress(progressStore.current, scopeUserId, slugs);
+        progressStore.current = nextStore;
         watchedSlugsRef.current = slugs;
         setWatchedSlugs(slugs);
-        writeLocalSnapshot({ ownerId: snapshotOwner, slugs, version: 1 });
+        writeLocalStore(nextStore);
     }, []);
 
     useEffect(() => {
@@ -88,38 +89,30 @@ export function useWatchProgress() {
         if (!authReady) {
             return;
         }
-        const localSnapshot = readLocalSnapshot();
+        const localStore = readLocalStore();
+        progressStore.current = localStore;
 
         if (!userId) {
-            setLocalProgress(localSnapshot.slugs, localSnapshot.ownerId);
+            setScopedProgress(readScopedProgress(localStore, null), null);
+            setSyncError(false);
             setLoaded(true);
             return;
         }
 
         let active = true;
-        ownerId.current = userId;
         setLoaded(false);
         readRemoteWatchProgress(userId)
-            .then(async (remoteSlugs) => {
-                const mergedSlugs = mergeWatchProgress(remoteSlugs, localSnapshot, userId);
-                const remoteSet = new Set(remoteSlugs);
-                await addRemoteWatchProgress(
-                    userId,
-                    mergedSlugs.filter((slug) => !remoteSet.has(slug))
-                );
+            .then((remoteSlugs) => {
                 if (active) {
-                    setLocalProgress(mergedSlugs, userId);
+                    setScopedProgress(remoteSlugs, userId);
                     setSyncError(false);
                 }
             })
             .catch(() => {
                 if (active) {
-                    const safeSlugs =
-                        localSnapshot.ownerId === null || localSnapshot.ownerId === userId
-                            ? localSnapshot.slugs
-                            : [];
-                    watchedSlugsRef.current = safeSlugs;
-                    setWatchedSlugs(safeSlugs);
+                    const cachedSlugs = readScopedProgress(localStore, userId);
+                    watchedSlugsRef.current = cachedSlugs;
+                    setWatchedSlugs(cachedSlugs);
                     setSyncError(true);
                 }
             })
@@ -131,27 +124,27 @@ export function useWatchProgress() {
         return () => {
             active = false;
         };
-    }, [authReady, setLocalProgress, userId]);
+    }, [authReady, setScopedProgress, userId]);
 
     const toggleWatched = useCallback(
         (slug: string) => {
             const { current } = watchedSlugsRef;
             const watched = !current.includes(slug);
             const next = watched ? [...current, slug] : current.filter((item) => item !== slug);
-            setLocalProgress(next, userId ?? ownerId.current);
+            setScopedProgress(next, userId);
             if (userId) {
                 queueRemoteWrite(() => setRemoteWatchStatus(userId, slug, watched));
             }
         },
-        [queueRemoteWrite, setLocalProgress, userId]
+        [queueRemoteWrite, setScopedProgress, userId]
     );
 
     const resetWatchProgress = useCallback(() => {
-        setLocalProgress([], userId ?? ownerId.current);
+        setScopedProgress([], userId);
         if (userId) {
             queueRemoteWrite(() => clearRemoteWatchProgress(userId));
         }
-    }, [queueRemoteWrite, setLocalProgress, userId]);
+    }, [queueRemoteWrite, setScopedProgress, userId]);
 
     const signOut = useCallback(async () => {
         await writeQueue.current;
