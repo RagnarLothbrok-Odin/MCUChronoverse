@@ -97,7 +97,13 @@ function TimelineNode({ compact, count, entry, index, onSelect, selected }: Time
                 />
             </mesh>
             {!compact || selected || index % 2 === 0 ? (
-                <Html center distanceFactor={10} position={[0, 0.68, 0]} zIndexRange={[20, 0]}>
+                <Html
+                    center
+                    distanceFactor={10}
+                    key={`${entry.slug}-${selected ? "selected" : "default"}`}
+                    position={[0, 0.68, 0]}
+                    zIndexRange={selected ? [25, 25] : [20, 0]}
+                >
                     <button
                         className={`timeline-node-label ${selected ? "timeline-node-label-selected" : ""}`}
                         onClick={handleSelect}
