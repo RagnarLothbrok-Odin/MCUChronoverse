@@ -134,6 +134,12 @@ a {
   color: var(--gold);
 }
 
+.timeline-node-label .timeline-node-label-type {
+  margin-bottom: 0.08rem;
+  color: rgb(244 241 232 / 42%);
+  letter-spacing: 0.16em;
+}
+
 .timeline-node-label:hover,
 .timeline-node-label-selected {
   color: var(--ink);

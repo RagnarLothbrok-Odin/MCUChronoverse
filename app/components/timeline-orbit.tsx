@@ -23,6 +23,14 @@ const coreColours: Record<TimelineEntry["contentType"], string> = {
     special: "#ffe08a",
 };
 
+const contentTypeNames: Record<TimelineEntry["contentType"], string> = {
+    film: "Film",
+    "one-shot": "One-Shot",
+    series: "Series",
+    short: "Short",
+    special: "Special",
+};
+
 interface TimelineOrbitProps {
     entries: readonly TimelineEntry[];
     focusIndex: number;
@@ -95,6 +103,9 @@ function TimelineNode({ compact, count, entry, index, onSelect, selected }: Time
                         onClick={handleSelect}
                         type="button"
                     >
+                        <span className="timeline-node-label-type">
+                            {contentTypeNames[entry.contentType]}
+                        </span>
                         <span>{entry.placement}</span>
                         {entry.title}
                     </button>
