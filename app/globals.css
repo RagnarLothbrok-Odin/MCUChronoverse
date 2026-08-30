@@ -1209,6 +1209,7 @@ a {
   font-size: 0.76rem;
   font-weight: 700;
   color: #fff;
+  cursor: pointer;
   background: #5865f2;
   border-radius: 0.65rem;
   box-shadow: 0 8px 24px rgb(88 101 242 / 24%);
@@ -1277,6 +1278,7 @@ a {
   min-height: 2.5rem;
   font-size: 0.68rem;
   color: rgb(255 255 255 / 70%);
+  cursor: pointer;
   border: 1px solid rgb(255 255 255 / 14%);
   border-radius: 0.7rem;
 }
@@ -1287,12 +1289,18 @@ a {
 }
 
 .timeline-auth-switch {
+  display: block;
   margin-top: 0.9rem;
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.54rem;
   color: rgb(255 255 255 / 42%);
   text-align: left;
   letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.timeline-auth-switch + .timeline-auth-switch {
+  margin-top: 0.55rem;
 }
 
 .timeline-auth-switch:hover {
