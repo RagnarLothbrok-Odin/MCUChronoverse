@@ -1304,6 +1304,24 @@ a {
   opacity: 0.45;
 }
 
+.timeline-auth-secondary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.95rem;
+}
+
+.timeline-auth-secondary-actions .timeline-auth-switch {
+  margin-top: 0;
+}
+
+.timeline-auth-complete {
+  width: 100%;
+  margin-top: 1.25rem;
+}
+
 .timeline-auth-error,
 .timeline-auth-message {
   font-size: 0.68rem;
