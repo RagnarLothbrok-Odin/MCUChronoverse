@@ -23,6 +23,16 @@ export function AuthMenu() {
         return () => window.removeEventListener("mcu-chronoverse:open-auth", openAuth);
     }, []);
 
+    useEffect(() => {
+        const closeOnEscape = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setOpen(false);
+            }
+        };
+        window.addEventListener("keydown", closeOnEscape);
+        return () => window.removeEventListener("keydown", closeOnEscape);
+    }, []);
+
     async function handleOAuth() {
         setBusy(true);
         setError(null);
@@ -34,6 +44,12 @@ export function AuthMenu() {
         if (oauthError) {
             setError("Discord sign-in is not available yet. Enable it in your Supabase providers.");
             setBusy(false);
+        }
+    }
+
+    function handleBackdropPointerDown(event: React.PointerEvent<HTMLDivElement>) {
+        if (event.target === event.currentTarget) {
+            setOpen(false);
         }
     }
 
@@ -70,7 +86,11 @@ export function AuthMenu() {
     }
 
     return (
-        <div className="timeline-auth-modal-backdrop" role="presentation">
+        <div
+            className="timeline-auth-modal-backdrop"
+            onPointerDown={handleBackdropPointerDown}
+            role="presentation"
+        >
             <section
                 aria-labelledby="timeline-auth-title"
                 aria-modal="true"
