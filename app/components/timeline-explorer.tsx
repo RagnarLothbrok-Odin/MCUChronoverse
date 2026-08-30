@@ -81,17 +81,15 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     }, [searchString]);
 
     useEffect(() => {
-        if (!filtersOpen) {
-            return;
-        }
         const handleEscape = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
                 setFiltersOpen(false);
+                setSelectedEntry(null);
             }
         };
         window.addEventListener("keydown", handleEscape);
         return () => window.removeEventListener("keydown", handleEscape);
-    }, [filtersOpen]);
+    }, []);
 
     const updateFilters = useCallback(
         (nextFilters: TimelineFilters) => {
