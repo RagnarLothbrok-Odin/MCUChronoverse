@@ -289,8 +289,8 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     let accountActionLabel = "Checking account...";
     if (authReady) {
         accountActionLabel = authUser
-            ? "Sign out of synced archive"
-            : "Sign in to sync across devices";
+            ? "Sign out of account progress"
+            : "Sign in for synced progress";
     }
     const watchedVisibleCount = visibleEntries.filter((entry) =>
         watchedSlugs.includes(entry.slug)

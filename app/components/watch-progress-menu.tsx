@@ -164,6 +164,19 @@ export function WatchProgressMenu({
                                 <small>{resetDescription}</small>
                             </span>
                         </button>
+                        <div className="timeline-watchlist-scope">
+                            <span aria-hidden="true">{signedIn ? "☁" : "◇"}</span>
+                            <div>
+                                <strong>
+                                    {signedIn ? "Account progress" : "Browser progress"}
+                                </strong>
+                                <small>
+                                    {signedIn
+                                        ? "Stored privately in your account"
+                                        : "Stored only in this browser"}
+                                </small>
+                            </div>
+                        </div>
                         <button
                             className="focus-ring timeline-watchlist-account"
                             disabled={!accountReady}
@@ -174,7 +187,7 @@ export function WatchProgressMenu({
                         </button>
                         {signedIn && syncError ? (
                             <p className="timeline-watchlist-sync-error">
-                                Sync paused. Your progress is still saved on this device.
+                                Sync failed. This device may be ahead of your account.
                             </p>
                         ) : null}
                     </motion.div>
