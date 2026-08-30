@@ -75,9 +75,38 @@ const contentTypeNames: Record<ContentType, string> = {
 interface TimelineDetailProps {
     entry: TimelineEntry;
     onClose: () => void;
+    onToggleWatched: () => void;
+    watched: boolean;
 }
 
-function TimelineDetail({ entry, onClose }: TimelineDetailProps) {
+const WATCHED_STORAGE_KEY = "mcu-chronoverse:watched";
+
+function readWatchedSlugs(): string[] {
+    if (typeof document === "undefined") {
+        return [];
+    }
+
+    try {
+        const stored = window.localStorage.getItem(WATCHED_STORAGE_KEY);
+        if (!stored) {
+            return [];
+        }
+        const slugs = JSON.parse(stored);
+        return Array.isArray(slugs) && slugs.every((slug) => typeof slug === "string") ? slugs : [];
+    } catch {
+        return [];
+    }
+}
+
+function writeWatchedSlugs(slugs: string[]) {
+    try {
+        window.localStorage.setItem(WATCHED_STORAGE_KEY, JSON.stringify(slugs));
+    } catch {
+        // Storage can be unavailable in restricted browser modes; in-memory state still works.
+    }
+}
+
+function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDetailProps) {
     return (
         <motion.aside
             animate={{ opacity: 1, x: 0 }}
@@ -152,6 +181,25 @@ function TimelineDetail({ entry, onClose }: TimelineDetailProps) {
                         </div>
                     ) : null}
 
+                    <button
+                        aria-pressed={watched}
+                        className="focus-ring timeline-detail-watch"
+                        data-watched={watched}
+                        onClick={onToggleWatched}
+                        type="button"
+                    >
+                        <span aria-hidden="true" className="timeline-detail-watch-check">
+                            ✓
+                        </span>
+                        <span className="timeline-detail-watch-copy">
+                            <span>Watch progress</span>
+                            <strong>{watched ? "Watched" : "Not watched yet"}</strong>
+                        </span>
+                        <span className="timeline-detail-watch-action">
+                            {watched ? "Undo" : "Mark watched"}
+                        </span>
+                    </button>
+
                     <div className="timeline-detail-footer">
                         <div className="timeline-detail-universe">
                             <span>Universe</span>
@@ -190,8 +238,13 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const [timelineIndex, setTimelineIndex] = useState(0);
     const [focusRequest, setFocusRequest] = useState<FocusRequest>({ index: 0, key: 0 });
     const [selectedEntry, setSelectedEntry] = useState<TimelineEntry | null>(null);
+    const [watchedSlugs, setWatchedSlugs] = useState<string[]>([]);
     const [hasRenderedTimeline, setHasRenderedTimeline] = useState(false);
     const filtersRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        setWatchedSlugs(readWatchedSlugs());
+    }, []);
 
     useEffect(() => {
         setFilters(parseTimelineFilters(new URLSearchParams(searchString)));
@@ -242,6 +295,20 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
 
     const toggleFilters = useCallback(() => setFiltersOpen((current) => !current), []);
     const closeDetail = useCallback(() => setSelectedEntry(null), []);
+    const toggleWatched = useCallback((slug: string) => {
+        setWatchedSlugs((current) => {
+            const next = current.includes(slug)
+                ? current.filter((item) => item !== slug)
+                : [...current, slug];
+            writeWatchedSlugs(next);
+            return next;
+        });
+    }, []);
+    const toggleSelectedWatched = useCallback(() => {
+        if (selectedEntry) {
+            toggleWatched(selectedEntry.slug);
+        }
+    }, [selectedEntry, toggleWatched]);
     const handleOutsidePointerDown = useCallback(
         (event: React.PointerEvent<HTMLElement>) => {
             if (!selectedEntry) {
@@ -502,6 +569,8 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                         entry={selectedEntry}
                         key={selectedEntry.slug}
                         onClose={closeDetail}
+                        onToggleWatched={toggleSelectedWatched}
+                        watched={watchedSlugs.includes(selectedEntry.slug)}
                     />
                 ) : null}
             </AnimatePresence>
