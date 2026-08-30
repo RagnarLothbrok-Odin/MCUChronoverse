@@ -39,6 +39,7 @@ export function AuthMenu() {
     const [pendingAction, setPendingAction] = useState<PendingAction>(null);
     const [emailError, setEmailError] = useState<string | null>(null);
     const [oauthError, setOauthError] = useState<string | null>(null);
+    const [callbackError, setCallbackError] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -63,11 +64,23 @@ export function AuthMenu() {
                 document.activeElement instanceof HTMLElement ? document.activeElement : null;
             setEmailError(null);
             setOauthError(null);
+            setCallbackError(null);
             setMessage(null);
+            setMode("sign-in");
+            setPassword("");
+            setPasswordConfirmation("");
             setOpen(true);
             window.requestAnimationFrame(() => initialFocus.current?.focus());
         };
         window.addEventListener("mcu-chronoverse:open-auth", openAuth);
+        const currentUrl = new URL(window.location.href);
+        if (currentUrl.searchParams.get("auth") === "failed") {
+            currentUrl.searchParams.delete("auth");
+            window.history.replaceState(null, "", currentUrl);
+            setCallbackError("Your sign-in link could not be completed. Please try again.");
+            setOpen(true);
+            window.requestAnimationFrame(() => initialFocus.current?.focus());
+        }
         return () => window.removeEventListener("mcu-chronoverse:open-auth", openAuth);
     }, []);
 
@@ -232,6 +245,11 @@ export function AuthMenu() {
                     Sign in with Discord or email to carry your watch progress across devices. We
                     only store your account connection and the titles you mark watched.
                 </p>
+                {callbackError ? (
+                    <p className="timeline-auth-error" role="alert">
+                        {callbackError}
+                    </p>
+                ) : null}
                 <button
                     className="focus-ring timeline-auth-discord"
                     disabled={busy}
