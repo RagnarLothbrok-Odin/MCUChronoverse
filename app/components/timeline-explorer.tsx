@@ -81,6 +81,7 @@ function TimelineDetail({ entry, onClose }: TimelineDetailProps) {
         <motion.aside
             animate={{ opacity: 1, x: 0 }}
             className="timeline-detail-card absolute bottom-36 left-4 z-30 w-[min(47rem,calc(100%-2rem))] sm:bottom-40 sm:left-7 sm:w-[min(47rem,calc(100%-3.5rem))]"
+            data-timeline-detail="true"
             exit={{ opacity: 0, x: -16 }}
             initial={{ opacity: 0, x: -16 }}
         >
@@ -223,6 +224,19 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
 
     const toggleFilters = useCallback(() => setFiltersOpen((current) => !current), []);
     const closeDetail = useCallback(() => setSelectedEntry(null), []);
+    const handleOutsidePointerDown = useCallback(
+        (event: React.PointerEvent<HTMLElement>) => {
+            if (!selectedEntry) {
+                return;
+            }
+            const { target } = event;
+            if (target instanceof Element && target.closest("[data-timeline-detail]")) {
+                return;
+            }
+            setSelectedEntry(null);
+        },
+        [selectedEntry]
+    );
     const resetFilters = useCallback(() => updateFilters(emptyTimelineFilters), [updateFilters]);
     const handleSearchChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
@@ -286,7 +300,10 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     }, [visibleEntries]);
 
     return (
-        <main className="relative h-dvh min-h-[32rem] overflow-hidden bg-[#020203] text-ink">
+        <main
+            className="relative h-dvh min-h-[32rem] overflow-hidden bg-[#020203] text-ink"
+            onPointerDown={handleOutsidePointerDown}
+        >
             <div className="absolute inset-0">
                 <TimelineOrbit
                     entries={visibleEntries}

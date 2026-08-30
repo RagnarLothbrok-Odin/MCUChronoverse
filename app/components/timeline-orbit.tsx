@@ -214,6 +214,21 @@ function TimelineNode({ count, entry, index, onSelect, selected }: TimelineNodeP
         },
         [entry.slug, onSelect]
     );
+    const handleOrbSelect = useCallback(
+        (event: { stopPropagation: () => void }) => {
+            event.stopPropagation();
+            onSelect(entry.slug);
+        },
+        [entry.slug, onSelect]
+    );
+    const handleOrbPointerOver = useCallback((event: { stopPropagation: () => void }) => {
+        event.stopPropagation();
+        document.body.style.cursor = "pointer";
+    }, []);
+    const handleOrbPointerOut = useCallback((event: { stopPropagation: () => void }) => {
+        event.stopPropagation();
+        document.body.style.cursor = "default";
+    }, []);
 
     useFrame((_, delta) => {
         ringsRef.current.rotation.x += delta * 0.11;
@@ -243,7 +258,14 @@ function TimelineNode({ count, entry, index, onSelect, selected }: TimelineNodeP
                     />
                 </mesh>
             </group>
-            <mesh scale={selected ? 1.55 : 1}>
+            {/* Three.js meshes are interactive scene targets, even though they are not DOM controls. */}
+            {/* biome-ignore lint/a11y/noStaticElementInteractions: The orb is the scene's interactive control. */}
+            <mesh
+                onClick={handleOrbSelect}
+                onPointerOut={handleOrbPointerOut}
+                onPointerOver={handleOrbPointerOver}
+                scale={selected ? 1.55 : 1}
+            >
                 <sphereGeometry args={[0.11, 24, 24]} />
                 <meshStandardMaterial
                     color={coreColours[entry.contentType]}
