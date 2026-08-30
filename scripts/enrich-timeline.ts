@@ -13,24 +13,14 @@ interface CacheRecord {
     status: "resolved" | "failed";
 }
 
-type CachedTitle = Pick<
-    ITitle,
-    | "allReleaseDates"
-    | "dates"
-    | "genres"
-    | "keywords"
-    | "mainRate"
-    | "mainSource"
-    | "mainType"
-    | "name"
-    | "plot"
-    | "posterImage"
-    | "runtime"
-    | "taglines"
-    | "titleYear"
-    | "trailers"
-    | "worldWideName"
->;
+interface CachedTitle {
+    description: string;
+    genres: string[];
+    imdbUrl?: string;
+    posterUrl?: string;
+    rating?: number;
+    runtime: string;
+}
 
 type MetadataCache = Record<string, CacheRecord>;
 
@@ -55,21 +45,12 @@ const writeCache = async (nextCache: MetadataCache) => {
 };
 
 const selectTitleData = (title: ITitle): CachedTitle => ({
-    allReleaseDates: title.allReleaseDates,
-    dates: title.dates,
+    description: title.plot,
     genres: title.genres,
-    keywords: title.keywords,
-    mainRate: title.mainRate,
-    mainSource: title.mainSource,
-    mainType: title.mainType,
-    name: title.name,
-    plot: title.plot,
-    posterImage: title.posterImage,
-    runtime: title.runtime,
-    taglines: title.taglines,
-    titleYear: title.titleYear,
-    trailers: title.trailers,
-    worldWideName: title.worldWideName,
+    imdbUrl: title.mainSource.sourceUrl,
+    posterUrl: title.posterImage.url,
+    rating: title.mainRate.rate,
+    runtime: title.runtime.title,
 });
 
 const lookupTitle = async (title: string, releaseDate: string): Promise<ITitle> => {
