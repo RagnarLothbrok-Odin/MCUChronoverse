@@ -40,4 +40,14 @@ describe("timeline node positioning", () => {
         expect(timelineNodePosition(3, 12)).toEqual(first);
         expect(Object.values(first).every(Number.isFinite)).toBe(true);
     });
+
+    test("moves forward from left to right", () => {
+        const positions = Array.from({ length: 8 }, (_, index) => timelineNodePosition(index, 8));
+        expect(
+            positions.every((position, index) => {
+                const previous = positions[index - 1];
+                return index === 0 || (previous !== undefined && position.x > previous.x);
+            })
+        ).toBe(true);
+    });
 });

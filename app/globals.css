@@ -106,7 +106,7 @@ a {
   outline-offset: 4px;
 }
 
-.orbit-label {
+.timeline-node-label {
   width: max-content;
   max-width: 10rem;
   padding: 0.35rem 0.5rem;
@@ -127,21 +127,21 @@ a {
     transform 180ms ease;
 }
 
-.orbit-label span {
+.timeline-node-label span {
   display: block;
   margin-bottom: 0.15rem;
   font-size: 0.45rem;
   color: var(--gold);
 }
 
-.orbit-label:hover,
-.orbit-label-selected {
+.timeline-node-label:hover,
+.timeline-node-label-selected {
   color: var(--ink);
   border-color: rgb(230 36 41 / 75%);
   transform: scale(1.06);
 }
 
-.orbit-label:focus-visible {
+.timeline-node-label:focus-visible {
   outline: 2px solid var(--signal);
   outline-offset: 3px;
 }

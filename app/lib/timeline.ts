@@ -76,12 +76,11 @@ export interface TimelineNodePosition {
 
 export function timelineNodePosition(index: number, count: number): TimelineNodePosition {
     const safeCount = Math.max(count, 1);
-    const progress = safeCount === 1 ? 0.5 : index / (safeCount - 1);
-    const angle = progress * Math.PI * 3.6 - Math.PI / 2;
-    const radius = 4.6 + Math.sin(progress * Math.PI * 2) * 0.7;
+    const centre = (safeCount - 1) / 2;
+    const offset = index - centre;
     return {
-        x: Math.cos(angle) * radius,
-        y: (progress - 0.5) * 9,
-        z: Math.sin(angle) * radius,
+        x: offset * 2.2,
+        y: Math.sin(index * 0.72) * 0.24,
+        z: Math.cos(index * 0.46) * 0.18,
     };
 }
