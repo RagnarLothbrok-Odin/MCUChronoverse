@@ -30,6 +30,7 @@ import {
     type TimelineFilters,
 } from "../lib/timeline";
 import { AuthMenu } from "./auth-menu";
+import { WatchProgressMenu } from "./watch-progress-menu";
 
 const TimelineOrbit = dynamic(
     () => import("./timeline-orbit").then((module) => module.TimelineOrbit),
@@ -201,7 +202,6 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
     );
 }
 
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: The explorer coordinates the timeline, filters, watch progress, and detail state in one interactive surface.
 export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const router = useRouter();
     const pathname = usePathname();
@@ -498,150 +498,24 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
 
             <AuthMenu />
 
-            <aside
-                className="absolute top-5 right-[4.5rem] z-50 sm:top-7 sm:right-[5.5rem]"
-                ref={watchlistRef}
-            >
-                <button
-                    aria-controls="timeline-watchlist"
-                    aria-expanded={watchlistOpen}
-                    aria-label={watchlistOpen ? "Close watch progress" : "Open watch progress"}
-                    className="focus-ring timeline-watchlist-trigger"
-                    onClick={toggleWatchlist}
-                    type="button"
-                >
-                    <span className="timeline-watchlist-count">
-                        <strong>{watchedVisibleCount}</strong>
-                        <span>/ {visibleEntries.length}</span>
-                    </span>
-                    <span
-                        aria-hidden="true"
-                        className={`timeline-watchlist-chevron ${watchlistOpen ? "timeline-watchlist-chevron-open" : ""}`}
-                    >
-                        ↓
-                    </span>
-                </button>
-
-                <AnimatePresence>
-                    {watchlistOpen ? (
-                        <motion.div
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            className="timeline-watchlist-panel"
-                            exit={{ opacity: 0, scale: 0.98, y: -8 }}
-                            id="timeline-watchlist"
-                            initial={{ opacity: 0, scale: 0.98, y: -8 }}
-                            transition={{ duration: 0.18 }}
-                        >
-                            <div className="timeline-watchlist-heading">
-                                <div>
-                                    <span>Watch progress</span>
-                                    <strong>
-                                        {watchedVisibleCount} of {visibleEntries.length} complete
-                                    </strong>
-                                </div>
-                                <span aria-hidden="true">◒</span>
-                            </div>
-                            <div className="timeline-watchlist-progress">
-                                <span
-                                    style={{
-                                        width: `${visibleEntries.length ? (watchedVisibleCount / visibleEntries.length) * 100 : 0}%`,
-                                    }}
-                                />
-                            </div>
-                            <p className="timeline-watchlist-label">Up next in this view</p>
-                            <div className="timeline-watchlist-tiles">
-                                {nextUnwatchedEntries.length > 0 ? (
-                                    nextUnwatchedEntries.map((entry) => (
-                                        <div
-                                            className={`timeline-watchlist-tile-row ${pendingWatchSlug === entry.slug ? "timeline-watchlist-tile-row-pending" : ""}`}
-                                            key={entry.slug}
-                                        >
-                                            <button
-                                                className="focus-ring timeline-watchlist-tile"
-                                                data-slug={entry.slug}
-                                                onClick={handleWatchlistEntrySelect}
-                                                type="button"
-                                            >
-                                                <span className="timeline-watchlist-tile-copy">
-                                                    <span>
-                                                        {entry.contentType.replace("-", " ")}
-                                                    </span>
-                                                    <strong>{entry.title}</strong>
-                                                </span>
-                                                <span
-                                                    aria-hidden="true"
-                                                    className="timeline-watchlist-tile-arrow"
-                                                >
-                                                    ↗
-                                                </span>
-                                            </button>
-                                            <button
-                                                aria-label={
-                                                    pendingWatchSlug === entry.slug
-                                                        ? `Undo marking ${entry.title} as watched`
-                                                        : `Mark ${entry.title} as watched`
-                                                }
-                                                className="focus-ring timeline-watchlist-mark"
-                                                data-pending={pendingWatchSlug === entry.slug}
-                                                data-slug={entry.slug}
-                                                onClick={handleWatchlistToggle}
-                                                type="button"
-                                            >
-                                                <span
-                                                    aria-hidden="true"
-                                                    className="timeline-watchlist-mark-icon"
-                                                >
-                                                    {pendingWatchSlug === entry.slug ? "↶" : "✓"}
-                                                </span>
-                                                <span>
-                                                    {pendingWatchSlug === entry.slug
-                                                        ? "Undo"
-                                                        : "Mark"}
-                                                </span>
-                                            </button>
-                                        </div>
-                                    ))
-                                ) : (
-                                    <p className="timeline-watchlist-empty">
-                                        Everything in this view is watched.
-                                    </p>
-                                )}
-                            </div>
-                            <button
-                                className="focus-ring timeline-watchlist-reset"
-                                disabled={watchedSlugs.length === 0}
-                                onClick={resetWatchStatus}
-                                type="button"
-                            >
-                                <span aria-hidden="true" className="timeline-watchlist-reset-icon">
-                                    ↺
-                                </span>
-                                <span className="timeline-watchlist-reset-copy">
-                                    <strong>Reset watch data</strong>
-                                    <small>
-                                        {watchedSlugs.length > 0
-                                            ? `Clear ${watchedSlugs.length} watched ${watchedSlugs.length === 1 ? "item" : "items"}`
-                                            : "Nothing marked yet"}
-                                    </small>
-                                </span>
-                            </button>
-                            <button
-                                className="focus-ring timeline-watchlist-account"
-                                disabled={!authReady}
-                                onClick={handleWatchMenuAuth}
-                                type="button"
-                            >
-                                {accountActionLabel}
-                            </button>
-                            {authUser && syncError ? (
-                                <p className="timeline-watchlist-sync-error">
-                                    Sync paused. Your progress is still saved on this device.
-                                </p>
-                            ) : null}
-                        </motion.div>
-                    ) : null}
-                </AnimatePresence>
-            </aside>
+            <WatchProgressMenu
+                accountActionLabel={accountActionLabel}
+                accountReady={authReady}
+                containerRef={watchlistRef}
+                nextEntries={nextUnwatchedEntries}
+                onAccountAction={handleWatchMenuAuth}
+                onEntrySelect={handleWatchlistEntrySelect}
+                onEntryToggle={handleWatchlistToggle}
+                onReset={resetWatchStatus}
+                onToggleOpen={toggleWatchlist}
+                open={watchlistOpen}
+                pendingSlug={pendingWatchSlug}
+                signedIn={Boolean(authUser)}
+                syncError={syncError}
+                totalWatchedCount={watchedSlugs.length}
+                visibleEntryCount={visibleEntries.length}
+                visibleWatchedCount={watchedVisibleCount}
+            />
 
             <aside
                 className={`absolute top-5 right-5 z-40 sm:top-7 sm:right-7 ${filtersOpen ? "w-[min(21rem,calc(100%-2.5rem))]" : "w-12"}`}
