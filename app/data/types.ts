@@ -17,7 +17,6 @@ export const phases = [
     "Phase Four",
     "Phase Five",
     "Phase Six",
-    "Unassigned",
 ] as const;
 
 export type McuPhase = (typeof phases)[number];
@@ -33,7 +32,7 @@ export interface TimelineEntry {
     genres?: string[];
     imdbUrl?: string;
     note?: string;
-    phase: McuPhase;
+    phase?: McuPhase;
     placement: string;
     posterUrl?: string;
     rating?: number;

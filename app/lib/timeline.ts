@@ -63,7 +63,9 @@ export function filterTimeline(
             entry.title.toLocaleLowerCase("en-GB").includes(query) ||
             entry.description.toLocaleLowerCase("en-GB").includes(query);
         const matchesType = filters.types.length === 0 || filters.types.includes(entry.contentType);
-        const matchesPhase = filters.phases.length === 0 || filters.phases.includes(entry.phase);
+        const matchesPhase =
+            filters.phases.length === 0 ||
+            (entry.phase !== undefined && filters.phases.includes(entry.phase));
         return matchesQuery && matchesType && matchesPhase;
     });
 }

@@ -136,7 +136,7 @@ function TimelineDetail({ entry, onClose }: TimelineDetailProps) {
                             </div>
                         )}
                         <span>{entry.runtime}</span>
-                        <span>{entry.phase}</span>
+                        {entry.phase ? <span>{entry.phase}</span> : null}
                         <span>{entry.releaseDate.slice(0, 4)}</span>
                     </div>
 

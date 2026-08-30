@@ -9,7 +9,6 @@ export const chronology = [
         genres: ["animation", "action", "adventure", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt13968252/",
         note: "Marvel has not assigned the series to a numbered MCU phase.",
-        phase: "Unassigned",
         placement: "Ancient history",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BZjhhOTE5ODgtNDFjOS00ZTdlLTgzYjAtNGU1NmM4YzkwYWMxXkEyXkFqcGc@._V1_.jpg",
