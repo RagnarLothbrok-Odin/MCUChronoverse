@@ -116,31 +116,55 @@ function TimelineNode({ compact, count, entry, index, onSelect, selected }: Time
 }
 
 interface TargetableControls {
+    dollyIn: (scale?: number) => void;
+    dollyOut: (scale?: number) => void;
     target: Vector3;
     update: () => void;
 }
 
 function isTargetableControls(controls: unknown): controls is TargetableControls {
     return Boolean(
-        controls && typeof controls === "object" && "target" in controls && "update" in controls
+        controls &&
+            typeof controls === "object" &&
+            "target" in controls &&
+            "update" in controls &&
+            "dollyIn" in controls &&
+            "dollyOut" in controls
     );
 }
 
 interface CameraRigProps {
     focusKey: number;
     focusX: number;
+    zoomRequest: number;
 }
 
-function CameraRig({ focusKey, focusX }: CameraRigProps) {
+function CameraRig({ focusKey, focusX, zoomRequest }: CameraRigProps) {
     const camera = useThree((state) => state.camera);
     const controls = useThree((state) => state.controls);
     const invalidate = useThree((state) => state.invalidate);
     const destination = useRef(Number.NaN);
+    const handledZoomRequest = useRef(0);
 
     useEffect(() => {
         destination.current = focusX;
+        if (isTargetableControls(controls)) {
+            const zoomDelta = zoomRequest - handledZoomRequest.current;
+            if (zoomDelta > 0) {
+                for (let step = 0; step < zoomDelta; step += 1) {
+                    controls.dollyIn(1.35);
+                }
+                controls.update();
+            } else if (zoomDelta < 0) {
+                for (let step = 0; step > zoomDelta; step -= 1) {
+                    controls.dollyOut(1.35);
+                }
+                controls.update();
+            }
+            handledZoomRequest.current = zoomRequest;
+        }
         invalidate();
-    }, [focusKey, focusX, invalidate]);
+    }, [controls, focusKey, focusX, invalidate, zoomRequest]);
 
     useFrame((_, delta) => {
         if (!Number.isFinite(destination.current)) {
@@ -178,6 +202,7 @@ interface TimelineSceneProps {
     onSelect: (slug: string) => void;
     reducedMotion: boolean;
     selectedSlug?: string;
+    zoomRequest: number;
 }
 
 function TimelineScene({
@@ -189,6 +214,7 @@ function TimelineScene({
     onSelect,
     reducedMotion,
     selectedSlug,
+    zoomRequest,
 }: TimelineSceneProps) {
     const points = useMemo(
         () =>
@@ -269,13 +295,14 @@ function TimelineScene({
                 enableDamping
                 enablePan={false}
                 enableRotate
-                enableZoom={false}
+                enableZoom
                 makeDefault
                 maxDistance={18}
                 minDistance={6}
                 target={initialTarget}
+                zoomSpeed={0.7}
             />
-            <CameraRig focusKey={focusKey} focusX={focusX} />
+            <CameraRig focusKey={focusKey} focusX={focusX} zoomRequest={zoomRequest} />
         </>
     );
 }
@@ -299,9 +326,12 @@ export function TimelineOrbit({
     const [webGlSupported, setWebGlSupported] = useState<boolean | null>(null);
     const [reducedMotion, setReducedMotion] = useState(false);
     const [compact, setCompact] = useState(false);
+    const [zoomRequest, setZoomRequest] = useState(0);
     const initialX = timelineNodePosition(0, entries.length).x;
     const safeFocusIndex = Math.min(Math.max(focusIndex, 0), Math.max(entries.length - 1, 0));
     const focusX = timelineNodePosition(safeFocusIndex, entries.length).x;
+    const zoomOut = useCallback(() => setZoomRequest((current) => current - 1), []);
+    const zoomIn = useCallback(() => setZoomRequest((current) => current + 1), []);
 
     useEffect(() => {
         setWebGlSupported(supportsWebGl());
@@ -340,23 +370,47 @@ export function TimelineOrbit({
     }
 
     return (
-        <Canvas
-            camera={{ fov: 43, position: [initialX, 0, 10.5] }}
-            dpr={compact ? 1 : [1, 1.5]}
-            frameloop={reducedMotion ? "demand" : "always"}
-        >
-            <Suspense fallback={null}>
-                <TimelineScene
-                    compact={compact}
-                    entries={entries}
-                    focusKey={focusKey}
-                    focusX={focusX}
-                    initialX={initialX}
-                    onSelect={onSelect}
-                    reducedMotion={reducedMotion}
-                    selectedSlug={selectedSlug}
-                />
-            </Suspense>
-        </Canvas>
+        <div className="relative h-full w-full">
+            <Canvas
+                camera={{ fov: 43, position: [initialX, 0, 10.5] }}
+                dpr={compact ? 1 : [1, 1.5]}
+                frameloop={reducedMotion ? "demand" : "always"}
+            >
+                <Suspense fallback={null}>
+                    <TimelineScene
+                        compact={compact}
+                        entries={entries}
+                        focusKey={focusKey}
+                        focusX={focusX}
+                        initialX={initialX}
+                        onSelect={onSelect}
+                        reducedMotion={reducedMotion}
+                        selectedSlug={selectedSlug}
+                        zoomRequest={zoomRequest}
+                    />
+                </Suspense>
+            </Canvas>
+            <fieldset aria-label="Zoom controls" className="timeline-zoom-control">
+                <button
+                    aria-label="Zoom out"
+                    className="focus-ring timeline-zoom-button"
+                    onClick={zoomOut}
+                    type="button"
+                >
+                    −
+                </button>
+                <span aria-hidden="true" className="timeline-zoom-label">
+                    Zoom
+                </span>
+                <button
+                    aria-label="Zoom in"
+                    className="focus-ring timeline-zoom-button"
+                    onClick={zoomIn}
+                    type="button"
+                >
+                    +
+                </button>
+            </fieldset>
+        </div>
     );
 }

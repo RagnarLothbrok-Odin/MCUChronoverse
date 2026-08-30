@@ -167,6 +167,53 @@ a {
   filter: blur(10px);
 }
 
+.timeline-zoom-control {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  z-index: 40;
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  min-inline-size: 0;
+  padding: 0.25rem;
+  margin: 0;
+  background: rgb(3 4 6 / 62%);
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: 999px;
+  box-shadow: 0 12px 34px rgb(0 0 0 / 38%);
+  backdrop-filter: blur(14px);
+}
+
+.timeline-zoom-button {
+  display: grid;
+  place-items: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.9rem;
+  line-height: 1;
+  color: rgb(244 241 232 / 72%);
+  border-radius: 999px;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
+}
+
+.timeline-zoom-button:hover {
+  color: var(--ink);
+  background: rgb(255 173 85 / 16%);
+}
+
+.timeline-zoom-label {
+  padding: 0 0.15rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.47rem;
+  color: rgb(244 241 232 / 35%);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
 .timeline-scrubber {
   position: relative;
   width: calc(100% - 2rem);
