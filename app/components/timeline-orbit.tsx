@@ -40,7 +40,6 @@ interface TimelineOrbitProps {
 }
 
 interface TimelineNodeProps {
-    compact: boolean;
     count: number;
     entry: TimelineEntry;
     index: number;
@@ -48,7 +47,7 @@ interface TimelineNodeProps {
     selected: boolean;
 }
 
-function TimelineNode({ compact, count, entry, index, onSelect, selected }: TimelineNodeProps) {
+function TimelineNode({ count, entry, index, onSelect, selected }: TimelineNodeProps) {
     const ringsRef = useRef(new Group());
     const position = timelineNodePosition(index, count);
     const handleSelect = useCallback(
@@ -96,27 +95,25 @@ function TimelineNode({ compact, count, entry, index, onSelect, selected }: Time
                     roughness={0.2}
                 />
             </mesh>
-            {!compact || selected || index % 2 === 0 ? (
-                <Html
-                    center
-                    distanceFactor={10}
-                    key={`${entry.slug}-${selected ? "selected" : "default"}`}
-                    position={[0, 0.68, 0]}
-                    zIndexRange={selected ? [25, 25] : [20, 0]}
+            <Html
+                center
+                distanceFactor={10}
+                key={`${entry.slug}-${selected ? "selected" : "default"}`}
+                position={[0, 0.68, 0]}
+                zIndexRange={selected ? [25, 25] : [20, 0]}
+            >
+                <button
+                    className={`timeline-node-label ${selected ? "timeline-node-label-selected" : ""}`}
+                    onClick={handleSelect}
+                    type="button"
                 >
-                    <button
-                        className={`timeline-node-label ${selected ? "timeline-node-label-selected" : ""}`}
-                        onClick={handleSelect}
-                        type="button"
-                    >
-                        <span className="timeline-node-label-type">
-                            {contentTypeNames[entry.contentType]}
-                        </span>
-                        <span>{entry.placement}</span>
-                        {entry.title}
-                    </button>
-                </Html>
-            ) : null}
+                    <span className="timeline-node-label-type">
+                        {contentTypeNames[entry.contentType]}
+                    </span>
+                    <span>{entry.placement}</span>
+                    {entry.title}
+                </button>
+            </Html>
         </group>
     );
 }
@@ -287,7 +284,6 @@ function TimelineScene({
             </mesh>
             {entries.map((entry, index) => (
                 <TimelineNode
-                    compact={compact}
                     count={entries.length}
                     entry={entry}
                     index={index}
