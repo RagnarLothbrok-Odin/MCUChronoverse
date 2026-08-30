@@ -1,5 +1,6 @@
 "use client";
 
+import type { User } from "@supabase/supabase-js";
 import { AnimatePresence, motion } from "motion/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -21,6 +22,8 @@ import {
     phases,
     type TimelineEntry,
 } from "../data/types";
+import { createClient } from "../lib/supabase/client";
+import { persistWatchChange, syncWatchProgress } from "../lib/supabase/watch-progress";
 import {
     emptyTimelineFilters,
     filterTimeline,
@@ -244,11 +247,33 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const [watchedSlugs, setWatchedSlugs] = useState<string[]>([]);
     const [hasRenderedTimeline, setHasRenderedTimeline] = useState(false);
     const [watchProgressLoaded, setWatchProgressLoaded] = useState(false);
+    const [authUser, setAuthUser] = useState<User | null>(null);
     const [pendingWatchSlug, setPendingWatchSlug] = useState<string | null>(null);
     const [pendingWatchReturnIndex, setPendingWatchReturnIndex] = useState<number | null>(null);
     const filtersRef = useRef<HTMLElement>(null);
     const watchlistRef = useRef<HTMLElement>(null);
     const pendingWatchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => {
+        const supabase = createClient();
+        supabase.auth.getUser().then(({ data }) => setAuthUser(data.user));
+        const {
+            data: { subscription },
+        } = supabase.auth.onAuthStateChange((_event, session) =>
+            setAuthUser(session?.user ?? null)
+        );
+        return () => subscription.unsubscribe();
+    }, []);
+
+    useEffect(() => {
+        if (!authUser) {
+            return;
+        }
+        syncWatchProgress(authUser, readWatchedSlugs()).then((mergedSlugs) => {
+            setWatchedSlugs(mergedSlugs);
+            writeWatchedSlugs(mergedSlugs);
+        });
+    }, [authUser]);
 
     useEffect(() => {
         setFilters(parseTimelineFilters(new URLSearchParams(searchString)));
@@ -320,15 +345,19 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const toggleFilters = useCallback(() => setFiltersOpen((current) => !current), []);
     const toggleWatchlist = useCallback(() => setWatchlistOpen((current) => !current), []);
     const closeDetail = useCallback(() => setSelectedEntry(null), []);
-    const toggleWatched = useCallback((slug: string) => {
-        setWatchedSlugs((current) => {
-            const next = current.includes(slug)
-                ? current.filter((item) => item !== slug)
-                : [...current, slug];
-            writeWatchedSlugs(next);
-            return next;
-        });
-    }, []);
+    const toggleWatched = useCallback(
+        (slug: string) => {
+            setWatchedSlugs((current) => {
+                const next = current.includes(slug)
+                    ? current.filter((item) => item !== slug)
+                    : [...current, slug];
+                writeWatchedSlugs(next);
+                persistWatchChange(authUser, slug, next.includes(slug));
+                return next;
+            });
+        },
+        [authUser]
+    );
     const resetWatchStatus = useCallback(() => {
         clearTimeout(pendingWatchTimeout.current ?? undefined);
         setPendingWatchSlug(null);
