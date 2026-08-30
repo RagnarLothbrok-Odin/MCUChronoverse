@@ -365,6 +365,13 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
         setWatchedSlugs([]);
         writeWatchedSlugs([]);
     }, []);
+    const handleWatchMenuAuth = useCallback(() => {
+        if (authUser) {
+            createClient().auth.signOut();
+        } else {
+            window.dispatchEvent(new Event("mcu-chronoverse:open-auth"));
+        }
+    }, [authUser]);
     const toggleSelectedWatched = useCallback(() => {
         if (selectedEntry) {
             toggleWatched(selectedEntry.slug);
@@ -685,6 +692,15 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                                             : "Nothing marked yet"}
                                     </small>
                                 </span>
+                            </button>
+                            <button
+                                className="focus-ring timeline-watchlist-account"
+                                onClick={handleWatchMenuAuth}
+                                type="button"
+                            >
+                                {authUser
+                                    ? "Sign out of synced archive"
+                                    : "Sign in to sync across devices"}
                             </button>
                         </motion.div>
                     ) : null}

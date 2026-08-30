@@ -14,7 +14,6 @@ export function AuthMenu() {
     const [open, setOpen] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [mode, setMode] = useState<"sign-in" | "sign-up">("sign-in");
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [busy, setBusy] = useState(false);
@@ -28,26 +27,40 @@ export function AuthMenu() {
         return () => subscription.unsubscribe();
     }, []);
 
+    useEffect(() => {
+        const openAuth = () => setOpen(true);
+        window.addEventListener("mcu-chronoverse:open-auth", openAuth);
+        return () => window.removeEventListener("mcu-chronoverse:open-auth", openAuth);
+    }, []);
+
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setBusy(true);
         setError(null);
         setMessage(null);
         const supabase = createClient();
-        const result =
-            mode === "sign-in"
-                ? await supabase.auth.signInWithPassword({ email, password })
-                : await supabase.auth.signUp({ email, password });
+        const result = await supabase.auth.signInWithPassword({ email, password });
 
         if (result.error) {
             setError("That account could not be authenticated. Check your details and try again.");
-        } else if (mode === "sign-up" && !result.data.session) {
-            setMessage("Check your email to confirm your account, then sign in here.");
         } else {
             setMessage("Your watch progress will now sync across devices.");
             setPassword("");
         }
         setBusy(false);
+    }
+
+    async function handleOAuth() {
+        setBusy(true);
+        setError(null);
+        const { error: oauthError } = await createClient().auth.signInWithOAuth({
+            options: { redirectTo: window.location.origin },
+            provider: "google",
+        });
+        if (oauthError) {
+            setError("Google sign-in is not available yet. Enable it in your Supabase providers.");
+            setBusy(false);
+        }
     }
 
     async function handleSignOut() {
@@ -62,11 +75,9 @@ export function AuthMenu() {
         }
     }
 
-    let submitLabel = "Create account";
+    let submitLabel = "Sign in";
     if (busy) {
         submitLabel = "Working...";
-    } else if (mode === "sign-in") {
-        submitLabel = "Sign in";
     }
 
     return (
@@ -108,11 +119,7 @@ export function AuthMenu() {
                         </>
                     ) : (
                         <>
-                            <p className="timeline-auth-kicker">
-                                {mode === "sign-in"
-                                    ? "Sync your archive"
-                                    : "Create an archive account"}
-                            </p>
+                            <p className="timeline-auth-kicker">Sync your archive</p>
                             <p className="timeline-auth-copy">
                                 Sign in to keep watch progress available across devices. Nothing
                                 beyond your account and watch status is stored.
@@ -133,9 +140,7 @@ export function AuthMenu() {
                                 <label>
                                     <span>Password</span>
                                     <input
-                                        autoComplete={
-                                            mode === "sign-in" ? "current-password" : "new-password"
-                                        }
+                                        autoComplete="current-password"
                                         minLength={8}
                                         // biome-ignore lint/performance/noJsxPropsBind: This input remains local to the auth form.
                                         onChange={(event) => setPassword(event.currentTarget.value)}
@@ -157,20 +162,21 @@ export function AuthMenu() {
                                 </button>
                             </form>
                             <button
-                                className="focus-ring timeline-auth-switch"
-                                // biome-ignore lint/performance/noJsxPropsBind: The mode toggle needs the current form state.
-                                onClick={() => {
-                                    setMode((current) =>
-                                        current === "sign-in" ? "sign-up" : "sign-in"
-                                    );
-                                    setError(null);
-                                    setMessage(null);
-                                }}
+                                className="focus-ring timeline-auth-oauth"
+                                disabled={busy}
+                                // biome-ignore lint/performance/noJsxPropsBind: This handler is local to the auth island.
+                                onClick={handleOAuth}
                                 type="button"
                             >
-                                {mode === "sign-in"
-                                    ? "Need an account? Create one"
-                                    : "Already have an account? Sign in"}
+                                Continue with Google
+                            </button>
+                            <button
+                                className="focus-ring timeline-auth-switch"
+                                // biome-ignore lint/performance/noJsxPropsBind: This handler only closes the local menu.
+                                onClick={() => setOpen(false)}
+                                type="button"
+                            >
+                                Keep browsing without an account
                             </button>
                         </>
                     )}
