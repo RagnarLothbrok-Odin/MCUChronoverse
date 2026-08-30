@@ -1,0 +1,41 @@
+export const contentTypes = ["film", "series", "special", "short", "one-shot"] as const;
+
+export type ContentType = (typeof contentTypes)[number];
+
+export const contentTypeLabels: Record<ContentType, string> = {
+    film: "Films",
+    "one-shot": "One-Shots",
+    series: "Series",
+    short: "Shorts",
+    special: "Specials",
+};
+
+export const phases = [
+    "Phase One",
+    "Phase Two",
+    "Phase Three",
+    "Phase Four",
+    "Phase Five",
+] as const;
+
+export type McuPhase = (typeof phases)[number];
+
+export type ContentStatus = "released" | "announced";
+
+export type Saga = "Infinity Saga" | "Multiverse Saga";
+
+export interface TimelineEntry {
+    chronologyOrder: number;
+    contentType: ContentType;
+    description: string;
+    note?: string;
+    phase: McuPhase;
+    placement: string;
+    releaseDate: string;
+    runtime: string;
+    saga: Saga;
+    slug: string;
+    status: ContentStatus;
+    title: string;
+    universe: string;
+}
