@@ -245,9 +245,9 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                         </a>
                         <a
                             className="focus-ring hidden font-mono text-muted text-xs uppercase tracking-[0.18em] transition-colors hover:text-ink sm:block"
-                            href="#guide"
+                            href="/about"
                         >
-                            Guide
+                            About
                         </a>
                     </nav>
                 </div>
@@ -272,7 +272,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
 
             <section
                 aria-label="Timeline controls"
-                className="sticky top-20 z-20 border-white/10 border-y bg-[#08090c]/92 backdrop-blur-xl"
+                className="relative z-20 border-white/10 border-y bg-[#08090c]/92 backdrop-blur-xl lg:sticky lg:top-20"
             >
                 <div className="mx-auto max-w-[1500px] px-5 py-4 sm:px-8 lg:px-12">
                     <div className="grid gap-3 lg:grid-cols-[minmax(15rem,1fr)_auto]">

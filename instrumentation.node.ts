@@ -31,7 +31,7 @@ export function registerNode(): void {
     log.ready({
         boot: `${process.uptime().toFixed(2)}s`,
         heap: `${heapMb.toLocaleString("en")} MB`,
-        name: "Portal",
+        name: "Chronoverse",
         origin,
         pid: String(process.pid),
         runtime: runtimeLabel(),
@@ -48,4 +48,3 @@ export function logRequestError(
 ): void {
     log.error(`${request.method} ${request.path}`, error);
 }
-

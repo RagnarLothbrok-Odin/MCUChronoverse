@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { siteOrigin } from "./lib/site-origin";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,9 +17,21 @@ const description =
     "Explore the Marvel Cinematic Universe in chronological story order across films, series, specials, and one-shots.";
 
 export const metadata: Metadata = {
+    alternates: {
+        canonical: "/",
+    },
     description,
+    metadataBase: new URL(siteOrigin()),
     openGraph: {
         description,
+        images: [
+            {
+                alt: "MCU Chronoverse, the universe in story order",
+                height: 675,
+                url: "/og.png",
+                width: 1200,
+            },
+        ],
         siteName: "MCU Chronoverse",
         title: "MCU Chronoverse",
         type: "website",
@@ -30,6 +43,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         description,
+        images: ["/og.png"],
         title: "MCU Chronoverse",
     },
 };

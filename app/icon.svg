@@ -1,0 +1,24 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <title>MCU Chronoverse</title>
+  <rect fill="#060709" height="64" width="64" />
+  <rect
+    fill="#250a0c"
+    height="54"
+    stroke="#e62429"
+    stroke-width="2"
+    width="54"
+    x="5"
+    y="5"
+  />
+  <text
+    fill="#f4f1e8"
+    font-family="Arial, sans-serif"
+    font-size="17"
+    font-weight="700"
+    text-anchor="middle"
+    x="32"
+    y="37"
+  >
+    616
+  </text>
+</svg>

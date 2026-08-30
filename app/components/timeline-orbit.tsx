@@ -30,6 +30,7 @@ interface TimelineOrbitProps {
 }
 
 interface TimelineNodeProps {
+    compact: boolean;
     count: number;
     entry: TimelineEntry;
     index: number;
@@ -37,7 +38,7 @@ interface TimelineNodeProps {
     selected: boolean;
 }
 
-function TimelineNode({ count, entry, index, onSelect, selected }: TimelineNodeProps) {
+function TimelineNode({ compact, count, entry, index, onSelect, selected }: TimelineNodeProps) {
     const position = timelineNodePosition(index, count);
     const handleLabelClick = useCallback(
         (event: ReactMouseEvent<HTMLButtonElement>) => {
@@ -58,28 +59,31 @@ function TimelineNode({ count, entry, index, onSelect, selected }: TimelineNodeP
                     roughness={0.28}
                 />
             </mesh>
-            <Html center distanceFactor={11} position={[0, 0.34, 0]}>
-                <button
-                    className={`orbit-label ${selected ? "orbit-label-selected" : ""}`}
-                    onClick={handleLabelClick}
-                    type="button"
-                >
-                    <span>{entry.placement}</span>
-                    {entry.title}
-                </button>
-            </Html>
+            {!compact || selected || index % 3 === 0 ? (
+                <Html center distanceFactor={11} position={[0, 0.34, 0]}>
+                    <button
+                        className={`orbit-label ${selected ? "orbit-label-selected" : ""}`}
+                        onClick={handleLabelClick}
+                        type="button"
+                    >
+                        <span>{entry.placement}</span>
+                        {entry.title}
+                    </button>
+                </Html>
+            ) : null}
         </group>
     );
 }
 
 interface OrbitSceneProps {
+    compact: boolean;
     entries: readonly TimelineEntry[];
     onSelect: (slug: string) => void;
     reducedMotion: boolean;
     selectedSlug?: string;
 }
 
-function OrbitScene({ entries, onSelect, reducedMotion, selectedSlug }: OrbitSceneProps) {
+function OrbitScene({ compact, entries, onSelect, reducedMotion, selectedSlug }: OrbitSceneProps) {
     const curve = useMemo(() => {
         const points = entries.map((_, index) => {
             const position = timelineNodePosition(index, entries.length);
@@ -97,7 +101,7 @@ function OrbitScene({ entries, onSelect, reducedMotion, selectedSlug }: OrbitSce
             <pointLight color="#e62429" intensity={22} position={[4, 4, 6]} />
             <pointLight color="#4d6fff" intensity={16} position={[-5, -3, 2]} />
             <Stars
-                count={1100}
+                count={compact ? 450 : 1100}
                 depth={32}
                 factor={2.2}
                 fade
@@ -110,6 +114,7 @@ function OrbitScene({ entries, onSelect, reducedMotion, selectedSlug }: OrbitSce
             </mesh>
             {entries.map((entry, index) => (
                 <TimelineNode
+                    compact={compact}
                     count={entries.length}
                     entry={entry}
                     index={index}
@@ -146,13 +151,27 @@ export function TimelineOrbit({
     onSelect,
     selectedSlug,
 }: TimelineOrbitProps) {
-    const [webGlSupported, setWebGlSupported] = useState(true);
+    const [webGlSupported, setWebGlSupported] = useState<boolean | null>(null);
     const [reducedMotion, setReducedMotion] = useState(false);
+    const [compact, setCompact] = useState(false);
 
     useEffect(() => {
         setWebGlSupported(supportsWebGl());
         setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+        setCompact(
+            window.matchMedia("(max-width: 720px)").matches || navigator.hardwareConcurrency <= 4
+        );
     }, []);
+
+    if (webGlSupported === null) {
+        return (
+            <div className="grid min-h-[34rem] place-items-center border border-white/10 bg-black/30">
+                <p className="font-mono text-[0.65rem] text-white/35 uppercase tracking-[0.18em]">
+                    Checking spatial systems
+                </p>
+            </div>
+        );
+    }
 
     if (!webGlSupported) {
         return (
@@ -189,9 +208,14 @@ export function TimelineOrbit({
                     Drag to orbit. Scroll to zoom. Select any node to open its archive record.
                 </p>
             </div>
-            <Canvas camera={{ fov: 48, position: [0, 0, 13] }} dpr={[1, 1.5]}>
+            <Canvas
+                camera={{ fov: 48, position: [0, 0, 13] }}
+                dpr={compact ? 1 : [1, 1.5]}
+                frameloop={reducedMotion ? "demand" : "always"}
+            >
                 <Suspense fallback={null}>
                     <OrbitScene
+                        compact={compact}
                         entries={entries}
                         onSelect={onSelect}
                         reducedMotion={reducedMotion}
