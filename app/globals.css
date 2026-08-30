@@ -1008,6 +1008,49 @@ a {
   z-index: 50;
 }
 
+.timeline-auth-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgb(0 0 0 / 58%);
+  backdrop-filter: blur(10px);
+}
+
+.timeline-auth-modal {
+  position: relative;
+  width: min(25rem, 100%);
+  padding: 2rem;
+  background: linear-gradient(145deg, rgb(18 14 13 / 98%), rgb(7 7 9 / 98%));
+  border: 1px solid rgb(255 173 85 / 35%);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 30px 120px rgb(0 0 0 / 75%),
+    0 0 60px rgb(255 112 35 / 12%);
+}
+
+.timeline-auth-modal h2 {
+  margin-top: 0.75rem;
+  font-size: 1.5rem;
+  color: rgb(255 255 255 / 92%);
+  letter-spacing: -0.04em;
+}
+
+.timeline-auth-close {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.9rem;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: rgb(255 255 255 / 42%);
+}
+
+.timeline-auth-close:hover {
+  color: #fff;
+}
+
 .timeline-auth-trigger {
   display: flex;
   gap: 0.55rem;
