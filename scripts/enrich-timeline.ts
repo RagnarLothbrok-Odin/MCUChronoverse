@@ -9,9 +9,28 @@ interface CacheRecord {
     error?: string;
     fetchedAt: string;
     requestedTitle: string;
-    source: ITitle | null;
+    source: CachedTitle | null;
     status: "resolved" | "failed";
 }
+
+type CachedTitle = Pick<
+    ITitle,
+    | "allReleaseDates"
+    | "dates"
+    | "genres"
+    | "keywords"
+    | "mainRate"
+    | "mainSource"
+    | "mainType"
+    | "name"
+    | "plot"
+    | "posterImage"
+    | "runtime"
+    | "taglines"
+    | "titleYear"
+    | "trailers"
+    | "worldWideName"
+>;
 
 type MetadataCache = Record<string, CacheRecord>;
 
@@ -34,6 +53,24 @@ const writeCache = async (nextCache: MetadataCache) => {
     // biome-ignore lint/correctness/noUndeclaredVariables: This script runs in the Bun runtime.
     await Bun.write(cachePath, `${JSON.stringify(nextCache, null, 2)}\n`);
 };
+
+const selectTitleData = (title: ITitle): CachedTitle => ({
+    allReleaseDates: title.allReleaseDates,
+    dates: title.dates,
+    genres: title.genres,
+    keywords: title.keywords,
+    mainRate: title.mainRate,
+    mainSource: title.mainSource,
+    mainType: title.mainType,
+    name: title.name,
+    plot: title.plot,
+    posterImage: title.posterImage,
+    runtime: title.runtime,
+    taglines: title.taglines,
+    titleYear: title.titleYear,
+    trailers: title.trailers,
+    worldWideName: title.worldWideName,
+});
 
 const lookupTitle = async (title: string, releaseDate: string): Promise<ITitle> => {
     const baseTitle = title.replace(seasonSuffix, "");
@@ -83,7 +120,7 @@ for (const entry of chronology) {
         cache[entry.slug] = {
             fetchedAt: new Date().toISOString(),
             requestedTitle: entry.title,
-            source: title,
+            source: selectTitleData(title),
             status: "resolved",
         };
         resolved += 1;
