@@ -155,7 +155,7 @@ export function useWatchProgress() {
 
     const signOut = useCallback(async () => {
         await writeQueue.current;
-        const { error } = await createClient().auth.signOut();
+        const { error } = await createClient().auth.signOut({ scope: "local" });
         if (error) {
             setSyncError(true);
         }
