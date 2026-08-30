@@ -215,7 +215,6 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const [timelineIndex, setTimelineIndex] = useState(0);
     const [focusRequest, setFocusRequest] = useState<FocusRequest>({ index: 0, key: 0 });
     const [selectedEntry, setSelectedEntry] = useState<TimelineEntry | null>(null);
-    const [hasRenderedTimeline, setHasRenderedTimeline] = useState(false);
     const {
         loaded: watchProgressLoaded,
         resetWatchProgress,
@@ -438,6 +437,9 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     }, []);
 
     useEffect(() => {
+        if (!watchProgressLoaded) {
+            return;
+        }
         setSelectedEntry((current) =>
             current && visibleEntries.some((entry) => entry.slug === current.slug) ? current : null
         );
@@ -446,10 +448,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
         );
         const resetIndex = firstUnwatchedIndex >= 0 ? firstUnwatchedIndex : 0;
         setTimelineIndex(resetIndex);
-        if (hasRenderedTimeline) {
-            setFocusRequest((current) => ({ index: resetIndex, key: current.key + 1 }));
-        }
-        setHasRenderedTimeline(true);
+        setFocusRequest((current) => ({ index: resetIndex, key: current.key + 1 }));
     }, [visibleEntries, watchProgressLoaded]);
 
     return (
