@@ -80,7 +80,7 @@ export function timelineNodePosition(index: number, count: number): TimelineNode
     const offset = index - centre;
     return {
         x: offset * 2.2,
-        y: Math.sin(index * 0.72) * 0.24,
-        z: Math.cos(index * 0.46) * 0.18,
+        y: 0,
+        z: 0,
     };
 }

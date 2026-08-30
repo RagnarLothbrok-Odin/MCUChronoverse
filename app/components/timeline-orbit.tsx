@@ -1,7 +1,7 @@
 "use client";
 
 import { Html, MapControls, Sparkles, Stars } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
     type MouseEvent,
     Suspense,
@@ -11,7 +11,7 @@ import {
     useRef,
     useState,
 } from "react";
-import { AdditiveBlending, CatmullRomCurve3, Group, Vector3 } from "three";
+import { AdditiveBlending, Group, LineCurve3, MathUtils, MOUSE, TOUCH, Vector3 } from "three";
 import type { TimelineEntry } from "../data/types";
 import { timelineNodePosition } from "../lib/timeline";
 
@@ -25,6 +25,8 @@ const coreColours: Record<TimelineEntry["contentType"], string> = {
 
 interface TimelineOrbitProps {
     entries: readonly TimelineEntry[];
+    focusIndex: number;
+    focusKey: number;
     onSelect: (slug: string) => void;
     selectedSlug?: string;
 }
@@ -102,54 +104,63 @@ function TimelineNode({ compact, count, entry, index, onSelect, selected }: Time
     );
 }
 
-interface BranchProps {
-    origin: Vector3;
-    upward: boolean;
+interface TargetableControls {
+    target: Vector3;
+    update: () => void;
 }
 
-function TimelineBranch({ origin, upward }: BranchProps) {
-    const direction = upward ? 1 : -1;
-    const curve = useMemo(
-        () =>
-            new CatmullRomCurve3([
-                origin,
-                origin.clone().add(new Vector3(1.2, 0.15 * direction, -0.08)),
-                origin.clone().add(new Vector3(2.5, 0.75 * direction, -0.35)),
-                origin.clone().add(new Vector3(4.4, 1.8 * direction, -1.1)),
-                origin.clone().add(new Vector3(6.2, 2.6 * direction, -2.2)),
-            ]),
-        [direction, origin]
+function isTargetableControls(controls: unknown): controls is TargetableControls {
+    return Boolean(
+        controls && typeof controls === "object" && "target" in controls && "update" in controls
     );
+}
 
-    return (
-        <group>
-            <mesh>
-                <tubeGeometry args={[curve, 80, 0.018, 8, false]} />
-                <meshBasicMaterial
-                    blending={AdditiveBlending}
-                    color={upward ? "#7a3cff" : "#8d1d27"}
-                    depthWrite={false}
-                    opacity={0.7}
-                    transparent
-                />
-            </mesh>
-            <mesh>
-                <tubeGeometry args={[curve, 80, 0.07, 8, false]} />
-                <meshBasicMaterial
-                    blending={AdditiveBlending}
-                    color={upward ? "#512578" : "#5a0c14"}
-                    depthWrite={false}
-                    opacity={0.16}
-                    transparent
-                />
-            </mesh>
-        </group>
-    );
+interface CameraRigProps {
+    focusKey: number;
+    focusX: number;
+}
+
+function CameraRig({ focusKey, focusX }: CameraRigProps) {
+    const camera = useThree((state) => state.camera);
+    const controls = useThree((state) => state.controls);
+    const invalidate = useThree((state) => state.invalidate);
+    const destination = useRef(Number.NaN);
+    const [hasMounted, setHasMounted] = useState(false);
+
+    useEffect(() => {
+        if (!hasMounted) {
+            setHasMounted(true);
+            return;
+        }
+        destination.current = focusX;
+        invalidate();
+    }, [focusKey, focusX, invalidate]);
+
+    useFrame((_, delta) => {
+        if (!Number.isFinite(destination.current)) {
+            return;
+        }
+        camera.position.x = MathUtils.damp(camera.position.x, destination.current, 7, delta);
+        if (isTargetableControls(controls)) {
+            controls.target.x = MathUtils.damp(controls.target.x, destination.current, 7, delta);
+            controls.update();
+        }
+        if (Math.abs(camera.position.x - destination.current) < 0.01) {
+            destination.current = Number.NaN;
+        } else {
+            invalidate();
+        }
+    });
+
+    return null;
 }
 
 interface TimelineSceneProps {
     compact: boolean;
     entries: readonly TimelineEntry[];
+    focusKey: number;
+    focusX: number;
+    initialX: number;
     onSelect: (slug: string) => void;
     reducedMotion: boolean;
     selectedSlug?: string;
@@ -158,6 +169,9 @@ interface TimelineSceneProps {
 function TimelineScene({
     compact,
     entries,
+    focusKey,
+    focusX,
+    initialX,
     onSelect,
     reducedMotion,
     selectedSlug,
@@ -171,22 +185,14 @@ function TimelineScene({
         [entries]
     );
     const curve = useMemo(() => {
-        const safePoints = [...points];
-        if (safePoints.length === 1) {
-            safePoints.push(safePoints[0]?.clone().add(new Vector3(0.001, 0, 0)) ?? new Vector3());
+        if (points.length === 0) {
+            return new LineCurve3(new Vector3(-2, 0, 0), new Vector3(2, 0, 0));
         }
-        return new CatmullRomCurve3(safePoints, false, "catmullrom", 0.35);
-    }, [points]);
-    const branchOrigins = useMemo(() => {
-        if (points.length < 5) {
-            return [];
-        }
-        return [
-            { origin: points[Math.floor(points.length * 0.3)]?.clone(), upward: true },
-            { origin: points[Math.floor(points.length * 0.58)]?.clone(), upward: false },
-            { origin: points[Math.floor(points.length * 0.78)]?.clone(), upward: true },
-        ].filter((branch): branch is { origin: Vector3; upward: boolean } =>
-            Boolean(branch.origin)
+        const first = points[0] ?? new Vector3();
+        const last = points.at(-1) ?? first;
+        return new LineCurve3(
+            first,
+            last.equals(first) ? first.clone().add(new Vector3(0.001, 0, 0)) : last
         );
     }, [points]);
     const span = Math.max((entries.length - 1) * 2.2, 4);
@@ -232,13 +238,6 @@ function TimelineScene({
                     transparent
                 />
             </mesh>
-            {branchOrigins.map((branch, index) => (
-                <TimelineBranch
-                    key={`${branch.origin.x}-${index}`}
-                    origin={branch.origin}
-                    upward={branch.upward}
-                />
-            ))}
             {entries.map((entry, index) => (
                 <TimelineNode
                     compact={compact}
@@ -256,8 +255,12 @@ function TimelineScene({
                 enableRotate={false}
                 maxDistance={18}
                 minDistance={6}
+                mouseButtons={{ LEFT: MOUSE.PAN, MIDDLE: MOUSE.DOLLY, RIGHT: MOUSE.PAN }}
                 screenSpacePanning
+                target={[initialX, 0, 0]}
+                touches={{ ONE: TOUCH.PAN, TWO: TOUCH.DOLLY_PAN }}
             />
+            <CameraRig focusKey={focusKey} focusX={focusX} />
         </>
     );
 }
@@ -271,12 +274,20 @@ function supportsWebGl(): boolean {
     }
 }
 
-export function TimelineOrbit({ entries, onSelect, selectedSlug }: TimelineOrbitProps) {
+export function TimelineOrbit({
+    entries,
+    focusIndex,
+    focusKey,
+    onSelect,
+    selectedSlug,
+}: TimelineOrbitProps) {
     const [webGlSupported, setWebGlSupported] = useState<boolean | null>(null);
     const [reducedMotion, setReducedMotion] = useState(false);
     const [compact, setCompact] = useState(false);
     const span = Math.max((entries.length - 1) * 2.2, 4);
     const initialX = entries.length > 8 ? -span / 2 + 7 : 0;
+    const safeFocusIndex = Math.min(Math.max(focusIndex, 0), Math.max(entries.length - 1, 0));
+    const focusX = timelineNodePosition(safeFocusIndex, entries.length).x;
 
     useEffect(() => {
         setWebGlSupported(supportsWebGl());
@@ -316,7 +327,7 @@ export function TimelineOrbit({ entries, onSelect, selectedSlug }: TimelineOrbit
 
     return (
         <Canvas
-            camera={{ fov: 43, position: [initialX, 2.8, 11] }}
+            camera={{ fov: 43, position: [initialX, 0, 10.5] }}
             dpr={compact ? 1 : [1, 1.5]}
             frameloop={reducedMotion ? "demand" : "always"}
         >
@@ -324,6 +335,9 @@ export function TimelineOrbit({ entries, onSelect, selectedSlug }: TimelineOrbit
                 <TimelineScene
                     compact={compact}
                     entries={entries}
+                    focusKey={focusKey}
+                    focusX={focusX}
+                    initialX={initialX}
                     onSelect={onSelect}
                     reducedMotion={reducedMotion}
                     selectedSlug={selectedSlug}
