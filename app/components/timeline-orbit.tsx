@@ -3,6 +3,7 @@
 import { Html, OrbitControls, Sparkles, Stars } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
+    type ChangeEvent,
     type MouseEvent,
     Suspense,
     useCallback,
@@ -11,7 +12,7 @@ import {
     useRef,
     useState,
 } from "react";
-import { AdditiveBlending, Group, LineCurve3, MathUtils, Vector3 } from "three";
+import { AdditiveBlending, type Camera, Group, LineCurve3, MathUtils, Vector3 } from "three";
 import type { TimelineEntry } from "../data/types";
 import { timelineNodePosition } from "../lib/timeline";
 
@@ -30,6 +31,11 @@ const contentTypeNames: Record<TimelineEntry["contentType"], string> = {
     short: "Short",
     special: "Special",
 };
+
+const MIN_ZOOM_DISTANCE = 6;
+const MAX_ZOOM_DISTANCE = 18;
+const DEFAULT_ZOOM_DISTANCE = (MIN_ZOOM_DISTANCE + MAX_ZOOM_DISTANCE) / 2;
+const ZOOM_STORAGE_KEY = "mcu-chronoverse:zoom-distance-v2";
 
 interface TimelineOrbitProps {
     entries: readonly TimelineEntry[];
@@ -119,76 +125,137 @@ function TimelineNode({ count, entry, index, onSelect, selected }: TimelineNodeP
 }
 
 interface TargetableControls {
-    dollyIn: (scale?: number) => void;
-    dollyOut: (scale?: number) => void;
     target: Vector3;
     update: () => void;
 }
 
 function isTargetableControls(controls: unknown): controls is TargetableControls {
     return Boolean(
-        controls &&
-            typeof controls === "object" &&
-            "target" in controls &&
-            "update" in controls &&
-            "dollyIn" in controls &&
-            "dollyOut" in controls
+        controls && typeof controls === "object" && "target" in controls && "update" in controls
     );
+}
+
+interface MutableNumberRef {
+    current: number;
+}
+
+function updateFocusPosition(
+    camera: Camera,
+    controls: TargetableControls | null,
+    destination: MutableNumberRef,
+    delta: number
+): boolean {
+    if (!Number.isFinite(destination.current)) {
+        return false;
+    }
+
+    if (controls) {
+        const currentTargetX = controls.target.x;
+        const nextTargetX = MathUtils.damp(currentTargetX, destination.current, 7, delta);
+        controls.target.x = nextTargetX;
+        camera.position.x += nextTargetX - currentTargetX;
+        if (Math.abs(nextTargetX - destination.current) < 0.01) {
+            destination.current = Number.NaN;
+        }
+    } else {
+        camera.position.x = MathUtils.damp(camera.position.x, destination.current, 7, delta);
+        if (Math.abs(camera.position.x - destination.current) < 0.01) {
+            destination.current = Number.NaN;
+        }
+    }
+
+    return Number.isFinite(destination.current);
+}
+
+function updateZoomDistance({
+    appliedDistance,
+    camera,
+    cameraOffset,
+    controls,
+    delta,
+    onZoomDistanceChange,
+    targetDistance,
+}: {
+    appliedDistance: MutableNumberRef;
+    camera: Camera;
+    cameraOffset: Vector3;
+    controls: TargetableControls;
+    delta: number;
+    onZoomDistanceChange: (distance: number) => void;
+    targetDistance: MutableNumberRef;
+}): number {
+    const currentDistance = camera.position.distanceTo(controls.target);
+    if (!Number.isFinite(appliedDistance.current)) {
+        appliedDistance.current = currentDistance;
+    } else if (
+        Math.abs(currentDistance - appliedDistance.current) > 0.08 &&
+        Math.abs(currentDistance - targetDistance.current) > 0.08
+    ) {
+        const nextDistance = MathUtils.clamp(currentDistance, MIN_ZOOM_DISTANCE, MAX_ZOOM_DISTANCE);
+        targetDistance.current = nextDistance;
+        onZoomDistanceChange(nextDistance);
+    }
+
+    const nextDistance = MathUtils.damp(currentDistance, targetDistance.current, 9, delta);
+    if (Math.abs(nextDistance - currentDistance) > 0.001) {
+        cameraOffset.copy(camera.position).sub(controls.target).normalize();
+        camera.position.copy(controls.target).addScaledVector(cameraOffset, nextDistance);
+    }
+    return nextDistance;
 }
 
 interface CameraRigProps {
     focusKey: number;
     focusX: number;
-    zoomRequest: number;
+    onZoomDistanceChange: (distance: number) => void;
+    zoomDistance: number;
 }
 
-function CameraRig({ focusKey, focusX, zoomRequest }: CameraRigProps) {
+function CameraRig({ focusKey, focusX, onZoomDistanceChange, zoomDistance }: CameraRigProps) {
     const camera = useThree((state) => state.camera);
     const controls = useThree((state) => state.controls);
     const invalidate = useThree((state) => state.invalidate);
     const destination = useRef(Number.NaN);
-    const handledZoomRequest = useRef(0);
+    const targetZoomDistance = useRef(zoomDistance);
+    const appliedZoomDistance = useRef(Number.NaN);
+    const cameraOffset = useRef(new Vector3());
 
     useEffect(() => {
         destination.current = focusX;
-        if (isTargetableControls(controls)) {
-            const zoomDelta = zoomRequest - handledZoomRequest.current;
-            if (zoomDelta > 0) {
-                for (let step = 0; step < zoomDelta; step += 1) {
-                    controls.dollyIn(1.35);
-                }
-                controls.update();
-            } else if (zoomDelta < 0) {
-                for (let step = 0; step > zoomDelta; step -= 1) {
-                    controls.dollyOut(1.35);
-                }
-                controls.update();
-            }
-            handledZoomRequest.current = zoomRequest;
-        }
         invalidate();
-    }, [controls, focusKey, focusX, invalidate, zoomRequest]);
+    }, [focusKey, focusX, invalidate]);
+
+    useEffect(() => {
+        targetZoomDistance.current = zoomDistance;
+        invalidate();
+    }, [invalidate, zoomDistance]);
 
     useFrame((_, delta) => {
-        if (!Number.isFinite(destination.current)) {
+        const timelineControls = isTargetableControls(controls) ? controls : null;
+        if (!(timelineControls || Number.isFinite(destination.current))) {
             return;
         }
-        if (isTargetableControls(controls)) {
-            const currentTargetX = controls.target.x;
-            const nextTargetX = MathUtils.damp(currentTargetX, destination.current, 7, delta);
-            controls.target.x = nextTargetX;
-            camera.position.x += nextTargetX - currentTargetX;
-            controls.update();
-            if (Math.abs(nextTargetX - destination.current) < 0.01) {
-                destination.current = Number.NaN;
-            }
-        } else {
-            camera.position.x = MathUtils.damp(camera.position.x, destination.current, 7, delta);
-            if (Math.abs(camera.position.x - destination.current) < 0.01) {
-                destination.current = Number.NaN;
-            }
+        const focusMoving = updateFocusPosition(camera, timelineControls, destination, delta);
+        if (timelineControls) {
+            updateZoomDistance({
+                appliedDistance: appliedZoomDistance,
+                camera,
+                cameraOffset: cameraOffset.current,
+                controls: timelineControls,
+                delta,
+                onZoomDistanceChange,
+                targetDistance: targetZoomDistance,
+            });
+            timelineControls.update();
+            appliedZoomDistance.current = camera.position.distanceTo(timelineControls.target);
         }
-        if (Number.isFinite(destination.current)) {
+
+        const zoomMoving =
+            timelineControls &&
+            Math.abs(
+                camera.position.distanceTo(timelineControls.target) - targetZoomDistance.current
+            ) > 0.01;
+        if (focusMoving || zoomMoving) {
             invalidate();
         }
     });
@@ -203,9 +270,10 @@ interface TimelineSceneProps {
     focusX: number;
     initialX: number;
     onSelect: (slug: string) => void;
+    onZoomDistanceChange: (distance: number) => void;
     reducedMotion: boolean;
     selectedSlug?: string;
-    zoomRequest: number;
+    zoomDistance: number;
 }
 
 function TimelineScene({
@@ -217,7 +285,8 @@ function TimelineScene({
     onSelect,
     reducedMotion,
     selectedSlug,
-    zoomRequest,
+    onZoomDistanceChange,
+    zoomDistance,
 }: TimelineSceneProps) {
     const points = useMemo(
         () =>
@@ -299,12 +368,17 @@ function TimelineScene({
                 enableRotate
                 enableZoom
                 makeDefault
-                maxDistance={18}
-                minDistance={6}
+                maxDistance={MAX_ZOOM_DISTANCE}
+                minDistance={MIN_ZOOM_DISTANCE}
                 target={initialTarget}
                 zoomSpeed={0.7}
             />
-            <CameraRig focusKey={focusKey} focusX={focusX} zoomRequest={zoomRequest} />
+            <CameraRig
+                focusKey={focusKey}
+                focusX={focusX}
+                onZoomDistanceChange={onZoomDistanceChange}
+                zoomDistance={zoomDistance}
+            />
         </>
     );
 }
@@ -328,12 +402,56 @@ export function TimelineOrbit({
     const [webGlSupported, setWebGlSupported] = useState<boolean | null>(null);
     const [reducedMotion, setReducedMotion] = useState(false);
     const [compact, setCompact] = useState(false);
-    const [zoomRequest, setZoomRequest] = useState(0);
+    const [zoomDistance, setZoomDistance] = useState(DEFAULT_ZOOM_DISTANCE);
+    const [zoomStorageReady, setZoomStorageReady] = useState(false);
     const initialX = timelineNodePosition(0, entries.length).x;
     const safeFocusIndex = Math.min(Math.max(focusIndex, 0), Math.max(entries.length - 1, 0));
     const focusX = timelineNodePosition(safeFocusIndex, entries.length).x;
-    const zoomOut = useCallback(() => setZoomRequest((current) => current - 1), []);
-    const zoomIn = useCallback(() => setZoomRequest((current) => current + 1), []);
+    const zoomProgress =
+        ((zoomDistance - MIN_ZOOM_DISTANCE) / (MAX_ZOOM_DISTANCE - MIN_ZOOM_DISTANCE)) * 100;
+    const zoomLevel = Math.round(100 - zoomProgress);
+
+    const handleZoomChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+        const nextDistance = Number(event.currentTarget.value);
+        if (!Number.isFinite(nextDistance)) {
+            return;
+        }
+        setZoomDistance(MathUtils.clamp(nextDistance, MIN_ZOOM_DISTANCE, MAX_ZOOM_DISTANCE));
+    }, []);
+    const handleZoomDistanceChange = useCallback((nextDistance: number) => {
+        const roundedDistance = Math.round(nextDistance * 10) / 10;
+        setZoomDistance((current) =>
+            Math.abs(current - roundedDistance) < 0.05 ? current : roundedDistance
+        );
+    }, []);
+
+    useEffect(() => {
+        try {
+            const storedValue = window.localStorage.getItem(ZOOM_STORAGE_KEY);
+            if (storedValue !== null) {
+                const storedZoomDistance = Number(storedValue);
+                if (Number.isFinite(storedZoomDistance)) {
+                    setZoomDistance(
+                        MathUtils.clamp(storedZoomDistance, MIN_ZOOM_DISTANCE, MAX_ZOOM_DISTANCE)
+                    );
+                }
+            }
+        } catch {
+            // Storage can be unavailable in private browsing contexts.
+        }
+        setZoomStorageReady(true);
+    }, []);
+
+    useEffect(() => {
+        if (!zoomStorageReady) {
+            return;
+        }
+        try {
+            window.localStorage.setItem(ZOOM_STORAGE_KEY, String(zoomDistance));
+        } catch {
+            // Storage can be unavailable in private browsing contexts.
+        }
+    }, [zoomDistance, zoomStorageReady]);
 
     useEffect(() => {
         setWebGlSupported(supportsWebGl());
@@ -386,32 +504,35 @@ export function TimelineOrbit({
                         focusX={focusX}
                         initialX={initialX}
                         onSelect={onSelect}
+                        onZoomDistanceChange={handleZoomDistanceChange}
                         reducedMotion={reducedMotion}
                         selectedSlug={selectedSlug}
-                        zoomRequest={zoomRequest}
+                        zoomDistance={zoomDistance}
                     />
                 </Suspense>
             </Canvas>
-            <fieldset aria-label="Zoom controls" className="timeline-zoom-control">
-                <button
-                    aria-label="Zoom out"
-                    className="focus-ring timeline-zoom-button"
-                    onClick={zoomOut}
-                    type="button"
-                >
-                    −
-                </button>
-                <span aria-hidden="true" className="timeline-zoom-label">
-                    Zoom
-                </span>
-                <button
-                    aria-label="Zoom in"
-                    className="focus-ring timeline-zoom-button"
-                    onClick={zoomIn}
-                    type="button"
-                >
-                    +
-                </button>
+            <fieldset aria-label="Timeline zoom" className="timeline-zoom-control">
+                <div className="timeline-zoom-heading">
+                    <span className="timeline-zoom-label">Zoom</span>
+                    <span className="timeline-zoom-value">{zoomLevel}%</span>
+                </div>
+                <div className="timeline-zoom-slider">
+                    <div
+                        aria-hidden="true"
+                        className="timeline-zoom-slider-fill"
+                        style={{ width: `${zoomProgress}%` }}
+                    />
+                    <input
+                        aria-label="Timeline zoom"
+                        className="focus-ring timeline-zoom-input"
+                        max={MAX_ZOOM_DISTANCE}
+                        min={MIN_ZOOM_DISTANCE}
+                        onChange={handleZoomChange}
+                        step="0.1"
+                        type="range"
+                        value={zoomDistance}
+                    />
+                </div>
             </fieldset>
         </div>
     );
