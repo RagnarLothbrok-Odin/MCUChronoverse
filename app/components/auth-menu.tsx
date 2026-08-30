@@ -117,13 +117,16 @@ export function AuthMenu() {
                     only store your account connection and the titles you mark watched.
                 </p>
                 <button
-                    className="focus-ring timeline-auth-submit"
+                    className="focus-ring timeline-auth-discord"
                     disabled={busy}
                     // biome-ignore lint/performance/noJsxPropsBind: This handler is local to the auth modal.
                     onClick={handleOAuth}
                     type="button"
                 >
-                    {busy ? "Opening Discord..." : "Continue with Discord"}
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                        <path d="M19.54 5.32A16.2 16.2 0 0 0 15.5 4l-.5 1.03a14.4 14.4 0 0 0-6 0L8.5 4c-1.43.25-2.78.7-4.04 1.32C1.9 9.24 1.2 13.07 1.55 16.85a16.3 16.3 0 0 0 4.96 2.5l1.2-1.63c-.66-.24-1.3-.55-1.9-.9l.47-.36c3.66 1.7 7.62 1.7 11.23 0l.48.36c-.6.35-1.24.66-1.9.9l1.2 1.63a16.3 16.3 0 0 0 4.96-2.5c.4-4.38-.7-8.18-2.71-11.53ZM8.47 14.64c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2 .99 2 2.2-.9 2.2-2 2.2Zm7.06 0c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2 .99 2 2.2-.9 2.2-2 2.2Z" />
+                    </svg>
+                    <span>{busy ? "Opening Discord..." : "Continue with Discord"}</span>
                 </button>
                 {oauthError ? <p className="timeline-auth-error">{oauthError}</p> : null}
                 <div className="timeline-auth-divider">or use email</div>

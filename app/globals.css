@@ -1198,6 +1198,38 @@ a {
   background: #ffd08c;
 }
 
+.timeline-auth-discord {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 2.8rem;
+  margin-top: 0.25rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #fff;
+  background: #5865f2;
+  border-radius: 0.65rem;
+  box-shadow: 0 8px 24px rgb(88 101 242 / 24%);
+  transition:
+    background 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.timeline-auth-discord svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: currentColor;
+}
+
+.timeline-auth-discord:hover:not(:disabled) {
+  background: #4752c4;
+  box-shadow: 0 10px 30px rgb(88 101 242 / 38%);
+  transform: translateY(-1px);
+}
+
 .timeline-auth-submit:disabled {
   cursor: wait;
   opacity: 0.55;
