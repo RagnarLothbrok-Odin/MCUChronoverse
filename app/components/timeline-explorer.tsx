@@ -380,23 +380,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                             <span>{selectedEntry.universe}</span>
                         </div>
                     </motion.aside>
-                ) : (
-                    <motion.div
-                        animate={{ opacity: 1 }}
-                        className="pointer-events-none absolute bottom-36 left-5 z-30 max-w-sm sm:bottom-40 sm:left-7"
-                        exit={{ opacity: 0 }}
-                        initial={{ opacity: 0 }}
-                        key="instructions"
-                    >
-                        <p className="font-mono text-[#ffad55] text-[0.58rem] uppercase tracking-[0.19em]">
-                            Sacred timeline / Earth-616
-                        </p>
-                        <h1 className="mt-3 max-w-xs font-semibold text-3xl leading-[1.02] tracking-[-0.045em] sm:text-4xl">
-                            The universe,
-                            <span className="block text-white/38">in story order.</span>
-                        </h1>
-                    </motion.div>
-                )}
+                ) : null}
             </AnimatePresence>
 
             <nav
