@@ -1188,6 +1188,39 @@ a {
   border-color: rgb(255 173 85 / 70%);
 }
 
+.timeline-auth-divider {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  margin: 1rem 0 0.8rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.52rem;
+  color: rgb(255 255 255 / 28%);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.timeline-auth-divider::before,
+.timeline-auth-divider::after {
+  flex: 1;
+  height: 1px;
+  content: "";
+  background: rgb(255 255 255 / 10%);
+}
+
+.timeline-auth-email-submit {
+  min-height: 2.5rem;
+  font-size: 0.68rem;
+  color: rgb(255 255 255 / 70%);
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: 0.7rem;
+}
+
+.timeline-auth-email-submit:hover:not(:disabled) {
+  color: #fff;
+  border-color: rgb(255 173 85 / 70%);
+}
+
 .timeline-auth-switch {
   margin-top: 0.9rem;
   font-family: var(--font-geist-mono), monospace;
