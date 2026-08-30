@@ -1,0 +1,35 @@
+# ========================
+# System generated files
+# ========================
+
+# macOS generated files
+.DS_Store
+
+# Environment variables
+.env
+
+# TypeScript build info
+tsconfig.tsbuildinfo
+
+# ========================
+# IDEs and editors
+# ========================
+
+# JetBrains IDEs (e.g., WebStorm, IntelliJ)
+.idea/
+
+# ========================
+# Dependency management
+# ========================
+
+# Bun: lock file and error log
+bun.lock
+
+# Dependencies
+node_modules
+
+# ========================
+# Build output
+# ========================
+
+.next
