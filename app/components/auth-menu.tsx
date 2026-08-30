@@ -8,7 +8,8 @@ import { createClient } from "../lib/supabase/client";
 export function AuthMenu() {
     const [open, setOpen] = useState(false);
     const [busy, setBusy] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+    const [emailError, setEmailError] = useState<string | null>(null);
+    const [oauthError, setOauthError] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,7 +17,8 @@ export function AuthMenu() {
 
     useEffect(() => {
         const openAuth = () => {
-            setError(null);
+            setEmailError(null);
+            setOauthError(null);
             setOpen(true);
         };
         window.addEventListener("mcu-chronoverse:open-auth", openAuth);
@@ -35,14 +37,16 @@ export function AuthMenu() {
 
     async function handleOAuth() {
         setBusy(true);
-        setError(null);
+        setOauthError(null);
         setMessage(null);
-        const { error: oauthError } = await createClient().auth.signInWithOAuth({
+        const { error: oauthSignInError } = await createClient().auth.signInWithOAuth({
             options: { redirectTo: window.location.origin },
             provider: "discord",
         });
-        if (oauthError) {
-            setError("Discord sign-in is not available yet. Enable it in your Supabase providers.");
+        if (oauthSignInError) {
+            setOauthError(
+                "Discord sign-in is not available yet. Enable it in your Supabase providers."
+            );
             setBusy(false);
         }
     }
@@ -56,7 +60,7 @@ export function AuthMenu() {
     async function handleEmailAuth(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setBusy(true);
-        setError(null);
+        setEmailError(null);
         setMessage(null);
         const supabase = createClient();
         const result =
@@ -64,7 +68,7 @@ export function AuthMenu() {
                 ? await supabase.auth.signInWithPassword({ email, password })
                 : await supabase.auth.signUp({ email, password });
         if (result.error) {
-            setError("Those details could not be authenticated. Check them and try again.");
+            setEmailError("Those details could not be authenticated. Check them and try again.");
         } else if (mode === "sign-up" && !result.data.session) {
             setMessage("Check your email to confirm your account, then sign in here.");
         } else {
@@ -112,8 +116,6 @@ export function AuthMenu() {
                     Sign in with Discord or email to carry your watch progress across devices. We
                     only store your account connection and the titles you mark watched.
                 </p>
-                {error ? <p className="timeline-auth-error">{error}</p> : null}
-                {message ? <p className="timeline-auth-message">{message}</p> : null}
                 <button
                     className="focus-ring timeline-auth-submit"
                     disabled={busy}
@@ -123,6 +125,7 @@ export function AuthMenu() {
                 >
                     {busy ? "Opening Discord..." : "Continue with Discord"}
                 </button>
+                {oauthError ? <p className="timeline-auth-error">{oauthError}</p> : null}
                 <div className="timeline-auth-divider">or use email</div>
                 <form className="timeline-auth-form" onSubmit={handleEmailAuth}>
                     <label>
@@ -154,11 +157,14 @@ export function AuthMenu() {
                         {emailSubmitLabel}
                     </button>
                 </form>
+                {emailError ? <p className="timeline-auth-error">{emailError}</p> : null}
+                {message ? <p className="timeline-auth-message">{message}</p> : null}
                 <button
                     className="focus-ring timeline-auth-switch"
                     onClick={() => {
                         setMode((current) => (current === "sign-in" ? "sign-up" : "sign-in"));
-                        setError(null);
+                        setEmailError(null);
+                        setOauthError(null);
                         setMessage(null);
                     }}
                     type="button"
