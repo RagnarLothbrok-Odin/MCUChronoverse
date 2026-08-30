@@ -5,6 +5,25 @@
 import { useEffect, useState } from "react";
 import { createClient } from "../lib/supabase/client";
 
+function describeEmailAuthError(message: string, mode: "sign-in" | "sign-up") {
+    const normalized = message.toLowerCase();
+    if (normalized.includes("already registered") || normalized.includes("already exists")) {
+        return "That email already has an account. Switch to sign in instead.";
+    }
+    if (normalized.includes("signup") && normalized.includes("disabled")) {
+        return "New account registration is disabled in Supabase. Enable Allow new users to sign up.";
+    }
+    if (normalized.includes("password") && normalized.includes("weak")) {
+        return "That password is too weak. Use at least 8 characters with a less predictable phrase.";
+    }
+    if (normalized.includes("invalid login credentials")) {
+        return "That email or password is incorrect.";
+    }
+    return mode === "sign-up"
+        ? "This account could not be created. Check the details and try again."
+        : "Those details could not be authenticated. Check them and try again.";
+}
+
 export function AuthMenu() {
     const [open, setOpen] = useState(false);
     const [busy, setBusy] = useState(false);
@@ -68,7 +87,7 @@ export function AuthMenu() {
                 ? await supabase.auth.signInWithPassword({ email, password })
                 : await supabase.auth.signUp({ email, password });
         if (result.error) {
-            setEmailError("Those details could not be authenticated. Check them and try again.");
+            setEmailError(describeEmailAuthError(result.error.message, mode));
         } else if (mode === "sign-up" && !result.data.session) {
             setMessage("Check your email to confirm your account, then sign in here.");
         } else {
