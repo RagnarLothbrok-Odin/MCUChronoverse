@@ -28,6 +28,7 @@ import {
     serializeTimelineFilters,
     type TimelineFilters,
 } from "../lib/timeline";
+import { AuthMenu } from "./auth-menu";
 
 const TimelineOrbit = dynamic(
     () => import("./timeline-orbit").then((module) => module.TimelineOrbit),
@@ -526,6 +527,8 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                     </div>
                 </div>
             </header>
+
+            <AuthMenu />
 
             <aside
                 className="absolute top-5 right-[4.5rem] z-50 sm:top-7 sm:right-[5.5rem]"
