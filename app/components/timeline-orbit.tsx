@@ -1,6 +1,6 @@
 "use client";
 
-import { Html, MapControls, Sparkles, Stars } from "@react-three/drei";
+import { Html, OrbitControls, Sparkles, Stars } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
     type MouseEvent,
@@ -11,7 +11,7 @@ import {
     useRef,
     useState,
 } from "react";
-import { AdditiveBlending, Group, LineCurve3, MathUtils, MOUSE, TOUCH, Vector3 } from "three";
+import { AdditiveBlending, Group, LineCurve3, MathUtils, Vector3 } from "three";
 import type { TimelineEntry } from "../data/types";
 import { timelineNodePosition } from "../lib/timeline";
 
@@ -250,16 +250,15 @@ function TimelineScene({
                     selected={selectedSlug === entry.slug}
                 />
             ))}
-            <MapControls
+            <OrbitControls
                 dampingFactor={0.075}
                 enableDamping
-                enableRotate={false}
+                enablePan={false}
+                enableRotate
+                makeDefault
                 maxDistance={18}
                 minDistance={6}
-                mouseButtons={{ LEFT: MOUSE.PAN, MIDDLE: MOUSE.DOLLY, RIGHT: MOUSE.PAN }}
-                screenSpacePanning
                 target={initialTarget}
-                touches={{ ONE: TOUCH.PAN, TWO: TOUCH.DOLLY_PAN }}
             />
             <CameraRig focusKey={focusKey} focusX={focusX} />
         </>
