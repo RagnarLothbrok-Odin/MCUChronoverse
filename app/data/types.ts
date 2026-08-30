@@ -17,6 +17,7 @@ export const phases = [
     "Phase Four",
     "Phase Five",
     "Phase Six",
+    "Unassigned",
 ] as const;
 
 export type McuPhase = (typeof phases)[number];

@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
     type ChangeEvent,
@@ -60,6 +61,119 @@ function isContentType(value: string | undefined): value is ContentType {
 
 function isMcuPhase(value: string | undefined): value is McuPhase {
     return phases.some((phase) => phase === value);
+}
+
+const contentTypeNames: Record<ContentType, string> = {
+    film: "Film",
+    "one-shot": "One-Shot",
+    series: "Series",
+    short: "Short",
+    special: "Special",
+};
+
+interface TimelineDetailProps {
+    entry: TimelineEntry;
+    onClose: () => void;
+}
+
+function TimelineDetail({ entry, onClose }: TimelineDetailProps) {
+    return (
+        <motion.aside
+            animate={{ opacity: 1, x: 0 }}
+            className="timeline-detail-card absolute bottom-36 left-4 z-30 w-[min(47rem,calc(100%-2rem))] sm:bottom-40 sm:left-7 sm:w-[min(47rem,calc(100%-3.5rem))]"
+            exit={{ opacity: 0, x: -16 }}
+            initial={{ opacity: 0, x: -16 }}
+        >
+            <div className="timeline-detail-glow" />
+            <div className="timeline-detail-grid">
+                <div className="timeline-detail-poster-shell">
+                    {entry.posterUrl ? (
+                        <Image
+                            alt={`${entry.title} poster`}
+                            className="timeline-detail-poster"
+                            fill
+                            sizes="(max-width: 640px) 108px, 192px"
+                            src={entry.posterUrl}
+                        />
+                    ) : (
+                        <div className="timeline-detail-poster-fallback">
+                            <span>Poster unavailable</span>
+                        </div>
+                    )}
+                    <div className="timeline-detail-poster-shade" />
+                    <span className="timeline-detail-order">
+                        #{String(entry.chronologyOrder / 10).padStart(2, "0")}
+                    </span>
+                </div>
+                <div className="timeline-detail-content">
+                    <div className="timeline-detail-heading">
+                        <div>
+                            <p className="timeline-detail-eyebrow">
+                                {entry.placement}
+                                <span aria-hidden="true">◆</span>
+                                {contentTypeNames[entry.contentType]}
+                            </p>
+                            <h1 className="timeline-detail-title">{entry.title}</h1>
+                        </div>
+                        <button
+                            aria-label="Close event details"
+                            className="focus-ring timeline-detail-close"
+                            onClick={onClose}
+                            type="button"
+                        >
+                            ×
+                        </button>
+                    </div>
+
+                    <div className="timeline-detail-facts">
+                        {entry.rating === undefined ? null : (
+                            <div className="timeline-detail-rating">
+                                <span aria-hidden="true" className="timeline-detail-star">
+                                    ★
+                                </span>
+                                <strong>{entry.rating.toFixed(1)}</strong>
+                                <span>/ 10</span>
+                            </div>
+                        )}
+                        <span>{entry.runtime}</span>
+                        <span>{entry.phase}</span>
+                        <span>{entry.releaseDate.slice(0, 4)}</span>
+                    </div>
+
+                    <p className="timeline-detail-description">{entry.description}</p>
+
+                    {entry.genres && entry.genres.length > 0 ? (
+                        <div className="timeline-detail-genres">
+                            {entry.genres.map((genre) => (
+                                <span key={genre}>{genre}</span>
+                            ))}
+                        </div>
+                    ) : null}
+
+                    <div className="timeline-detail-footer">
+                        <div className="timeline-detail-universe">
+                            <span>Universe</span>
+                            <strong>{entry.universe}</strong>
+                        </div>
+                        {entry.imdbUrl ? (
+                            <a
+                                className="focus-ring timeline-detail-imdb"
+                                href={entry.imdbUrl}
+                                rel="noreferrer"
+                                target="_blank"
+                            >
+                                <span className="timeline-detail-imdb-mark">IMDb</span>
+                                <span>Open on IMDb</span>
+                                <span aria-hidden="true" className="timeline-detail-arrow">
+                                    ↗
+                                </span>
+                            </a>
+                        ) : null}
+                    </div>
+                </div>
+            </div>
+        </motion.aside>
+    );
 }
 
 export function TimelineExplorer({ entries }: TimelineExplorerProps) {
@@ -343,41 +457,11 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
 
             <AnimatePresence mode="wait">
                 {selectedEntry ? (
-                    <motion.aside
-                        animate={{ opacity: 1, x: 0 }}
-                        className="absolute bottom-36 left-5 z-30 w-[min(30rem,calc(100%-2.5rem))] border border-white/14 bg-black/58 p-5 shadow-[0_20px_80px_rgb(0_0_0/55%)] backdrop-blur-2xl sm:bottom-40 sm:left-7 sm:p-6"
-                        exit={{ opacity: 0, x: -16 }}
-                        initial={{ opacity: 0, x: -16 }}
+                    <TimelineDetail
+                        entry={selectedEntry}
                         key={selectedEntry.slug}
-                    >
-                        <div className="absolute top-0 left-0 h-px w-full bg-gradient-to-r from-[#ff8a3d] via-[#ffd28a] to-transparent" />
-                        <div className="flex items-start justify-between gap-5">
-                            <div>
-                                <p className="font-mono text-[#ffb05e] text-[0.58rem] uppercase tracking-[0.17em]">
-                                    {selectedEntry.placement} / {selectedEntry.contentType}
-                                </p>
-                                <h1 className="mt-3 font-semibold text-2xl leading-tight tracking-[-0.035em] sm:text-3xl">
-                                    {selectedEntry.title}
-                                </h1>
-                            </div>
-                            <button
-                                aria-label="Close event details"
-                                className="focus-ring grid size-9 shrink-0 place-items-center border border-white/12 text-white/40 hover:border-[#ff9b4a]/60 hover:text-white"
-                                onClick={closeDetail}
-                                type="button"
-                            >
-                                ×
-                            </button>
-                        </div>
-                        <p className="mt-4 line-clamp-3 text-sm text-white/52 leading-6">
-                            {selectedEntry.description}
-                        </p>
-                        <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-white/10 border-t pt-4 font-mono text-[0.55rem] text-white/30 uppercase tracking-[0.12em]">
-                            <span>{selectedEntry.phase}</span>
-                            <span>{selectedEntry.runtime}</span>
-                            <span>{selectedEntry.universe}</span>
-                        </div>
-                    </motion.aside>
+                        onClose={closeDetail}
+                    />
                 ) : null}
             </AnimatePresence>
 
