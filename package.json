@@ -1,44 +1,44 @@
 {
-    "name": "mcuchronoverse",
-    "version": "0.1.1",
-    "description": "An interactive chronological guide to the Marvel Cinematic Universe.",
-    "license": "GPL-3.0-or-later",
-    "author": "Ragnar Lothbrok <ragnarlothbrokjr@proton.me>",
-    "homepage": "https://github.com/Valhalla-Development/McuChronoverse#readme",
-    "repository": "https://github.com/Valhalla-Development/McuChronoverse.git",
-    "bugs": {
-        "url": "https://github.com/Valhalla-Development/McuChronoverse/issues"
-    },
-    "scripts": {
-        "lint": "tsc --noEmit -p tsconfig.json && biome check --files-ignore-unknown=true --diagnostic-level=error --no-errors-on-unmatched app",
-        "type-check": "tsc --noEmit -p tsconfig.json",
-        "lint:fix": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true app",
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start"
-    },
-    "dependencies": {
-        "@react-three/drei": "^10.7.8",
-        "@react-three/fiber": "^9.7.0",
-        "mongoose": "^9.9.4",
-        "motion": "^13.1.1",
-        "next": "16.3.3",
-        "next-themes": "^0.4.6",
-        "react": "19.2.8",
-        "react-dom": "19.2.8",
-        "three": "^0.185.1",
-        "vanta": "^0.5.24"
-    },
-    "devDependencies": {
-        "@biomejs/biome": "^2.5.11",
-        "@tailwindcss/postcss": "^4.3.3",
-        "@types/bun": "^1.4.0",
-        "@types/node": "^26.4.0",
-        "@types/react": "^19.2.18",
-        "@types/react-dom": "^19.2.5",
-        "@types/three": "^0.185.4",
-        "tailwindcss": "^4.3.3",
-        "typescript": "^7.0.2",
-        "ultracite": "^7.10.7"
-    }
+  "name": "mcuchronoverse",
+  "version": "0.1.1",
+  "description": "An interactive chronological guide to the Marvel Cinematic Universe.",
+  "homepage": "https://github.com/Valhalla-Development/McuChronoverse#readme",
+  "bugs": {
+    "url": "https://github.com/Valhalla-Development/McuChronoverse/issues"
+  },
+  "repository": "https://github.com/Valhalla-Development/McuChronoverse.git",
+  "license": "GPL-3.0-or-later",
+  "author": "Ragnar Lothbrok <ragnarlothbrokjr@proton.me>",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "lint": "tsc --noEmit -p tsconfig.json && biome check --files-ignore-unknown=true --diagnostic-level=error --no-errors-on-unmatched app",
+    "lint:fix": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true app",
+    "start": "next start",
+    "type-check": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
+    "mongoose": "^9.9.4",
+    "motion": "^13.1.1",
+    "next": "16.3.3",
+    "next-themes": "^0.4.6",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "three": "^0.185.1",
+    "vanta": "^0.5.24"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.11",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/bun": "^1.4.0",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "@types/three": "^0.185.4",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "ultracite": "^7.10.7"
+  }
 }
