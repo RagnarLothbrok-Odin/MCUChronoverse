@@ -19,9 +19,11 @@ function describeEmailAuthError(message: string, mode: "sign-in" | "sign-up") {
     if (normalized.includes("invalid login credentials")) {
         return "That email or password is incorrect.";
     }
-    return mode === "sign-up"
-        ? "This account could not be created. Check the details and try again."
-        : "Those details could not be authenticated. Check them and try again.";
+    const fallback =
+        mode === "sign-up"
+            ? "This account could not be created. Check the details and try again."
+            : "Those details could not be authenticated. Check them and try again.";
+    return process.env.NODE_ENV === "development" ? `${fallback} (${message})` : fallback;
 }
 
 export function AuthMenu() {
