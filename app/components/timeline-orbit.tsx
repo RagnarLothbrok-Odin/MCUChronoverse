@@ -725,7 +725,7 @@ function TimelineScene({
             <CameraRig
                 focusKey={focusKey}
                 focusX={focusX}
-                initialX={points[0]?.x ?? 0}
+                initialX={focusX}
                 onZoomDistanceChange={onZoomDistanceChange}
                 sceneKey={sceneKey}
                 zoomDistance={zoomDistance}
