@@ -407,16 +407,19 @@ export function TimelineOrbit({
     const initialX = timelineNodePosition(0, entries.length).x;
     const safeFocusIndex = Math.min(Math.max(focusIndex, 0), Math.max(entries.length - 1, 0));
     const focusX = timelineNodePosition(safeFocusIndex, entries.length).x;
-    const zoomProgress =
-        ((zoomDistance - MIN_ZOOM_DISTANCE) / (MAX_ZOOM_DISTANCE - MIN_ZOOM_DISTANCE)) * 100;
-    const zoomLevel = Math.round(100 - zoomProgress);
+    const zoomLevel = Math.round(
+        ((MAX_ZOOM_DISTANCE - zoomDistance) / (MAX_ZOOM_DISTANCE - MIN_ZOOM_DISTANCE)) * 100
+    );
 
     const handleZoomChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        const nextDistance = Number(event.currentTarget.value);
-        if (!Number.isFinite(nextDistance)) {
+        const nextZoomLevel = Number(event.currentTarget.value);
+        if (!Number.isFinite(nextZoomLevel)) {
             return;
         }
-        setZoomDistance(MathUtils.clamp(nextDistance, MIN_ZOOM_DISTANCE, MAX_ZOOM_DISTANCE));
+        const clampedZoomLevel = MathUtils.clamp(nextZoomLevel, 0, 100);
+        setZoomDistance(
+            MAX_ZOOM_DISTANCE - (clampedZoomLevel / 100) * (MAX_ZOOM_DISTANCE - MIN_ZOOM_DISTANCE)
+        );
     }, []);
     const handleZoomDistanceChange = useCallback((nextDistance: number) => {
         const roundedDistance = Math.round(nextDistance * 10) / 10;
@@ -520,17 +523,17 @@ export function TimelineOrbit({
                     <div
                         aria-hidden="true"
                         className="timeline-zoom-slider-fill"
-                        style={{ width: `${zoomProgress}%` }}
+                        style={{ width: `${zoomLevel}%` }}
                     />
                     <input
                         aria-label="Timeline zoom"
                         className="focus-ring timeline-zoom-input"
-                        max={MAX_ZOOM_DISTANCE}
-                        min={MIN_ZOOM_DISTANCE}
+                        max="100"
+                        min="0"
                         onChange={handleZoomChange}
-                        step="0.1"
+                        step="1"
                         type="range"
-                        value={zoomDistance}
+                        value={zoomLevel}
                     />
                 </div>
             </fieldset>
