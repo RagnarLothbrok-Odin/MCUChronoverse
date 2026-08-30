@@ -1001,13 +1001,6 @@ a {
   transform: translate(2px, -2px);
 }
 
-.timeline-auth {
-  position: absolute;
-  top: 1.25rem;
-  right: 9rem;
-  z-index: 50;
-}
-
 .timeline-auth-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -1024,8 +1017,10 @@ a {
 .timeline-auth-modal {
   position: relative;
   width: min(30rem, 100%);
+  max-height: calc(100dvh - 2.5rem);
   padding: 2.5rem 2.25rem 2rem;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   background:
     linear-gradient(135deg, rgb(28 18 13 / 96%), transparent 42%),
     linear-gradient(180deg, rgb(11 11 14 / 99%), rgb(5 5 7 / 99%));
@@ -1077,50 +1072,11 @@ a {
   font-size: 1.4rem;
   line-height: 1;
   color: rgb(255 255 255 / 42%);
+  cursor: pointer;
 }
 
 .timeline-auth-close:hover {
   color: #fff;
-}
-
-.timeline-auth-trigger {
-  display: flex;
-  gap: 0.55rem;
-  align-items: center;
-  min-height: 2.75rem;
-  padding: 0.55rem 0.8rem;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.56rem;
-  color: rgb(255 255 255 / 64%);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  background: rgb(0 0 0 / 48%);
-  border: 1px solid rgb(255 255 255 / 14%);
-  border-radius: 999px;
-  backdrop-filter: blur(18px);
-}
-
-.timeline-auth-trigger:hover {
-  color: #fff;
-  border-color: rgb(255 155 74 / 70%);
-}
-
-.timeline-auth-glyph {
-  font-size: 1rem;
-  line-height: 1;
-  color: #ffad55;
-}
-
-.timeline-auth-panel {
-  width: min(20rem, calc(100vw - 2rem));
-  padding: 1.15rem;
-  margin-top: 0.65rem;
-  color: rgb(255 255 255 / 72%);
-  background: rgb(8 8 11 / 94%);
-  border: 1px solid rgb(255 255 255 / 13%);
-  border-radius: 1rem;
-  box-shadow: 0 24px 90px rgb(0 0 0 / 62%);
-  backdrop-filter: blur(24px);
 }
 
 .timeline-auth-kicker {
@@ -1129,15 +1085,6 @@ a {
   color: #ffad55;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-}
-
-.timeline-auth-email {
-  margin-top: 0.6rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.8rem;
-  color: rgb(255 255 255 / 88%);
-  white-space: nowrap;
 }
 
 .timeline-auth-copy {
@@ -1183,19 +1130,9 @@ a {
   border-color: rgb(255 173 85 / 70%);
 }
 
-.timeline-auth-submit {
-  width: 100%;
-  min-height: 2.6rem;
-  margin-top: 0.25rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #110b06;
-  background: #ffad55;
-  border-radius: 0.7rem;
-}
-
-.timeline-auth-submit:hover:not(:disabled) {
-  background: #ffd08c;
+.timeline-auth-form input:disabled {
+  cursor: wait;
+  opacity: 0.55;
 }
 
 .timeline-auth-discord {
@@ -1231,12 +1168,12 @@ a {
   transform: translateY(-1px);
 }
 
-.timeline-auth-submit:disabled {
+.timeline-auth-discord:disabled,
+.timeline-auth-email-submit:disabled {
   cursor: wait;
   opacity: 0.55;
 }
 
-.timeline-auth-oauth,
 .timeline-watchlist-account {
   width: 100%;
   min-height: 2.5rem;
@@ -1256,7 +1193,6 @@ a {
   text-align: center;
 }
 
-.timeline-auth-oauth:hover,
 .timeline-watchlist-account:hover {
   color: #fff;
   border-color: rgb(255 173 85 / 70%);
@@ -1307,12 +1243,13 @@ a {
   cursor: pointer;
 }
 
-.timeline-auth-switch + .timeline-auth-switch {
-  margin-top: 0.55rem;
-}
-
 .timeline-auth-switch:hover {
   color: #ffad55;
+}
+
+.timeline-auth-switch:disabled {
+  cursor: wait;
+  opacity: 0.45;
 }
 
 .timeline-watchlist-account {
@@ -1336,17 +1273,6 @@ a {
 
 .timeline-auth-message {
   color: #a9dfbd;
-}
-
-@media (max-width: 640px) {
-  .timeline-auth {
-    top: 1.25rem;
-    right: 4.5rem;
-  }
-
-  .timeline-auth-trigger span:last-child {
-    display: none;
-  }
 }
 
 @media (max-width: 640px) {
