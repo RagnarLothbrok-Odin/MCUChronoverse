@@ -11,6 +11,7 @@
   "author": "Ragnar Lothbrok <ragnarlothbrokjr@proton.me>",
   "scripts": {
     "build": "next build",
+    "data:enrich": "bun scripts/enrich-timeline.ts",
     "dev": "next dev",
     "lint": "tsc --noEmit -p tsconfig.json && biome check --files-ignore-unknown=true --diagnostic-level=error --no-errors-on-unmatched app",
     "lint:fix": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true app",
@@ -37,6 +38,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "@types/three": "^0.185.4",
+    "@valhalladev/movier": "^4.2.1",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "ultracite": "^7.10.7"
