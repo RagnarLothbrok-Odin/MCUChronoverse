@@ -1215,7 +1215,7 @@ export const chronology = [
         genres: ["action", "adventure", "comedy", "drama", "fantasy", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt21066182/",
         phase: "Phase Six",
-        placement: "2026",
+        placement: "2027",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BMDk5YzQ3NjQtNzY3MC00NzM3LWE4NzYtZGRkNDQxYjdiZDkyXkEyXkFqcGc@._V1_.jpg",
         rating: 7.4,
@@ -1288,27 +1288,6 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 650,
-        contentType: "series",
-        description:
-            "Vision is faced with many challenges while trying to regain his memory and humanity.",
-        genres: ["action", "adventure", "drama", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt23112594/",
-        note: "Provisional placement until the series establishes its in-universe date.",
-        phase: "Phase Six",
-        placement: "2026",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BY2FlNjIxMDktMGYyZi00NjY3LWI4YjctYTcxNzc2MDUwYjZmXkEyXkFqcGc@._V1_.jpg",
-        rating: 0,
-        releaseDate: "2026-06-01",
-        runtime: "Limited series",
-        saga: "Multiverse Saga",
-        slug: "visionquest",
-        status: "announced",
-        title: "VisionQuest",
-        universe: "Earth-616",
-    },
-    {
         chronologyOrder: 660,
         contentType: "film",
         description:
@@ -1316,7 +1295,7 @@ export const chronology = [
         genres: ["action", "adventure", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt22084616/",
         phase: "Phase Six",
-        placement: "2026",
+        placement: "2028",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BOWNjYWM3NWItOGE0ZS00MWRjLThiZWEtYjc4ZmNmMmU5ZTVmXkEyXkFqcGc@._V1_.jpg",
         rating: 8,
@@ -1329,6 +1308,27 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
+        chronologyOrder: 665,
+        contentType: "series",
+        description:
+            "Vision is faced with many challenges while trying to regain his memory and humanity.",
+        genres: ["action", "adventure", "drama", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt23112594/",
+        note: "Marvel has not published an in-universe year for the series.",
+        phase: "Phase Six",
+        placement: "2028",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BY2FlNjIxMDktMGYyZi00NjY3LWI4YjctYTcxNzc2MDUwYjZmXkEyXkFqcGc@._V1_.jpg",
+        rating: 0,
+        releaseDate: "2026-06-01",
+        runtime: "Limited series",
+        saga: "Multiverse Saga",
+        slug: "visionquest",
+        status: "announced",
+        title: "VisionQuest",
+        universe: "Earth-616",
+    },
+    {
         chronologyOrder: 670,
         contentType: "film",
         description:
@@ -1336,7 +1336,7 @@ export const chronology = [
         genres: ["action", "adventure", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt21357150/",
         phase: "Phase Six",
-        placement: "2026",
+        placement: "2028",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BNGEwYWZkN2UtOTQ5Mi00MGQzLWEzNjYtMWMyNDBkMTkzMWNkXkEyXkFqcGc@._V1_.jpg",
         rating: 0,
@@ -1355,7 +1355,7 @@ export const chronology = [
         genres: ["action", "adventure", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt21361444/",
         phase: "Phase Six",
-        placement: "2027",
+        placement: "TBD",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BYTQyZTQ5MWQtN2M4NC00YWQwLTg3ZTctM2JiZDE4NDBkZDJkXkEyXkFqcGc@._V1_.jpg",
         rating: 0,
