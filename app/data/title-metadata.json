@@ -1,6 +1,6 @@
 {
   "eyes-of-wakanda": {
-    "fetchedAt": "2026-08-30T15:18:05.456Z",
+    "fetchedAt": "2026-08-30T16:45:32.023Z",
     "requestedTitle": "Eyes of Wakanda",
     "source": {
       "description": "Wakandan warriors who, throughout history, have traveled the world to retrieve dangerous vibranium artifacts.",
@@ -13,7 +13,7 @@
     "status": "resolved"
   },
   "captain-america-the-first-avenger": {
-    "fetchedAt": "2026-08-30T15:18:08.981Z",
+    "fetchedAt": "2026-08-30T16:45:35.040Z",
     "requestedTitle": "Captain America: The First Avenger",
     "source": {
       "description": "Steve Rogers, a rejected military soldier, transforms into Captain America after taking a dose of a \"Super-Soldier serum\". But being Captain America comes at a price as he attempts to take down a warmonger and a terrorist organization.",
@@ -26,7 +26,7 @@
     "status": "resolved"
   },
   "agent-carter-one-shot": {
-    "fetchedAt": "2026-08-30T15:18:10.937Z",
+    "fetchedAt": "2026-08-30T16:45:36.551Z",
     "requestedTitle": "Agent Carter",
     "source": {
       "description": "Agent Carter seeks the enigmatic \"Zodiac\" and also battles her misogynistic, bureaucratic boss. Frustrated at being marginalized at work, Peggy Carter goes on an unauthorized solo field mission.",
@@ -47,7 +47,7 @@
     "status": "resolved"
   },
   "agent-carter": {
-    "fetchedAt": "2026-08-30T15:18:13.530Z",
+    "fetchedAt": "2026-08-30T16:45:39.217Z",
     "requestedTitle": "Marvel's Agent Carter",
     "source": {
       "description": "In 1946, Peggy Carter is relegated to secretarial duties in the Strategic Scientific Reserve (SSR). When Howard Stark is accused of treason, he secretly recruits Peggy to clear his name with the help of his butler, Edwin Jarvis.",
@@ -60,7 +60,7 @@
     "status": "resolved"
   },
   "the-fantastic-four-first-steps": {
-    "fetchedAt": "2026-08-30T15:18:16.437Z",
+    "fetchedAt": "2026-08-30T16:45:41.735Z",
     "requestedTitle": "The Fantastic Four: First Steps",
     "source": {
       "description": "Forced to balance their roles as heroes with the strength of their family bond, the Fantastic Four must defend Earth from a ravenous space god called Galactus and his enigmatic herald, the Silver Surfer.",
@@ -73,7 +73,7 @@
     "status": "resolved"
   },
   "captain-marvel": {
-    "fetchedAt": "2026-08-30T15:18:19.746Z",
+    "fetchedAt": "2026-08-30T16:45:44.378Z",
     "requestedTitle": "Captain Marvel",
     "source": {
       "description": "Carol Danvers becomes one of the universe's most powerful heroes when Earth is caught in the middle of a galactic war between two alien races.",
@@ -86,7 +86,7 @@
     "status": "resolved"
   },
   "iron-man": {
-    "fetchedAt": "2026-08-30T15:18:23.803Z",
+    "fetchedAt": "2026-08-30T16:45:47.019Z",
     "requestedTitle": "Iron Man",
     "source": {
       "description": "After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.",
@@ -99,7 +99,7 @@
     "status": "resolved"
   },
   "iron-man-2": {
-    "fetchedAt": "2026-08-30T15:18:27.328Z",
+    "fetchedAt": "2026-08-30T16:45:50.319Z",
     "requestedTitle": "Iron Man 2",
     "source": {
       "description": "With the world now aware of his identity as Iron Man, Tony Stark must contend with both his declining health and a vengeful madman with ties to his father's legacy.",
@@ -112,7 +112,7 @@
     "status": "resolved"
   },
   "the-incredible-hulk": {
-    "fetchedAt": "2026-08-30T15:18:30.782Z",
+    "fetchedAt": "2026-08-30T16:45:52.983Z",
     "requestedTitle": "The Incredible Hulk",
     "source": {
       "description": "Bruce Banner, a scientist on the run from the U.S. Government, must find a cure for the monster he turns into whenever he loses his temper.",
@@ -125,7 +125,7 @@
     "status": "resolved"
   },
   "a-funny-thing-happened-on-the-way-to-thors-hammer": {
-    "fetchedAt": "2026-08-30T15:18:32.702Z",
+    "fetchedAt": "2026-08-30T16:45:54.392Z",
     "requestedTitle": "A Funny Thing Happened on the Way to Thor's Hammer",
     "source": {
       "description": "Agent Coulson stops at a convenience store and deals with a coincidental robbery during his visit.",
@@ -138,7 +138,7 @@
     "status": "resolved"
   },
   "thor": {
-    "fetchedAt": "2026-08-30T15:18:36.532Z",
+    "fetchedAt": "2026-08-30T16:45:57.382Z",
     "requestedTitle": "Thor",
     "source": {
       "description": "The powerful but arrogant god Thor is cast out of Asgard to live amongst humans in Midgard (Earth), where he soon becomes one of their finest defenders.",
@@ -151,20 +151,20 @@
     "status": "resolved"
   },
   "the-consultant": {
-    "fetchedAt": "2026-08-30T15:18:38.682Z",
+    "fetchedAt": "2026-08-30T16:45:59.058Z",
     "requestedTitle": "The Consultant",
     "source": {
-      "description": "Follows a relationship between employee and boss, asking how far we will go to get ahead, and to survive.",
-      "genres": ["comedy", "drama", "thriller"],
-      "imdbUrl": "https://www.imdb.com/title/tt16152716/",
-      "posterUrl": "https://m.media-amazon.com/images/M/MV5BNzEwMWZmZTQtNzdlOC00MDFkLWE5ZWQtYWYxMTA3OWZkNzM5XkEyXkFqcGc@._V1_.jpg",
-      "rating": 6.5,
-      "runtime": "33m"
+      "description": "Agents Coulson and Sitwell plan to derail General Thaddeus \"Thunderbolt\" Ross from interfering with S.H.I.E.L.D. affairs with a very special person.",
+      "genres": ["short", "comedy", "drama", "sciFi"],
+      "imdbUrl": "https://www.imdb.com/title/tt2011118/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BZGMxYzBkMTEtZDljYi00YjM2LTgxMTMtNjFiOWQwMTg0NjhmXkEyXkFqcGc@._V1_.jpg",
+      "rating": 6.3,
+      "runtime": "4m"
     },
     "status": "resolved"
   },
   "the-avengers": {
-    "fetchedAt": "2026-08-30T15:18:43.328Z",
+    "fetchedAt": "2026-08-30T16:46:03.280Z",
     "requestedTitle": "The Avengers",
     "source": {
       "description": "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
@@ -177,7 +177,7 @@
     "status": "resolved"
   },
   "item-47": {
-    "fetchedAt": "2026-08-30T15:18:45.282Z",
+    "fetchedAt": "2026-08-30T16:46:04.852Z",
     "requestedTitle": "Item 47",
     "source": {
       "description": "S.H.I.E.L.D. agent Sitwell is assigned to recover an abandoned Chitauri weapon being used by a young couple robbing a bank.",
@@ -190,7 +190,7 @@
     "status": "resolved"
   },
   "iron-man-3": {
-    "fetchedAt": "2026-08-30T15:18:48.953Z",
+    "fetchedAt": "2026-08-30T16:46:07.933Z",
     "requestedTitle": "Iron Man 3",
     "source": {
       "description": "When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.",
@@ -203,7 +203,7 @@
     "status": "resolved"
   },
   "all-hail-the-king": {
-    "fetchedAt": "2026-08-30T15:18:50.809Z",
+    "fetchedAt": "2026-08-30T16:46:09.565Z",
     "requestedTitle": "All Hail the King",
     "source": {
       "description": "A documentary filmmaker interviews the now-famous Trevor Slattery from behind bars.",
@@ -216,7 +216,7 @@
     "status": "resolved"
   },
   "thor-the-dark-world": {
-    "fetchedAt": "2026-08-30T15:18:53.843Z",
+    "fetchedAt": "2026-08-30T16:46:12.365Z",
     "requestedTitle": "Thor: The Dark World",
     "source": {
       "description": "When the Dark Elves attempt to plunge the universe into darkness, Thor must embark on a perilous and personal journey that will reunite him with doctor Jane Foster.",
@@ -229,7 +229,7 @@
     "status": "resolved"
   },
   "the-punisher-one-last-kill": {
-    "fetchedAt": "2026-08-30T15:18:55.910Z",
+    "fetchedAt": "2026-08-30T16:46:14.106Z",
     "requestedTitle": "The Punisher: One Last Kill",
     "source": {
       "description": "Frank Castle retreats from violence after years of loss, but a criminal bounty drags him back into a brutal fight that forces him to confront what remains of his purpose.",
@@ -242,7 +242,7 @@
     "status": "resolved"
   },
   "captain-america-the-winter-soldier": {
-    "fetchedAt": "2026-08-30T15:18:59.122Z",
+    "fetchedAt": "2026-08-30T16:46:17.286Z",
     "requestedTitle": "Captain America: The Winter Soldier",
     "source": {
       "description": "As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat from history: an assassin known as the Winter Soldier.",
@@ -255,7 +255,7 @@
     "status": "resolved"
   },
   "guardians-of-the-galaxy": {
-    "fetchedAt": "2026-08-30T15:19:02.852Z",
+    "fetchedAt": "2026-08-30T16:46:20.699Z",
     "requestedTitle": "Guardians of the Galaxy",
     "source": {
       "description": "A group of intergalactic criminals must pull together to stop a fanatical warrior with plans to purge the universe.",
@@ -268,7 +268,7 @@
     "status": "resolved"
   },
   "guardians-of-the-galaxy-vol-2": {
-    "fetchedAt": "2026-08-30T15:19:06.369Z",
+    "fetchedAt": "2026-08-30T16:46:23.744Z",
     "requestedTitle": "Guardians of the Galaxy Vol. 2",
     "source": {
       "description": "The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's encounter with his father, the ambitious celestial being Ego.",
@@ -281,7 +281,7 @@
     "status": "resolved"
   },
   "i-am-groot": {
-    "fetchedAt": "2026-08-30T15:19:08.466Z",
+    "fetchedAt": "2026-08-30T16:46:25.210Z",
     "requestedTitle": "I Am Groot",
     "source": {
       "description": "A series of shorts featuring the seedling Groot along with several new and unusual characters.",
@@ -302,7 +302,7 @@
     "status": "resolved"
   },
   "avengers-age-of-ultron": {
-    "fetchedAt": "2026-08-30T15:19:12.515Z",
+    "fetchedAt": "2026-08-30T16:46:28.515Z",
     "requestedTitle": "Avengers: Age of Ultron",
     "source": {
       "description": "When Tony Stark and Bruce Banner try to jump-start a dormant peacekeeping program called Ultron, things go horribly wrong and it's up to Earth's mightiest heroes to stop the villainous Ultron from enacting his terrible plan.",
@@ -315,7 +315,7 @@
     "status": "resolved"
   },
   "ant-man": {
-    "fetchedAt": "2026-08-30T15:19:16.329Z",
+    "fetchedAt": "2026-08-30T16:46:32.225Z",
     "requestedTitle": "Ant-Man",
     "source": {
       "description": "Armed with a super-suit with the astonishing ability to shrink in scale but increase in strength, cat burglar Scott Lang must embrace his inner hero and help his mentor, Dr. Hank Pym, pull off a plan that will save the world.",
@@ -328,7 +328,7 @@
     "status": "resolved"
   },
   "captain-america-civil-war": {
-    "fetchedAt": "2026-08-30T15:19:21.108Z",
+    "fetchedAt": "2026-08-30T16:46:35.704Z",
     "requestedTitle": "Captain America: Civil War",
     "source": {
       "description": "Political involvement in the Avengers' affairs causes a rift between Captain America and Iron Man.",
@@ -341,7 +341,7 @@
     "status": "resolved"
   },
   "black-widow": {
-    "fetchedAt": "2026-08-30T15:19:24.208Z",
+    "fetchedAt": "2026-08-30T16:46:38.252Z",
     "requestedTitle": "Black Widow",
     "source": {
       "description": "Natasha Romanoff confronts the darker parts of her ledger when a dangerous conspiracy with ties to her past arises.",
@@ -354,7 +354,7 @@
     "status": "resolved"
   },
   "black-panther": {
-    "fetchedAt": "2026-08-30T15:19:28.043Z",
+    "fetchedAt": "2026-08-30T16:46:41.593Z",
     "requestedTitle": "Black Panther",
     "source": {
       "description": "T'Challa, heir to the hidden but advanced kingdom of Wakanda, must step forward to lead his people into a new future and must confront a challenger from his country's past.",
@@ -367,7 +367,7 @@
     "status": "resolved"
   },
   "spider-man-homecoming": {
-    "fetchedAt": "2026-08-30T15:19:31.554Z",
+    "fetchedAt": "2026-08-30T16:46:44.212Z",
     "requestedTitle": "Spider-Man: Homecoming",
     "source": {
       "description": "Peter Parker tries to stop Adrian 'The Vulture' Toomes from selling weapons made with advanced Chitauri technology while trying to balance his life as an ordinary high school student.",
@@ -380,7 +380,7 @@
     "status": "resolved"
   },
   "doctor-strange": {
-    "fetchedAt": "2026-08-30T15:19:35.630Z",
+    "fetchedAt": "2026-08-30T16:46:46.407Z",
     "requestedTitle": "Doctor Strange",
     "source": {
       "description": "While on a journey of physical and spiritual healing, a brilliant neurosurgeon is drawn into the world of the mystic arts.",
@@ -393,7 +393,7 @@
     "status": "resolved"
   },
   "thor-ragnarok": {
-    "fetchedAt": "2026-08-30T15:19:39.156Z",
+    "fetchedAt": "2026-08-30T16:46:49.471Z",
     "requestedTitle": "Thor: Ragnarok",
     "source": {
       "description": "Imprisoned on the planet Sakaar, Thor must race against time to return to Asgard and stop Ragnarök, the destruction of his world, at the hands of the powerful and ruthless villain Hela.",
@@ -406,7 +406,7 @@
     "status": "resolved"
   },
   "avengers-infinity-war": {
-    "fetchedAt": "2026-08-30T15:19:43.728Z",
+    "fetchedAt": "2026-08-30T16:46:54.265Z",
     "requestedTitle": "Avengers: Infinity War",
     "source": {
       "description": "The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.",
@@ -419,7 +419,7 @@
     "status": "resolved"
   },
   "avengers-endgame": {
-    "fetchedAt": "2026-08-30T15:19:48.062Z",
+    "fetchedAt": "2026-08-30T16:46:58.468Z",
     "requestedTitle": "Avengers: Endgame",
     "source": {
       "description": "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
@@ -432,7 +432,7 @@
     "status": "resolved"
   },
   "the-falcon-and-the-winter-soldier": {
-    "fetchedAt": "2026-08-30T15:19:50.817Z",
+    "fetchedAt": "2026-08-30T16:47:00.868Z",
     "requestedTitle": "The Falcon and the Winter Soldier",
     "source": {
       "description": "Following the events of 'Avengers: Endgame,' Sam Wilson/Falcon and Bucky Barnes/Winter Soldier team up in a global adventure that tests their abilities -- and their patience.",
@@ -445,7 +445,7 @@
     "status": "resolved"
   },
   "loki-season-1": {
-    "fetchedAt": "2026-08-30T15:24:25.016Z",
+    "fetchedAt": "2026-08-30T16:47:03.425Z",
     "requestedTitle": "Loki Season 1",
     "source": {
       "description": "The mercurial villain Loki resumes his role as the God of Mischief in a new series that takes place after the events of “Avengers: Endgame.”",
@@ -458,7 +458,7 @@
     "status": "resolved"
   },
   "wandavision": {
-    "fetchedAt": "2026-08-30T15:19:55.024Z",
+    "fetchedAt": "2026-08-30T16:47:06.245Z",
     "requestedTitle": "WandaVision",
     "source": {
       "description": "Blends the style of classic sitcoms with the MCU, in which Wanda Maximoff and Vision - two super-powered beings living their ideal suburban lives - begin to suspect that everything is not as it seems.",
@@ -479,7 +479,7 @@
     "status": "resolved"
   },
   "peters-to-do-list": {
-    "fetchedAt": "2026-08-30T15:19:57.220Z",
+    "fetchedAt": "2026-08-30T16:47:07.736Z",
     "requestedTitle": "Peter's To-Do List",
     "source": {
       "description": "On the eve of his departure to Europe, Peter Parker tells Ned Leeds that he has several things to do before they leave.",
@@ -492,7 +492,7 @@
     "status": "resolved"
   },
   "spider-man-far-from-home": {
-    "fetchedAt": "2026-08-30T15:20:00.990Z",
+    "fetchedAt": "2026-08-30T16:47:10.636Z",
     "requestedTitle": "Spider-Man: Far From Home",
     "source": {
       "description": "Peter Parker heads to Europe hoping for a normal summer, but elemental attacks and a mysterious new hero pull him back into a dangerous fight he isn't ready to embrace.",
@@ -505,7 +505,7 @@
     "status": "resolved"
   },
   "shang-chi-and-the-legend-of-the-ten-rings": {
-    "fetchedAt": "2026-08-30T15:20:04.193Z",
+    "fetchedAt": "2026-08-30T16:47:13.449Z",
     "requestedTitle": "Shang-Chi and the Legend of the Ten Rings",
     "source": {
       "description": "Shang-Chi, the master of weaponry-based Kung Fu, is forced to confront his past after being drawn into the Ten Rings organization.",
@@ -518,7 +518,7 @@
     "status": "resolved"
   },
   "eternals": {
-    "fetchedAt": "2026-08-30T15:20:07.459Z",
+    "fetchedAt": "2026-08-30T16:47:15.554Z",
     "requestedTitle": "Eternals",
     "source": {
       "description": "The saga of the Eternals, a race of immortal beings who lived on Earth and shaped its history and civilizations.",
@@ -531,7 +531,7 @@
     "status": "resolved"
   },
   "hawkeye": {
-    "fetchedAt": "2026-08-30T15:20:10.471Z",
+    "fetchedAt": "2026-08-30T16:47:18.068Z",
     "requestedTitle": "Hawkeye",
     "source": {
       "description": "Clint Barton aka Hawkeye has the mission to get back to his family for Christmas. But when a threat from his past shows up, Hawkeye reluctantly teams up with Kate Bishop, a skilled archer and his biggest fan, to unravel a conspiracy.",
@@ -544,7 +544,7 @@
     "status": "resolved"
   },
   "spider-man-no-way-home": {
-    "fetchedAt": "2026-08-30T15:20:13.575Z",
+    "fetchedAt": "2026-08-30T16:47:21.516Z",
     "requestedTitle": "Spider-Man: No Way Home",
     "source": {
       "description": "Peter Parker turns to Doctor Strange after his identity destroys the life he knows, but a magical mistake draws powerful outsiders into his world and forces him to confront what being Spider Man really means.",
@@ -557,7 +557,7 @@
     "status": "resolved"
   },
   "doctor-strange-in-the-multiverse-of-madness": {
-    "fetchedAt": "2026-08-30T15:20:16.780Z",
+    "fetchedAt": "2026-08-30T16:47:24.149Z",
     "requestedTitle": "Doctor Strange in the Multiverse of Madness",
     "source": {
       "description": "Doctor Strange teams up with a mysterious teenage girl who can travel across multiverses, to battle other-universe versions of himself which threaten to wipe out the multiverse. They seek help from the Scarlet Witch, Wong and others.",
@@ -570,7 +570,7 @@
     "status": "resolved"
   },
   "moon-knight": {
-    "fetchedAt": "2026-08-30T15:20:19.645Z",
+    "fetchedAt": "2026-08-30T16:47:26.077Z",
     "requestedTitle": "Moon Knight",
     "source": {
       "description": "Steven Grant discovers he's been granted the powers of an Egyptian moon god. But he soon finds out that these newfound powers can be both a blessing and a curse to his troubled life.",
@@ -583,7 +583,7 @@
     "status": "resolved"
   },
   "black-panther-wakanda-forever": {
-    "fetchedAt": "2026-08-30T15:20:22.667Z",
+    "fetchedAt": "2026-08-30T16:47:29.268Z",
     "requestedTitle": "Black Panther: Wakanda Forever",
     "source": {
       "description": "The people of Wakanda fight to protect their home from intervening world powers as they mourn the death of King T'Challa.",
@@ -596,7 +596,7 @@
     "status": "resolved"
   },
   "echo": {
-    "fetchedAt": "2026-08-30T15:20:26.328Z",
+    "fetchedAt": "2026-08-30T16:47:31.176Z",
     "requestedTitle": "Echo",
     "source": {
       "description": "Maya Lopez must face her past, reconnect with her Native American roots, and embrace the meaning of family and community if she ever hopes to move forward.",
@@ -609,7 +609,7 @@
     "status": "resolved"
   },
   "she-hulk-attorney-at-law": {
-    "fetchedAt": "2026-08-30T15:20:29.381Z",
+    "fetchedAt": "2026-08-30T16:47:33.634Z",
     "requestedTitle": "She-Hulk: Attorney at Law",
     "source": {
       "description": "Jennifer Walters navigates the complicated life of a single, 30-something attorney who also happens to be a green 6-foot-7-inch superpowered Hulk.",
@@ -622,7 +622,7 @@
     "status": "resolved"
   },
   "ms-marvel": {
-    "fetchedAt": "2026-08-30T15:20:31.944Z",
+    "fetchedAt": "2026-08-30T16:47:35.666Z",
     "requestedTitle": "Ms. Marvel",
     "source": {
       "description": "Kamala, a superhero fan with an imagination--particularly when it comes to Captain Marvel--feels like she doesn't fit in at school and sometimes even at home, that is until she gets superpowers like the heroes she admires.",
@@ -643,7 +643,7 @@
     "status": "resolved"
   },
   "thor-love-and-thunder": {
-    "fetchedAt": "2026-08-30T15:20:35.075Z",
+    "fetchedAt": "2026-08-30T16:47:38.099Z",
     "requestedTitle": "Thor: Love and Thunder",
     "source": {
       "description": "Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
@@ -656,7 +656,7 @@
     "status": "resolved"
   },
   "the-guardians-of-the-galaxy-holiday-special": {
-    "fetchedAt": "2026-08-30T15:20:37.671Z",
+    "fetchedAt": "2026-08-30T16:47:40.115Z",
     "requestedTitle": "The Guardians of the Galaxy Holiday Special",
     "source": {
       "description": "Star-Lord, Drax, Rocket, Mantis, and Groot engage in some spirited shenanigans in an all-new original special created for Disney+.",
@@ -669,7 +669,7 @@
     "status": "resolved"
   },
   "the-guardians-of-the-galaxy-vol-3": {
-    "fetchedAt": "2026-08-30T15:20:40.618Z",
+    "fetchedAt": "2026-08-30T16:47:43.413Z",
     "requestedTitle": "The Guardians of the Galaxy Vol. 3",
     "source": {
       "description": "Still reeling from the loss of Gamora, Peter Quill rallies his team to defend the universe and one of their own - a mission that could mean the end of the Guardians if not successful.",
@@ -682,7 +682,7 @@
     "status": "resolved"
   },
   "secret-invasion": {
-    "fetchedAt": "2026-08-30T15:20:43.108Z",
+    "fetchedAt": "2026-08-30T16:47:45.218Z",
     "requestedTitle": "Secret Invasion",
     "source": {
       "description": "Fury and Talos try to stop the Skrulls who have infiltrated the highest spheres of the Marvel Universe.",
@@ -695,7 +695,7 @@
     "status": "resolved"
   },
   "the-marvels": {
-    "fetchedAt": "2026-08-30T15:20:45.874Z",
+    "fetchedAt": "2026-08-30T16:47:47.557Z",
     "requestedTitle": "The Marvels",
     "source": {
       "description": "Carol Danvers gets her powers entangled with those of Kamala Khan and Monica Rambeau, forcing them to work together to save the universe.",
@@ -708,7 +708,7 @@
     "status": "resolved"
   },
   "ant-man-and-the-wasp-quantumania": {
-    "fetchedAt": "2026-08-30T15:20:49.016Z",
+    "fetchedAt": "2026-08-30T16:47:50.051Z",
     "requestedTitle": "Ant-Man and the Wasp: Quantumania",
     "source": {
       "description": "Scott Lang and Hope Van Dyne are dragged into the Quantum Realm, along with Hope's parents and Scott's daughter Cassie. Together they must find a way to escape, but what secrets is Hope's mother hiding? And who is the mysterious Kang?",
@@ -721,7 +721,7 @@
     "status": "resolved"
   },
   "deadpool-and-wolverine": {
-    "fetchedAt": "2026-08-30T15:20:52.889Z",
+    "fetchedAt": "2026-08-30T16:47:53.480Z",
     "requestedTitle": "Deadpool & Wolverine",
     "source": {
       "description": "Deadpool is offered a place in the Marvel Cinematic Universe by the Time Variance Authority, but instead recruits a variant of Wolverine to save his universe from extinction.",
@@ -734,7 +734,7 @@
     "status": "resolved"
   },
   "loki-season-2": {
-    "fetchedAt": "2026-08-30T15:20:54.977Z",
+    "fetchedAt": "2026-08-30T16:47:54.939Z",
     "requestedTitle": "Loki Season 2",
     "source": {
       "description": "The cast and crew of Loki: Season 2 pull back the curtain on Loki's latest MCU adventure.",
@@ -747,7 +747,7 @@
     "status": "resolved"
   },
   "what-if": {
-    "fetchedAt": "2026-08-30T15:20:59.157Z",
+    "fetchedAt": "2026-08-30T16:47:57.453Z",
     "requestedTitle": "What If...?",
     "source": {
       "description": "Exploring pivotal moments from the Marvel Cinematic Universe and turning them on their head, leading the audience into uncharted territory.",
@@ -760,7 +760,7 @@
     "status": "resolved"
   },
   "marvel-zombies": {
-    "fetchedAt": "2026-08-30T15:21:01.452Z",
+    "fetchedAt": "2026-08-30T16:47:59.184Z",
     "requestedTitle": "Marvel Zombies",
     "source": {
       "description": "After the Avengers are overtaken by a zombie plague, a group of survivors discover the key to bringing an end to the super-powered undead, racing across a dystopian landscape and risking their lives to save their world.",
@@ -781,7 +781,7 @@
     "status": "resolved"
   },
   "agatha-all-along": {
-    "fetchedAt": "2026-08-30T15:21:04.179Z",
+    "fetchedAt": "2026-08-30T16:48:01.173Z",
     "requestedTitle": "Agatha All Along",
     "source": {
       "description": "A spell-bound Agatha Harkness regains freedom thanks to a teen's help. Intrigued by his plea, she embarks on the Witches' Road trials to reclaim her powers and discover the teen's motivations.",
@@ -794,7 +794,7 @@
     "status": "resolved"
   },
   "ironheart": {
-    "fetchedAt": "2026-08-30T15:21:06.529Z",
+    "fetchedAt": "2026-08-30T16:48:02.834Z",
     "requestedTitle": "Ironheart",
     "source": {
       "description": "Genius teenage inventor Riri Williams creates the most advanced suit of armor since Iron Man.",
@@ -807,7 +807,7 @@
     "status": "resolved"
   },
   "daredevil-born-again-season-1": {
-    "fetchedAt": "2026-08-30T15:24:27.861Z",
+    "fetchedAt": "2026-08-30T16:48:05.785Z",
     "requestedTitle": "Daredevil: Born Again Season 1",
     "source": {
       "description": "Matt Murdock finds himself on a collision course with Wilson Fisk when their past identities begin to emerge.",
@@ -820,7 +820,7 @@
     "status": "resolved"
   },
   "wonder-man": {
-    "fetchedAt": "2026-08-30T15:21:10.131Z",
+    "fetchedAt": "2026-08-30T16:48:07.668Z",
     "requestedTitle": "Wonder Man",
     "source": {
       "description": "Small-time actor Simon Williams struggles to reckon with his personal life while hiding his super-powers as he tries to land his dream role. Meanwhile, a shady government agent leverages a new friendship in order to save his own job.",
@@ -833,7 +833,7 @@
     "status": "resolved"
   },
   "captain-america-brave-new-world": {
-    "fetchedAt": "2026-08-30T15:21:13.320Z",
+    "fetchedAt": "2026-08-30T16:48:10.066Z",
     "requestedTitle": "Captain America: Brave New World",
     "source": {
       "description": "Sam Wilson, the new Captain America, finds himself in the middle of an international incident and must discover the motive behind a nefarious global plan.",
@@ -846,7 +846,7 @@
     "status": "resolved"
   },
   "thunderbolts": {
-    "fetchedAt": "2026-08-30T15:21:17.039Z",
+    "fetchedAt": "2026-08-30T16:48:12.823Z",
     "requestedTitle": "Thunderbolts*",
     "source": {
       "description": "After finding themselves ensnared in a death trap, an unconventional team of antiheroes must go on a dangerous mission that will force them to confront the darkest corners of their pasts.",
@@ -859,7 +859,7 @@
     "status": "resolved"
   },
   "daredevil-born-again-season-2": {
-    "fetchedAt": "2026-08-30T15:24:29.620Z",
+    "fetchedAt": "2026-08-30T16:48:14.477Z",
     "requestedTitle": "Daredevil: Born Again Season 2",
     "source": {
       "description": "Matt Murdock finds himself on a collision course with Wilson Fisk when their past identities begin to emerge.",
@@ -872,7 +872,7 @@
     "status": "resolved"
   },
   "visionquest": {
-    "fetchedAt": "2026-08-30T15:21:20.110Z",
+    "fetchedAt": "2026-08-30T16:48:15.851Z",
     "requestedTitle": "VisionQuest",
     "source": {
       "description": "Vision is faced with many challenges while trying to regain his memory and humanity.",
@@ -885,7 +885,7 @@
     "status": "resolved"
   },
   "spider-man-brand-new-day": {
-    "fetchedAt": "2026-08-30T15:21:23.094Z",
+    "fetchedAt": "2026-08-30T16:48:18.089Z",
     "requestedTitle": "Spider-Man: Brand New Day",
     "source": {
       "description": "A forgotten Peter Parker lives alone as a full-time Spider-Man until mounting pressure triggers a dangerous change and a powerful new enemy emerges.",
@@ -898,7 +898,7 @@
     "status": "resolved"
   },
   "avengers-doomsday": {
-    "fetchedAt": "2026-08-30T15:21:25.359Z",
+    "fetchedAt": "2026-08-30T16:48:19.785Z",
     "requestedTitle": "Avengers: Doomsday",
     "source": {
       "description": "Heroes from three different worlds must unite when they're thrust together to confront a catastrophic danger that could destroy everything they know.",
@@ -911,7 +911,7 @@
     "status": "resolved"
   },
   "avengers-secret-wars": {
-    "fetchedAt": "2026-08-30T15:21:27.374Z",
+    "fetchedAt": "2026-08-30T16:48:21.153Z",
     "requestedTitle": "Avengers: Secret Wars",
     "source": {
       "description": "Plot Under Wraps",

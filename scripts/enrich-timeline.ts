@@ -1,7 +1,7 @@
 /// <reference types="bun" />
 
 import { resolve } from "node:path";
-import { getTitleDetailsByName, type ITitle } from "@valhalladev/movier";
+import { getTitleDetailsByIMDBId, getTitleDetailsByName, type ITitle } from "@valhalladev/movier";
 import { chronology } from "../app/data/chronology";
 import { log } from "../app/lib/console";
 
@@ -29,6 +29,7 @@ const cachePath = resolve(import.meta.dir, "../app/data/title-metadata.json");
 const refresh = Bun.argv.includes("--refresh");
 const delayMs = 750;
 const seasonSuffix = /\s+Season\s+\d+$/i;
+const imdbIdPattern = /\/title\/(tt\d+)/;
 
 const sleep = (milliseconds: number) =>
     new Promise((resolvePromise) => setTimeout(resolvePromise, milliseconds));
@@ -53,7 +54,17 @@ const selectTitleData = (title: ITitle): CachedTitle => ({
     runtime: title.runtime.title,
 });
 
-const lookupTitle = async (title: string, releaseDate: string): Promise<ITitle> => {
+const lookupTitle = async (
+    title: string,
+    releaseDate: string,
+    imdbUrl?: string
+): Promise<ITitle> => {
+    const imdbId = imdbUrl?.match(imdbIdPattern)?.[1];
+    if (imdbId) {
+        // Existing IMDb IDs are curated identifiers and avoid ambiguous title matches.
+        return getTitleDetailsByIMDBId(imdbId, { tmdbReadAccessToken: token });
+    }
+
     const baseTitle = title.replace(seasonSuffix, "");
     const queries = [...new Set([title, baseTitle])];
     let lastError: unknown;
@@ -96,7 +107,7 @@ for (const entry of chronology) {
     try {
         // Each item is written immediately and delayed to keep the enrichment run API-friendly.
         // biome-ignore lint/performance/noAwaitInLoops: The script intentionally processes one title at a time.
-        const title = await lookupTitle(entry.title, entry.releaseDate);
+        const title = await lookupTitle(entry.title, entry.releaseDate, entry.imdbUrl);
 
         cache[entry.slug] = {
             fetchedAt: new Date().toISOString(),
