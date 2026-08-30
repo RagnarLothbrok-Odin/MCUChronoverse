@@ -125,13 +125,8 @@ function CameraRig({ focusKey, focusX }: CameraRigProps) {
     const controls = useThree((state) => state.controls);
     const invalidate = useThree((state) => state.invalidate);
     const destination = useRef(Number.NaN);
-    const [hasMounted, setHasMounted] = useState(false);
 
     useEffect(() => {
-        if (!hasMounted) {
-            setHasMounted(true);
-            return;
-        }
         destination.current = focusX;
         invalidate();
     }, [focusKey, focusX, invalidate]);
@@ -255,6 +250,7 @@ function TimelineScene({
                 enableDamping
                 enablePan={false}
                 enableRotate
+                enableZoom={false}
                 makeDefault
                 maxDistance={18}
                 minDistance={6}
@@ -284,8 +280,7 @@ export function TimelineOrbit({
     const [webGlSupported, setWebGlSupported] = useState<boolean | null>(null);
     const [reducedMotion, setReducedMotion] = useState(false);
     const [compact, setCompact] = useState(false);
-    const span = Math.max((entries.length - 1) * 2.2, 4);
-    const initialX = entries.length > 8 ? -span / 2 + 7 : 0;
+    const initialX = timelineNodePosition(0, entries.length).x;
     const safeFocusIndex = Math.min(Math.max(focusIndex, 0), Math.max(entries.length - 1, 0));
     const focusX = timelineNodePosition(safeFocusIndex, entries.length).x;
 
