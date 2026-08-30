@@ -106,6 +106,46 @@ a {
   outline-offset: 4px;
 }
 
+.orbit-label {
+  width: max-content;
+  max-width: 10rem;
+  padding: 0.35rem 0.5rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.52rem;
+  line-height: 1.35;
+  color: rgb(244 241 232 / 62%);
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  background: rgb(6 7 9 / 72%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  backdrop-filter: blur(6px);
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.orbit-label span {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-size: 0.45rem;
+  color: var(--gold);
+}
+
+.orbit-label:hover,
+.orbit-label-selected {
+  color: var(--ink);
+  border-color: rgb(230 36 41 / 75%);
+  transform: scale(1.06);
+}
+
+.orbit-label:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

@@ -1,10 +1,12 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
+import dynamic from "next/dynamic";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
     type ChangeEvent,
     type MouseEvent,
+    type ReactNode,
     useCallback,
     useEffect,
     useMemo,
@@ -28,6 +30,22 @@ import {
 import { EntryDetail } from "./entry-detail";
 import { TimelineCard } from "./timeline-card";
 
+const TimelineOrbit = dynamic(
+    () => import("./timeline-orbit").then((module) => module.TimelineOrbit),
+    {
+        loading: () => (
+            <div className="grid min-h-[34rem] place-items-center border border-white/10 bg-black/30">
+                <p className="font-mono text-[0.65rem] text-white/35 uppercase tracking-[0.18em]">
+                    Mapping spatial coordinates
+                </p>
+            </div>
+        ),
+        ssr: false,
+    }
+);
+
+type TimelineView = "orbit" | "timeline";
+
 interface TimelineExplorerProps {
     entries: readonly TimelineEntry[];
 }
@@ -44,6 +62,10 @@ function isMcuPhase(value: string | undefined): value is McuPhase {
     return phases.some((phase) => phase === value);
 }
 
+function parseView(value: string | null): TimelineView {
+    return value === "orbit" ? "orbit" : "timeline";
+}
+
 export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const router = useRouter();
     const pathname = usePathname();
@@ -52,20 +74,32 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const [filters, setFilters] = useState<TimelineFilters>(() =>
         parseTimelineFilters(searchParams)
     );
+    const [view, setView] = useState<TimelineView>(() => parseView(searchParams.get("view")));
     const [selectedEntry, setSelectedEntry] = useState<TimelineEntry | null>(null);
 
     useEffect(() => {
         setFilters(parseTimelineFilters(new URLSearchParams(searchString)));
+        setView(parseView(new URLSearchParams(searchString).get("view")));
     }, [searchString]);
 
-    const updateFilters = useCallback(
-        (nextFilters: TimelineFilters) => {
-            setFilters(nextFilters);
+    const updateUrl = useCallback(
+        (nextFilters: TimelineFilters, nextView: TimelineView) => {
             const nextParams = serializeTimelineFilters(nextFilters);
+            if (nextView === "orbit") {
+                nextParams.set("view", nextView);
+            }
             const query = nextParams.toString();
             router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
         },
         [pathname, router]
+    );
+
+    const updateFilters = useCallback(
+        (nextFilters: TimelineFilters) => {
+            setFilters(nextFilters);
+            updateUrl(nextFilters, view);
+        },
+        [updateUrl, view]
     );
 
     const visibleEntries = useMemo(() => filterTimeline(entries, filters), [entries, filters]);
@@ -103,6 +137,12 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
 
     const resetFilters = useCallback(() => updateFilters(emptyTimelineFilters), [updateFilters]);
     const closeDetail = useCallback(() => setSelectedEntry(null), []);
+    const selectEntryBySlug = useCallback(
+        (slug: string) => {
+            setSelectedEntry(entries.find((item) => item.slug === slug) ?? null);
+        },
+        [entries]
+    );
     const selectEntry = useCallback(
         (event: MouseEvent<HTMLButtonElement>) => {
             const entry = entries.find((item) => item.slug === event.currentTarget.dataset.slug);
@@ -110,6 +150,73 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
         },
         [entries]
     );
+    const handleViewChange = useCallback(
+        (event: MouseEvent<HTMLButtonElement>) => {
+            const nextView = parseView(event.currentTarget.dataset.view ?? null);
+            setView(nextView);
+            updateUrl(filters, nextView);
+        },
+        [filters, updateUrl]
+    );
+    const returnToTimeline = useCallback(() => {
+        setView("timeline");
+        updateUrl(filters, "timeline");
+    }, [filters, updateUrl]);
+
+    let timelineContent: ReactNode;
+    if (visibleEntries.length === 0) {
+        timelineContent = (
+            <motion.div
+                animate={{ opacity: 1, y: 0 }}
+                className="border border-white/10 bg-white/[0.025] px-6 py-20 text-center"
+                initial={{ opacity: 0, y: 8 }}
+                key="empty"
+            >
+                <p className="font-mono text-gold text-xs uppercase tracking-[0.22em]">
+                    No matching branch
+                </p>
+                <h2 className="mt-4 font-semibold text-3xl tracking-[-0.04em]">
+                    Nothing exists at these coordinates.
+                </h2>
+                <button
+                    className="focus-ring mt-6 border border-white/15 px-5 py-2.5 text-sm hover:border-signal"
+                    onClick={resetFilters}
+                    type="button"
+                >
+                    Reset the timeline
+                </button>
+            </motion.div>
+        );
+    } else if (view === "orbit") {
+        timelineContent = (
+            <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }} key="orbit">
+                <TimelineOrbit
+                    entries={visibleEntries}
+                    onReturnToTimeline={returnToTimeline}
+                    onSelect={selectEntryBySlug}
+                    selectedSlug={selectedEntry?.slug}
+                />
+            </motion.div>
+        );
+    } else {
+        timelineContent = (
+            <motion.ol
+                animate={{ opacity: 1 }}
+                className="relative space-y-5 before:absolute before:top-8 before:bottom-8 before:left-[0.61rem] before:w-px before:bg-gradient-to-b before:from-signal before:via-white/20 before:to-transparent md:space-y-8 md:before:left-1/2"
+                initial={{ opacity: 0 }}
+                key="entries"
+            >
+                {visibleEntries.map((entry, index) => (
+                    <TimelineCard
+                        entry={entry}
+                        index={index}
+                        key={entry.slug}
+                        onSelect={selectEntry}
+                    />
+                ))}
+            </motion.ol>
+        );
+    }
 
     return (
         <main className="relative min-h-screen overflow-hidden">
@@ -240,7 +347,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
             </section>
 
             <section
-                className="mx-auto max-w-5xl scroll-mt-52 px-5 py-12 sm:px-8 lg:py-16"
+                className={`mx-auto scroll-mt-52 px-5 py-12 sm:px-8 lg:py-16 ${view === "orbit" ? "max-w-[1500px]" : "max-w-5xl"}`}
                 id="timeline"
             >
                 <div className="mb-10 flex items-center justify-between gap-5 border-white/10 border-b pb-5">
@@ -253,52 +360,34 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                             {visibleEntries.length === 1 ? "entry" : "entries"}
                         </h2>
                     </div>
-                    <div className="flex items-center gap-2 font-mono text-[0.6rem] text-white/30 uppercase tracking-[0.15em]">
-                        <span className="size-1.5 rounded-full bg-signal shadow-[0_0_12px_var(--signal)]" />
-                        Archive online
-                    </div>
+                    <fieldset className="flex border border-white/10 p-1">
+                        <legend className="sr-only">Timeline view</legend>
+                        <button
+                            aria-pressed={view === "timeline"}
+                            className={`focus-ring px-3 py-2 font-mono text-[0.6rem] uppercase tracking-[0.14em] transition-colors ${
+                                view === "timeline" ? "bg-white/10 text-white" : "text-white/35"
+                            }`}
+                            data-view="timeline"
+                            onClick={handleViewChange}
+                            type="button"
+                        >
+                            2D timeline
+                        </button>
+                        <button
+                            aria-pressed={view === "orbit"}
+                            className={`focus-ring px-3 py-2 font-mono text-[0.6rem] uppercase tracking-[0.14em] transition-colors ${
+                                view === "orbit" ? "bg-signal/20 text-white" : "text-white/35"
+                            }`}
+                            data-view="orbit"
+                            onClick={handleViewChange}
+                            type="button"
+                        >
+                            3D orbit
+                        </button>
+                    </fieldset>
                 </div>
 
-                <AnimatePresence mode="wait">
-                    {visibleEntries.length > 0 ? (
-                        <motion.ol
-                            animate={{ opacity: 1 }}
-                            className="relative space-y-5 before:absolute before:top-8 before:bottom-8 before:left-[0.61rem] before:w-px before:bg-gradient-to-b before:from-signal before:via-white/20 before:to-transparent md:space-y-8 md:before:left-1/2"
-                            initial={{ opacity: 0 }}
-                            key="entries"
-                        >
-                            {visibleEntries.map((entry, index) => (
-                                <TimelineCard
-                                    entry={entry}
-                                    index={index}
-                                    key={entry.slug}
-                                    onSelect={selectEntry}
-                                />
-                            ))}
-                        </motion.ol>
-                    ) : (
-                        <motion.div
-                            animate={{ opacity: 1, y: 0 }}
-                            className="border border-white/10 bg-white/[0.025] px-6 py-20 text-center"
-                            initial={{ opacity: 0, y: 8 }}
-                            key="empty"
-                        >
-                            <p className="font-mono text-gold text-xs uppercase tracking-[0.22em]">
-                                No matching branch
-                            </p>
-                            <h2 className="mt-4 font-semibold text-3xl tracking-[-0.04em]">
-                                Nothing exists at these coordinates.
-                            </h2>
-                            <button
-                                className="focus-ring mt-6 border border-white/15 px-5 py-2.5 text-sm hover:border-signal"
-                                onClick={resetFilters}
-                                type="button"
-                            >
-                                Reset the timeline
-                            </button>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                <AnimatePresence mode="wait">{timelineContent}</AnimatePresence>
             </section>
 
             <section
