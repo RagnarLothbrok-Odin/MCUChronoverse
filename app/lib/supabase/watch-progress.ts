@@ -1,9 +1,10 @@
 import { createClient } from "./client";
 
-export async function readRemoteWatchProgress() {
+export async function readRemoteWatchProgress(userId: string) {
     const { data, error } = await createClient()
         .from("watch_progress")
         .select("entry_slug")
+        .eq("user_id", userId)
         .order("watched_at");
     if (error) {
         throw error;
@@ -11,14 +12,14 @@ export async function readRemoteWatchProgress() {
     return data.map(({ entry_slug }) => entry_slug);
 }
 
-export async function addRemoteWatchProgress(slugs: string[]) {
+export async function addRemoteWatchProgress(userId: string, slugs: string[]) {
     if (slugs.length === 0) {
         return;
     }
     const { error } = await createClient()
         .from("watch_progress")
         .upsert(
-            slugs.map((entry_slug) => ({ entry_slug })),
+            slugs.map((entry_slug) => ({ entry_slug, user_id: userId })),
             { onConflict: "user_id,entry_slug" }
         );
     if (error) {
@@ -26,22 +27,27 @@ export async function addRemoteWatchProgress(slugs: string[]) {
     }
 }
 
-export async function setRemoteWatchStatus(slug: string, watched: boolean) {
+export async function setRemoteWatchStatus(userId: string, slug: string, watched: boolean) {
     const query = watched
         ? createClient()
               .from("watch_progress")
-              .upsert({ entry_slug: slug }, { onConflict: "user_id,entry_slug" })
-        : createClient().from("watch_progress").delete().eq("entry_slug", slug);
+              .upsert({ entry_slug: slug, user_id: userId }, { onConflict: "user_id,entry_slug" })
+        : createClient()
+              .from("watch_progress")
+              .delete()
+              .eq("user_id", userId)
+              .eq("entry_slug", slug);
     const { error } = await query;
     if (error) {
         throw error;
     }
 }
 
-export async function clearRemoteWatchProgress() {
+export async function clearRemoteWatchProgress(userId: string) {
     const { error } = await createClient()
         .from("watch_progress")
         .delete()
+        .eq("user_id", userId)
         .not("entry_slug", "is", null);
     if (error) {
         throw error;

@@ -44,6 +44,7 @@ export function useWatchProgress() {
     const [syncError, setSyncError] = useState(false);
     const [watchedSlugs, setWatchedSlugs] = useState<string[]>([]);
     const ownerId = useRef<string | null>(null);
+    const watchedSlugsRef = useRef<string[]>([]);
     const writeQueue = useRef(Promise.resolve());
     const userId = user?.id ?? null;
 
@@ -53,6 +54,13 @@ export function useWatchProgress() {
             .then(write)
             .then(() => setSyncError(false))
             .catch(() => setSyncError(true));
+    }, []);
+
+    const setLocalProgress = useCallback((slugs: string[], snapshotOwner: string | null) => {
+        ownerId.current = snapshotOwner;
+        watchedSlugsRef.current = slugs;
+        setWatchedSlugs(slugs);
+        writeLocalSnapshot({ ownerId: snapshotOwner, slugs, version: 1 });
     }, []);
 
     useEffect(() => {
@@ -81,25 +89,26 @@ export function useWatchProgress() {
             return;
         }
         const localSnapshot = readLocalSnapshot();
-        ownerId.current = localSnapshot.ownerId;
 
         if (!userId) {
-            setWatchedSlugs(localSnapshot.slugs);
+            setLocalProgress(localSnapshot.slugs, localSnapshot.ownerId);
             setLoaded(true);
             return;
         }
 
         let active = true;
+        ownerId.current = userId;
         setLoaded(false);
-        readRemoteWatchProgress()
+        readRemoteWatchProgress(userId)
             .then(async (remoteSlugs) => {
                 const mergedSlugs = mergeWatchProgress(remoteSlugs, localSnapshot, userId);
                 const remoteSet = new Set(remoteSlugs);
-                await addRemoteWatchProgress(mergedSlugs.filter((slug) => !remoteSet.has(slug)));
+                await addRemoteWatchProgress(
+                    userId,
+                    mergedSlugs.filter((slug) => !remoteSet.has(slug))
+                );
                 if (active) {
-                    ownerId.current = userId;
-                    setWatchedSlugs(mergedSlugs);
-                    writeLocalSnapshot({ ownerId: userId, slugs: mergedSlugs, version: 1 });
+                    setLocalProgress(mergedSlugs, userId);
                     setSyncError(false);
                 }
             })
@@ -109,6 +118,7 @@ export function useWatchProgress() {
                         localSnapshot.ownerId === null || localSnapshot.ownerId === userId
                             ? localSnapshot.slugs
                             : [];
+                    watchedSlugsRef.current = safeSlugs;
                     setWatchedSlugs(safeSlugs);
                     setSyncError(true);
                 }
@@ -121,30 +131,27 @@ export function useWatchProgress() {
         return () => {
             active = false;
         };
-    }, [authReady, userId]);
+    }, [authReady, setLocalProgress, userId]);
 
     const toggleWatched = useCallback(
         (slug: string) => {
-            setWatchedSlugs((current) => {
-                const watched = !current.includes(slug);
-                const next = watched ? [...current, slug] : current.filter((item) => item !== slug);
-                writeLocalSnapshot({ ownerId: ownerId.current, slugs: next, version: 1 });
-                if (userId) {
-                    queueRemoteWrite(() => setRemoteWatchStatus(slug, watched));
-                }
-                return next;
-            });
+            const { current } = watchedSlugsRef;
+            const watched = !current.includes(slug);
+            const next = watched ? [...current, slug] : current.filter((item) => item !== slug);
+            setLocalProgress(next, userId ?? ownerId.current);
+            if (userId) {
+                queueRemoteWrite(() => setRemoteWatchStatus(userId, slug, watched));
+            }
         },
-        [queueRemoteWrite, userId]
+        [queueRemoteWrite, setLocalProgress, userId]
     );
 
     const resetWatchProgress = useCallback(() => {
-        setWatchedSlugs([]);
-        writeLocalSnapshot({ ownerId: ownerId.current, slugs: [], version: 1 });
+        setLocalProgress([], userId ?? ownerId.current);
         if (userId) {
-            queueRemoteWrite(clearRemoteWatchProgress);
+            queueRemoteWrite(() => clearRemoteWatchProgress(userId));
         }
-    }, [queueRemoteWrite, userId]);
+    }, [queueRemoteWrite, setLocalProgress, userId]);
 
     const signOut = useCallback(async () => {
         await writeQueue.current;
