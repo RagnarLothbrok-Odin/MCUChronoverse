@@ -146,23 +146,27 @@ a {
   outline-offset: 3px;
 }
 
-.phase-rail {
-  scrollbar-width: none;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 1rem,
-    black calc(100% - 1rem),
-    transparent
-  );
+.timeline-dock {
+  padding: 0 0.8rem;
+  filter: drop-shadow(0 18px 32px rgb(0 0 0 / 45%));
 }
 
-.phase-rail::-webkit-scrollbar {
-  display: none;
+.timeline-dock::before {
+  position: absolute;
+  inset: 1rem -2rem -1.5rem;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background: radial-gradient(ellipse, rgb(0 0 0 / 55%), transparent 68%);
+  filter: blur(10px);
 }
 
 .timeline-scrubber {
+  position: relative;
+  width: calc(100% - 2rem);
   height: 1.8rem;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .timeline-scrubber-track {
@@ -171,13 +175,19 @@ a {
   right: 0;
   left: 0;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgb(255 255 255 / 13%),
-    rgb(255 173 85 / 65%),
-    rgb(255 255 255 / 13%)
-  );
+  background: rgb(255 255 255 / 18%);
   transform: translateY(-50%);
+}
+
+.timeline-scrubber-progress {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #e66c2f, #ffca7a);
+  box-shadow: 0 0 12px rgb(255 122 47 / 75%);
+  transform: translateY(-50%);
+  transition: width 180ms ease;
 }
 
 .timeline-scrubber-input {
@@ -228,26 +238,6 @@ a {
   box-shadow:
     0 0 0 1px rgb(255 173 85 / 75%),
     0 0 20px rgb(255 122 47 / 85%);
-}
-
-.timeline-phase-stops {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  left: 0;
-  z-index: 0;
-  height: 0.9rem;
-  pointer-events: none;
-  transform: translateY(-50%);
-}
-
-.timeline-phase-stop {
-  position: absolute;
-  top: 50%;
-  width: 1px;
-  height: 0.65rem;
-  background: rgb(255 224 163 / 75%);
-  transform: translate(-50%, -50%);
 }
 
 @media (prefers-reduced-motion: reduce) {

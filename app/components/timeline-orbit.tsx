@@ -196,6 +196,7 @@ function TimelineScene({
         );
     }, [points]);
     const span = Math.max((entries.length - 1) * 2.2, 4);
+    const initialTarget = useMemo<[number, number, number]>(() => [initialX, 0, 0], [initialX]);
 
     return (
         <>
@@ -257,7 +258,7 @@ function TimelineScene({
                 minDistance={6}
                 mouseButtons={{ LEFT: MOUSE.PAN, MIDDLE: MOUSE.DOLLY, RIGHT: MOUSE.PAN }}
                 screenSpacePanning
-                target={[initialX, 0, 0]}
+                target={initialTarget}
                 touches={{ ONE: TOUCH.PAN, TWO: TOUCH.DOLLY_PAN }}
             />
             <CameraRig focusKey={focusKey} focusX={focusX} />

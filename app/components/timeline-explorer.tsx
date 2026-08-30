@@ -104,21 +104,8 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     );
 
     const visibleEntries = useMemo(() => filterTimeline(entries, filters), [entries, filters]);
-    const phaseStops = useMemo(
-        () =>
-            phases.map((phase) => {
-                const index = visibleEntries.findIndex((entry) => entry.phase === phase);
-                return {
-                    count: visibleEntries.filter((entry) => entry.phase === phase).length,
-                    index,
-                    phase,
-                    placement: index >= 0 ? visibleEntries[index]?.placement : undefined,
-                    progress:
-                        index >= 0 ? index / Math.max(visibleEntries.length - 1, 1) : undefined,
-                };
-            }),
-        [visibleEntries]
-    );
+    const safeTimelineIndex = Math.min(timelineIndex, Math.max(visibleEntries.length - 1, 0));
+    const activeEntry = visibleEntries[safeTimelineIndex];
     const activeFilterCount =
         filters.types.length + filters.phases.length + (filters.query ? 1 : 0);
 
@@ -165,23 +152,6 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
         },
         [entries, visibleEntries]
     );
-    const handlePhaseJump = useCallback(
-        (event: MouseEvent<HTMLButtonElement>) => {
-            const { phase } = event.currentTarget.dataset;
-            if (!isMcuPhase(phase)) {
-                return;
-            }
-            const index = visibleEntries.findIndex((entry) => entry.phase === phase);
-            if (index < 0) {
-                return;
-            }
-            setSelectedEntry(null);
-            setTimelineIndex(index);
-            setFocusRequest((current) => ({ index, key: current.key + 1 }));
-        },
-        [visibleEntries]
-    );
-
     const handleTimelineChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         const index = Number(event.currentTarget.value);
         if (!Number.isInteger(index)) {
@@ -431,37 +401,36 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
 
             <nav
                 aria-label="Scroll through the timeline"
-                className="absolute bottom-4 left-1/2 z-40 w-[min(58rem,calc(100%-2rem))] -translate-x-1/2 border border-white/14 bg-black/62 p-4 shadow-[0_18px_70px_rgb(0_0_0/58%)] backdrop-blur-2xl sm:bottom-6 sm:p-5"
+                className="timeline-dock absolute bottom-5 left-1/2 z-40 w-[min(34rem,calc(100%-3rem))] -translate-x-1/2 sm:bottom-7"
             >
                 <div className="flex items-end justify-between gap-4">
                     <div>
-                        <p className="font-mono text-[#ffad55] text-[0.55rem] uppercase tracking-[0.18em]">
-                            Temporal index
+                        <p className="font-mono text-[#ffad55] text-[0.5rem] uppercase tracking-[0.2em]">
+                            Sacred timeline
                         </p>
-                        <p className="mt-1 text-white/42 text-xs">
-                            Drag to travel the sacred timeline
+                        <p className="mt-1 truncate font-semibold text-sm text-white/78 tracking-[-0.02em]">
+                            {activeEntry?.title ?? "No matching events"}
                         </p>
                     </div>
-                    <p className="shrink-0 font-mono text-[0.55rem] text-white/32 uppercase tracking-[0.13em]">
+                    <p className="shrink-0 font-mono text-[0.5rem] text-white/35 uppercase tracking-[0.13em]">
                         {visibleEntries.length === 0
                             ? "No events"
-                            : `${String(timelineIndex + 1).padStart(2, "0")} / ${String(visibleEntries.length).padStart(2, "0")}`}
+                            : `${String(safeTimelineIndex + 1).padStart(2, "0")} / ${String(visibleEntries.length).padStart(2, "0")}`}
                     </p>
                 </div>
 
-                <div className="timeline-scrubber mt-4">
+                <div className="timeline-scrubber mt-3">
+                    <div
+                        aria-hidden="true"
+                        className="timeline-scrubber-progress"
+                        style={{
+                            width:
+                                visibleEntries.length > 1
+                                    ? `${(safeTimelineIndex / (visibleEntries.length - 1)) * 100}%`
+                                    : "0%",
+                        }}
+                    />
                     <div aria-hidden="true" className="timeline-scrubber-track" />
-                    <div aria-hidden="true" className="timeline-phase-stops">
-                        {phaseStops.map((stop) =>
-                            stop.progress === undefined ? null : (
-                                <span
-                                    className="timeline-phase-stop"
-                                    key={stop.phase}
-                                    style={{ left: `${stop.progress * 100}%` }}
-                                />
-                            )
-                        )}
-                    </div>
                     <input
                         aria-label="Timeline position"
                         className="timeline-scrubber-input"
@@ -470,37 +439,13 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                         onChange={handleTimelineChange}
                         step="1"
                         type="range"
-                        value={visibleEntries.length > 0 ? timelineIndex : 0}
+                        value={visibleEntries.length > 0 ? safeTimelineIndex : 0}
                     />
                 </div>
-
-                <div className="phase-rail mt-3 flex gap-2 overflow-x-auto pb-1">
-                    {phaseStops.map((stop, index) => {
-                        const active = stop.index >= 0 && timelineIndex >= stop.index;
-                        const disabled = stop.index < 0;
-                        return (
-                            <button
-                                aria-current={timelineIndex === stop.index ? "step" : undefined}
-                                className={`focus-ring shrink-0 rounded-full border px-3 py-2 text-left transition-colors ${
-                                    active
-                                        ? "border-[#ff9b4a]/55 bg-[#ff8a3d]/10 text-white"
-                                        : "border-white/10 text-white/38 hover:border-white/22 hover:text-white/70"
-                                } disabled:cursor-not-allowed disabled:opacity-25`}
-                                data-phase={stop.phase}
-                                disabled={disabled}
-                                key={stop.phase}
-                                onClick={handlePhaseJump}
-                                type="button"
-                            >
-                                <span className="font-mono text-[0.5rem] uppercase tracking-[0.14em]">
-                                    0{index + 1} / {stop.phase.replace("Phase ", "")}
-                                </span>
-                                <span className="ml-2 font-mono text-[#ffb05e]/65 text-[0.48rem] uppercase tracking-[0.1em]">
-                                    {stop.placement ?? "No events"}
-                                </span>
-                            </button>
-                        );
-                    })}
+                <div className="mt-2 flex items-center justify-between font-mono text-[0.47rem] text-white/28 uppercase tracking-[0.14em]">
+                    <span>{visibleEntries[0]?.placement ?? "Origin"}</span>
+                    <span className="text-[#ffb05e]/65">Drag to travel</span>
+                    <span>{visibleEntries.at(-1)?.placement ?? "Destination"}</span>
                 </div>
             </nav>
         </main>
