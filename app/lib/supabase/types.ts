@@ -4,7 +4,7 @@ export interface Database {
             watch_progress: {
                 Insert: {
                     entry_slug: string;
-                    user_id: string;
+                    user_id?: string;
                     watched_at?: string;
                 };
                 Relationships: [];
