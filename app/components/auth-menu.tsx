@@ -176,14 +176,6 @@ export function AuthMenu() {
                         ? "Need an account? Register with email"
                         : "Already registered? Sign in"}
                 </button>
-                <button
-                    className="focus-ring timeline-auth-switch"
-                    // biome-ignore lint/performance/noJsxPropsBind: This closes the local modal.
-                    onClick={() => setOpen(false)}
-                    type="button"
-                >
-                    Not now
-                </button>
             </section>
         </div>
     );
