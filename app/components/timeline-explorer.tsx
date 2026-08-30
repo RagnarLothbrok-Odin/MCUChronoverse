@@ -10,6 +10,7 @@ import {
     useCallback,
     useEffect,
     useMemo,
+    useRef,
     useState,
 } from "react";
 import {
@@ -190,6 +191,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const [focusRequest, setFocusRequest] = useState<FocusRequest>({ index: 0, key: 0 });
     const [selectedEntry, setSelectedEntry] = useState<TimelineEntry | null>(null);
     const [hasRenderedTimeline, setHasRenderedTimeline] = useState(false);
+    const filtersRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
         setFilters(parseTimelineFilters(new URLSearchParams(searchString)));
@@ -205,6 +207,22 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
         window.addEventListener("keydown", handleEscape);
         return () => window.removeEventListener("keydown", handleEscape);
     }, []);
+
+    useEffect(() => {
+        if (!filtersOpen) {
+            return;
+        }
+
+        const handleOutsidePointerDown = (event: PointerEvent) => {
+            const { target } = event;
+            if (target instanceof Node && !filtersRef.current?.contains(target)) {
+                setFiltersOpen(false);
+            }
+        };
+
+        document.addEventListener("pointerdown", handleOutsidePointerDown);
+        return () => document.removeEventListener("pointerdown", handleOutsidePointerDown);
+    }, [filtersOpen]);
 
     const updateFilters = useCallback(
         (nextFilters: TimelineFilters) => {
@@ -337,32 +355,38 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                 </div>
             </header>
 
-            <aside className="absolute top-5 right-5 z-40 w-[min(23rem,calc(100%-2.5rem))] sm:top-7 sm:right-7">
+            <aside
+                className="absolute top-5 right-5 z-40 w-[min(21rem,calc(100%-2.5rem))] sm:top-7 sm:right-7"
+                ref={filtersRef}
+            >
                 <div className="flex justify-end">
                     <button
                         aria-controls="timeline-filters"
                         aria-expanded={filtersOpen}
-                        className="focus-ring flex h-11 items-center gap-3 border border-white/14 bg-black/58 px-4 font-mono text-[0.63rem] uppercase tracking-[0.16em] shadow-[0_14px_50px_rgb(0_0_0/36%)] backdrop-blur-xl transition-colors hover:border-[#ff9b4a]/55"
+                        aria-label={filtersOpen ? "Close filters" : "Open filters"}
+                        className="focus-ring group grid size-12 place-items-center rounded-full border border-white/15 bg-black/58 shadow-[0_14px_50px_rgb(0_0_0/36%)] backdrop-blur-xl transition-all hover:border-[#ff9b4a]/70 hover:bg-[#171114]/80"
                         onClick={toggleFilters}
                         type="button"
                     >
-                        <span aria-hidden="true" className="flex items-center gap-1">
-                            <span className="h-3 w-px bg-[#ffad55]" />
-                            <span className="h-4 w-px bg-[#ffad55]" />
-                            <span className="h-2 w-px bg-[#ffad55]" />
+                        <span
+                            aria-hidden="true"
+                            className="relative flex size-5 items-center justify-center"
+                        >
+                            <span
+                                className={`absolute h-px w-4 bg-[#ffad55] transition-transform duration-200 ${filtersOpen ? "rotate-45" : "-translate-y-1.5"}`}
+                            />
+                            <span
+                                className={`absolute h-px w-4 bg-[#ffad55] transition-all duration-200 ${filtersOpen ? "opacity-0" : ""}`}
+                            />
+                            <span
+                                className={`absolute h-px w-4 bg-[#ffad55] transition-transform duration-200 ${filtersOpen ? "-rotate-45" : "translate-y-1.5"}`}
+                            />
                         </span>
-                        Filters
                         {activeFilterCount > 0 ? (
-                            <span className="grid size-5 place-items-center rounded-full bg-[#ff8a3d] text-[0.56rem] text-black">
+                            <span className="absolute top-0 right-0 grid size-4 translate-x-1/4 -translate-y-1/4 place-items-center rounded-full bg-[#ff8a3d] font-mono text-[0.5rem] text-black">
                                 {activeFilterCount}
                             </span>
                         ) : null}
-                        <span
-                            aria-hidden="true"
-                            className={`text-white/38 transition-transform ${filtersOpen ? "rotate-180" : ""}`}
-                        >
-                            ↓
-                        </span>
                     </button>
                 </div>
 
@@ -370,7 +394,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                     {filtersOpen ? (
                         <motion.div
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            className="mt-2 border border-white/14 bg-[#070709]/88 p-4 shadow-[0_24px_90px_rgb(0_0_0/62%)] backdrop-blur-2xl sm:p-5"
+                            className="mt-3 rounded-2xl border border-white/12 bg-[#08080b]/90 p-4 shadow-[0_24px_90px_rgb(0_0_0/62%)] backdrop-blur-2xl sm:p-5"
                             exit={{ opacity: 0, scale: 0.98, y: -8 }}
                             id="timeline-filters"
                             initial={{ opacity: 0, scale: 0.98, y: -8 }}
@@ -402,7 +426,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                                     /
                                 </span>
                                 <input
-                                    className="focus-ring h-10 w-full border border-white/10 bg-white/[0.035] pr-3 pl-8 text-sm placeholder:text-white/25"
+                                    className="focus-ring h-10 w-full rounded-xl border border-white/10 bg-white/[0.035] pr-3 pl-8 text-sm placeholder:text-white/25"
                                     onChange={handleSearchChange}
                                     placeholder="Search the archive"
                                     type="search"
@@ -420,7 +444,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                                         return (
                                             <button
                                                 aria-pressed={active}
-                                                className={`focus-ring flex items-center justify-between border px-3 py-2.5 text-left text-xs transition-colors ${
+                                                className={`focus-ring flex items-center justify-between rounded-full border px-3 py-2.5 text-left text-xs transition-colors ${
                                                     active
                                                         ? "border-[#ff9b4a]/60 bg-[#ff8a3d]/12 text-white"
                                                         : "border-white/8 text-white/42 hover:border-white/20"
