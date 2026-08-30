@@ -9,7 +9,7 @@ export const chronology = [
         genres: ["animation", "action", "adventure", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt13968252/",
         note: "Marvel has not assigned the series to a numbered MCU phase.",
-        placement: "Ancient history",
+        placement: "1260 BC to 1896 AD",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BZjhhOTE5ODgtNDFjOS00ZTdlLTgzYjAtNGU1NmM4YzkwYWMxXkEyXkFqcGc@._V1_.jpg",
         rating: 6.2,
@@ -29,7 +29,7 @@ export const chronology = [
         genres: ["action", "adventure", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt0458339/",
         phase: "Phase One",
-        placement: "1943 to 1945",
+        placement: "1942 to 1945",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BNzUyM2YyY2MtNzNlMS00MWU5LTgxNjAtNzZlNmI2NjU2NDZlXkEyXkFqcGc@._V1_.jpg",
         rating: 6.9,
@@ -130,7 +130,7 @@ export const chronology = [
         genres: ["action", "adventure", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt0371746/",
         phase: "Phase One",
-        placement: "2010",
+        placement: "2008",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_.jpg",
         rating: 7.9,
