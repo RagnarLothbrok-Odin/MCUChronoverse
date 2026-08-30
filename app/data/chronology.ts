@@ -1175,7 +1175,7 @@ export const chronology = [
         genres: ["action", "adventure", "fantasy", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt13623126/",
         phase: "Phase Five",
-        placement: "After Wakanda Forever",
+        placement: "2025",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BN2EzMGZhOTktYjVhZi00NmIwLWIxZDEtNWUxZTQyNjhkYWQ4XkEyXkFqcGc@._V1_.jpg",
         rating: 4.5,
@@ -1275,7 +1275,7 @@ export const chronology = [
         genres: ["action", "crime", "drama", "fantasy", "sciFi", "thriller"],
         imdbUrl: "https://www.imdb.com/title/tt18923754/",
         phase: "Phase Six",
-        placement: "After Season 1",
+        placement: "2027",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BNDBkMWRhMzEtM2M0Ny00OGZhLThkZGMtMTY1NWUwZWNhODdiXkEyXkFqcGc@._V1_.jpg",
         rating: 8.1,
@@ -1296,7 +1296,7 @@ export const chronology = [
         imdbUrl: "https://www.imdb.com/title/tt23112594/",
         note: "Provisional placement until the series establishes its in-universe date.",
         phase: "Phase Six",
-        placement: "After WandaVision",
+        placement: "2026",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BY2FlNjIxMDktMGYyZi00NjY3LWI4YjctYTcxNzc2MDUwYjZmXkEyXkFqcGc@._V1_.jpg",
         rating: 0,
@@ -1316,7 +1316,7 @@ export const chronology = [
         genres: ["action", "adventure", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt22084616/",
         phase: "Phase Six",
-        placement: "After No Way Home",
+        placement: "2026",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BOWNjYWM3NWItOGE0ZS00MWRjLThiZWEtYjc4ZmNmMmU5ZTVmXkEyXkFqcGc@._V1_.jpg",
         rating: 8,
@@ -1336,7 +1336,7 @@ export const chronology = [
         genres: ["action", "adventure", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt21357150/",
         phase: "Phase Six",
-        placement: "After the Multiverse Saga escalates",
+        placement: "2026",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BNGEwYWZkN2UtOTQ5Mi00MGQzLWEzNjYtMWMyNDBkMTkzMWNkXkEyXkFqcGc@._V1_.jpg",
         rating: 0,
@@ -1355,7 +1355,7 @@ export const chronology = [
         genres: ["action", "adventure", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt21361444/",
         phase: "Phase Six",
-        placement: "After Avengers: Doomsday",
+        placement: "2027",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BYTQyZTQ5MWQtN2M4NC00YWQwLTg3ZTctM2JiZDE4NDBkZDJkXkEyXkFqcGc@._V1_.jpg",
         rating: 0,
