@@ -1248,6 +1248,14 @@ a {
   border-radius: 0.7rem;
 }
 
+.timeline-watchlist-sync-error {
+  margin-top: 0.55rem;
+  font-size: 0.62rem;
+  line-height: 1.45;
+  color: rgb(255 156 139 / 78%);
+  text-align: center;
+}
+
 .timeline-auth-oauth:hover,
 .timeline-watchlist-account:hover {
   color: #fff;

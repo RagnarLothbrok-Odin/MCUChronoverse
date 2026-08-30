@@ -1,35 +1,49 @@
-import type { User } from "@supabase/supabase-js";
 import { createClient } from "./client";
 
-export async function syncWatchProgress(user: User, localSlugs: string[]) {
-    const supabase = createClient();
-    const { data } = await supabase
+export async function readRemoteWatchProgress() {
+    const { data, error } = await createClient()
         .from("watch_progress")
         .select("entry_slug")
-        .eq("user_id", user.id);
-    const remoteSlugs = (data ?? [])
-        .map((row) => row.entry_slug)
-        .filter((slug): slug is string => typeof slug === "string");
-    const mergedSlugs = [...new Set([...remoteSlugs, ...localSlugs])];
-    if (mergedSlugs.length > 0) {
-        await supabase.from("watch_progress").upsert(
-            mergedSlugs.map((entry_slug) => ({ entry_slug, user_id: user.id })),
-            { onConflict: "user_id,entry_slug" }
-        );
+        .order("watched_at");
+    if (error) {
+        throw error;
     }
-    return mergedSlugs;
+    return data.map(({ entry_slug }) => entry_slug);
 }
 
-export function persistWatchChange(user: User | null, slug: string, watched: boolean) {
-    if (!user) {
+export async function addRemoteWatchProgress(slugs: string[]) {
+    if (slugs.length === 0) {
         return;
     }
-    const supabase = createClient();
-    if (watched) {
-        supabase
-            .from("watch_progress")
-            .upsert({ entry_slug: slug, user_id: user.id }, { onConflict: "user_id,entry_slug" });
-    } else {
-        supabase.from("watch_progress").delete().eq("user_id", user.id).eq("entry_slug", slug);
+    const { error } = await createClient()
+        .from("watch_progress")
+        .upsert(
+            slugs.map((entry_slug) => ({ entry_slug })),
+            { onConflict: "user_id,entry_slug" }
+        );
+    if (error) {
+        throw error;
+    }
+}
+
+export async function setRemoteWatchStatus(slug: string, watched: boolean) {
+    const query = watched
+        ? createClient()
+              .from("watch_progress")
+              .upsert({ entry_slug: slug }, { onConflict: "user_id,entry_slug" })
+        : createClient().from("watch_progress").delete().eq("entry_slug", slug);
+    const { error } = await query;
+    if (error) {
+        throw error;
+    }
+}
+
+export async function clearRemoteWatchProgress() {
+    const { error } = await createClient()
+        .from("watch_progress")
+        .delete()
+        .not("entry_slug", "is", null);
+    if (error) {
+        throw error;
     }
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import type { User } from "@supabase/supabase-js";
 import { AnimatePresence, motion } from "motion/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -22,8 +21,7 @@ import {
     phases,
     type TimelineEntry,
 } from "../data/types";
-import { createClient } from "../lib/supabase/client";
-import { persistWatchChange, syncWatchProgress } from "../lib/supabase/watch-progress";
+import { useWatchProgress } from "../hooks/use-watch-progress";
 import {
     emptyTimelineFilters,
     filterTimeline,
@@ -81,33 +79,6 @@ interface TimelineDetailProps {
     onClose: () => void;
     onToggleWatched: () => void;
     watched: boolean;
-}
-
-const WATCHED_STORAGE_KEY = "mcu-chronoverse:watched";
-
-function readWatchedSlugs(): string[] {
-    if (typeof document === "undefined") {
-        return [];
-    }
-
-    try {
-        const stored = window.localStorage.getItem(WATCHED_STORAGE_KEY);
-        if (!stored) {
-            return [];
-        }
-        const slugs = JSON.parse(stored);
-        return Array.isArray(slugs) && slugs.every((slug) => typeof slug === "string") ? slugs : [];
-    } catch {
-        return [];
-    }
-}
-
-function writeWatchedSlugs(slugs: string[]) {
-    try {
-        window.localStorage.setItem(WATCHED_STORAGE_KEY, JSON.stringify(slugs));
-    } catch {
-        // Storage can be unavailable in restricted browser modes; in-memory state still works.
-    }
 }
 
 function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDetailProps) {
@@ -244,36 +215,21 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const [timelineIndex, setTimelineIndex] = useState(0);
     const [focusRequest, setFocusRequest] = useState<FocusRequest>({ index: 0, key: 0 });
     const [selectedEntry, setSelectedEntry] = useState<TimelineEntry | null>(null);
-    const [watchedSlugs, setWatchedSlugs] = useState<string[]>([]);
     const [hasRenderedTimeline, setHasRenderedTimeline] = useState(false);
-    const [watchProgressLoaded, setWatchProgressLoaded] = useState(false);
-    const [authUser, setAuthUser] = useState<User | null>(null);
+    const {
+        loaded: watchProgressLoaded,
+        resetWatchProgress,
+        signOut,
+        syncError,
+        toggleWatched,
+        user: authUser,
+        watchedSlugs,
+    } = useWatchProgress();
     const [pendingWatchSlug, setPendingWatchSlug] = useState<string | null>(null);
     const [pendingWatchReturnIndex, setPendingWatchReturnIndex] = useState<number | null>(null);
     const filtersRef = useRef<HTMLElement>(null);
     const watchlistRef = useRef<HTMLElement>(null);
     const pendingWatchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-    useEffect(() => {
-        const supabase = createClient();
-        supabase.auth.getUser().then(({ data }) => setAuthUser(data.user));
-        const {
-            data: { subscription },
-        } = supabase.auth.onAuthStateChange((_event, session) =>
-            setAuthUser(session?.user ?? null)
-        );
-        return () => subscription.unsubscribe();
-    }, []);
-
-    useEffect(() => {
-        if (!authUser) {
-            return;
-        }
-        syncWatchProgress(authUser, readWatchedSlugs()).then((mergedSlugs) => {
-            setWatchedSlugs(mergedSlugs);
-            writeWatchedSlugs(mergedSlugs);
-        });
-    }, [authUser]);
 
     useEffect(() => {
         setFilters(parseTimelineFilters(new URLSearchParams(searchString)));
@@ -345,33 +301,19 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const toggleFilters = useCallback(() => setFiltersOpen((current) => !current), []);
     const toggleWatchlist = useCallback(() => setWatchlistOpen((current) => !current), []);
     const closeDetail = useCallback(() => setSelectedEntry(null), []);
-    const toggleWatched = useCallback(
-        (slug: string) => {
-            setWatchedSlugs((current) => {
-                const next = current.includes(slug)
-                    ? current.filter((item) => item !== slug)
-                    : [...current, slug];
-                writeWatchedSlugs(next);
-                persistWatchChange(authUser, slug, next.includes(slug));
-                return next;
-            });
-        },
-        [authUser]
-    );
     const resetWatchStatus = useCallback(() => {
         clearTimeout(pendingWatchTimeout.current ?? undefined);
         setPendingWatchSlug(null);
         setPendingWatchReturnIndex(null);
-        setWatchedSlugs([]);
-        writeWatchedSlugs([]);
-    }, []);
-    const handleWatchMenuAuth = useCallback(() => {
+        resetWatchProgress();
+    }, [resetWatchProgress]);
+    const handleWatchMenuAuth = useCallback(async () => {
         if (authUser) {
-            createClient().auth.signOut();
+            await signOut();
         } else {
             window.dispatchEvent(new Event("mcu-chronoverse:open-auth"));
         }
-    }, [authUser]);
+    }, [authUser, signOut]);
     const toggleSelectedWatched = useCallback(() => {
         if (selectedEntry) {
             toggleWatched(selectedEntry.slug);
@@ -499,9 +441,8 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
         setSelectedEntry((current) =>
             current && visibleEntries.some((entry) => entry.slug === current.slug) ? current : null
         );
-        const storedWatchedSlugs = watchProgressLoaded ? readWatchedSlugs() : [];
         const firstUnwatchedIndex = visibleEntries.findIndex(
-            (entry) => !storedWatchedSlugs.includes(entry.slug)
+            (entry) => !watchedSlugs.includes(entry.slug)
         );
         const resetIndex = firstUnwatchedIndex >= 0 ? firstUnwatchedIndex : 0;
         setTimelineIndex(resetIndex);
@@ -509,21 +450,6 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
             setFocusRequest((current) => ({ index: resetIndex, key: current.key + 1 }));
         }
         setHasRenderedTimeline(true);
-    }, [visibleEntries, watchProgressLoaded]);
-
-    useEffect(() => {
-        if (watchProgressLoaded) {
-            return;
-        }
-        setWatchProgressLoaded(true);
-        const storedWatchedSlugs = readWatchedSlugs();
-        setWatchedSlugs(storedWatchedSlugs);
-        const firstUnwatchedIndex = visibleEntries.findIndex(
-            (entry) => !storedWatchedSlugs.includes(entry.slug)
-        );
-        const initialIndex = firstUnwatchedIndex >= 0 ? firstUnwatchedIndex : 0;
-        setTimelineIndex(initialIndex);
-        setFocusRequest((current) => ({ index: initialIndex, key: current.key + 1 }));
     }, [visibleEntries, watchProgressLoaded]);
 
     return (
@@ -702,6 +628,11 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                                     ? "Sign out of synced archive"
                                     : "Sign in to sync across devices"}
                             </button>
+                            {authUser && syncError ? (
+                                <p className="timeline-watchlist-sync-error">
+                                    Sync paused. Your progress is still saved on this device.
+                                </p>
+                            ) : null}
                         </motion.div>
                     ) : null}
                 </AnimatePresence>
