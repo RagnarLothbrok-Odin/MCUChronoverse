@@ -3,6 +3,7 @@
 import type { User } from "@supabase/supabase-js";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createClient } from "../lib/supabase/client";
+import { isSupabaseConfigured } from "../lib/supabase/config";
 import {
     clearRemoteWatchProgress,
     readRemoteWatchProgress,
@@ -65,6 +66,10 @@ export function useWatchProgress() {
     }, []);
 
     useEffect(() => {
+        if (!isSupabaseConfigured) {
+            setAuthReady(true);
+            return;
+        }
         const supabase = createClient();
         let active = true;
         supabase.auth.getUser().then(({ data }) => {
@@ -147,6 +152,9 @@ export function useWatchProgress() {
     }, [queueRemoteWrite, setScopedProgress, userId]);
 
     const signOut = useCallback(async () => {
+        if (!isSupabaseConfigured) {
+            return;
+        }
         await writeQueue.current;
         const { error } = await createClient().auth.signOut({ scope: "local" });
         if (error) {

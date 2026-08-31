@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { log } from "./app/lib/console";
+import { isSupabaseConfigured } from "./app/lib/supabase/config";
 
 const globalForBoot = globalThis as typeof globalThis & { __portalBooted?: boolean };
 
@@ -37,6 +38,9 @@ export function registerNode(): void {
         runtime: runtimeLabel(),
         version: `v${pkg.version}`,
     });
+    if (process.env.NODE_ENV === "development" && !isSupabaseConfigured) {
+        log.warn("Supabase is not configured: authentication and synced watch progress are disabled.");
+    }
 }
 
 export function logRequestError(

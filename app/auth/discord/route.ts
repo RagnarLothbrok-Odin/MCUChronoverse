@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { log } from "../../lib/console";
 import { siteOrigin } from "../../lib/site-origin";
+import { isSupabaseConfigured } from "../../lib/supabase/config";
 import { createClient } from "../../lib/supabase/server";
 
 function failedAuthRedirect(origin: string) {
@@ -9,6 +10,10 @@ function failedAuthRedirect(origin: string) {
 
 export async function GET() {
     const origin = siteOrigin({ requireConfigured: process.env.NODE_ENV === "production" });
+
+    if (!isSupabaseConfigured) {
+        return failedAuthRedirect(origin);
+    }
 
     try {
         const supabase = await createClient();

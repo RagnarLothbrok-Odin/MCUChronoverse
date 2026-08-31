@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createClient } from "../lib/supabase/client";
+import { isSupabaseConfigured } from "../lib/supabase/config";
 
 type AuthMode = "forgot-password" | "reset-complete" | "reset-password" | "sign-in" | "sign-up";
 type PendingAction = "discord" | "email" | null;
@@ -307,6 +308,10 @@ export function AuthMenu() {
     }, [close, open]);
 
     const handleOAuth = useCallback(() => {
+        if (!isSupabaseConfigured) {
+            setOauthError("Authentication is unavailable because Supabase is not configured.");
+            return;
+        }
         setPendingAction("discord");
         setOauthError(null);
         setMessage(null);
@@ -478,6 +483,11 @@ export function AuthMenu() {
                 <p className="timeline-auth-copy" id="timeline-auth-description">
                     {content.copy}
                 </p>
+                {isSupabaseConfigured ? null : (
+                    <p className="timeline-auth-error" role="alert">
+                        Authentication is unavailable in this development environment.
+                    </p>
+                )}
                 {callbackError ? (
                     <p className="timeline-auth-error" role="alert">
                         {callbackError}
