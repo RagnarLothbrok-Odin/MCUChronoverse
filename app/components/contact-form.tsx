@@ -196,7 +196,7 @@ export function ContactForm({ entries, turnstileSiteKey }: ContactFormProps) {
         <form className="grid gap-6" onSubmit={handleSubmit}>
             <div className="grid gap-4">
                 <label className="grid gap-2">
-                    <span className="font-mono text-[0.62rem] text-white/45 uppercase tracking-[0.16em]">
+                    <span className="font-mono text-[0.7rem] text-white/45 uppercase tracking-[0.16em]">
                         What needs attention?
                     </span>
                     <select
@@ -220,7 +220,7 @@ export function ContactForm({ entries, turnstileSiteKey }: ContactFormProps) {
                     className={`relative grid gap-2 transition-opacity ${entryRequired ? "opacity-100" : "opacity-35"}`}
                     ref={entryPickerRef}
                 >
-                    <span className="font-mono text-[0.62rem] text-white/45 uppercase tracking-[0.16em]">
+                    <span className="font-mono text-[0.7rem] text-white/45 uppercase tracking-[0.16em]">
                         Timeline entry
                     </span>
                     <button
@@ -257,7 +257,7 @@ export function ContactForm({ entries, turnstileSiteKey }: ContactFormProps) {
                         </span>
                     </button>
                     {entryError ? (
-                        <p className="font-mono text-[#ff8a6a] text-[0.58rem] uppercase tracking-[0.1em]">
+                        <p className="font-mono text-[#ff8a6a] text-[0.7rem] uppercase tracking-[0.1em]">
                             Select the timeline entry this report is about.
                         </p>
                     ) : null}
@@ -313,7 +313,7 @@ export function ContactForm({ entries, turnstileSiteKey }: ContactFormProps) {
             </div>
 
             <label className="grid gap-2">
-                <span className="font-mono text-[0.62rem] text-white/45 uppercase tracking-[0.16em]">
+                <span className="font-mono text-[0.7rem] text-white/45 uppercase tracking-[0.16em]">
                     What is currently wrong?
                 </span>
                 <textarea
@@ -326,7 +326,7 @@ export function ContactForm({ entries, turnstileSiteKey }: ContactFormProps) {
             </label>
 
             <label className="grid gap-2">
-                <span className="font-mono text-[0.62rem] text-white/45 uppercase tracking-[0.16em]">
+                <span className="font-mono text-[0.7rem] text-white/45 uppercase tracking-[0.16em]">
                     What should it be?
                 </span>
                 <textarea
@@ -339,7 +339,7 @@ export function ContactForm({ entries, turnstileSiteKey }: ContactFormProps) {
             </label>
 
             <label className="grid gap-2">
-                <span className="font-mono text-[0.62rem] text-white/45 uppercase tracking-[0.16em]">
+                <span className="font-mono text-[0.7rem] text-white/45 uppercase tracking-[0.16em]">
                     Supporting source <span className="text-white/20">Optional</span>
                 </span>
                 <input
@@ -352,7 +352,7 @@ export function ContactForm({ entries, turnstileSiteKey }: ContactFormProps) {
             </label>
 
             <label className="grid gap-2">
-                <span className="font-mono text-[0.62rem] text-white/45 uppercase tracking-[0.16em]">
+                <span className="font-mono text-[0.7rem] text-white/45 uppercase tracking-[0.16em]">
                     Additional context <span className="text-white/20">Optional</span>
                 </span>
                 <textarea
@@ -365,7 +365,7 @@ export function ContactForm({ entries, turnstileSiteKey }: ContactFormProps) {
 
             <div className="contact-verification">
                 <div>
-                    <p className="font-mono text-[0.62rem] text-white/45 uppercase tracking-[0.16em]">
+                    <p className="font-mono text-[0.7rem] text-white/45 uppercase tracking-[0.16em]">
                         Spam protection
                     </p>
                     <p className="mt-1 text-white/30 text-xs leading-5">

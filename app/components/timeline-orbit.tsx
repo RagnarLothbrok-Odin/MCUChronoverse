@@ -808,7 +808,7 @@ export function TimelineOrbit({
     if (webGlSupported === null) {
         return (
             <div className="grid h-full place-items-center bg-[#020203]">
-                <p className="font-mono text-[0.62rem] text-white/35 uppercase tracking-[0.2em]">
+                <p className="font-mono text-[0.7rem] text-white/35 uppercase tracking-[0.2em]">
                     Calibrating temporal coordinates
                 </p>
             </div>

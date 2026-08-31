@@ -113,7 +113,7 @@ a {
   max-width: 10rem;
   padding: 0.35rem 0.5rem;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.52rem;
+  font-size: 0.62rem;
   line-height: 1.35;
   color: rgb(244 241 232 / 62%);
   text-align: left;
@@ -132,7 +132,7 @@ a {
 .timeline-node-label span {
   display: block;
   margin-bottom: 0.15rem;
-  font-size: 0.45rem;
+  font-size: 0.6rem;
   color: var(--gold);
 }
 
@@ -332,7 +332,7 @@ a {
   min-height: 18rem;
   padding: 1rem;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.52rem;
+  font-size: 0.62rem;
   color: rgb(244 241 232 / 30%);
   text-align: center;
   text-transform: uppercase;
@@ -363,7 +363,7 @@ a {
   z-index: 3;
   padding: 0.3rem 0.45rem;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.48rem;
+  font-size: 0.58rem;
   color: #ffd18a;
   letter-spacing: 0.14em;
   background: rgb(3 4 6 / 72%);
@@ -392,14 +392,14 @@ a {
   align-items: center;
   margin: 0;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.52rem;
+  font-size: 0.62rem;
   color: #ffb05e;
   text-transform: uppercase;
   letter-spacing: 0.15em;
 }
 
 .timeline-detail-eyebrow span {
-  font-size: 0.38rem;
+  font-size: 0.5rem;
   color: rgb(255 176 94 / 45%);
 }
 
@@ -444,7 +444,7 @@ a {
   align-items: center;
   margin-top: 0.85rem;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.5rem;
+  font-size: 0.62rem;
   color: rgb(244 241 232 / 38%);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -510,7 +510,7 @@ a {
 
 .timeline-detail-credits-label {
   padding-right: 0.15rem;
-  font-size: 0.5rem;
+  font-size: 0.62rem;
   color: rgb(255 255 255 / 42%);
 }
 
@@ -530,13 +530,13 @@ a {
 }
 
 .timeline-detail-credits-statuses dt {
-  font-size: 0.48rem;
+  font-size: 0.58rem;
   color: rgb(255 255 255 / 34%);
 }
 
 .timeline-detail-credits-statuses dd {
   margin: 0;
-  font-size: 0.56rem;
+  font-size: 0.66rem;
   color: rgb(255 255 255 / 46%);
 }
 
@@ -555,7 +555,7 @@ a {
 .timeline-detail-genres span {
   padding: 0.28rem 0.52rem;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.45rem;
+  font-size: 0.6rem;
   color: rgb(244 241 232 / 48%);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -644,7 +644,7 @@ a {
 }
 
 .timeline-detail-watch-copy > span {
-  font-size: 0.4rem;
+  font-size: 0.58rem;
   color: rgb(244 241 232 / 28%);
   letter-spacing: 0.17em;
 }
@@ -652,7 +652,7 @@ a {
 .timeline-detail-watch-copy strong {
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   font-weight: 500;
   color: rgb(244 241 232 / 68%);
   letter-spacing: 0.06em;
@@ -665,7 +665,7 @@ a {
 
 .timeline-detail-watch-action {
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.46rem;
+  font-size: 0.58rem;
   color: rgb(244 241 232 / 34%);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -773,7 +773,7 @@ a {
 .timeline-watchlist-heading span:first-child,
 .timeline-watchlist-label {
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.5rem;
+  font-size: 0.62rem;
   color: #ffad55;
   text-transform: uppercase;
   letter-spacing: 0.16em;
@@ -863,7 +863,7 @@ a {
 
 .timeline-watchlist-tile-copy span {
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.42rem;
+  font-size: 0.6rem;
   color: rgb(244 241 232 / 29%);
   text-transform: uppercase;
   letter-spacing: 0.13em;
@@ -895,7 +895,7 @@ a {
   justify-content: center;
   padding: 0.35rem;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.42rem;
+  font-size: 0.6rem;
   color: rgb(244 241 232 / 48%);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1006,14 +1006,14 @@ a {
 
 .timeline-watchlist-reset-copy strong {
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.5rem;
+  font-size: 0.62rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
 .timeline-watchlist-reset-copy small {
-  font-size: 0.56rem;
+  font-size: 0.66rem;
   color: rgb(244 241 232 / 28%);
 }
 
@@ -1046,13 +1046,13 @@ a {
 }
 
 .timeline-detail-universe span {
-  font-size: 0.42rem;
+  font-size: 0.6rem;
   color: rgb(244 241 232 / 26%);
   letter-spacing: 0.15em;
 }
 
 .timeline-detail-universe strong {
-  font-size: 0.54rem;
+  font-size: 0.64rem;
   font-weight: 500;
   color: rgb(244 241 232 / 58%);
   letter-spacing: 0.1em;
@@ -1186,7 +1186,7 @@ a {
 
 .timeline-auth-kicker {
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.57rem;
+  font-size: 0.67rem;
   color: #ffad55;
   text-transform: uppercase;
   letter-spacing: 0.18em;
@@ -1210,7 +1210,7 @@ a {
   display: grid;
   gap: 0.35rem;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.54rem;
+  font-size: 0.64rem;
   color: rgb(255 255 255 / 42%);
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -1285,7 +1285,7 @@ a {
   padding: 0.7rem;
   margin-top: 0.65rem;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.55rem;
+  font-size: 0.65rem;
   color: rgb(255 173 85 / 78%);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1297,7 +1297,7 @@ a {
 
 .timeline-watchlist-sync-error {
   margin-top: 0.55rem;
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   line-height: 1.45;
   color: rgb(255 156 139 / 78%);
   text-align: center;
@@ -1333,7 +1333,7 @@ a {
 
 .timeline-watchlist-scope strong {
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.5rem;
+  font-size: 0.62rem;
   font-weight: 500;
   color: rgb(244 241 232 / 62%);
   text-transform: uppercase;
@@ -1341,7 +1341,7 @@ a {
 }
 
 .timeline-watchlist-scope small {
-  font-size: 0.56rem;
+  font-size: 0.66rem;
   color: rgb(244 241 232 / 30%);
 }
 
@@ -1361,7 +1361,7 @@ a {
   align-items: center;
   margin: 1rem 0 0.8rem;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.52rem;
+  font-size: 0.62rem;
   color: rgb(255 255 255 / 28%);
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -1393,7 +1393,7 @@ a {
   display: block;
   margin-top: 0.9rem;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.54rem;
+  font-size: 0.64rem;
   color: rgb(255 255 255 / 42%);
   text-align: left;
   letter-spacing: 0.05em;
@@ -1523,7 +1523,7 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: var(--font-mono);
-  font-size: 0.52rem;
+  font-size: 0.62rem;
   color: rgb(255 173 85 / 65%);
   text-transform: uppercase;
   letter-spacing: 0.11em;
@@ -1589,7 +1589,7 @@ a {
   align-items: center;
   padding: 0.85rem 1rem;
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   line-height: 1.55;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -1612,6 +1612,48 @@ a {
   color: #ffad55;
   text-decoration: underline;
   text-underline-offset: 0.22rem;
+}
+
+/* Keep secondary interface copy readable without flattening the larger type scale. */
+:where(
+  .timeline-node-label,
+  .timeline-node-label span,
+  .timeline-detail-poster-fallback,
+  .timeline-detail-order,
+  .timeline-detail-eyebrow,
+  .timeline-detail-facts,
+  .timeline-detail-credits-label,
+  .timeline-detail-credits-statuses dt,
+  .timeline-detail-credits-statuses dd,
+  .timeline-detail-genres span,
+  .timeline-detail-watch-copy > span,
+  .timeline-detail-watch-copy strong,
+  .timeline-detail-watch-action,
+  .timeline-watchlist-count,
+  .timeline-watchlist-heading span:first-child,
+  .timeline-watchlist-label,
+  .timeline-watchlist-tile-copy span,
+  .timeline-watchlist-tile-copy strong,
+  .timeline-watchlist-mark,
+  .timeline-watchlist-reset-copy strong,
+  .timeline-watchlist-reset-copy small,
+  .timeline-detail-universe span,
+  .timeline-detail-universe strong,
+  .timeline-auth-kicker,
+  .timeline-auth-form label,
+  .timeline-watchlist-account,
+  .timeline-watchlist-sync-error,
+  .timeline-watchlist-scope strong,
+  .timeline-watchlist-scope small,
+  .timeline-auth-divider,
+  .timeline-auth-email-submit,
+  .timeline-auth-switch,
+  .timeline-auth-error,
+  .timeline-auth-message,
+  .contact-entry-option-meta,
+  .contact-submission-message
+) {
+  font-size: 0.7rem;
 }
 
 @media (min-width: 640px) {

@@ -40,7 +40,7 @@ const TimelineOrbit = dynamic(
     {
         loading: () => (
             <div className="grid h-full place-items-center bg-[#020203]">
-                <p className="font-mono text-[0.62rem] text-white/35 uppercase tracking-[0.2em]">
+                <p className="font-mono text-[0.7rem] text-white/35 uppercase tracking-[0.2em]">
                     Opening temporal archive
                 </p>
             </div>
@@ -574,7 +574,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                         <p className="font-semibold text-sm uppercase tracking-[0.22em]">
                             MCU <span className="text-white/42">Chronoverse</span>
                         </p>
-                        <nav className="mt-1 flex items-center gap-2 font-mono text-[0.55rem] text-white/30 uppercase tracking-[0.15em]">
+                        <nav className="mt-1 flex items-center gap-2 font-mono text-[0.7rem] text-white/30 uppercase tracking-[0.15em]">
                             <a
                                 className="focus-ring transition-colors hover:text-white/65"
                                 href="/about"
@@ -644,7 +644,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                             />
                         </span>
                         {activeFilterCount > 0 ? (
-                            <span className="absolute top-0 right-0 grid size-4 translate-x-1/4 -translate-y-1/4 place-items-center rounded-full bg-[#ff8a3d] font-mono text-[0.5rem] text-black">
+                            <span className="absolute top-0 right-0 grid size-4 translate-x-1/4 -translate-y-1/4 place-items-center rounded-full bg-[#ff8a3d] font-mono text-[0.625rem] text-black">
                                 {activeFilterCount}
                             </span>
                         ) : null}
@@ -663,7 +663,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                         >
                             <div className="flex items-center justify-between border-white/10 border-b pb-4">
                                 <div>
-                                    <p className="font-mono text-[#ffad55] text-[0.57rem] uppercase tracking-[0.18em]">
+                                    <p className="font-mono text-[#ffad55] text-[0.7rem] uppercase tracking-[0.18em]">
                                         Timeline parameters
                                     </p>
                                     <p className="mt-1 text-white/37 text-xs">
@@ -672,7 +672,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                                 </div>
                                 {activeFilterCount > 0 ? (
                                     <button
-                                        className="focus-ring font-mono text-[0.56rem] text-white/38 uppercase tracking-[0.13em] hover:text-[#ffad55]"
+                                        className="focus-ring font-mono text-[0.7rem] text-white/38 uppercase tracking-[0.13em] hover:text-[#ffad55]"
                                         onClick={resetFilters}
                                         type="button"
                                     >
@@ -696,7 +696,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                             </label>
 
                             <fieldset className="mt-5">
-                                <legend className="font-mono text-[0.55rem] text-white/30 uppercase tracking-[0.16em]">
+                                <legend className="font-mono text-[0.7rem] text-white/30 uppercase tracking-[0.16em]">
                                     Timeline order
                                 </legend>
                                 <div className="mt-2 grid grid-cols-2 gap-2">
@@ -723,7 +723,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                             </fieldset>
 
                             <fieldset className="mt-5">
-                                <legend className="font-mono text-[0.55rem] text-white/30 uppercase tracking-[0.16em]">
+                                <legend className="font-mono text-[0.7rem] text-white/30 uppercase tracking-[0.16em]">
                                     Format
                                 </legend>
                                 <div className="mt-2 grid grid-cols-2 gap-2">
@@ -754,7 +754,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                             </fieldset>
 
                             <fieldset className="mt-5">
-                                <legend className="font-mono text-[0.55rem] text-white/30 uppercase tracking-[0.16em]">
+                                <legend className="font-mono text-[0.7rem] text-white/30 uppercase tracking-[0.16em]">
                                     Phase
                                 </legend>
                                 <div className="mt-2 flex flex-wrap gap-2">
@@ -763,7 +763,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                                         return (
                                             <button
                                                 aria-pressed={active}
-                                                className={`focus-ring rounded-full border px-3 py-1.5 font-mono text-[0.55rem] uppercase tracking-[0.1em] transition-colors ${
+                                                className={`focus-ring rounded-full border px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.1em] transition-colors ${
                                                     active
                                                         ? "border-[#d6b46b]/60 bg-[#d6b46b]/10 text-[#edca7f]"
                                                         : "border-white/10 text-white/32 hover:border-white/22"
@@ -802,14 +802,14 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
             >
                 <div className="flex items-end justify-between gap-4">
                     <div>
-                        <p className="font-mono text-[#ffad55] text-[0.5rem] uppercase tracking-[0.2em]">
+                        <p className="font-mono text-[#ffad55] text-[0.7rem] uppercase tracking-[0.2em]">
                             {timelineOrderHeadings[filters.order]}
                         </p>
                         <p className="mt-1 truncate font-semibold text-sm text-white/78 tracking-[-0.02em]">
                             {activeEntry?.title ?? "No matching events"}
                         </p>
                     </div>
-                    <p className="shrink-0 font-mono text-[0.5rem] text-white/35 uppercase tracking-[0.13em]">
+                    <p className="shrink-0 font-mono text-[0.7rem] text-white/35 uppercase tracking-[0.13em]">
                         {visibleEntries.length === 0
                             ? "No events"
                             : `${String(safeTimelineIndex + 1).padStart(2, "0")} / ${String(visibleEntries.length).padStart(2, "0")}`}
@@ -839,7 +839,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                         value={visibleEntries.length > 0 ? safeTimelineIndex : 0}
                     />
                 </div>
-                <div className="mt-2 flex items-center justify-between font-mono text-[0.47rem] text-white/28 uppercase tracking-[0.14em]">
+                <div className="mt-2 flex items-center justify-between font-mono text-[0.7rem] text-white/28 uppercase tracking-[0.14em]">
                     <span>{visibleEntries[0]?.placement ?? "Origin"}</span>
                     <span className="text-[#ffb05e]/65">Drag to travel</span>
                     <span>{visibleEntries.at(-1)?.placement ?? "Destination"}</span>

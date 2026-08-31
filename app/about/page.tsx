@@ -67,7 +67,7 @@ export default function AboutPage() {
 
                     <aside className="relative overflow-hidden border border-gold/25 bg-[#0d0d0f]/90 p-6 sm:p-7">
                         <span className="absolute top-0 left-0 h-px w-20 bg-gold" />
-                        <p className="font-mono text-[0.65rem] text-gold uppercase tracking-[0.18em]">
+                        <p className="font-mono text-[0.72rem] text-gold uppercase tracking-[0.18em]">
                             First transmission
                         </p>
                         <h2 className="mt-5 font-semibold text-2xl tracking-[-0.035em]">
@@ -93,7 +93,7 @@ export default function AboutPage() {
                             className="group relative bg-[#0a0b0e] p-6 transition-colors hover:bg-[#0d0e12] sm:p-8"
                             key={principle.label}
                         >
-                            <p className="font-mono text-[0.62rem] text-signal uppercase tracking-[0.16em]">
+                            <p className="font-mono text-[0.7rem] text-signal uppercase tracking-[0.16em]">
                                 Protocol 0{index + 1}
                             </p>
                             <span className="absolute top-0 left-0 h-px w-0 bg-signal transition-all duration-300 group-hover:w-full" />
