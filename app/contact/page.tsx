@@ -6,9 +6,28 @@ import { chronology } from "../data/chronology";
 const developmentTurnstileSiteKey = "1x00000000000000000000AA";
 
 export const metadata: Metadata = {
+    alternates: {
+        canonical: "/contact",
+    },
     description:
         "Suggest timeline corrections, missing entries, date updates, and improvements for MCU Chronoverse.",
+    openGraph: {
+        description:
+            "Suggest timeline corrections, missing entries, date updates, and improvements for MCU Chronoverse.",
+        images: ["/og.png"],
+        siteName: "MCU Chronoverse",
+        title: "Contact the archive",
+        type: "website",
+        url: "/contact",
+    },
     title: "Contact the archive",
+    twitter: {
+        card: "summary_large_image",
+        description:
+            "Suggest timeline corrections, missing entries, date updates, and improvements for MCU Chronoverse.",
+        images: ["/og.png"],
+        title: "Contact the archive",
+    },
 };
 
 export default function ContactPage() {

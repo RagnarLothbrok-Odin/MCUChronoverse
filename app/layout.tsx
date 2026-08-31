@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     alternates: {
         canonical: "/",
     },
+    applicationName: "MCU Chronoverse",
     description,
     metadataBase: new URL(siteOrigin()),
     openGraph: {
@@ -35,6 +36,7 @@ export const metadata: Metadata = {
         siteName: "MCU Chronoverse",
         title: "MCU Chronoverse",
         type: "website",
+        url: "/",
     },
     title: {
         default: "MCU Chronoverse",

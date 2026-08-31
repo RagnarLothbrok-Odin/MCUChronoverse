@@ -2,9 +2,28 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+    alternates: {
+        canonical: "/about",
+    },
     description:
         "Learn how MCU Chronoverse organises films, series, specials, shorts, and one-shots into one explorable story timeline.",
+    openGraph: {
+        description:
+            "Learn how MCU Chronoverse organises films, series, specials, shorts, and one-shots into one explorable story timeline.",
+        images: ["/og.png"],
+        siteName: "MCU Chronoverse",
+        title: "About the archive",
+        type: "website",
+        url: "/about",
+    },
     title: "About the archive",
+    twitter: {
+        card: "summary_large_image",
+        description:
+            "Learn how MCU Chronoverse organises films, series, specials, shorts, and one-shots into one explorable story timeline.",
+        images: ["/og.png"],
+        title: "About the archive",
+    },
 };
 
 const currentYear = new Date().getFullYear();

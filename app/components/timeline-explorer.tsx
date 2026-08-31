@@ -571,9 +571,10 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                         616
                     </span>
                     <div>
-                        <p className="font-semibold text-sm uppercase tracking-[0.22em]">
+                        <h1 className="font-semibold text-sm uppercase tracking-[0.22em]">
                             MCU <span className="text-white/42">Chronoverse</span>
-                        </p>
+                            <span className="sr-only"> chronological timeline</span>
+                        </h1>
                         <nav className="mt-1 flex items-center gap-2 font-mono text-[0.7rem] text-white/30 uppercase tracking-[0.15em]">
                             <a
                                 className="focus-ring transition-colors hover:text-white/65"
