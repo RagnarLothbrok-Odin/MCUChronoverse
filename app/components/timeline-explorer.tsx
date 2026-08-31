@@ -25,6 +25,7 @@ import { useWatchProgress } from "../hooks/use-watch-progress";
 import {
     emptyTimelineFilters,
     filterTimeline,
+    isWatchable,
     parseTimelineFilters,
     serializeTimelineFilters,
     type TimelineFilters,
@@ -83,6 +84,14 @@ interface TimelineDetailProps {
 }
 
 function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDetailProps) {
+    const watchable = isWatchable(entry);
+    let watchAction = "Unavailable";
+    let watchLabel = "Not released yet";
+    if (watchable) {
+        watchAction = watched ? "Undo" : "Mark watched";
+        watchLabel = watched ? "Watched" : "Not watched yet";
+    }
+
     return (
         <motion.aside
             animate={{ opacity: 1, x: 0 }}
@@ -158,22 +167,22 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
                     ) : null}
 
                     <button
-                        aria-pressed={watched}
+                        aria-pressed={watchable && watched}
                         className="focus-ring timeline-detail-watch"
+                        data-unreleased={!watchable}
                         data-watched={watched}
+                        disabled={!watchable}
                         onClick={onToggleWatched}
                         type="button"
                     >
                         <span aria-hidden="true" className="timeline-detail-watch-check">
-                            ✓
+                            {watchable ? "✓" : "–"}
                         </span>
                         <span className="timeline-detail-watch-copy">
                             <span>Watch progress</span>
-                            <strong>{watched ? "Watched" : "Not watched yet"}</strong>
+                            <strong>{watchLabel}</strong>
                         </span>
-                        <span className="timeline-detail-watch-action">
-                            {watched ? "Undo" : "Mark watched"}
-                        </span>
+                        <span className="timeline-detail-watch-action">{watchAction}</span>
                     </button>
 
                     <div className="timeline-detail-footer">
@@ -292,9 +301,10 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
             ? "Sign out of account progress"
             : "Sign in for synced progress";
     }
-    const watchedVisibleCount = visibleEntries.filter((entry) =>
-        watchedSlugs.includes(entry.slug)
+    const watchedVisibleCount = visibleEntries.filter(
+        (entry) => isWatchable(entry) && watchedSlugs.includes(entry.slug)
     ).length;
+    const watchableVisibleCount = visibleEntries.filter(isWatchable).length;
     const nextUnwatchedEntries = useMemo(() => {
         const pendingEntry = visibleEntries.find((entry) => entry.slug === pendingWatchSlug);
         const upcomingEntries = visibleEntries.filter(
@@ -321,7 +331,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
         }
     }, [authUser, signOut]);
     const toggleSelectedWatched = useCallback(() => {
-        if (selectedEntry) {
+        if (selectedEntry && isWatchable(selectedEntry)) {
             toggleWatched(selectedEntry.slug);
         }
     }, [selectedEntry, toggleWatched]);
@@ -389,49 +399,57 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
         },
         [selectEntry]
     );
+    const focusTimelineAt = useCallback((index: number) => {
+        if (index < 0) {
+            return;
+        }
+        setSelectedEntry(null);
+        setTimelineIndex(index);
+        setFocusRequest((current) => ({ index, key: current.key + 1 }));
+    }, []);
+    const undoPendingWatch = useCallback(
+        (entryIndex: number) => {
+            setPendingWatchSlug(null);
+            setPendingWatchReturnIndex(null);
+            focusTimelineAt(pendingWatchReturnIndex ?? entryIndex);
+        },
+        [focusTimelineAt, pendingWatchReturnIndex]
+    );
+    const beginPendingWatch = useCallback(
+        (slug: string, entryIndex: number) => {
+            const nextIndex = visibleEntries.findIndex(
+                (entry) =>
+                    entry.slug !== slug && isWatchable(entry) && !watchedSlugs.includes(entry.slug)
+            );
+            setPendingWatchSlug(slug);
+            setPendingWatchReturnIndex(entryIndex >= 0 ? entryIndex : null);
+            focusTimelineAt(nextIndex);
+            pendingWatchTimeout.current = setTimeout(() => {
+                setPendingWatchSlug(null);
+                setPendingWatchReturnIndex(null);
+            }, 2200);
+        },
+        [focusTimelineAt, visibleEntries, watchedSlugs]
+    );
     const handleWatchlistToggle = useCallback(
         (event: MouseEvent<HTMLButtonElement>) => {
             event.stopPropagation();
             const { slug } = event.currentTarget.dataset;
-            if (slug) {
-                const isPending = pendingWatchSlug === slug;
-                const entryIndex = visibleEntries.findIndex((entry) => entry.slug === slug);
-                toggleWatched(slug);
-                clearTimeout(pendingWatchTimeout.current ?? undefined);
-                if (isPending) {
-                    setPendingWatchSlug(null);
-                    setPendingWatchReturnIndex(null);
-                    const returnIndex = pendingWatchReturnIndex ?? entryIndex;
-                    if (returnIndex >= 0) {
-                        setSelectedEntry(null);
-                        setTimelineIndex(returnIndex);
-                        setFocusRequest((current) => ({
-                            index: returnIndex,
-                            key: current.key + 1,
-                        }));
-                    }
-                } else {
-                    const nextIndex = visibleEntries.findIndex(
-                        (entry) => entry.slug !== slug && !watchedSlugs.includes(entry.slug)
-                    );
-                    setPendingWatchSlug(slug);
-                    setPendingWatchReturnIndex(entryIndex >= 0 ? entryIndex : null);
-                    if (nextIndex >= 0) {
-                        setSelectedEntry(null);
-                        setTimelineIndex(nextIndex);
-                        setFocusRequest((current) => ({
-                            index: nextIndex,
-                            key: current.key + 1,
-                        }));
-                    }
-                    pendingWatchTimeout.current = setTimeout(() => {
-                        setPendingWatchSlug(null);
-                        setPendingWatchReturnIndex(null);
-                    }, 2200);
-                }
+            const targetEntry = visibleEntries.find((entry) => entry.slug === slug);
+            if (!(slug && targetEntry && isWatchable(targetEntry))) {
+                return;
             }
+            const entryIndex = visibleEntries.findIndex((entry) => entry.slug === slug);
+            const undoing = pendingWatchSlug === slug;
+            toggleWatched(slug);
+            clearTimeout(pendingWatchTimeout.current ?? undefined);
+            if (undoing) {
+                undoPendingWatch(entryIndex);
+                return;
+            }
+            beginPendingWatch(slug, entryIndex);
         },
-        [pendingWatchReturnIndex, pendingWatchSlug, toggleWatched, visibleEntries, watchedSlugs]
+        [beginPendingWatch, pendingWatchSlug, toggleWatched, undoPendingWatch, visibleEntries]
     );
     const handleTimelineChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         const index = Number(event.currentTarget.value);
@@ -447,11 +465,23 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
         if (!watchProgressLoaded) {
             return;
         }
+        const unavailableSlugs = entries
+            .filter((entry) => !isWatchable(entry) && watchedSlugs.includes(entry.slug))
+            .map((entry) => entry.slug);
+        for (const slug of unavailableSlugs) {
+            toggleWatched(slug);
+        }
+    }, [entries, toggleWatched, watchProgressLoaded, watchedSlugs]);
+
+    useEffect(() => {
+        if (!watchProgressLoaded) {
+            return;
+        }
         setSelectedEntry((current) =>
             current && visibleEntries.some((entry) => entry.slug === current.slug) ? current : null
         );
         const firstUnwatchedIndex = visibleEntries.findIndex(
-            (entry) => !watchedSlugs.includes(entry.slug)
+            (entry) => isWatchable(entry) && !watchedSlugs.includes(entry.slug)
         );
         const resetIndex = firstUnwatchedIndex >= 0 ? firstUnwatchedIndex : 0;
         setTimelineIndex(resetIndex);
@@ -513,7 +543,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                 signedIn={Boolean(authUser)}
                 syncError={syncError}
                 totalWatchedCount={watchedSlugs.length}
-                visibleEntryCount={visibleEntries.length}
+                visibleEntryCount={watchableVisibleCount}
                 visibleWatchedCount={watchedVisibleCount}
             />
 

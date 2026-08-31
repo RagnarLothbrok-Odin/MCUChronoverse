@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import type { MouseEventHandler, RefObject } from "react";
 import type { TimelineEntry } from "../data/types";
+import { isWatchable } from "../lib/timeline";
 
 interface WatchProgressMenuProps {
     accountActionLabel: string;
@@ -21,6 +22,70 @@ interface WatchProgressMenuProps {
     totalWatchedCount: number;
     visibleEntryCount: number;
     visibleWatchedCount: number;
+}
+
+interface WatchProgressTileProps {
+    entry: TimelineEntry;
+    onEntrySelect: MouseEventHandler<HTMLButtonElement>;
+    onEntryToggle: MouseEventHandler<HTMLButtonElement>;
+    pendingSlug: string | null;
+}
+
+function WatchProgressTile({
+    entry,
+    onEntrySelect,
+    onEntryToggle,
+    pendingSlug,
+}: WatchProgressTileProps) {
+    const watchable = isWatchable(entry);
+    const pending = watchable && pendingSlug === entry.slug;
+    let markLabel = `${entry.title} has not been released`;
+    let markIcon = "–";
+    let markText = "Soon";
+    if (watchable) {
+        markLabel = pending
+            ? `Undo marking ${entry.title} as watched`
+            : `Mark ${entry.title} as watched`;
+        markIcon = pending ? "↶" : "✓";
+        markText = pending ? "Undo" : "Mark";
+    }
+
+    return (
+        <div
+            className={`timeline-watchlist-tile-row ${pending ? "timeline-watchlist-tile-row-pending" : ""}`}
+            data-unreleased={!watchable}
+        >
+            <button
+                className="focus-ring timeline-watchlist-tile"
+                data-slug={entry.slug}
+                onClick={onEntrySelect}
+                type="button"
+            >
+                <span className="timeline-watchlist-tile-copy">
+                    <span>{entry.contentType.replace("-", " ")}</span>
+                    <strong>{entry.title}</strong>
+                </span>
+                <span aria-hidden="true" className="timeline-watchlist-tile-arrow">
+                    ↗
+                </span>
+            </button>
+            <button
+                aria-label={markLabel}
+                className="focus-ring timeline-watchlist-mark"
+                data-pending={pending}
+                data-slug={entry.slug}
+                data-unreleased={!watchable}
+                disabled={!watchable}
+                onClick={onEntryToggle}
+                type="button"
+            >
+                <span aria-hidden="true" className="timeline-watchlist-mark-icon">
+                    {markIcon}
+                </span>
+                <span>{markText}</span>
+            </button>
+        </div>
+    );
 }
 
 export function WatchProgressMenu({
@@ -99,50 +164,13 @@ export function WatchProgressMenu({
                         <div className="timeline-watchlist-tiles">
                             {nextEntries.length > 0 ? (
                                 nextEntries.map((entry) => (
-                                    <div
-                                        className={`timeline-watchlist-tile-row ${pendingSlug === entry.slug ? "timeline-watchlist-tile-row-pending" : ""}`}
+                                    <WatchProgressTile
+                                        entry={entry}
                                         key={entry.slug}
-                                    >
-                                        <button
-                                            className="focus-ring timeline-watchlist-tile"
-                                            data-slug={entry.slug}
-                                            onClick={onEntrySelect}
-                                            type="button"
-                                        >
-                                            <span className="timeline-watchlist-tile-copy">
-                                                <span>{entry.contentType.replace("-", " ")}</span>
-                                                <strong>{entry.title}</strong>
-                                            </span>
-                                            <span
-                                                aria-hidden="true"
-                                                className="timeline-watchlist-tile-arrow"
-                                            >
-                                                ↗
-                                            </span>
-                                        </button>
-                                        <button
-                                            aria-label={
-                                                pendingSlug === entry.slug
-                                                    ? `Undo marking ${entry.title} as watched`
-                                                    : `Mark ${entry.title} as watched`
-                                            }
-                                            className="focus-ring timeline-watchlist-mark"
-                                            data-pending={pendingSlug === entry.slug}
-                                            data-slug={entry.slug}
-                                            onClick={onEntryToggle}
-                                            type="button"
-                                        >
-                                            <span
-                                                aria-hidden="true"
-                                                className="timeline-watchlist-mark-icon"
-                                            >
-                                                {pendingSlug === entry.slug ? "↶" : "✓"}
-                                            </span>
-                                            <span>
-                                                {pendingSlug === entry.slug ? "Undo" : "Mark"}
-                                            </span>
-                                        </button>
-                                    </div>
+                                        onEntrySelect={onEntrySelect}
+                                        onEntryToggle={onEntryToggle}
+                                        pendingSlug={pendingSlug}
+                                    />
                                 ))
                             ) : (
                                 <p className="timeline-watchlist-empty">

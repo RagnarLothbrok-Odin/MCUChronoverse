@@ -2,7 +2,12 @@
 
 import { describe, expect, test } from "bun:test";
 import { chronology, validateChronology } from "../data/chronology";
-import { filterTimeline, parseTimelineFilters, timelineNodePosition } from "./timeline";
+import {
+    filterTimeline,
+    isWatchable,
+    parseTimelineFilters,
+    timelineNodePosition,
+} from "./timeline";
 
 describe("chronology", () => {
     test("contains valid unique entries", () => {
@@ -31,6 +36,16 @@ describe("timeline filters", () => {
         );
         expect(filters.types).toEqual(["film"]);
         expect(filters.phases).toEqual(["Phase One"]);
+    });
+});
+
+describe("watch availability", () => {
+    test("only released entries can be marked watched", () => {
+        const released = chronology.find((entry) => entry.status === "released");
+        const announced = chronology.find((entry) => entry.status === "announced");
+
+        expect(released && isWatchable(released)).toBe(true);
+        expect(announced && isWatchable(announced)).toBe(false);
     });
 });
 

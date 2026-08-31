@@ -18,6 +18,10 @@ export const emptyTimelineFilters: TimelineFilters = {
     types: [],
 };
 
+export function isWatchable(entry: TimelineEntry) {
+    return entry.status === "released";
+}
+
 interface SearchParamsReader {
     get: (name: string) => string | null;
 }
