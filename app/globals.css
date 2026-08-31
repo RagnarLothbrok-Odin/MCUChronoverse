@@ -46,7 +46,9 @@ body {
 }
 
 button,
-input {
+input,
+select,
+textarea {
   font: inherit;
 }
 
@@ -1439,7 +1441,200 @@ a {
   color: #a9dfbd;
 }
 
+.contact-entry-menu {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: auto;
+  left: 0;
+  z-index: 20;
+  display: grid;
+  gap: 0.45rem;
+  width: min(100%, 30rem);
+  max-height: min(27rem, 60dvh);
+  padding: 0.6rem;
+  overflow-y: auto;
+  scrollbar-color: rgb(255 173 85 / 28%) transparent;
+  scrollbar-width: thin;
+  background: rgb(8 8 11 / 92%);
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 1.1rem;
+  box-shadow: 0 24px 90px rgb(0 0 0 / 62%);
+  backdrop-filter: blur(24px) saturate(125%);
+}
+
+.contact-entry-menu::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+.contact-entry-menu::-webkit-scrollbar-thumb {
+  background: rgb(255 173 85 / 28%);
+  border-radius: 9999px;
+}
+
+.contact-entry-option {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+  width: 100%;
+  min-height: 5.25rem;
+  padding: 0.65rem;
+  text-align: left;
+  cursor: pointer;
+  background: rgb(255 255 255 / 3%);
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 0.85rem;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.contact-entry-option:hover,
+.contact-entry-option[aria-selected="true"] {
+  background: rgb(255 149 69 / 9%);
+  border-color: rgb(255 173 85 / 38%);
+  transform: translateX(2px);
+}
+
+.contact-entry-option-poster {
+  position: relative;
+  flex: 0 0 auto;
+  width: 3rem;
+  height: 4.25rem;
+  overflow: hidden;
+  background: rgb(255 255 255 / 4%);
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 0.4rem;
+  box-shadow: 0 8px 22px rgb(0 0 0 / 32%);
+}
+
+.contact-entry-option-copy {
+  display: grid;
+  flex: 1;
+  gap: 0.38rem;
+  min-width: 0;
+}
+
+.contact-entry-option-meta {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  color: rgb(255 173 85 / 65%);
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  white-space: nowrap;
+}
+
+.contact-entry-option-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  font-size: 0.78rem;
+  font-weight: 550;
+  line-height: 1.38;
+  color: rgb(244 241 232 / 78%);
+}
+
+.contact-entry-option-status {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  font-size: 0.62rem;
+  color: transparent;
+  background: rgb(255 255 255 / 3%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 9999px;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.contact-entry-option[aria-selected="true"] .contact-entry-option-status {
+  color: #08080b;
+  background: #ffad55;
+  border-color: #ffad55;
+}
+
+.contact-entry-option:hover .contact-entry-option-title,
+.contact-entry-option[aria-selected="true"] .contact-entry-option-title {
+  color: #ffd79a;
+}
+
+.contact-verification {
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  background: rgb(255 255 255 / 2%);
+  border: 1px solid rgb(255 255 255 / 8%);
+}
+
+.contact-turnstile {
+  min-width: 0;
+}
+
+.contact-submission-message {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  line-height: 1.55;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid;
+}
+
+.contact-submission-message-error {
+  color: #ff9c8b;
+  background: rgb(255 86 68 / 6%);
+  border-color: rgb(255 112 91 / 24%);
+}
+
+.contact-submission-message-success {
+  color: #a9dfbd;
+  background: rgb(75 222 128 / 6%);
+  border-color: rgb(75 222 128 / 24%);
+}
+
+.contact-submission-message a {
+  color: #ffad55;
+  text-decoration: underline;
+  text-underline-offset: 0.22rem;
+}
+
+@media (min-width: 640px) {
+  .contact-verification {
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 22rem);
+  }
+}
+
 @media (max-width: 640px) {
+  .contact-entry-menu {
+    width: 100%;
+    max-height: min(24rem, 58dvh);
+  }
+
+  .contact-entry-option {
+    min-height: 4.8rem;
+  }
+
+  .contact-entry-option-poster {
+    width: 2.7rem;
+    height: 3.85rem;
+  }
+
   .timeline-watchlist-panel {
     position: fixed;
     top: 5rem;

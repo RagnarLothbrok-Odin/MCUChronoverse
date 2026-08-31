@@ -574,12 +574,23 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                         <p className="font-semibold text-sm uppercase tracking-[0.22em]">
                             MCU <span className="text-white/42">Chronoverse</span>
                         </p>
-                        <a
-                            className="focus-ring mt-1 inline-block font-mono text-[0.55rem] text-white/30 uppercase tracking-[0.15em] transition-colors hover:text-white/65"
-                            href="/about"
-                        >
-                            About the archive
-                        </a>
+                        <nav className="mt-1 flex items-center gap-2 font-mono text-[0.55rem] text-white/30 uppercase tracking-[0.15em]">
+                            <a
+                                className="focus-ring transition-colors hover:text-white/65"
+                                href="/about"
+                            >
+                                About
+                            </a>
+                            <span aria-hidden="true" className="text-white/15">
+                                /
+                            </span>
+                            <a
+                                className="focus-ring transition-colors hover:text-white/65"
+                                href="/contact"
+                            >
+                                Contact
+                            </a>
+                        </nav>
                     </div>
                 </div>
             </header>
