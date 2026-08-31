@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { log } from "../../lib/console";
 import { siteOrigin } from "../../lib/site-origin";
 import { resolveAuthRedirect } from "../../lib/supabase/auth-redirect";
 import { createClient } from "../../lib/supabase/server";
@@ -9,10 +10,17 @@ export async function GET(request: NextRequest) {
     const destination = resolveAuthRedirect(origin, request.nextUrl.searchParams.get("next"));
 
     if (code) {
-        const supabase = await createClient();
-        const { error } = await supabase.auth.exchangeCodeForSession(code);
-        if (!error) {
-            return NextResponse.redirect(destination);
+        try {
+            const supabase = await createClient();
+            const { error } = await supabase.auth.exchangeCodeForSession(code);
+
+            if (!error) {
+                return NextResponse.redirect(destination);
+            }
+
+            log.warn("OAuth callback exchange was rejected", error.message);
+        } catch (error) {
+            log.error("OAuth callback exchange failed", error);
         }
     }
 
