@@ -8,7 +8,7 @@ export const chronology = [
             "Wakandan warriors who, throughout history, have traveled the world to retrieve dangerous vibranium artifacts.",
         genres: ["animation", "action", "adventure", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt13968252/",
-        note: "Marvel has not assigned the series to a numbered MCU phase.",
+        phase: "Phase Six",
         placement: "1260 BC to 1896 AD",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BZjhhOTE5ODgtNDFjOS00ZTdlLTgzYjAtNGU1NmM4YzkwYWMxXkEyXkFqcGc@._V1_.jpg",
@@ -33,7 +33,7 @@ export const chronology = [
         genres: ["action", "adventure", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt0458339/",
         phase: "Phase One",
-        placement: "1942 to 1945",
+        placement: "1943 to 1945",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BNzUyM2YyY2MtNzNlMS00MWU5LTgxNjAtNzZlNmI2NjU2NDZlXkEyXkFqcGc@._V1_.jpg",
         rating: 6.9,
@@ -86,7 +86,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 60,
+        chronologyOrder: 50,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -107,7 +107,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 70,
+        chronologyOrder: 60,
         contentType: "film",
         creditScenes: { after: true, during: false },
         description:
@@ -128,7 +128,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 80,
+        chronologyOrder: 70,
         contentType: "film",
         creditScenes: { after: true, during: false },
         description:
@@ -136,7 +136,7 @@ export const chronology = [
         genres: ["action", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt1228705/",
         phase: "Phase One",
-        placement: "2011",
+        placement: "2010",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BYWYyOGQzOGYtMGQ1My00ZWYxLTgzZjktZWYzN2IwYjkxYzM0XkEyXkFqcGc@._V1_.jpg",
         rating: 6.9,
@@ -149,7 +149,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 90,
+        chronologyOrder: 80,
         contentType: "film",
         creditScenes: { after: false, during: false },
         description:
@@ -157,7 +157,7 @@ export const chronology = [
         genres: ["action", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt0800080/",
         phase: "Phase One",
-        placement: "2011",
+        placement: "2010",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BMTUyNzk3MjA1OF5BMl5BanBnXkFtZTcwMTE1Njg2MQ@@._V1_.jpg",
         rating: 6.6,
@@ -170,14 +170,14 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 100,
+        chronologyOrder: 90,
         contentType: "one-shot",
         description:
             "Agent Coulson stops at a convenience store and deals with a coincidental robbery during his visit.",
         genres: ["short", "action", "adventure", "comedy"],
         imdbUrl: "https://www.imdb.com/title/tt2011109/",
         phase: "Phase One",
-        placement: "2011",
+        placement: "2010",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BNGQ4MmMxOTAtZDY5Yi00YjBmLThiMGEtYzc0MDA1YzI2NzI5XkEyXkFqcGc@._V1_.jpg",
         rating: 7,
@@ -190,7 +190,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 110,
+        chronologyOrder: 100,
         contentType: "film",
         creditScenes: { after: true, during: false },
         description:
@@ -198,7 +198,7 @@ export const chronology = [
         genres: ["action", "fantasy"],
         imdbUrl: "https://www.imdb.com/title/tt0800369/",
         phase: "Phase One",
-        placement: "2011",
+        placement: "2010",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BNjRhNGZjZjEtYTQzYS00OWUxLThjNGEtMTIwMTE2ZDFlZTZkXkEyXkFqcGc@._V1_.jpg",
         rating: 7,
@@ -211,14 +211,14 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 120,
+        chronologyOrder: 110,
         contentType: "one-shot",
         description:
             'Agents Coulson and Sitwell plan to derail General Thaddeus "Thunderbolt" Ross from interfering with S.H.I.E.L.D. affairs with a very special person.',
         genres: ["short", "comedy", "drama", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt2011118/",
         phase: "Phase One",
-        placement: "2011",
+        placement: "2010",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BZGMxYzBkMTEtZDljYi00YjM2LTgxMTMtNjFiOWQwMTg0NjhmXkEyXkFqcGc@._V1_.jpg",
         rating: 6.3,
@@ -231,7 +231,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 130,
+        chronologyOrder: 120,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -252,13 +252,13 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 140,
+        chronologyOrder: 130,
         contentType: "one-shot",
         description:
             "S.H.I.E.L.D. agent Sitwell is assigned to recover an abandoned Chitauri weapon being used by a young couple robbing a bank.",
         genres: ["short", "action", "adventure", "crime", "drama", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt2247732/",
-        phase: "Phase Two",
+        phase: "Phase One",
         placement: "2012",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BMTI2NDI2MzgtNTMzNi00MmEyLWE0ZDYtZmQ2NjJjMjUyYzMzXkEyXkFqcGc@._V1_.jpg",
@@ -272,48 +272,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 150,
-        contentType: "film",
-        creditScenes: { after: true, during: false },
-        description:
-            "When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt1300854/",
-        phase: "Phase Two",
-        placement: "Christmas 2012",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMjIzMzAzMjQyM15BMl5BanBnXkFtZTcwNzM2NjcyOQ@@._V1_.jpg",
-        rating: 7.1,
-        releaseDate: "2013-05-03",
-        runtime: "2h 10m",
-        saga: "Infinity Saga",
-        slug: "iron-man-3",
-        status: "released",
-        title: "Iron Man 3",
-        universe: "Earth-616",
-    },
-    {
-        chronologyOrder: 160,
-        contentType: "one-shot",
-        description:
-            "A documentary filmmaker interviews the now-famous Trevor Slattery from behind bars.",
-        genres: ["short", "comedy", "drama", "thriller"],
-        imdbUrl: "https://www.imdb.com/title/tt3438640/",
-        phase: "Phase Two",
-        placement: "2013",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNDBiYzBhMTktMTM1Mi00NGE1LTg3NTUtZTNhYzNmYmJkOGJkXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.2,
-        releaseDate: "2014-02-25",
-        runtime: "14m",
-        saga: "Infinity Saga",
-        slug: "all-hail-the-king",
-        status: "released",
-        title: "All Hail the King",
-        universe: "Earth-616",
-    },
-    {
-        chronologyOrder: 170,
+        chronologyOrder: 140,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -334,28 +293,48 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 180,
-        contentType: "one-shot",
+        chronologyOrder: 150,
+        contentType: "film",
+        creditScenes: { after: true, during: false },
         description:
-            "Frank Castle retreats from violence after years of loss, but a criminal bounty drags him back into a brutal fight that forces him to confront what remains of his purpose.",
-        genres: ["action", "adventure", "crime", "drama", "thriller"],
-        imdbUrl: "https://www.imdb.com/title/tt36042156/",
-        note: "Provisional placement until the source spreadsheet confirms the intended date.",
+            "When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.",
+        genres: ["action", "adventure", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt1300854/",
         phase: "Phase Two",
-        placement: "2013",
+        placement: "Christmas 2013",
         posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BZGJlZWJhYmYtNjcwOS00OGMxLWJhODMtMGQ5ODQ5MDE0OTFmXkEyXkFqcGc@._V1_.jpg",
-        rating: 7,
-        releaseDate: "2013-01-01",
-        runtime: "48m",
+            "https://m.media-amazon.com/images/M/MV5BMjIzMzAzMjQyM15BMl5BanBnXkFtZTcwNzM2NjcyOQ@@._V1_.jpg",
+        rating: 7.1,
+        releaseDate: "2013-05-03",
+        runtime: "2h 10m",
         saga: "Infinity Saga",
-        slug: "the-punisher-one-last-kill",
+        slug: "iron-man-3",
         status: "released",
-        title: "The Punisher: One Last Kill",
+        title: "Iron Man 3",
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 190,
+        chronologyOrder: 160,
+        contentType: "one-shot",
+        description:
+            "A documentary filmmaker interviews the now-famous Trevor Slattery from behind bars.",
+        genres: ["short", "comedy", "drama", "thriller"],
+        imdbUrl: "https://www.imdb.com/title/tt3438640/",
+        phase: "Phase Two",
+        placement: "Early 2014",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BNDBiYzBhMTktMTM1Mi00NGE1LTg3NTUtZTNhYzNmYmJkOGJkXkEyXkFqcGc@._V1_.jpg",
+        rating: 7.2,
+        releaseDate: "2014-02-25",
+        runtime: "14m",
+        saga: "Infinity Saga",
+        slug: "all-hail-the-king",
+        status: "released",
+        title: "All Hail the King",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 170,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -376,7 +355,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 200,
+        chronologyOrder: 180,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -397,7 +376,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 210,
+        chronologyOrder: 190,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -418,7 +397,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 220,
+        chronologyOrder: 200,
         contentType: "short",
         description:
             "A series of shorts featuring the seedling Groot along with several new and unusual characters.",
@@ -438,7 +417,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 230,
+        chronologyOrder: 210,
         contentType: "film",
         creditScenes: { after: false, during: true },
         description:
@@ -459,7 +438,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 240,
+        chronologyOrder: 220,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -480,7 +459,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 250,
+        chronologyOrder: 230,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -501,7 +480,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 260,
+        chronologyOrder: 240,
         contentType: "film",
         creditScenes: { after: true, during: false },
         description:
@@ -522,7 +501,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 270,
+        chronologyOrder: 250,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -543,7 +522,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 280,
+        chronologyOrder: 260,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -564,7 +543,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 290,
+        chronologyOrder: 270,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -585,7 +564,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 300,
+        chronologyOrder: 280,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -606,7 +585,27 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 310,
+        chronologyOrder: 290,
+        contentType: "film",
+        creditScenes: { after: true, during: true },
+        description: "Scott Lang and Hope Van Dyne uncover secrets from the past.",
+        genres: ["action", "adventure", "comedy", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt5095030/",
+        phase: "Phase Three",
+        placement: "2018",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BODVkY2ZmZTAtYzFhMi00YzZlLWE2YWMtMDBiYjY2OTU4ZWM0XkEyXkFqcGc@._V1_.jpg",
+        rating: 7,
+        releaseDate: "2018-07-06",
+        runtime: "1h 58m",
+        saga: "Infinity Saga",
+        slug: "ant-man-and-the-wasp",
+        status: "released",
+        title: "Ant-Man and the Wasp",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 300,
         contentType: "film",
         creditScenes: { after: true, during: false },
         description:
@@ -627,7 +626,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 320,
+        chronologyOrder: 310,
         contentType: "film",
         creditScenes: { after: true, during: false },
         description:
@@ -649,27 +648,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 330,
-        contentType: "series",
-        description:
-            "Following the events of 'Avengers: Endgame,' Sam Wilson/Falcon and Bucky Barnes/Winter Soldier team up in a global adventure that tests their abilities -- and their patience.",
-        genres: ["action", "adventure", "drama", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt9208876/",
-        phase: "Phase Four",
-        placement: "2023",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BYmJkOGNlNmEtMmQyOS00YjZiLTgxM2EtNmEzNzUzNTU5ODYwXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.1,
-        releaseDate: "2021-03-19",
-        runtime: "50m",
-        saga: "Multiverse Saga",
-        slug: "the-falcon-and-the-winter-soldier",
-        status: "released",
-        title: "The Falcon and the Winter Soldier",
-        universe: "Earth-616",
-    },
-    {
-        chronologyOrder: 340,
+        chronologyOrder: 320,
         contentType: "series",
         description:
             "The mercurial villain Loki resumes his role as the God of Mischief in a new series that takes place after the events of “Avengers: Endgame.”",
@@ -677,7 +656,7 @@ export const chronology = [
         imdbUrl: "https://www.imdb.com/title/tt9140554/",
         note: "Takes place outside the normal linear timeline.",
         phase: "Phase Four",
-        placement: "After the 2012 branch",
+        placement: "Outside linear time",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BYzA2YjM2ZWQtYTZhMS00OTI3LTlhYzQtZjBiZWZkMDdlNjA5XkEyXkFqcGc@._V1_.jpg",
         rating: 8.2,
@@ -687,6 +666,47 @@ export const chronology = [
         slug: "loki-season-1",
         status: "released",
         title: "Loki Season 1",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 330,
+        contentType: "series",
+        description:
+            "Exploring pivotal moments from the Marvel Cinematic Universe and turning them on their head, leading the audience into uncharted territory.",
+        genres: ["animation", "action", "adventure", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt10168312/",
+        note: "Anthology stories take place across multiple realities.",
+        phase: "Phase Four",
+        placement: "Multiverse",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BYWFiOTcwNzItMTg5Mi00ZTU4LThkZWYtYWNmZWQ1ODE5ZTVmXkEyXkFqcGc@._V1_.jpg",
+        rating: 7.3,
+        releaseDate: "2021-08-11",
+        runtime: "32m",
+        saga: "Multiverse Saga",
+        slug: "what-if",
+        status: "released",
+        title: "What If...?",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 340,
+        contentType: "series",
+        description:
+            "After the Avengers are overtaken by a zombie plague, a group of survivors discover the key to bringing an end to the super-powered undead, racing across a dystopian landscape and risking their lives to save their world.",
+        genres: ["animation", "action", "adventure", "drama", "fantasy", "horror", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt16027014/",
+        phase: "Phase Six",
+        placement: "Multiverse",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BNGNkYjI3ZWUtN2MzMS00NDg5LWE5MmYtZGE4Zjc0OGVhODM4XkEyXkFqcGc@._V1_.jpg",
+        rating: 7,
+        releaseDate: "2025-09-24",
+        runtime: "32m",
+        saga: "Multiverse Saga",
+        slug: "marvel-zombies",
+        status: "released",
+        title: "Marvel Zombies",
         universe: "Earth-616",
     },
     {
@@ -711,47 +731,6 @@ export const chronology = [
     },
     {
         chronologyOrder: 360,
-        contentType: "short",
-        description:
-            "On the eve of his departure to Europe, Peter Parker tells Ned Leeds that he has several things to do before they leave.",
-        genres: ["short", "action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt11107678/",
-        phase: "Phase Three",
-        placement: "Summer 2024",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BY2MyMzFlYmMtYWEyZC00MjExLTk2ODItODEzZmQ1ZGUyNGQwXkEyXkFqcGc@._V1_.jpg",
-        rating: 7,
-        releaseDate: "2019-09-17",
-        runtime: "3m",
-        saga: "Infinity Saga",
-        slug: "peters-to-do-list",
-        status: "released",
-        title: "Peter's To-Do List",
-        universe: "Earth-616",
-    },
-    {
-        chronologyOrder: 370,
-        contentType: "film",
-        creditScenes: { after: true, during: true },
-        description:
-            "Peter Parker heads to Europe hoping for a normal summer, but elemental attacks and a mysterious new hero pull him back into a dangerous fight he isn't ready to embrace.",
-        genres: ["action", "adventure", "comedy", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt6320628/",
-        phase: "Phase Three",
-        placement: "2024",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMzNhNTE0NWQtN2E1Ny00NjcwLTg1YTctMGY1NmMwODJmY2NmXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.3,
-        releaseDate: "2019-07-02",
-        runtime: "2h 9m",
-        saga: "Infinity Saga",
-        slug: "spider-man-far-from-home",
-        status: "released",
-        title: "Spider-Man: Far From Home",
-        universe: "Earth-616",
-    },
-    {
-        chronologyOrder: 380,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -772,11 +751,72 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
+        chronologyOrder: 370,
+        contentType: "series",
+        description:
+            "Following the events of 'Avengers: Endgame,' Sam Wilson/Falcon and Bucky Barnes/Winter Soldier team up in a global adventure that tests their abilities -- and their patience.",
+        genres: ["action", "adventure", "drama", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt9208876/",
+        phase: "Phase Four",
+        placement: "2024",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BYmJkOGNlNmEtMmQyOS00YjZiLTgxM2EtNmEzNzUzNTU5ODYwXkEyXkFqcGc@._V1_.jpg",
+        rating: 7.1,
+        releaseDate: "2021-03-19",
+        runtime: "50m",
+        saga: "Multiverse Saga",
+        slug: "the-falcon-and-the-winter-soldier",
+        status: "released",
+        title: "The Falcon and the Winter Soldier",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 380,
+        contentType: "short",
+        description:
+            "On the eve of his departure to Europe, Peter Parker tells Ned Leeds that he has several things to do before they leave.",
+        genres: ["short", "action", "adventure", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt11107678/",
+        phase: "Phase Three",
+        placement: "Summer 2024",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BY2MyMzFlYmMtYWEyZC00MjExLTk2ODItODEzZmQ1ZGUyNGQwXkEyXkFqcGc@._V1_.jpg",
+        rating: 7,
+        releaseDate: "2019-09-17",
+        runtime: "3m",
+        saga: "Infinity Saga",
+        slug: "peters-to-do-list",
+        status: "released",
+        title: "Peter's To-Do List",
+        universe: "Earth-616",
+    },
+    {
         chronologyOrder: 390,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
-            "The saga of the Eternals, a race of immortal beings who lived on Earth and shaped its history and civilizations.",
+            "Peter Parker heads to Europe hoping for a normal summer, but elemental attacks and a mysterious new hero pull him back into a dangerous fight he isn't ready to embrace.",
+        genres: ["action", "adventure", "comedy", "fantasy", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt6320628/",
+        phase: "Phase Three",
+        placement: "2024",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BMzNhNTE0NWQtN2E1Ny00NjcwLTg1YTctMGY1NmMwODJmY2NmXkEyXkFqcGc@._V1_.jpg",
+        rating: 7.3,
+        releaseDate: "2019-07-02",
+        runtime: "2h 9m",
+        saga: "Infinity Saga",
+        slug: "spider-man-far-from-home",
+        status: "released",
+        title: "Spider-Man: Far From Home",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 400,
+        contentType: "film",
+        creditScenes: { after: true, during: true },
+        description:
+            "The Eternals, an immortal race, have shaped Earth's history and civilizations.",
         genres: ["action", "adventure", "fantasy", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt9032400/",
         phase: "Phase Four",
@@ -790,26 +830,6 @@ export const chronology = [
         slug: "eternals",
         status: "released",
         title: "Eternals",
-        universe: "Earth-616",
-    },
-    {
-        chronologyOrder: 400,
-        contentType: "series",
-        description:
-            "Clint Barton aka Hawkeye has the mission to get back to his family for Christmas. But when a threat from his past shows up, Hawkeye reluctantly teams up with Kate Bishop, a skilled archer and his biggest fan, to unravel a conspiracy.",
-        genres: ["action", "adventure", "crime", "drama", "mystery", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt10160804/",
-        phase: "Phase Four",
-        placement: "Christmas 2024",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BOGU5ZDBlOTAtOTZmYS00MWE0LTg0NzktNDcxZGJhN2FhZmM2XkEyXkFqcGc@._V1_.jpg",
-        rating: 7.4,
-        releaseDate: "2021-11-24",
-        runtime: "1h",
-        saga: "Multiverse Saga",
-        slug: "hawkeye",
-        status: "released",
-        title: "Hawkeye",
         universe: "Earth-616",
     },
     {
@@ -842,7 +862,7 @@ export const chronology = [
         genres: ["action", "adventure", "fantasy", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt9419884/",
         phase: "Phase Four",
-        placement: "2025",
+        placement: "2024",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BN2YxZGRjMzYtZjE1ZC00MDI0LThjZmQtZTZmMzVmMmQ2NzBmXkEyXkFqcGc@._V1_.jpg",
         rating: 6.8,
@@ -856,6 +876,26 @@ export const chronology = [
     },
     {
         chronologyOrder: 430,
+        contentType: "series",
+        description:
+            "Clint Barton aka Hawkeye has the mission to get back to his family for Christmas. But when a threat from his past shows up, Hawkeye reluctantly teams up with Kate Bishop, a skilled archer and his biggest fan, to unravel a conspiracy.",
+        genres: ["action", "adventure", "crime", "drama", "mystery", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt10160804/",
+        phase: "Phase Four",
+        placement: "Christmas 2024",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BOGU5ZDBlOTAtOTZmYS00MWE0LTg0NzktNDcxZGJhN2FhZmM2XkEyXkFqcGc@._V1_.jpg",
+        rating: 7.4,
+        releaseDate: "2021-11-24",
+        runtime: "1h",
+        saga: "Multiverse Saga",
+        slug: "hawkeye",
+        status: "released",
+        title: "Hawkeye",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 440,
         contentType: "series",
         description:
             "Steven Grant discovers he's been granted the powers of an Egyptian moon god. But he soon finds out that these newfound powers can be both a blessing and a curse to his troubled life.",
@@ -875,11 +915,10 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 440,
+        chronologyOrder: 450,
         contentType: "film",
         creditScenes: { after: false, during: true },
-        description:
-            "The people of Wakanda fight to protect their home from intervening world powers as they mourn the death of King T'Challa.",
+        description: "Wakanda fights to protect its home as it mourns King T'Challa.",
         genres: ["action", "adventure", "drama", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt9114286/",
         phase: "Phase Four",
@@ -896,7 +935,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 450,
+        chronologyOrder: 460,
         contentType: "series",
         description:
             "Maya Lopez must face her past, reconnect with her Native American roots, and embrace the meaning of family and community if she ever hopes to move forward.",
@@ -916,7 +955,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 460,
+        chronologyOrder: 470,
         contentType: "series",
         description:
             "Jennifer Walters navigates the complicated life of a single, 30-something attorney who also happens to be a green 6-foot-7-inch superpowered Hulk.",
@@ -936,7 +975,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 470,
+        chronologyOrder: 480,
         contentType: "series",
         description:
             "Kamala, a superhero fan with an imagination--particularly when it comes to Captain Marvel--feels like she doesn't fit in at school and sometimes even at home, that is until she gets superpowers like the heroes she admires.",
@@ -956,7 +995,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 480,
+        chronologyOrder: 490,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -977,7 +1016,27 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 490,
+        chronologyOrder: 500,
+        contentType: "series",
+        description:
+            "Genius teenage inventor Riri Williams creates the most advanced suit of armor since Iron Man.",
+        genres: ["action", "adventure", "fantasy", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt13623126/",
+        phase: "Phase Five",
+        placement: "2025",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BN2EzMGZhOTktYjVhZi00NmIwLWIxZDEtNWUxZTQyNjhkYWQ4XkEyXkFqcGc@._V1_.jpg",
+        rating: 4.5,
+        releaseDate: "2025-06-24",
+        runtime: "50m",
+        saga: "Multiverse Saga",
+        slug: "ironheart",
+        status: "released",
+        title: "Ironheart",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 510,
         contentType: "special",
         description:
             "Star-Lord, Drax, Rocket, Mantis, and Groot engage in some spirited shenanigans in an all-new original special created for Disney+.",
@@ -997,69 +1056,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 500,
-        contentType: "film",
-        creditScenes: { after: true, during: true },
-        description:
-            "Still reeling from the loss of Gamora, Peter Quill rallies his team to defend the universe and one of their own - a mission that could mean the end of the Guardians if not successful.",
-        genres: ["action", "adventure", "comedy", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt6791350/",
-        phase: "Phase Five",
-        placement: "2026",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BOTJhOTMxMmItZmE0Ny00MDc3LWEzOGEtOGFkMzY4MWYyZDQ0XkEyXkFqcGc@._V1_.jpg",
-        rating: 7.9,
-        releaseDate: "2023-05-05",
-        runtime: "2h 30m",
-        saga: "Multiverse Saga",
-        slug: "the-guardians-of-the-galaxy-vol-3",
-        status: "released",
-        title: "The Guardians of the Galaxy Vol. 3",
-        universe: "Earth-616",
-    },
-    {
-        chronologyOrder: 510,
-        contentType: "series",
-        description:
-            "Fury and Talos try to stop the Skrulls who have infiltrated the highest spheres of the Marvel Universe.",
-        genres: ["action", "adventure", "mystery", "sciFi", "thriller"],
-        imdbUrl: "https://www.imdb.com/title/tt13157618/",
-        phase: "Phase Five",
-        placement: "2025 to 2026",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNmYzYzA2NzMtOTVmMC00ZDY4LThlMDctZmUyN2NlMjQ2ODViXkEyXkFqcGc@._V1_.jpg",
-        rating: 5.8,
-        releaseDate: "2023-06-21",
-        runtime: "45m",
-        saga: "Multiverse Saga",
-        slug: "secret-invasion",
-        status: "released",
-        title: "Secret Invasion",
-        universe: "Earth-616",
-    },
-    {
         chronologyOrder: 520,
-        contentType: "film",
-        creditScenes: { after: true, during: true },
-        description:
-            "Carol Danvers gets her powers entangled with those of Kamala Khan and Monica Rambeau, forcing them to work together to save the universe.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt10676048/",
-        phase: "Phase Five",
-        placement: "2026",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BYzczOWM4MzItMWMyOS00ZDczLWIxMzctNzBmYTgzOTI1MzI3XkEyXkFqcGc@._V1_.jpg",
-        rating: 5.4,
-        releaseDate: "2023-11-10",
-        runtime: "1h 45m",
-        saga: "Multiverse Saga",
-        slug: "the-marvels",
-        status: "released",
-        title: "The Marvels",
-        universe: "Earth-616",
-    },
-    {
-        chronologyOrder: 530,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1080,29 +1077,69 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 540,
+        chronologyOrder: 530,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
-            "Deadpool is offered a place in the Marvel Cinematic Universe by the Time Variance Authority, but instead recruits a variant of Wolverine to save his universe from extinction.",
-        genres: ["action", "adventure", "comedy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt6263850/",
-        note: "Its multiverse framing makes a single placement approximate.",
+            "Still reeling from the loss of Gamora, Peter Quill rallies his team to defend the universe and one of their own - a mission that could mean the end of the Guardians if not successful.",
+        genres: ["action", "adventure", "comedy", "fantasy", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt6791350/",
         phase: "Phase Five",
-        placement: "2024 to 2026",
+        placement: "2026",
         posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BZTk5ODY0MmQtMzA3Ni00NGY1LThiYzItZThiNjFiNDM4MTM3XkEyXkFqcGc@._V1_.jpg",
-        rating: 7.5,
-        releaseDate: "2024-07-26",
-        runtime: "2h 8m",
+            "https://m.media-amazon.com/images/M/MV5BOTJhOTMxMmItZmE0Ny00MDc3LWEzOGEtOGFkMzY4MWYyZDQ0XkEyXkFqcGc@._V1_.jpg",
+        rating: 7.9,
+        releaseDate: "2023-05-05",
+        runtime: "2h 30m",
         saga: "Multiverse Saga",
-        slug: "deadpool-and-wolverine",
+        slug: "the-guardians-of-the-galaxy-vol-3",
         status: "released",
-        title: "Deadpool & Wolverine",
+        title: "The Guardians of the Galaxy Vol. 3",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 540,
+        contentType: "series",
+        description:
+            "Fury and Talos try to stop the Skrulls who have infiltrated the highest spheres of the Marvel Universe.",
+        genres: ["action", "adventure", "mystery", "sciFi", "thriller"],
+        imdbUrl: "https://www.imdb.com/title/tt13157618/",
+        phase: "Phase Five",
+        placement: "2026",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BNmYzYzA2NzMtOTVmMC00ZDY4LThlMDctZmUyN2NlMjQ2ODViXkEyXkFqcGc@._V1_.jpg",
+        rating: 5.8,
+        releaseDate: "2023-06-21",
+        runtime: "45m",
+        saga: "Multiverse Saga",
+        slug: "secret-invasion",
+        status: "released",
+        title: "Secret Invasion",
         universe: "Earth-616",
     },
     {
         chronologyOrder: 550,
+        contentType: "film",
+        creditScenes: { after: true, during: true },
+        description:
+            "Carol Danvers, Kamala Khan, and Monica Rambeau must work together to save the universe.",
+        genres: ["action", "adventure", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt10676048/",
+        phase: "Phase Five",
+        placement: "2026",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BYzczOWM4MzItMWMyOS00ZDczLWIxMzctNzBmYTgzOTI1MzI3XkEyXkFqcGc@._V1_.jpg",
+        rating: 5.4,
+        releaseDate: "2023-11-10",
+        runtime: "1h 45m",
+        saga: "Multiverse Saga",
+        slug: "the-marvels",
+        status: "released",
+        title: "The Marvels",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 560,
         contentType: "series",
         description:
             "The cast and crew of Loki: Season 2 pull back the curtain on Loki's latest MCU adventure.",
@@ -1122,44 +1159,24 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 560,
-        contentType: "series",
-        description:
-            "Exploring pivotal moments from the Marvel Cinematic Universe and turning them on their head, leading the audience into uncharted territory.",
-        genres: ["animation", "action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt10168312/",
-        note: "Anthology stories take place across multiple realities.",
-        phase: "Phase Four",
-        placement: "Multiverse",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BYWFiOTcwNzItMTg5Mi00ZTU4LThkZWYtYWNmZWQ1ODE5ZTVmXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.3,
-        releaseDate: "2021-08-11",
-        runtime: "32m",
-        saga: "Multiverse Saga",
-        slug: "what-if",
-        status: "released",
-        title: "What If...?",
-        universe: "Earth-616",
-    },
-    {
         chronologyOrder: 570,
-        contentType: "series",
-        description:
-            "After the Avengers are overtaken by a zombie plague, a group of survivors discover the key to bringing an end to the super-powered undead, racing across a dystopian landscape and risking their lives to save their world.",
-        genres: ["animation", "action", "adventure", "drama", "fantasy", "horror", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt16027014/",
+        contentType: "film",
+        creditScenes: { after: true, during: true },
+        description: "Deadpool recruits Wolverine to save his universe from extinction.",
+        genres: ["action", "adventure", "comedy", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt6263850/",
+        note: "Its multiverse framing makes a single placement approximate.",
         phase: "Phase Five",
-        placement: "Multiverse",
+        placement: "2024 and outside linear time",
         posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNGNkYjI3ZWUtN2MzMS00NDg5LWE5MmYtZGE4Zjc0OGVhODM4XkEyXkFqcGc@._V1_.jpg",
-        rating: 7,
-        releaseDate: "2025-10-03",
-        runtime: "32m",
+            "https://m.media-amazon.com/images/M/MV5BZTk5ODY0MmQtMzA3Ni00NGY1LThiYzItZThiNjFiNDM4MTM3XkEyXkFqcGc@._V1_.jpg",
+        rating: 7.5,
+        releaseDate: "2024-07-26",
+        runtime: "2h 8m",
         saga: "Multiverse Saga",
-        slug: "marvel-zombies",
+        slug: "deadpool-and-wolverine",
         status: "released",
-        title: "Marvel Zombies",
+        title: "Deadpool & Wolverine",
         universe: "Earth-616",
     },
     {
@@ -1186,31 +1203,11 @@ export const chronology = [
         chronologyOrder: 590,
         contentType: "series",
         description:
-            "Genius teenage inventor Riri Williams creates the most advanced suit of armor since Iron Man.",
-        genres: ["action", "adventure", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt13623126/",
-        phase: "Phase Five",
-        placement: "2025",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BN2EzMGZhOTktYjVhZi00NmIwLWIxZDEtNWUxZTQyNjhkYWQ4XkEyXkFqcGc@._V1_.jpg",
-        rating: 4.5,
-        releaseDate: "2025-06-24",
-        runtime: "50m",
-        saga: "Multiverse Saga",
-        slug: "ironheart",
-        status: "released",
-        title: "Ironheart",
-        universe: "Earth-616",
-    },
-    {
-        chronologyOrder: 600,
-        contentType: "series",
-        description:
             "Matt Murdock finds himself on a collision course with Wilson Fisk when their past identities begin to emerge.",
         genres: ["action", "crime", "drama", "fantasy", "sciFi", "thriller"],
         imdbUrl: "https://www.imdb.com/title/tt18923754/",
         phase: "Phase Five",
-        placement: "2026",
+        placement: "Late 2026 to early 2027",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BNDBkMWRhMzEtM2M0Ny00OGZhLThkZGMtMTY1NWUwZWNhODdiXkEyXkFqcGc@._V1_.jpg",
         rating: 8.1,
@@ -1223,27 +1220,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 610,
-        contentType: "series",
-        description:
-            "Small-time actor Simon Williams struggles to reckon with his personal life while hiding his super-powers as he tries to land his dream role. Meanwhile, a shady government agent leverages a new friendship in order to save his own job.",
-        genres: ["action", "adventure", "comedy", "drama", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt21066182/",
-        phase: "Phase Six",
-        placement: "2027",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMDk5YzQ3NjQtNzY3MC00NzM3LWE4NzYtZGRkNDQxYjdiZDkyXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.4,
-        releaseDate: "2025-12-01",
-        runtime: "30m",
-        saga: "Multiverse Saga",
-        slug: "wonder-man",
-        status: "released",
-        title: "Wonder Man",
-        universe: "Earth-616",
-    },
-    {
-        chronologyOrder: 620,
+        chronologyOrder: 600,
         contentType: "film",
         creditScenes: { after: true, during: false },
         description:
@@ -1264,7 +1241,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 630,
+        chronologyOrder: 610,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1285,7 +1262,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 635,
+        chronologyOrder: 620,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1294,7 +1271,7 @@ export const chronology = [
         imdbUrl: "https://www.imdb.com/title/tt10676052/",
         note: "Set in a retro-futurist 1960s alternate timeline of Earth-616.",
         phase: "Phase Six",
-        placement: "2027",
+        placement: "1960s alternate universe",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BOGM5MzA3MDAtYmEwMi00ZDNiLTg4MDgtMTZjOTc0ZGMyNTIwXkEyXkFqcGc@._V1_.jpg",
         rating: 6.8,
@@ -1304,6 +1281,26 @@ export const chronology = [
         slug: "the-fantastic-four-first-steps",
         status: "released",
         title: "The Fantastic Four: First Steps",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 630,
+        contentType: "series",
+        description:
+            "Small-time actor Simon Williams struggles to reckon with his personal life while hiding his super-powers as he tries to land his dream role. Meanwhile, a shady government agent leverages a new friendship in order to save his own job.",
+        genres: ["action", "adventure", "comedy", "drama", "fantasy", "sciFi"],
+        imdbUrl: "https://www.imdb.com/title/tt21066182/",
+        phase: "Phase Six",
+        placement: "2027",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BMDk5YzQ3NjQtNzY3MC00NzM3LWE4NzYtZGRkNDQxYjdiZDkyXkEyXkFqcGc@._V1_.jpg",
+        rating: 7.4,
+        releaseDate: "2026-01-27",
+        runtime: "30m",
+        saga: "Multiverse Saga",
+        slug: "wonder-man",
+        status: "released",
+        title: "Wonder Man",
         universe: "Earth-616",
     },
     {
@@ -1318,12 +1315,33 @@ export const chronology = [
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BNDBkMWRhMzEtM2M0Ny00OGZhLThkZGMtMTY1NWUwZWNhODdiXkEyXkFqcGc@._V1_.jpg",
         rating: 8.1,
-        releaseDate: "2026-03-01",
+        releaseDate: "2026-03-24",
         runtime: "1h",
         saga: "Multiverse Saga",
         slug: "daredevil-born-again-season-2",
         status: "released",
         title: "Daredevil: Born Again Season 2",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 650,
+        contentType: "special",
+        description:
+            "Frank Castle is drawn back into a brutal fight after years away from violence.",
+        genres: ["action", "adventure", "crime", "drama", "thriller"],
+        imdbUrl: "https://www.imdb.com/title/tt36042156/",
+        note: "The story runs concurrently with Daredevil: Born Again Season 2.",
+        phase: "Phase Six",
+        placement: "2027",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BZGJlZWJhYmYtNjcwOS00OGMxLWJhODMtMGQ5ODQ5MDE0OTFmXkEyXkFqcGc@._V1_.jpg",
+        rating: 7,
+        releaseDate: "2026-05-12",
+        runtime: "Special",
+        saga: "Multiverse Saga",
+        slug: "the-punisher-one-last-kill",
+        status: "released",
+        title: "The Punisher: One Last Kill",
         universe: "Earth-616",
     },
     {
@@ -1348,7 +1366,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 665,
+        chronologyOrder: 670,
         contentType: "series",
         description:
             "Vision is faced with many challenges while trying to regain his memory and humanity.",
@@ -1356,11 +1374,11 @@ export const chronology = [
         imdbUrl: "https://www.imdb.com/title/tt23112594/",
         note: "Marvel has not published an in-universe year for the series.",
         phase: "Phase Six",
-        placement: "2028",
+        placement: "TBD",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BY2FlNjIxMDktMGYyZi00NjY3LWI4YjctYTcxNzc2MDUwYjZmXkEyXkFqcGc@._V1_.jpg",
         rating: 0,
-        releaseDate: "2026-06-01",
+        releaseDate: "2026-10-14",
         runtime: "Limited series",
         saga: "Multiverse Saga",
         slug: "visionquest",
@@ -1369,14 +1387,14 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 670,
+        chronologyOrder: 680,
         contentType: "film",
         description:
             "Heroes from three different worlds must unite when they're thrust together to confront a catastrophic danger that could destroy everything they know.",
         genres: ["action", "adventure", "sciFi"],
         imdbUrl: "https://www.imdb.com/title/tt21357150/",
         phase: "Phase Six",
-        placement: "2028",
+        placement: "TBD",
         posterUrl:
             "https://m.media-amazon.com/images/M/MV5BNGEwYWZkN2UtOTQ5Mi00MGQzLWEzNjYtMWMyNDBkMTkzMWNkXkEyXkFqcGc@._V1_.jpg",
         rating: 0,
@@ -1389,7 +1407,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 680,
+        chronologyOrder: 690,
         contentType: "film",
         description: "Plot Under Wraps",
         genres: ["action", "adventure", "sciFi"],

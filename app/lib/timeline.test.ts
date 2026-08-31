@@ -16,9 +16,9 @@ describe("chronology", () => {
         expect(validateChronology(chronology)).toEqual([]);
     });
 
-    test("is ordered chronologically", () => {
+    test("uses contiguous chronological display positions", () => {
         const orders = chronology.map((entry) => entry.chronologyOrder);
-        expect(orders).toEqual([...orders].sort((left, right) => left - right));
+        expect(orders).toEqual(chronology.map((_, index) => (index + 1) * 10));
     });
 });
 
