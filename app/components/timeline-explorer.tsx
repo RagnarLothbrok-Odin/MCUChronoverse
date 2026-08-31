@@ -324,8 +324,14 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
             .filter((entry) => entry !== undefined)
             .slice(0, 3);
     }, [pendingWatchSlug, visibleEntries, watchedSlugs]);
-    const toggleFilters = useCallback(() => setFiltersOpen((current) => !current), []);
-    const toggleWatchlist = useCallback(() => setWatchlistOpen((current) => !current), []);
+    const toggleFilters = useCallback(() => {
+        setWatchlistOpen(false);
+        setFiltersOpen((current) => !current);
+    }, []);
+    const toggleWatchlist = useCallback(() => {
+        setFiltersOpen(false);
+        setWatchlistOpen((current) => !current);
+    }, []);
     const closeDetail = useCallback(() => setSelectedEntry(null), []);
     const resetWatchStatus = useCallback(() => {
         clearTimeout(pendingWatchTimeout.current ?? undefined);
@@ -558,7 +564,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
             />
 
             <aside
-                className={`absolute top-5 right-5 z-40 sm:top-7 sm:right-7 ${filtersOpen ? "w-[min(21rem,calc(100%-2.5rem))]" : "w-12"}`}
+                className="absolute top-5 right-5 z-40 w-12 sm:top-7 sm:right-7"
                 ref={filtersRef}
             >
                 <div className="flex justify-end">
@@ -596,7 +602,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                     {filtersOpen ? (
                         <motion.div
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            className="mt-3 rounded-2xl border border-white/12 bg-[#08080b]/90 p-4 shadow-[0_24px_90px_rgb(0_0_0/62%)] backdrop-blur-2xl sm:p-5"
+                            className="absolute top-full right-0 mt-3 w-[min(21rem,calc(100vw-2.5rem))] origin-top-right rounded-2xl border border-white/12 bg-[#08080b]/90 p-4 shadow-[0_24px_90px_rgb(0_0_0/62%)] backdrop-blur-2xl sm:p-5"
                             exit={{ opacity: 0, scale: 0.98, y: -8 }}
                             id="timeline-filters"
                             initial={{ opacity: 0, scale: 0.98, y: -8 }}

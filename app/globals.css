@@ -1379,6 +1379,16 @@ a {
 }
 
 @media (max-width: 640px) {
+  .timeline-watchlist-panel {
+    position: fixed;
+    top: 5rem;
+    right: 1.25rem;
+    left: 1.25rem;
+    width: auto;
+    max-height: calc(100dvh - 6.25rem);
+    overflow-y: auto;
+  }
+
   .timeline-detail-grid {
     grid-template-columns: 6.75rem minmax(0, 1fr);
     min-height: 16.5rem;
