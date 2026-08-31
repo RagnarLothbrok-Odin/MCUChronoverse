@@ -104,13 +104,23 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
             <div className="timeline-detail-grid">
                 <div className="timeline-detail-poster-shell">
                     {entry.posterUrl ? (
-                        <Image
-                            alt={`${entry.title} poster`}
-                            className="timeline-detail-poster"
-                            fill
-                            sizes="(max-width: 640px) 108px, 192px"
-                            src={entry.posterUrl}
-                        />
+                        <>
+                            <Image
+                                alt=""
+                                aria-hidden="true"
+                                className="timeline-detail-poster-ambient"
+                                fill
+                                sizes="(max-width: 640px) 108px, 192px"
+                                src={entry.posterUrl}
+                            />
+                            <Image
+                                alt={`${entry.title} poster`}
+                                className="timeline-detail-poster"
+                                fill
+                                sizes="(max-width: 640px) 108px, 192px"
+                                src={entry.posterUrl}
+                            />
+                        </>
                     ) : (
                         <div className="timeline-detail-poster-fallback">
                             <span>Poster unavailable</span>
