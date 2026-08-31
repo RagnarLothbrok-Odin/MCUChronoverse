@@ -3,9 +3,11 @@
 import { describe, expect, test } from "bun:test";
 import { chronology, validateChronology } from "../data/chronology";
 import {
+    emptyTimelineFilters,
     filterTimeline,
     isWatchable,
     parseTimelineFilters,
+    serializeTimelineFilters,
     timelineNodePosition,
 } from "./timeline";
 
@@ -23,6 +25,7 @@ describe("chronology", () => {
 describe("timeline filters", () => {
     test("filters by search, type, and phase", () => {
         const entries = filterTimeline(chronology, {
+            order: "chronology",
             phases: ["Phase One"],
             query: "iron",
             types: ["film"],
@@ -36,6 +39,21 @@ describe("timeline filters", () => {
         );
         expect(filters.types).toEqual(["film"]);
         expect(filters.phases).toEqual(["Phase One"]);
+        expect(filters.order).toBe("chronology");
+    });
+
+    test("sorts and serializes release order", () => {
+        const entries = filterTimeline(chronology, {
+            ...emptyTimelineFilters,
+            order: "release",
+        });
+        const releaseDates = entries.map((entry) => entry.releaseDate);
+
+        expect(releaseDates).toEqual([...releaseDates].sort());
+        expect(
+            serializeTimelineFilters({ ...emptyTimelineFilters, order: "release" }).toString()
+        ).toBe("order=release");
+        expect(parseTimelineFilters(new URLSearchParams("order=release")).order).toBe("release");
     });
 });
 

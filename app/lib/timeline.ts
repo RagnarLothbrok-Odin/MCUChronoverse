@@ -6,13 +6,19 @@ import {
     type TimelineEntry,
 } from "../data/types";
 
+export const timelineOrders = ["chronology", "release"] as const;
+
+export type TimelineOrder = (typeof timelineOrders)[number];
+
 export interface TimelineFilters {
+    order: TimelineOrder;
     phases: McuPhase[];
     query: string;
     types: ContentType[];
 }
 
 export const emptyTimelineFilters: TimelineFilters = {
+    order: "chronology",
     phases: [],
     query: "",
     types: [],
@@ -35,7 +41,9 @@ function parseList<T extends string>(value: string | null, allowed: readonly T[]
 }
 
 export function parseTimelineFilters(params: SearchParamsReader): TimelineFilters {
+    const order = params.get("order");
     return {
+        order: order === "release" ? order : "chronology",
         phases: parseList(params.get("phases"), phases),
         query: params.get("q")?.trim() ?? "",
         types: parseList(params.get("types"), contentTypes),
@@ -44,6 +52,9 @@ export function parseTimelineFilters(params: SearchParamsReader): TimelineFilter
 
 export function serializeTimelineFilters(filters: TimelineFilters): URLSearchParams {
     const params = new URLSearchParams();
+    if (filters.order !== "chronology") {
+        params.set("order", filters.order);
+    }
     if (filters.query.trim()) {
         params.set("q", filters.query.trim());
     }
@@ -61,17 +72,28 @@ export function filterTimeline(
     filters: TimelineFilters
 ): TimelineEntry[] {
     const query = filters.query.trim().toLocaleLowerCase("en-GB");
-    return entries.filter((entry) => {
-        const matchesQuery =
-            query.length === 0 ||
-            entry.title.toLocaleLowerCase("en-GB").includes(query) ||
-            entry.description.toLocaleLowerCase("en-GB").includes(query);
-        const matchesType = filters.types.length === 0 || filters.types.includes(entry.contentType);
-        const matchesPhase =
-            filters.phases.length === 0 ||
-            (entry.phase !== undefined && filters.phases.includes(entry.phase));
-        return matchesQuery && matchesType && matchesPhase;
-    });
+    return entries
+        .filter((entry) => {
+            const matchesQuery =
+                query.length === 0 ||
+                entry.title.toLocaleLowerCase("en-GB").includes(query) ||
+                entry.description.toLocaleLowerCase("en-GB").includes(query);
+            const matchesType =
+                filters.types.length === 0 || filters.types.includes(entry.contentType);
+            const matchesPhase =
+                filters.phases.length === 0 ||
+                (entry.phase !== undefined && filters.phases.includes(entry.phase));
+            return matchesQuery && matchesType && matchesPhase;
+        })
+        .sort((left, right) => {
+            if (filters.order === "release") {
+                return (
+                    left.releaseDate.localeCompare(right.releaseDate) ||
+                    left.chronologyOrder - right.chronologyOrder
+                );
+            }
+            return left.chronologyOrder - right.chronologyOrder;
+        });
 }
 
 export interface TimelineNodePosition {

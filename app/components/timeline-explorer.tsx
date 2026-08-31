@@ -29,6 +29,8 @@ import {
     parseTimelineFilters,
     serializeTimelineFilters,
     type TimelineFilters,
+    type TimelineOrder,
+    timelineOrders,
 } from "../lib/timeline";
 import { AuthMenu } from "./auth-menu";
 import { WatchProgressMenu } from "./watch-progress-menu";
@@ -74,6 +76,16 @@ const contentTypeNames: Record<ContentType, string> = {
     series: "Series",
     short: "Short",
     special: "Special",
+};
+
+const timelineOrderLabels: Record<TimelineOrder, string> = {
+    chronology: "Chronological",
+    release: "Release date",
+};
+
+const timelineOrderHeadings: Record<TimelineOrder, string> = {
+    chronology: "Sacred timeline",
+    release: "Release order",
 };
 
 interface TimelineDetailProps {
@@ -304,7 +316,10 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const safeTimelineIndex = Math.min(timelineIndex, Math.max(visibleEntries.length - 1, 0));
     const activeEntry = visibleEntries[safeTimelineIndex];
     const activeFilterCount =
-        filters.types.length + filters.phases.length + (filters.query ? 1 : 0);
+        filters.types.length +
+        filters.phases.length +
+        (filters.query ? 1 : 0) +
+        Number(filters.order === "release");
     let accountActionLabel = "Checking account...";
     if (authReady) {
         accountActionLabel = authUser
@@ -379,6 +394,14 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
             }
             updateFilters({ ...filters, types: toggleValue(filters.types, type) });
         },
+        [filters, updateFilters]
+    );
+    const handleOrderChange = useCallback(
+        (event: MouseEvent<HTMLButtonElement>) =>
+            updateFilters({
+                ...filters,
+                order: event.currentTarget.dataset.value as TimelineOrder,
+            }),
         [filters, updateFilters]
     );
     const handlePhaseToggle = useCallback(
@@ -644,6 +667,33 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
 
                             <fieldset className="mt-5">
                                 <legend className="font-mono text-[0.55rem] text-white/30 uppercase tracking-[0.16em]">
+                                    Timeline order
+                                </legend>
+                                <div className="mt-2 grid grid-cols-2 gap-2">
+                                    {timelineOrders.map((order) => {
+                                        const active = filters.order === order;
+                                        return (
+                                            <button
+                                                aria-pressed={active}
+                                                className={`focus-ring rounded-full border px-3 py-2.5 text-xs transition-colors ${
+                                                    active
+                                                        ? "border-[#ff9b4a]/60 bg-[#ff8a3d]/12 text-white"
+                                                        : "border-white/8 text-white/42 hover:border-white/20"
+                                                }`}
+                                                data-value={order}
+                                                key={order}
+                                                onClick={handleOrderChange}
+                                                type="button"
+                                            >
+                                                {timelineOrderLabels[order]}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </fieldset>
+
+                            <fieldset className="mt-5">
+                                <legend className="font-mono text-[0.55rem] text-white/30 uppercase tracking-[0.16em]">
                                     Format
                                 </legend>
                                 <div className="mt-2 grid grid-cols-2 gap-2">
@@ -723,7 +773,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                 <div className="flex items-end justify-between gap-4">
                     <div>
                         <p className="font-mono text-[#ffad55] text-[0.5rem] uppercase tracking-[0.2em]">
-                            Sacred timeline
+                            {timelineOrderHeadings[filters.order]}
                         </p>
                         <p className="mt-1 truncate font-semibold text-sm text-white/78 tracking-[-0.02em]">
                             {activeEntry?.title ?? "No matching events"}
