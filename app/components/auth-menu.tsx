@@ -306,23 +306,11 @@ export function AuthMenu() {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [close, open]);
 
-    const handleOAuth = useCallback(async () => {
+    const handleOAuth = useCallback(() => {
         setPendingAction("discord");
         setOauthError(null);
         setMessage(null);
-        try {
-            const { error } = await createClient().auth.signInWithOAuth({
-                options: { redirectTo: `${window.location.origin}/auth/callback` },
-                provider: "discord",
-            });
-            if (!error) {
-                return;
-            }
-        } catch {
-            // The same safe message covers network and provider failures.
-        }
-        setOauthError("Discord sign-in could not be started. Please try again.");
-        setPendingAction(null);
+        window.location.assign("/auth/discord");
     }, []);
 
     const handleBackdropPointerDown = useCallback(

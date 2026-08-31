@@ -1,8 +1,15 @@
 const localOrigin = "http://localhost:3000";
 
-export function siteOrigin(): string {
-    const configuredOrigin = process.env.NEXT_PUBLIC_SITE_URL;
+interface SiteOriginOptions {
+    requireConfigured?: boolean;
+}
+
+export function siteOrigin(options: SiteOriginOptions = {}): string {
+    const configuredOrigin = process.env.SITE_URL ?? process.env.NEXT_PUBLIC_SITE_URL;
     if (!configuredOrigin) {
+        if (options.requireConfigured) {
+            throw new Error("SITE_URL is required for authentication in production");
+        }
         return localOrigin;
     }
 
@@ -13,6 +20,6 @@ export function siteOrigin(): string {
         }
         return url.origin;
     } catch (error) {
-        throw new Error("NEXT_PUBLIC_SITE_URL must be a valid absolute URL", { cause: error });
+        throw new Error("SITE_URL must be a valid absolute URL", { cause: error });
     }
 }

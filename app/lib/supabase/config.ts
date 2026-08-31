@@ -14,3 +14,9 @@ export const supabaseConfig = {
     key: supabasePublishableKey,
     url: parsedSupabaseUrl.origin,
 };
+
+export const supabaseCookieOptions = {
+    path: "/",
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+} as const;

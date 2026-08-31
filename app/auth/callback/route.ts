@@ -6,7 +6,7 @@ import { createClient } from "../../lib/supabase/server";
 
 export async function GET(request: NextRequest) {
     const code = request.nextUrl.searchParams.get("code");
-    const origin = siteOrigin();
+    const origin = siteOrigin({ requireConfigured: process.env.NODE_ENV === "production" });
     const destination = resolveAuthRedirect(origin, request.nextUrl.searchParams.get("next"));
 
     if (code) {
