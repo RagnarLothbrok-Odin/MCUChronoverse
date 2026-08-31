@@ -24,6 +24,10 @@ export const chronology = [
     {
         chronologyOrder: 20,
         contentType: "film",
+        creditScenes: {
+            after: true,
+            during: false,
+        },
         description:
             'Steve Rogers, a rejected military soldier, transforms into Captain America after taking a dose of a "Super-Soldier serum". But being Captain America comes at a price as he attempts to take down a warmonger and a terrorist organization.',
         genres: ["action", "adventure", "sciFi"],
@@ -84,6 +88,7 @@ export const chronology = [
     {
         chronologyOrder: 50,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Forced to balance their roles as heroes with the strength of their family bond, the Fantastic Four must defend Earth from a ravenous space god called Galactus and his enigmatic herald, the Silver Surfer.",
         genres: ["action", "adventure", "sciFi"],
@@ -105,6 +110,7 @@ export const chronology = [
     {
         chronologyOrder: 60,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Carol Danvers becomes one of the universe's most powerful heroes when Earth is caught in the middle of a galactic war between two alien races.",
         genres: ["action", "adventure", "sciFi"],
@@ -125,6 +131,7 @@ export const chronology = [
     {
         chronologyOrder: 70,
         contentType: "film",
+        creditScenes: { after: true, during: false },
         description:
             "After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.",
         genres: ["action", "adventure", "sciFi"],
@@ -145,6 +152,7 @@ export const chronology = [
     {
         chronologyOrder: 80,
         contentType: "film",
+        creditScenes: { after: true, during: false },
         description:
             "With the world now aware of his identity as Iron Man, Tony Stark must contend with both his declining health and a vengeful madman with ties to his father's legacy.",
         genres: ["action", "sciFi"],
@@ -165,6 +173,7 @@ export const chronology = [
     {
         chronologyOrder: 90,
         contentType: "film",
+        creditScenes: { after: false, during: false },
         description:
             "Bruce Banner, a scientist on the run from the U.S. Government, must find a cure for the monster he turns into whenever he loses his temper.",
         genres: ["action", "sciFi"],
@@ -205,6 +214,7 @@ export const chronology = [
     {
         chronologyOrder: 110,
         contentType: "film",
+        creditScenes: { after: true, during: false },
         description:
             "The powerful but arrogant god Thor is cast out of Asgard to live amongst humans in Midgard (Earth), where he soon becomes one of their finest defenders.",
         genres: ["action", "fantasy"],
@@ -245,6 +255,7 @@ export const chronology = [
     {
         chronologyOrder: 130,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
         genres: ["action", "sciFi"],
@@ -285,6 +296,7 @@ export const chronology = [
     {
         chronologyOrder: 150,
         contentType: "film",
+        creditScenes: { after: true, during: false },
         description:
             "When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.",
         genres: ["action", "adventure", "sciFi"],
@@ -325,6 +337,7 @@ export const chronology = [
     {
         chronologyOrder: 170,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "When the Dark Elves attempt to plunge the universe into darkness, Thor must embark on a perilous and personal journey that will reunite him with doctor Jane Foster.",
         genres: ["action", "adventure", "fantasy", "sciFi"],
@@ -366,6 +379,7 @@ export const chronology = [
     {
         chronologyOrder: 190,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat from history: an assassin known as the Winter Soldier.",
         genres: ["action", "adventure", "sciFi", "thriller"],
@@ -386,6 +400,7 @@ export const chronology = [
     {
         chronologyOrder: 200,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "A group of intergalactic criminals must pull together to stop a fanatical warrior with plans to purge the universe.",
         genres: ["action", "adventure", "comedy", "sciFi"],
@@ -406,6 +421,7 @@ export const chronology = [
     {
         chronologyOrder: 210,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's encounter with his father, the ambitious celestial being Ego.",
         genres: ["action", "adventure", "comedy", "fantasy", "music", "sciFi"],
@@ -446,6 +462,7 @@ export const chronology = [
     {
         chronologyOrder: 230,
         contentType: "film",
+        creditScenes: { after: false, during: true },
         description:
             "When Tony Stark and Bruce Banner try to jump-start a dormant peacekeeping program called Ultron, things go horribly wrong and it's up to Earth's mightiest heroes to stop the villainous Ultron from enacting his terrible plan.",
         genres: ["action", "adventure", "sciFi"],
@@ -466,6 +483,7 @@ export const chronology = [
     {
         chronologyOrder: 240,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Armed with a super-suit with the astonishing ability to shrink in scale but increase in strength, cat burglar Scott Lang must embrace his inner hero and help his mentor, Dr. Hank Pym, pull off a plan that will save the world.",
         genres: ["action", "comedy", "sciFi"],
@@ -486,6 +504,7 @@ export const chronology = [
     {
         chronologyOrder: 250,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Political involvement in the Avengers' affairs causes a rift between Captain America and Iron Man.",
         genres: ["action", "sciFi"],
@@ -506,6 +525,7 @@ export const chronology = [
     {
         chronologyOrder: 260,
         contentType: "film",
+        creditScenes: { after: true, during: false },
         description:
             "Natasha Romanoff confronts the darker parts of her ledger when a dangerous conspiracy with ties to her past arises.",
         genres: ["action", "adventure", "sciFi"],
@@ -526,6 +546,7 @@ export const chronology = [
     {
         chronologyOrder: 270,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "T'Challa, heir to the hidden but advanced kingdom of Wakanda, must step forward to lead his people into a new future and must confront a challenger from his country's past.",
         genres: ["action", "adventure", "sciFi"],
@@ -546,6 +567,7 @@ export const chronology = [
     {
         chronologyOrder: 280,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Peter Parker tries to stop Adrian 'The Vulture' Toomes from selling weapons made with advanced Chitauri technology while trying to balance his life as an ordinary high school student.",
         genres: ["action", "adventure", "sciFi"],
@@ -566,6 +588,7 @@ export const chronology = [
     {
         chronologyOrder: 290,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "While on a journey of physical and spiritual healing, a brilliant neurosurgeon is drawn into the world of the mystic arts.",
         genres: ["action", "adventure", "fantasy", "sciFi"],
@@ -586,6 +609,7 @@ export const chronology = [
     {
         chronologyOrder: 300,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Imprisoned on the planet Sakaar, Thor must race against time to return to Asgard and stop Ragnarök, the destruction of his world, at the hands of the powerful and ruthless villain Hela.",
         genres: ["action", "adventure", "comedy", "fantasy", "sciFi"],
@@ -606,6 +630,7 @@ export const chronology = [
     {
         chronologyOrder: 310,
         contentType: "film",
+        creditScenes: { after: true, during: false },
         description:
             "The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.",
         genres: ["action", "adventure", "sciFi"],
@@ -626,6 +651,7 @@ export const chronology = [
     {
         chronologyOrder: 320,
         contentType: "film",
+        creditScenes: { after: true, during: false },
         description:
             "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
         genres: ["action", "adventure", "sciFi"],
@@ -728,6 +754,7 @@ export const chronology = [
     {
         chronologyOrder: 370,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Peter Parker heads to Europe hoping for a normal summer, but elemental attacks and a mysterious new hero pull him back into a dangerous fight he isn't ready to embrace.",
         genres: ["action", "adventure", "comedy", "fantasy", "sciFi"],
@@ -748,6 +775,7 @@ export const chronology = [
     {
         chronologyOrder: 380,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Shang-Chi, the master of weaponry-based Kung Fu, is forced to confront his past after being drawn into the Ten Rings organization.",
         genres: ["action", "adventure", "fantasy", "sciFi"],
@@ -768,6 +796,7 @@ export const chronology = [
     {
         chronologyOrder: 390,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "The saga of the Eternals, a race of immortal beings who lived on Earth and shaped its history and civilizations.",
         genres: ["action", "adventure", "fantasy", "sciFi"],
@@ -808,6 +837,7 @@ export const chronology = [
     {
         chronologyOrder: 410,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Peter Parker turns to Doctor Strange after his identity destroys the life he knows, but a magical mistake draws powerful outsiders into his world and forces him to confront what being Spider Man really means.",
         genres: ["action", "adventure", "fantasy", "sciFi"],
@@ -828,6 +858,7 @@ export const chronology = [
     {
         chronologyOrder: 420,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Doctor Strange teams up with a mysterious teenage girl who can travel across multiverses, to battle other-universe versions of himself which threaten to wipe out the multiverse. They seek help from the Scarlet Witch, Wong and others.",
         genres: ["action", "adventure", "fantasy", "sciFi"],
@@ -868,6 +899,7 @@ export const chronology = [
     {
         chronologyOrder: 440,
         contentType: "film",
+        creditScenes: { after: false, during: true },
         description:
             "The people of Wakanda fight to protect their home from intervening world powers as they mourn the death of King T'Challa.",
         genres: ["action", "adventure", "drama", "sciFi"],
@@ -948,6 +980,7 @@ export const chronology = [
     {
         chronologyOrder: 480,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
         genres: ["action", "adventure", "comedy", "romance", "sciFi"],
@@ -988,6 +1021,7 @@ export const chronology = [
     {
         chronologyOrder: 500,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Still reeling from the loss of Gamora, Peter Quill rallies his team to defend the universe and one of their own - a mission that could mean the end of the Guardians if not successful.",
         genres: ["action", "adventure", "comedy", "fantasy", "sciFi"],
@@ -1028,6 +1062,7 @@ export const chronology = [
     {
         chronologyOrder: 520,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Carol Danvers gets her powers entangled with those of Kamala Khan and Monica Rambeau, forcing them to work together to save the universe.",
         genres: ["action", "adventure", "sciFi"],
@@ -1048,6 +1083,7 @@ export const chronology = [
     {
         chronologyOrder: 530,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Scott Lang and Hope Van Dyne are dragged into the Quantum Realm, along with Hope's parents and Scott's daughter Cassie. Together they must find a way to escape, but what secrets is Hope's mother hiding? And who is the mysterious Kang?",
         genres: ["action", "adventure", "comedy", "sciFi"],
@@ -1068,6 +1104,7 @@ export const chronology = [
     {
         chronologyOrder: 540,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "Deadpool is offered a place in the Marvel Cinematic Universe by the Time Variance Authority, but instead recruits a variant of Wolverine to save his universe from extinction.",
         genres: ["action", "adventure", "comedy", "sciFi"],
@@ -1230,6 +1267,7 @@ export const chronology = [
     {
         chronologyOrder: 620,
         contentType: "film",
+        creditScenes: { after: true, during: false },
         description:
             "Sam Wilson, the new Captain America, finds himself in the middle of an international incident and must discover the motive behind a nefarious global plan.",
         genres: ["action", "adventure", "sciFi"],
@@ -1250,6 +1288,7 @@ export const chronology = [
     {
         chronologyOrder: 630,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "After finding themselves ensnared in a death trap, an unconventional team of antiheroes must go on a dangerous mission that will force them to confront the darkest corners of their pasts.",
         genres: ["action", "adventure", "crime", "drama", "fantasy", "sciFi"],
@@ -1290,6 +1329,7 @@ export const chronology = [
     {
         chronologyOrder: 660,
         contentType: "film",
+        creditScenes: { after: true, during: true },
         description:
             "A forgotten Peter Parker lives alone as a full-time Spider-Man until mounting pressure triggers a dangerous change and a powerful new enemy emerges.",
         genres: ["action", "adventure", "sciFi"],
@@ -1303,7 +1343,7 @@ export const chronology = [
         runtime: "2h 25m",
         saga: "Multiverse Saga",
         slug: "spider-man-brand-new-day",
-        status: "announced",
+        status: "released",
         title: "Spider-Man: Brand New Day",
         universe: "Earth-616",
     },

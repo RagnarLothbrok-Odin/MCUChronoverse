@@ -25,9 +25,15 @@ export type ContentStatus = "released" | "announced";
 
 export type Saga = "Infinity Saga" | "Multiverse Saga";
 
+export interface CreditScenesInfo {
+    after: boolean;
+    during: boolean;
+}
+
 export interface TimelineEntry {
     chronologyOrder: number;
     contentType: ContentType;
+    creditScenes?: CreditScenesInfo;
     description: string;
     genres?: string[];
     imdbUrl?: string;

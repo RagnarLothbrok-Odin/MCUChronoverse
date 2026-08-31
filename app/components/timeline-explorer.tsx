@@ -178,6 +178,25 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
                         <span>{entry.releaseDate.slice(0, 4)}</span>
                     </div>
 
+                    {entry.creditScenes ? (
+                        <div className="timeline-detail-credits">
+                            <span aria-hidden="true" className="timeline-detail-credits-mark">
+                                ✦
+                            </span>
+                            <span className="timeline-detail-credits-label">Credit scenes</span>
+                            <dl className="timeline-detail-credits-statuses">
+                                <div data-present={entry.creditScenes.during}>
+                                    <dt>During</dt>
+                                    <dd>{entry.creditScenes.during ? "Yes" : "No"}</dd>
+                                </div>
+                                <div data-present={entry.creditScenes.after}>
+                                    <dt>After</dt>
+                                    <dd>{entry.creditScenes.after ? "Yes" : "No"}</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    ) : null}
+
                     <p className="timeline-detail-description">{entry.description}</p>
 
                     {entry.genres && entry.genres.length > 0 ? (

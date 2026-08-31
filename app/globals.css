@@ -482,6 +482,67 @@ a {
   color: rgb(244 241 232 / 61%);
 }
 
+.timeline-detail-credits {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  width: fit-content;
+  padding: 0.45rem 0.5rem 0.45rem 0.65rem;
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  color: rgb(255 255 255 / 54%);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: linear-gradient(
+    90deg,
+    rgb(255 138 61 / 8%),
+    rgb(255 255 255 / 2%)
+  );
+  border: 1px solid rgb(255 173 85 / 18%);
+}
+
+.timeline-detail-credits-mark {
+  color: #ffad55;
+  text-shadow: 0 0 12px rgb(255 138 61 / 65%);
+}
+
+.timeline-detail-credits-label {
+  padding-right: 0.15rem;
+  font-size: 0.5rem;
+  color: rgb(255 255 255 / 42%);
+}
+
+.timeline-detail-credits-statuses {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+}
+
+.timeline-detail-credits-statuses > div {
+  display: flex;
+  gap: 0.3rem;
+  align-items: baseline;
+  padding: 0.35rem 0.45rem;
+  background: rgb(255 255 255 / 3%);
+  border: 1px solid rgb(255 255 255 / 7%);
+}
+
+.timeline-detail-credits-statuses dt {
+  font-size: 0.48rem;
+  color: rgb(255 255 255 / 34%);
+}
+
+.timeline-detail-credits-statuses dd {
+  margin: 0;
+  font-size: 0.56rem;
+  color: rgb(255 255 255 / 46%);
+}
+
+.timeline-detail-credits-statuses [data-present="true"] dd {
+  color: #ffad55;
+  text-shadow: 0 0 10px rgb(255 138 61 / 40%);
+}
+
 .timeline-detail-genres {
   display: flex;
   flex-wrap: wrap;
