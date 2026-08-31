@@ -30,7 +30,6 @@ import {
     serializeTimelineFilters,
     type TimelineFilters,
     type TimelineOrder,
-    timelineBoundaryLabel,
     timelineOrders,
 } from "../lib/timeline";
 import { AuthMenu } from "./auth-menu";
@@ -842,9 +841,9 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                     />
                 </div>
                 <div className="mt-2 flex items-center justify-between font-mono text-[0.7rem] text-white/28 uppercase tracking-[0.14em]">
-                    <span>{timelineBoundaryLabel(visibleEntries[0]?.placement, "start")}</span>
+                    <span>{activeEntry?.placement ?? "Origin"}</span>
                     <span className="text-[#ffb05e]/65">Drag to travel</span>
-                    <span>{timelineBoundaryLabel(visibleEntries.at(-1)?.placement, "end")}</span>
+                    <span>{visibleEntries.at(-1)?.placement ?? "Destination"}</span>
                 </div>
             </nav>
         </main>
