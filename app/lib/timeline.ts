@@ -6,6 +6,8 @@ import {
     type TimelineEntry,
 } from "../data/types";
 
+const placementRangeSeparator = /\s+to\s+/i;
+
 export const timelineOrders = ["chronology", "release"] as const;
 
 export type TimelineOrder = (typeof timelineOrders)[number];
@@ -94,6 +96,15 @@ export function filterTimeline(
             }
             return left.chronologyOrder - right.chronologyOrder;
         });
+}
+
+export function timelineBoundaryLabel(placement: string | undefined, side: "start" | "end") {
+    if (!placement) {
+        return side === "start" ? "Origin" : "Destination";
+    }
+
+    const parts = placement.split(placementRangeSeparator);
+    return (side === "start" ? parts[0] : parts.at(-1)) ?? placement;
 }
 
 export interface TimelineNodePosition {
