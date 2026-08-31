@@ -334,6 +334,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     const visibleEntries = useMemo(() => filterTimeline(entries, filters), [entries, filters]);
     const safeTimelineIndex = Math.min(timelineIndex, Math.max(visibleEntries.length - 1, 0));
     const activeEntry = visibleEntries[safeTimelineIndex];
+    const nextEntry = visibleEntries[safeTimelineIndex + 1];
     const activeFilterCount =
         filters.types.length +
         filters.phases.length +
@@ -843,7 +844,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                 <div className="mt-2 flex items-center justify-between font-mono text-[0.7rem] text-white/28 uppercase tracking-[0.14em]">
                     <span>{activeEntry?.placement ?? "Origin"}</span>
                     <span className="text-[#ffb05e]/65">Drag to travel</span>
-                    <span>{visibleEntries.at(-1)?.placement ?? "Destination"}</span>
+                    <span>{nextEntry?.placement ?? "Destination"}</span>
                 </div>
             </nav>
         </main>
