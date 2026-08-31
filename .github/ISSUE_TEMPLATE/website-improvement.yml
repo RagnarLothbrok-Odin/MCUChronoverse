@@ -1,0 +1,22 @@
+name: Website improvement
+description: Suggest an improvement to the MCU Chronoverse website
+title: "[Website] "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: details
+    attributes:
+      label: What would you improve?
+      description: Explain the change and how it would help visitors.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+  - type: input
+    id: source
+    attributes:
+      label: Reference link
+      placeholder: https://example.com
+

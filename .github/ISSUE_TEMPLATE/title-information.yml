@@ -1,0 +1,25 @@
+name: Title information
+description: Report an incorrect title, format, or entry detail
+title: "[Title] "
+labels: [timeline, correction]
+body:
+  - type: input
+    id: entry
+    attributes:
+      label: Timeline entry
+      placeholder: "Captain America: The First Avenger"
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Suggested correction
+      description: Explain what information is wrong and what it should say.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Supporting source
+      placeholder: https://example.com
+

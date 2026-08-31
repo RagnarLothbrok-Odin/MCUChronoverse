@@ -1,0 +1,25 @@
+name: Timeline placement
+description: Report an entry that appears in the wrong chronological position
+title: "[Placement] "
+labels: [timeline, correction]
+body:
+  - type: input
+    id: entry
+    attributes:
+      label: Timeline entry
+      placeholder: "Captain America: The First Avenger"
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Suggested placement
+      description: Explain where it currently appears and where it should go.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Supporting source
+      placeholder: https://example.com
+

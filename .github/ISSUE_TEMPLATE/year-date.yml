@@ -1,0 +1,25 @@
+name: Year or date
+description: Report an incorrect story year, date, or release information
+title: "[Date] "
+labels: [timeline, correction]
+body:
+  - type: input
+    id: entry
+    attributes:
+      label: Timeline entry
+      placeholder: "Captain America: The First Avenger"
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Suggested correction
+      description: Tell us the year or date currently shown and what it should be.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Supporting source
+      placeholder: https://example.com
+

@@ -1,0 +1,25 @@
+name: Missing entry
+description: Suggest a film, series, special, short, or one-shot for the archive
+title: "[Missing] "
+labels: [timeline, correction]
+body:
+  - type: input
+    id: entry
+    attributes:
+      label: Missing entry
+      placeholder: "Agent Carter: One-Shot"
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Why should it be included?
+      description: Include its format and where it belongs in the timeline if known.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Supporting source
+      placeholder: https://example.com
+

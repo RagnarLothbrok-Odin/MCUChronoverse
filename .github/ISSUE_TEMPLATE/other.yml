@@ -1,0 +1,22 @@
+name: Other suggestion
+description: Submit an archive suggestion that does not fit another category
+title: "[Other] "
+labels: [suggestion]
+body:
+  - type: textarea
+    id: details
+    attributes:
+      label: Suggestion
+      description: Explain what you would like us to review.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+  - type: input
+    id: source
+    attributes:
+      label: Supporting source
+      placeholder: https://example.com
+
