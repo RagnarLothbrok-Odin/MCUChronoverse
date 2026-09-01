@@ -108,7 +108,7 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
     return (
         <motion.aside
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="timeline-detail-card absolute bottom-36 left-4 z-30 w-[min(47rem,calc(100%-2rem))] sm:bottom-40 sm:left-7 sm:w-[min(47rem,calc(100%-3.5rem))]"
+            className="timeline-detail-card absolute bottom-36 left-4 z-[100] w-[min(47rem,calc(100%-2rem))] sm:bottom-40 sm:left-7 sm:w-[min(47rem,calc(100%-3.5rem))]"
             data-timeline-detail="true"
             exit={{ opacity: 0, scale: 0.97, y: 10 }}
             initial={{ opacity: 0, scale: 0.94, y: 18 }}
