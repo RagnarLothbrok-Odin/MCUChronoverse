@@ -186,6 +186,7 @@ export function WatchProgressMenu({
                                 onClick={onAccountAction}
                                 type="button"
                             >
+                                <UiIcon name={signedIn ? "sign-out" : "cloud-sync"} />
                                 {compactAccountActionLabel}
                             </button>
                         </div>
