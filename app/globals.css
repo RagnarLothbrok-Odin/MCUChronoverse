@@ -792,11 +792,6 @@ a {
   color: rgb(244 241 232 / 68%);
 }
 
-.timeline-watchlist-heading > span {
-  font-size: 1.2rem;
-  color: rgb(255 173 85 / 48%);
-}
-
 .timeline-watchlist-progress {
   height: 2px;
   overflow: hidden;
@@ -1352,23 +1347,17 @@ a {
   opacity: 0.55;
 }
 
-.timeline-watchlist-account-section {
-  padding-top: 0.75rem;
-  margin-top: 0.85rem;
-  border-top: 1px solid rgb(255 255 255 / 8%);
-}
-
 .timeline-watchlist-account {
-  width: 100%;
-  min-height: 2.5rem;
-  padding: 0.7rem;
+  flex: 0 0 auto;
+  min-height: 2rem;
+  padding: 0.45rem 0.65rem;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.65rem;
+  font-size: 0.58rem;
   color: rgb(255 173 85 / 78%);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   cursor: pointer;
-  background: rgb(255 255 255 / 6%);
+  background: rgb(255 173 85 / 5%);
   border: 1px solid rgb(255 255 255 / 14%);
   border-radius: 0.7rem;
 }

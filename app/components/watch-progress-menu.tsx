@@ -132,6 +132,10 @@ export function WatchProgressMenu({
     const resetDescription = totalWatchedCount
         ? `Clear ${totalWatchedCount} watched ${totalWatchedCount === 1 ? "item" : "items"}`
         : "Nothing marked yet";
+    let compactAccountActionLabel = "Checking...";
+    if (accountReady) {
+        compactAccountActionLabel = signedIn ? "Sign out" : "Sync progress";
+    }
 
     return (
         <aside
@@ -175,9 +179,15 @@ export function WatchProgressMenu({
                                     {visibleWatchedCount} of {visibleEntryCount} complete
                                 </strong>
                             </div>
-                            <span aria-hidden="true">
-                                <UiIcon name="progress" />
-                            </span>
+                            <button
+                                aria-label={accountActionLabel}
+                                className="focus-ring timeline-watchlist-account"
+                                disabled={!accountReady}
+                                onClick={onAccountAction}
+                                type="button"
+                            >
+                                {compactAccountActionLabel}
+                            </button>
                         </div>
                         <div className="timeline-watchlist-progress">
                             <span style={{ width: progress }} />
@@ -218,16 +228,6 @@ export function WatchProgressMenu({
                                 </span>
                             </button>
                         ) : null}
-                        <div className="timeline-watchlist-account-section">
-                            <button
-                                className="focus-ring timeline-watchlist-account"
-                                disabled={!accountReady}
-                                onClick={onAccountAction}
-                                type="button"
-                            >
-                                {accountActionLabel}
-                            </button>
-                        </div>
                         {signedIn && syncError ? (
                             <p className="timeline-watchlist-sync-error">
                                 Sync failed. This device may be ahead of your account.

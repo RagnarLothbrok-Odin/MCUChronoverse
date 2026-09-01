@@ -7,7 +7,6 @@ type UiIconName =
     | "diamond"
     | "external-link"
     | "minus"
-    | "progress"
     | "reset"
     | "sparkle"
     | "star"
@@ -25,12 +24,6 @@ const iconPaths: Record<UiIconName, ReactNode> = {
     diamond: <path d="m8 2.5 5.5 5.5L8 13.5 2.5 8 8 2.5Z" />,
     "external-link": <path d="M4 12 12 4M6 4h6v6" />,
     minus: <path d="M3 8h10" />,
-    progress: (
-        <>
-            <circle cx="8" cy="8" r="5.5" />
-            <path d="M8 2.5A5.5 5.5 0 0 1 13.5 8H8V2.5Z" fill="currentColor" stroke="none" />
-        </>
-    ),
     reset: <path d="M4.2 5.2A5 5 0 1 1 3 9M3 4v4h4" />,
     sparkle: (
         <path d="M8 1.8c.45 3.55 2.65 5.75 6.2 6.2-3.55.45-5.75 2.65-6.2 6.2C7.55 10.65 5.35 8.45 1.8 8 5.35 7.55 7.55 5.35 8 1.8Z" />
