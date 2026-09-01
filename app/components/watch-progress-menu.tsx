@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import type { MouseEventHandler, RefObject } from "react";
 import type { TimelineEntry } from "../data/types";
 import { isWatchable } from "../lib/timeline";
+import { UiIcon } from "./ui-icon";
 
 interface WatchProgressMenuProps {
     accountActionLabel: string;
@@ -40,13 +41,13 @@ function WatchProgressTile({
     const watchable = isWatchable(entry);
     const pending = watchable && pendingSlug === entry.slug;
     let markLabel = `${entry.title} has not been released`;
-    let markIcon = "–";
+    let markIcon: "check" | "minus" | "undo" = "minus";
     let markText = "Soon";
     if (watchable) {
         markLabel = pending
             ? `Undo marking ${entry.title} as watched`
             : `Mark ${entry.title} as watched`;
-        markIcon = pending ? "↶" : "✓";
+        markIcon = pending ? "undo" : "check";
         markText = pending ? "Undo" : "Mark";
     }
 
@@ -66,7 +67,7 @@ function WatchProgressTile({
                     <strong>{entry.title}</strong>
                 </span>
                 <span aria-hidden="true" className="timeline-watchlist-tile-arrow">
-                    ↗
+                    <UiIcon name="external-link" />
                 </span>
             </button>
             <button
@@ -80,7 +81,7 @@ function WatchProgressTile({
                 type="button"
             >
                 <span aria-hidden="true" className="timeline-watchlist-mark-icon">
-                    {markIcon}
+                    <UiIcon name={markIcon} />
                 </span>
                 <span>{markText}</span>
             </button>
@@ -134,7 +135,7 @@ export function WatchProgressMenu({
                     aria-hidden="true"
                     className={`timeline-watchlist-chevron ${open ? "timeline-watchlist-chevron-open" : ""}`}
                 >
-                    ↓
+                    <UiIcon name="chevron-down" />
                 </span>
             </button>
 
@@ -155,7 +156,9 @@ export function WatchProgressMenu({
                                     {visibleWatchedCount} of {visibleEntryCount} complete
                                 </strong>
                             </div>
-                            <span aria-hidden="true">◒</span>
+                            <span aria-hidden="true">
+                                <UiIcon name="progress" />
+                            </span>
                         </div>
                         <div className="timeline-watchlist-progress">
                             <span style={{ width: progress }} />
@@ -185,7 +188,7 @@ export function WatchProgressMenu({
                                 type="button"
                             >
                                 <span aria-hidden="true" className="timeline-watchlist-reset-icon">
-                                    ↺
+                                    <UiIcon name="reset" />
                                 </span>
                                 <span className="timeline-watchlist-reset-copy">
                                     <strong>Reset watch data</strong>
@@ -194,7 +197,9 @@ export function WatchProgressMenu({
                             </button>
                         ) : null}
                         <div className="timeline-watchlist-scope">
-                            <span aria-hidden="true">{signedIn ? "☁" : "◇"}</span>
+                            <span aria-hidden="true">
+                                <UiIcon name={signedIn ? "cloud" : "diamond"} />
+                            </span>
                             <div>
                                 <strong>
                                     {signedIn ? "Account progress" : "Browser progress"}

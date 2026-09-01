@@ -33,6 +33,7 @@ import {
     timelineOrders,
 } from "../lib/timeline";
 import { AuthMenu } from "./auth-menu";
+import { UiIcon } from "./ui-icon";
 import { WatchProgressMenu } from "./watch-progress-menu";
 
 const TimelineOrbit = dynamic(
@@ -148,7 +149,9 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
                         <div>
                             <p className="timeline-detail-eyebrow">
                                 {entry.placement}
-                                <span aria-hidden="true">◆</span>
+                                <span aria-hidden="true">
+                                    <UiIcon name="diamond" />
+                                </span>
                                 {contentTypeNames[entry.contentType]}
                             </p>
                             <h1 className="timeline-detail-title">{entry.title}</h1>
@@ -159,7 +162,7 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
                             onClick={onClose}
                             type="button"
                         >
-                            ×
+                            <UiIcon name="close" />
                         </button>
                     </div>
 
@@ -167,7 +170,7 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
                         {entry.rating === undefined ? null : (
                             <div className="timeline-detail-rating">
                                 <span aria-hidden="true" className="timeline-detail-star">
-                                    ★
+                                    <UiIcon name="star" />
                                 </span>
                                 <strong>{entry.rating.toFixed(1)}</strong>
                                 <span>/ 10</span>
@@ -181,7 +184,7 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
                     {entry.creditScenes ? (
                         <div className="timeline-detail-credits">
                             <span aria-hidden="true" className="timeline-detail-credits-mark">
-                                ✦
+                                <UiIcon name="sparkle" />
                             </span>
                             <span className="timeline-detail-credits-label">Credit scenes</span>
                             <dl className="timeline-detail-credits-statuses">
@@ -217,7 +220,7 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
                         type="button"
                     >
                         <span aria-hidden="true" className="timeline-detail-watch-check">
-                            {watchable ? "✓" : "–"}
+                            <UiIcon name={watchable ? "check" : "minus"} />
                         </span>
                         <span className="timeline-detail-watch-copy">
                             <span>Watch progress</span>
@@ -241,7 +244,7 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
                                 <span className="timeline-detail-imdb-mark">IMDb</span>
                                 <span>Open on IMDb</span>
                                 <span aria-hidden="true" className="timeline-detail-arrow">
-                                    ↗
+                                    <UiIcon name="external-link" />
                                 </span>
                             </a>
                         ) : null}

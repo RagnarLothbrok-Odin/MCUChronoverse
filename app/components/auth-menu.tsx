@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createClient } from "../lib/supabase/client";
 import { isSupabaseConfigured } from "../lib/supabase/config";
+import { UiIcon } from "./ui-icon";
 
 type AuthMode = "forgot-password" | "reset-complete" | "reset-password" | "sign-in" | "sign-up";
 type PendingAction = "discord" | "email" | null;
@@ -476,7 +477,7 @@ export function AuthMenu() {
                     onClick={close}
                     type="button"
                 >
-                    ×
+                    <UiIcon name="close" />
                 </button>
                 <p className="timeline-auth-kicker">{content.kicker}</p>
                 <h2 id="timeline-auth-title">{content.title}</h2>

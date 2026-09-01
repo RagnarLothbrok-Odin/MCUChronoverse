@@ -12,6 +12,7 @@ import {
 } from "react";
 import type { ContentType } from "../data/types";
 import { resetContactTurnstile, TurnstileWidget } from "./turnstile-widget";
+import { UiIcon } from "./ui-icon";
 
 const entryCategories = new Set(["Timeline placement", "Year or date", "Title information"]);
 
@@ -253,7 +254,7 @@ export function ContactForm({ entries, turnstileSiteKey }: ContactFormProps) {
                             aria-hidden="true"
                             className={`text-white/28 transition-transform ${entryOpen ? "rotate-180" : ""}`}
                         >
-                            ↓
+                            <UiIcon className="h-4 w-4" name="chevron-down" />
                         </span>
                     </button>
                     {entryError ? (
@@ -303,7 +304,7 @@ export function ContactForm({ entries, turnstileSiteKey }: ContactFormProps) {
                                         aria-hidden="true"
                                         className="contact-entry-option-status"
                                     >
-                                        ✓
+                                        <UiIcon name="check" />
                                     </span>
                                 </button>
                             ))}
@@ -386,7 +387,9 @@ export function ContactForm({ entries, turnstileSiteKey }: ContactFormProps) {
                     type="submit"
                 >
                     {submitting ? "Sending suggestion" : "Submit suggestion"}
-                    <span aria-hidden="true">{submitting ? "…" : "↗"}</span>
+                    <span aria-hidden="true">
+                        {submitting ? "…" : <UiIcon className="h-4 w-4" name="external-link" />}
+                    </span>
                 </button>
             </div>
 
@@ -400,7 +403,8 @@ export function ContactForm({ entries, turnstileSiteKey }: ContactFormProps) {
                     <p className="contact-submission-message contact-submission-message-success">
                         Suggestion #{issueNumber} is now awaiting review.
                         <a href={issueUrl} rel="noreferrer" target="_blank">
-                            View public issue ↗
+                            View public issue
+                            <UiIcon className="inline-block h-3.5 w-3.5" name="external-link" />
                         </a>
                     </p>
                 ) : null}

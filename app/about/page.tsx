@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { UiIcon } from "../components/ui-icon";
 
 export const metadata: Metadata = {
     alternates: {
@@ -101,7 +102,7 @@ export default function AboutPage() {
                             href="/?order=release"
                         >
                             View release order
-                            <span aria-hidden="true">→</span>
+                            <UiIcon className="h-4 w-4" name="external-link" />
                         </Link>
                     </aside>
                 </div>
