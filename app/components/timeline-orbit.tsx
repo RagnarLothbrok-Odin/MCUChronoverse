@@ -36,7 +36,7 @@ const coreColours: Record<TimelineEntry["contentType"], string> = {
     short: "#61e4a8",
     special: "#ffe08a",
 };
-const TIMELINE_CARD_FOCUS_OFFSET_Y = 2;
+const TIMELINE_CARD_FOCUS_OFFSET_Y = 1.28;
 
 const contentTypeNames: Record<TimelineEntry["contentType"], string> = {
     film: "Film",
