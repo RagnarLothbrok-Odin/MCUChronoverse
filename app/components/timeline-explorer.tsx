@@ -578,7 +578,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                 <div className="pointer-events-none absolute top-0 right-0 left-0 z-20 h-40 bg-gradient-to-b from-black/70 to-transparent" />
                 <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-48 bg-gradient-to-t from-black/75 to-transparent" />
 
-                <header className="absolute top-5 left-5 z-30 sm:top-7 sm:left-7">
+                <header className="absolute top-5 left-5 z-[80] sm:top-7 sm:left-7">
                     <div className="flex items-center gap-3">
                         <span className="grid size-10 place-items-center border border-[#ff9b4a]/60 bg-black/45 font-mono font-semibold text-[#ffb260] text-xs shadow-[0_0_30px_rgb(255_112_35/12%)] backdrop-blur-xl">
                             616
@@ -631,7 +631,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                 />
 
                 <aside
-                    className="absolute top-5 right-5 z-40 w-12 sm:top-7 sm:right-7"
+                    className="absolute top-5 right-5 z-[80] w-12 sm:top-7 sm:right-7"
                     ref={filtersRef}
                 >
                     <div className="flex justify-end">
@@ -794,7 +794,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
 
                 <nav
                     aria-label="Scroll through the timeline"
-                    className="timeline-dock absolute bottom-5 left-1/2 z-40 w-[min(34rem,calc(100%-3rem))] -translate-x-1/2 sm:bottom-7"
+                    className="timeline-dock absolute bottom-5 left-1/2 z-[80] w-[min(34rem,calc(100%-3rem))] -translate-x-1/2 sm:bottom-7"
                 >
                     <div className="flex items-end justify-between gap-4">
                         <div>

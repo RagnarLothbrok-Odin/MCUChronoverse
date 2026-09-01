@@ -1299,7 +1299,7 @@ a {
 .timeline-auth-modal-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 120;
   display: grid;
   place-items: center;
   padding: 1.25rem;
