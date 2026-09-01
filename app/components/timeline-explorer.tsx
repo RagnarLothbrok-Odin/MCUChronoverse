@@ -559,7 +559,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                 className="relative h-dvh min-h-[32rem] overflow-hidden bg-[#020203] text-ink"
                 onPointerDown={handleOutsidePointerDown}
             >
-                <div className="absolute inset-0">
+                <div className="absolute inset-0 z-0 isolate">
                     <TimelineOrbit
                         entries={visibleEntries}
                         focusIndex={focusRequest.index}
@@ -626,7 +626,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                 />
 
                 <aside
-                    className="absolute top-5 right-5 z-[80] w-12 sm:top-7 sm:right-7"
+                    className="absolute top-5 right-5 z-[110] w-12 sm:top-7 sm:right-7"
                     ref={filtersRef}
                 >
                     <div className="flex justify-end">

@@ -139,7 +139,7 @@ export function WatchProgressMenu({
 
     return (
         <aside
-            className="absolute top-5 right-[4.5rem] z-[80] sm:top-7 sm:right-[5.5rem]"
+            className="absolute top-5 right-[4.5rem] z-[110] sm:top-7 sm:right-[5.5rem]"
             ref={containerRef}
         >
             <button
