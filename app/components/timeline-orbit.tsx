@@ -707,6 +707,7 @@ interface TimelineSceneProps {
     focusIndex: number;
     focusKey: number;
     focusX: number;
+    onInteractionChange: (interacting: boolean) => void;
     onSelect: (slug: string) => void;
     onZoomDistanceChange: (distance: number) => void;
     reducedMotion: boolean;
@@ -721,6 +722,7 @@ function TimelineScene({
     focusIndex,
     focusKey,
     focusX,
+    onInteractionChange,
     onSelect,
     reducedMotion,
     selectedSlug,
@@ -739,6 +741,14 @@ function TimelineScene({
     const curve = useMemo(() => createTimelineCurve(points), [points]);
     const span = Math.max((entries.length - 1) * 2.2, 4);
     const labelRange = compact ? 5 : 9;
+    const handleInteractionStart = useCallback(
+        () => onInteractionChange(true),
+        [onInteractionChange]
+    );
+    const handleInteractionEnd = useCallback(
+        () => onInteractionChange(false),
+        [onInteractionChange]
+    );
 
     return (
         <>
@@ -791,6 +801,8 @@ function TimelineScene({
                 makeDefault
                 maxDistance={MAX_ZOOM_DISTANCE}
                 minDistance={MIN_ZOOM_DISTANCE}
+                onEnd={handleInteractionEnd}
+                onStart={handleInteractionStart}
                 zoomSpeed={0.7}
             />
             <CameraRig
@@ -824,8 +836,10 @@ export function TimelineOrbit({
     const [webGlSupported, setWebGlSupported] = useState<boolean | null>(null);
     const [reducedMotion, setReducedMotion] = useState(false);
     const [compact, setCompact] = useState(false);
+    const [interacting, setInteracting] = useState(false);
     const [zoomDistance, setZoomDistance] = useState(DEFAULT_ZOOM_DISTANCE);
     const [zoomStorageReady, setZoomStorageReady] = useState(false);
+    const interactionEndTimer = useRef<number | null>(null);
     const cameraSettings = useMemo(
         () => ({ fov: 43, position: [0, 0, 10.5] as [number, number, number] }),
         []
@@ -839,6 +853,29 @@ export function TimelineOrbit({
             Math.abs(current - roundedDistance) < 0.05 ? current : roundedDistance
         );
     }, []);
+    const handleInteractionChange = useCallback((nextInteracting: boolean) => {
+        if (interactionEndTimer.current !== null) {
+            window.clearTimeout(interactionEndTimer.current);
+            interactionEndTimer.current = null;
+        }
+        if (nextInteracting) {
+            setInteracting(true);
+            return;
+        }
+        interactionEndTimer.current = window.setTimeout(() => {
+            setInteracting(false);
+            interactionEndTimer.current = null;
+        }, 300);
+    }, []);
+
+    useEffect(
+        () => () => {
+            if (interactionEndTimer.current !== null) {
+                window.clearTimeout(interactionEndTimer.current);
+            }
+        },
+        []
+    );
 
     useEffect(() => {
         try {
@@ -908,7 +945,7 @@ export function TimelineOrbit({
         <div className="relative h-full w-full">
             <Canvas
                 camera={cameraSettings}
-                dpr={compact ? 1 : [1, 1.5]}
+                dpr={compact || interacting ? 1 : [1, 1.5]}
                 frameloop={reducedMotion ? "demand" : "always"}
             >
                 <Suspense fallback={null}>
@@ -918,6 +955,7 @@ export function TimelineOrbit({
                         focusIndex={safeFocusIndex}
                         focusKey={focusKey}
                         focusX={focusX}
+                        onInteractionChange={handleInteractionChange}
                         onSelect={onSelect}
                         onZoomDistanceChange={handleZoomDistanceChange}
                         reducedMotion={reducedMotion}
