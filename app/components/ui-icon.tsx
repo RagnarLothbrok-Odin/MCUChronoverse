@@ -4,7 +4,6 @@ type UiIconName =
     | "check"
     | "chevron-down"
     | "close"
-    | "cloud"
     | "diamond"
     | "external-link"
     | "minus"
@@ -23,9 +22,6 @@ const iconPaths: Record<UiIconName, ReactNode> = {
     check: <path d="m3.5 8.25 3 3 6-7" />,
     "chevron-down": <path d="m3 5.5 5 5 5-5" />,
     close: <path d="m4 4 8 8m0-8-8 8" />,
-    cloud: (
-        <path d="M4.25 12h7.25a2.5 2.5 0 0 0 .28-4.98A4.25 4.25 0 0 0 3.6 6.1 3 3 0 0 0 4.25 12Z" />
-    ),
     diamond: <path d="m8 2.5 5.5 5.5L8 13.5 2.5 8 8 2.5Z" />,
     "external-link": <path d="M4 12 12 4M6 4h6v6" />,
     minus: <path d="M3 8h10" />,

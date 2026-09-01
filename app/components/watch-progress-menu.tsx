@@ -196,29 +196,16 @@ export function WatchProgressMenu({
                                 </span>
                             </button>
                         ) : null}
-                        <div className="timeline-watchlist-scope">
-                            <span aria-hidden="true">
-                                <UiIcon name={signedIn ? "cloud" : "diamond"} />
-                            </span>
-                            <div>
-                                <strong>
-                                    {signedIn ? "Account progress" : "Browser progress"}
-                                </strong>
-                                <small>
-                                    {signedIn
-                                        ? "Stored privately in your account"
-                                        : "Stored only in this browser"}
-                                </small>
-                            </div>
+                        <div className="timeline-watchlist-account-section">
+                            <button
+                                className="focus-ring timeline-watchlist-account"
+                                disabled={!accountReady}
+                                onClick={onAccountAction}
+                                type="button"
+                            >
+                                {accountActionLabel}
+                            </button>
                         </div>
-                        <button
-                            className="focus-ring timeline-watchlist-account"
-                            disabled={!accountReady}
-                            onClick={onAccountAction}
-                            type="button"
-                        >
-                            {accountActionLabel}
-                        </button>
                         {signedIn && syncError ? (
                             <p className="timeline-watchlist-sync-error">
                                 Sync failed. This device may be ahead of your account.

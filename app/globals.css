@@ -1302,11 +1302,16 @@ a {
   opacity: 0.55;
 }
 
+.timeline-watchlist-account-section {
+  padding-top: 0.75rem;
+  margin-top: 0.85rem;
+  border-top: 1px solid rgb(255 255 255 / 8%);
+}
+
 .timeline-watchlist-account {
   width: 100%;
   min-height: 2.5rem;
   padding: 0.7rem;
-  margin-top: 0.65rem;
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.65rem;
   color: rgb(255 173 85 / 78%);
@@ -1324,48 +1329,6 @@ a {
   line-height: 1.45;
   color: rgb(255 156 139 / 78%);
   text-align: center;
-}
-
-.timeline-watchlist-scope {
-  display: flex;
-  gap: 0.65rem;
-  align-items: center;
-  padding: 0.75rem 0.2rem 0;
-  margin-top: 0.85rem;
-  border-top: 1px solid rgb(255 255 255 / 8%);
-}
-
-.timeline-watchlist-scope > span {
-  display: grid;
-  flex: 0 0 auto;
-  place-items: center;
-  width: 1.7rem;
-  height: 1.7rem;
-  font-size: 0.75rem;
-  color: #ffad55;
-  background: rgb(255 173 85 / 7%);
-  border: 1px solid rgb(255 173 85 / 20%);
-  border-radius: 50%;
-}
-
-.timeline-watchlist-scope div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.12rem;
-}
-
-.timeline-watchlist-scope strong {
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.62rem;
-  font-weight: 500;
-  color: rgb(244 241 232 / 62%);
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-}
-
-.timeline-watchlist-scope small {
-  font-size: 0.66rem;
-  color: rgb(244 241 232 / 30%);
 }
 
 .timeline-watchlist-account:hover:not(:disabled) {
@@ -1666,8 +1629,6 @@ a {
   .timeline-auth-form label,
   .timeline-watchlist-account,
   .timeline-watchlist-sync-error,
-  .timeline-watchlist-scope strong,
-  .timeline-watchlist-scope small,
   .timeline-auth-divider,
   .timeline-auth-email-submit,
   .timeline-auth-switch,
