@@ -299,28 +299,40 @@ function TimelineNode({ active, count, entry, index, onSelect, selected }: Timel
                     }}
                     type="button"
                 >
-                    {selected ? (
-                        <span aria-hidden="true" className="timeline-node-label-poster" />
-                    ) : (
-                        <motion.span
-                            className="timeline-node-label-poster"
-                            layoutId={`timeline-poster-${entry.slug}`}
-                            transition={{ damping: 30, stiffness: 280, type: "spring" }}
-                        >
-                            {entry.posterUrl ? (
-                                <Image
-                                    alt=""
-                                    aria-hidden="true"
-                                    className="object-cover"
-                                    fill
-                                    sizes="72px"
-                                    src={entry.posterUrl}
-                                />
-                            ) : (
-                                <span>{entry.title.slice(0, 1)}</span>
-                            )}
-                        </motion.span>
-                    )}
+                    <span aria-hidden="true" className="timeline-node-label-poster">
+                        {entry.posterUrl ? (
+                            <Image
+                                alt=""
+                                aria-hidden="true"
+                                className="object-cover"
+                                fill
+                                sizes="72px"
+                                src={entry.posterUrl}
+                            />
+                        ) : (
+                            <span>{entry.title.slice(0, 1)}</span>
+                        )}
+                        {selected ? null : (
+                            <motion.span
+                                className="timeline-node-label-poster-morph"
+                                layoutId={`timeline-poster-${entry.slug}`}
+                                transition={{ damping: 30, stiffness: 280, type: "spring" }}
+                            >
+                                {entry.posterUrl ? (
+                                    <Image
+                                        alt=""
+                                        aria-hidden="true"
+                                        className="object-cover"
+                                        fill
+                                        sizes="72px"
+                                        src={entry.posterUrl}
+                                    />
+                                ) : (
+                                    <span>{entry.title.slice(0, 1)}</span>
+                                )}
+                            </motion.span>
+                        )}
+                    </span>
                     <span className="timeline-node-label-meta">
                         <span className="timeline-node-label-type">
                             {contentTypeNames[entry.contentType]}

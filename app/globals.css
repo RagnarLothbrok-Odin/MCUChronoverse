@@ -204,6 +204,14 @@ a {
   background: linear-gradient(180deg, transparent 65%, rgb(3 3 5 / 22%));
 }
 
+.timeline-node-label-poster-morph {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: inherit;
+  border-radius: inherit;
+}
+
 .timeline-node-label-meta {
   display: flex;
   flex-direction: column;

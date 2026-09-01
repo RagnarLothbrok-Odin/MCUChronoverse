@@ -780,7 +780,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                     </AnimatePresence>
                 </aside>
 
-                <AnimatePresence mode="wait">
+                <AnimatePresence>
                     {selectedEntry ? (
                         <TimelineDetail
                             entry={selectedEntry}
