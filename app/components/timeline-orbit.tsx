@@ -204,9 +204,20 @@ interface TimelineNodeProps {
     index: number;
     onSelect: (slug: string) => void;
     selected: boolean;
+    showLabel: boolean;
 }
 
-function TimelineNode({ active, count, entry, index, onSelect, selected }: TimelineNodeProps) {
+// The node keeps its WebGL target and optional DOM label together so their interactions stay aligned.
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Splitting the label would duplicate selection behavior across scene objects.
+function TimelineNode({
+    active,
+    count,
+    entry,
+    index,
+    onSelect,
+    selected,
+    showLabel,
+}: TimelineNodeProps) {
     const ringsRef = useRef(new Group());
     const position = timelineNodePosition(index, count);
     const handleSelect = useCallback(
@@ -276,73 +287,75 @@ function TimelineNode({ active, count, entry, index, onSelect, selected }: Timel
                     roughness={0.2}
                 />
             </mesh>
-            <Html
-                distanceFactor={10}
-                key={entry.slug}
-                position={[0, 0, 0]}
-                zIndexRange={selected ? [25, 25] : [20, 0]}
-            >
-                <div className="timeline-node-label-anchor">
-                    <motion.button
-                        animate={{ opacity: selected ? 0 : 1 }}
-                        className={`timeline-node-label ${selected ? "timeline-node-label-selected" : ""}`}
-                        data-active={active}
-                        data-content-type={entry.contentType}
-                        initial={false}
-                        onClick={handleSelect}
-                        transition={{
-                            opacity: {
-                                delay: selected ? 0.08 : 0.12,
-                                duration: selected ? 0.28 : 0.34,
-                                ease: "easeOut",
-                            },
-                        }}
-                        type="button"
-                    >
-                        <span aria-hidden="true" className="timeline-node-label-poster">
-                            {entry.posterUrl ? (
-                                <Image
-                                    alt=""
-                                    aria-hidden="true"
-                                    className="object-cover"
-                                    fill
-                                    sizes="72px"
-                                    src={entry.posterUrl}
-                                />
-                            ) : (
-                                <span>{entry.title.slice(0, 1)}</span>
-                            )}
-                            {selected ? null : (
-                                <motion.span
-                                    className="timeline-node-label-poster-morph"
-                                    layoutId={`timeline-poster-${entry.slug}`}
-                                    transition={{ damping: 30, stiffness: 280, type: "spring" }}
-                                >
-                                    {entry.posterUrl ? (
-                                        <Image
-                                            alt=""
-                                            aria-hidden="true"
-                                            className="object-cover"
-                                            fill
-                                            sizes="72px"
-                                            src={entry.posterUrl}
-                                        />
-                                    ) : (
-                                        <span>{entry.title.slice(0, 1)}</span>
-                                    )}
-                                </motion.span>
-                            )}
-                        </span>
-                        <span className="timeline-node-label-meta">
-                            <span className="timeline-node-label-type">
-                                {contentTypeNames[entry.contentType]}
+            {showLabel ? (
+                <Html
+                    distanceFactor={10}
+                    key={entry.slug}
+                    position={[0, 0, 0]}
+                    zIndexRange={selected ? [25, 25] : [20, 0]}
+                >
+                    <div className="timeline-node-label-anchor">
+                        <motion.button
+                            animate={{ opacity: selected ? 0 : 1 }}
+                            className={`timeline-node-label ${selected ? "timeline-node-label-selected" : ""}`}
+                            data-active={active}
+                            data-content-type={entry.contentType}
+                            initial={false}
+                            onClick={handleSelect}
+                            transition={{
+                                opacity: {
+                                    delay: selected ? 0.08 : 0.12,
+                                    duration: selected ? 0.28 : 0.34,
+                                    ease: "easeOut",
+                                },
+                            }}
+                            type="button"
+                        >
+                            <span aria-hidden="true" className="timeline-node-label-poster">
+                                {entry.posterUrl ? (
+                                    <Image
+                                        alt=""
+                                        aria-hidden="true"
+                                        className="object-cover"
+                                        fill
+                                        sizes="72px"
+                                        src={entry.posterUrl}
+                                    />
+                                ) : (
+                                    <span>{entry.title.slice(0, 1)}</span>
+                                )}
+                                {selected ? null : (
+                                    <motion.span
+                                        className="timeline-node-label-poster-morph"
+                                        layoutId={`timeline-poster-${entry.slug}`}
+                                        transition={{ damping: 30, stiffness: 280, type: "spring" }}
+                                    >
+                                        {entry.posterUrl ? (
+                                            <Image
+                                                alt=""
+                                                aria-hidden="true"
+                                                className="object-cover"
+                                                fill
+                                                sizes="72px"
+                                                src={entry.posterUrl}
+                                            />
+                                        ) : (
+                                            <span>{entry.title.slice(0, 1)}</span>
+                                        )}
+                                    </motion.span>
+                                )}
                             </span>
-                            <span>{entry.placement}</span>
-                        </span>
-                        <strong>{entry.title}</strong>
-                    </motion.button>
-                </div>
-            </Html>
+                            <span className="timeline-node-label-meta">
+                                <span className="timeline-node-label-type">
+                                    {contentTypeNames[entry.contentType]}
+                                </span>
+                                <span>{entry.placement}</span>
+                            </span>
+                            <strong>{entry.title}</strong>
+                        </motion.button>
+                    </div>
+                </Html>
+            ) : null}
         </group>
     );
 }
@@ -725,6 +738,7 @@ function TimelineScene({
     );
     const curve = useMemo(() => createTimelineCurve(points), [points]);
     const span = Math.max((entries.length - 1) * 2.2, 4);
+    const labelRange = compact ? 5 : 9;
 
     return (
         <>
@@ -763,6 +777,9 @@ function TimelineScene({
                     key={entry.slug}
                     onSelect={onSelect}
                     selected={selectedSlug === entry.slug}
+                    showLabel={
+                        Math.abs(index - focusIndex) <= labelRange || selectedSlug === entry.slug
+                    }
                 />
             ))}
             <OrbitControls
