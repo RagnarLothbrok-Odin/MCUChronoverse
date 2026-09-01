@@ -118,9 +118,8 @@ a {
 .timeline-node-label {
   --node-accent: #ffad55;
   position: relative;
-  width: max-content;
-  max-width: 12.5rem;
-  padding: 0.65rem 0.78rem 0.7rem;
+  width: 7.25rem;
+  padding: 0.4rem 0.4rem 0.6rem;
   overflow: hidden;
   color: rgb(244 241 232 / 70%);
   text-align: left;
@@ -177,11 +176,42 @@ a {
   --node-accent: #b88cff;
 }
 
+.timeline-node-label-poster {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 1rem;
+  color: color-mix(in srgb, var(--node-accent) 60%, white);
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      color-mix(in srgb, var(--node-accent) 15%, transparent),
+      transparent 62%
+    ),
+    rgb(255 255 255 / 3%);
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 0.32rem;
+  box-shadow: 0 8px 18px rgb(0 0 0 / 32%);
+}
+
+.timeline-node-label-poster::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(180deg, transparent 65%, rgb(3 3 5 / 22%));
+}
+
 .timeline-node-label-meta {
   display: flex;
-  gap: 0.35rem;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.16rem;
+  align-items: flex-start;
   min-width: 0;
+  margin: 0.52rem 0.25rem 0;
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: var(--font-geist-mono), monospace;
@@ -197,21 +227,13 @@ a {
   color: var(--node-accent);
 }
 
-.timeline-node-label-meta i {
-  flex: 0 0 auto;
-  width: 0.18rem;
-  height: 0.18rem;
-  background: currentColor;
-  border-radius: 50%;
-}
-
 .timeline-node-label strong {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  margin-top: 0.38rem;
+  margin: 0.35rem 0.25rem 0;
   overflow: hidden;
   -webkit-line-clamp: 2;
-  font-size: 0.84rem;
+  font-size: 0.76rem;
   font-weight: 650;
   line-height: 1.3;
   color: currentColor;
@@ -233,7 +255,7 @@ a {
   box-shadow:
     0 12px 34px rgb(0 0 0 / 38%),
     0 0 20px color-mix(in srgb, var(--node-accent) 12%, transparent);
-  transform: translateY(-2px) scale(1.06);
+  transform: translateY(-3px) scale(1.04);
 }
 
 .timeline-node-label[data-active="true"]::before,

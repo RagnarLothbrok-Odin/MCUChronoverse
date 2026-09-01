@@ -2,6 +2,7 @@
 
 import { Html, OrbitControls, Sparkles, Stars } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import Image from "next/image";
 import {
     type MouseEvent,
     Suspense,
@@ -278,7 +279,7 @@ function TimelineNode({ active, count, entry, index, onSelect, selected }: Timel
                 center
                 distanceFactor={10}
                 key={`${entry.slug}-${active ? "active" : "default"}-${selected ? "selected" : "closed"}`}
-                position={[0, 0.68, 0]}
+                position={[0, 1.08, 0]}
                 zIndexRange={selected ? [25, 25] : [20, 0]}
             >
                 <button
@@ -288,11 +289,24 @@ function TimelineNode({ active, count, entry, index, onSelect, selected }: Timel
                     onClick={handleSelect}
                     type="button"
                 >
+                    <span className="timeline-node-label-poster">
+                        {entry.posterUrl ? (
+                            <Image
+                                alt=""
+                                aria-hidden="true"
+                                className="object-cover"
+                                fill
+                                sizes="72px"
+                                src={entry.posterUrl}
+                            />
+                        ) : (
+                            <span>{entry.title.slice(0, 1)}</span>
+                        )}
+                    </span>
                     <span className="timeline-node-label-meta">
                         <span className="timeline-node-label-type">
                             {contentTypeNames[entry.contentType]}
                         </span>
-                        <i aria-hidden="true" />
                         <span>{entry.placement}</span>
                     </span>
                     <strong>{entry.title}</strong>
