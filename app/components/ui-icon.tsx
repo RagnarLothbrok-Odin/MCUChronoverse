@@ -9,6 +9,7 @@ type UiIconName =
     | "external-link"
     | "minus"
     | "reset"
+    | "search"
     | "sign-out"
     | "sparkle"
     | "star"
@@ -33,6 +34,7 @@ const iconPaths: Record<UiIconName, ReactNode> = {
     "external-link": <path d="M4 12 12 4M6 4h6v6" />,
     minus: <path d="M3 8h10" />,
     reset: <path d="M4.2 5.2A5 5 0 1 1 3 9M3 4v4h4" />,
+    search: <path d="m11.5 11.5 2.5 2.5m-1.5-7.5a6 6 0 1 1-12 0 6 6 0 0 1 12 0Z" />,
     "sign-out": <path d="M6.5 3H3.75v10H6.5m2-8 3 3-3 3m-3-3h6" />,
     sparkle: (
         <path d="M8 1.8c.45 3.55 2.65 5.75 6.2 6.2-3.55.45-5.75 2.65-6.2 6.2C7.55 10.65 5.35 8.45 1.8 8 5.35 7.55 7.55 5.35 8 1.8Z" />

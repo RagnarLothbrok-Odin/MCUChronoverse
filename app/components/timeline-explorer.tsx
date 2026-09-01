@@ -658,61 +658,52 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                     {filtersOpen ? (
                         <motion.div
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            className="absolute top-full right-0 mt-3 w-[min(21rem,calc(100vw-2.5rem))] origin-top-right rounded-2xl border border-white/12 bg-[#08080b]/90 p-4 shadow-[0_24px_90px_rgb(0_0_0/62%)] backdrop-blur-2xl sm:p-5"
+                            className="timeline-filter-panel"
                             exit={{ opacity: 0, scale: 0.98, y: -8 }}
                             id="timeline-filters"
                             initial={{ opacity: 0, scale: 0.98, y: -8 }}
                             transition={{ duration: 0.18 }}
                         >
-                            <div className="flex items-center justify-between border-white/10 border-b pb-4">
+                            <div className="timeline-filter-heading">
                                 <div>
-                                    <p className="font-mono text-[#ffad55] text-[0.7rem] uppercase tracking-[0.18em]">
-                                        Timeline parameters
-                                    </p>
-                                    <p className="mt-1 text-white/37 text-xs">
+                                    <p>Filter timeline</p>
+                                    <strong>
                                         {visibleEntries.length} of {entries.length} events visible
-                                    </p>
+                                    </strong>
                                 </div>
                                 {activeFilterCount > 0 ? (
                                     <button
-                                        className="focus-ring font-mono text-[0.7rem] text-white/38 uppercase tracking-[0.13em] hover:text-[#ffad55]"
+                                        className="focus-ring timeline-filter-reset"
                                         onClick={resetFilters}
                                         type="button"
                                     >
+                                        <UiIcon name="reset" />
                                         Reset
                                     </button>
                                 ) : null}
                             </div>
 
-                            <label className="relative mt-4 block">
+                            <label className="timeline-filter-search">
                                 <span className="sr-only">Search timeline</span>
-                                <span className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 font-mono text-white/25 text-xs">
-                                    /
-                                </span>
+                                <UiIcon name="search" />
                                 <input
-                                    className="focus-ring h-10 w-full rounded-xl border border-white/10 bg-white/[0.035] pr-3 pl-8 text-sm placeholder:text-white/25"
+                                    className="focus-ring"
                                     onChange={handleSearchChange}
-                                    placeholder="Search the archive"
+                                    placeholder="Search titles and stories"
                                     type="search"
                                     value={filters.query}
                                 />
                             </label>
 
-                            <fieldset className="mt-5">
-                                <legend className="font-mono text-[0.7rem] text-white/30 uppercase tracking-[0.16em]">
-                                    Timeline order
-                                </legend>
-                                <div className="mt-2 grid grid-cols-2 gap-2">
+                            <fieldset className="timeline-filter-group">
+                                <legend>Timeline order</legend>
+                                <div className="timeline-filter-order">
                                     {timelineOrders.map((order) => {
                                         const active = filters.order === order;
                                         return (
                                             <button
                                                 aria-pressed={active}
-                                                className={`focus-ring rounded-full border px-3 py-2.5 text-xs transition-colors ${
-                                                    active
-                                                        ? "border-[#ff9b4a]/60 bg-[#ff8a3d]/12 text-white"
-                                                        : "border-white/8 text-white/42 hover:border-white/20"
-                                                }`}
+                                                className="focus-ring timeline-filter-order-option"
                                                 data-value={order}
                                                 key={order}
                                                 onClick={handleOrderChange}
@@ -725,58 +716,46 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                                 </div>
                             </fieldset>
 
-                            <fieldset className="mt-5">
-                                <legend className="font-mono text-[0.7rem] text-white/30 uppercase tracking-[0.16em]">
-                                    Format
-                                </legend>
-                                <div className="mt-2 grid grid-cols-2 gap-2">
+                            <fieldset className="timeline-filter-group">
+                                <legend>Format</legend>
+                                <div className="timeline-filter-formats">
                                     {contentTypes.map((type) => {
                                         const active = filters.types.includes(type);
                                         return (
                                             <button
                                                 aria-pressed={active}
-                                                className={`focus-ring flex items-center justify-between rounded-full border px-3 py-2.5 text-left text-xs transition-colors ${
-                                                    active
-                                                        ? "border-[#ff9b4a]/60 bg-[#ff8a3d]/12 text-white"
-                                                        : "border-white/8 text-white/42 hover:border-white/20"
-                                                }`}
+                                                className="focus-ring timeline-filter-format-option"
                                                 data-value={type}
                                                 key={type}
                                                 onClick={handleTypeToggle}
                                                 type="button"
                                             >
                                                 {contentTypeLabels[type]}
-                                                <span
-                                                    aria-hidden="true"
-                                                    className={`size-1.5 rounded-full ${active ? "bg-[#ffad55] shadow-[0_0_8px_#ff8a3d]" : "bg-white/15"}`}
-                                                />
+                                                <span aria-hidden="true">
+                                                    <UiIcon name="check" />
+                                                </span>
                                             </button>
                                         );
                                     })}
                                 </div>
                             </fieldset>
 
-                            <fieldset className="mt-5">
-                                <legend className="font-mono text-[0.7rem] text-white/30 uppercase tracking-[0.16em]">
-                                    Phase
-                                </legend>
-                                <div className="mt-2 flex flex-wrap gap-2">
-                                    {phases.map((phase) => {
+                            <fieldset className="timeline-filter-group">
+                                <legend>Phase</legend>
+                                <div className="timeline-filter-phases">
+                                    {phases.map((phase, index) => {
                                         const active = filters.phases.includes(phase);
                                         return (
                                             <button
                                                 aria-pressed={active}
-                                                className={`focus-ring rounded-full border px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.1em] transition-colors ${
-                                                    active
-                                                        ? "border-[#d6b46b]/60 bg-[#d6b46b]/10 text-[#edca7f]"
-                                                        : "border-white/10 text-white/32 hover:border-white/22"
-                                                }`}
+                                                className="focus-ring timeline-filter-phase-option"
                                                 data-value={phase}
                                                 key={phase}
                                                 onClick={handlePhaseToggle}
                                                 type="button"
                                             >
-                                                {phase.replace("Phase ", "")}
+                                                <span>{String(index + 1).padStart(2, "0")}</span>
+                                                {phase}
                                             </button>
                                         );
                                     })}
