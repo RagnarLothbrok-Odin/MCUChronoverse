@@ -280,7 +280,7 @@ function TimelineNode({ active, count, entry, index, onSelect, selected }: Timel
                 center
                 distanceFactor={10}
                 key={entry.slug}
-                position={[0, 1.28, 0]}
+                position={[0, 2.05, 0]}
                 zIndexRange={selected ? [25, 25] : [20, 0]}
             >
                 <motion.button
