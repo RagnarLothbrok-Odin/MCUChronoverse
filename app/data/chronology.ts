@@ -666,7 +666,7 @@ export const chronology = [
         slug: "loki-season-1",
         status: "released",
         title: "Loki Season 1",
-        universe: "Earth-616",
+        universe: "TVA / Multiverse",
     },
     {
         chronologyOrder: 330,
@@ -687,7 +687,7 @@ export const chronology = [
         slug: "what-if",
         status: "released",
         title: "What If...?",
-        universe: "Earth-616",
+        universe: "Multiverse",
     },
     {
         chronologyOrder: 340,
@@ -707,7 +707,7 @@ export const chronology = [
         slug: "marvel-zombies",
         status: "released",
         title: "Marvel Zombies",
-        universe: "Earth-616",
+        universe: "Earth-89521",
     },
     {
         chronologyOrder: 350,
@@ -1156,7 +1156,7 @@ export const chronology = [
         slug: "loki-season-2",
         status: "released",
         title: "Loki Season 2",
-        universe: "Earth-616",
+        universe: "TVA / Multiverse",
     },
     {
         chronologyOrder: 570,
@@ -1177,7 +1177,7 @@ export const chronology = [
         slug: "deadpool-and-wolverine",
         status: "released",
         title: "Deadpool & Wolverine",
-        universe: "Earth-616",
+        universe: "Earth-10005 / Multiverse",
     },
     {
         chronologyOrder: 580,
@@ -1281,7 +1281,7 @@ export const chronology = [
         slug: "the-fantastic-four-first-steps",
         status: "released",
         title: "The Fantastic Four: First Steps",
-        universe: "Earth-616",
+        universe: "Earth-828",
     },
     {
         chronologyOrder: 630,
