@@ -115,6 +115,10 @@ a {
   outline-offset: 4px;
 }
 
+.timeline-node-label-anchor {
+  transform: translate(-50%, calc(-100% - 1.1rem));
+}
+
 .timeline-node-label {
   --node-accent: #ffad55;
   position: relative;
