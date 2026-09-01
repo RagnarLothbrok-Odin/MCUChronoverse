@@ -62,6 +62,8 @@ const TITLE_FONT_SIZE = 0.142;
 const META_LINE_HEIGHT = META_FONT_SIZE * 1.3;
 const TITLE_LINE_HEIGHT = TITLE_FONT_SIZE * 1.3;
 const CARD_TEXT_WIDTH = CARD_WIDTH - (CARD_PADDING + 0.05) * 2;
+const CARD_RENDER_ORDER_BASE = 1000;
+const SELECTED_CARD_RENDER_ORDER = 2000;
 const CARD_PLANE_GEOMETRY = new PlaneGeometry(1, 1);
 const GEIST_FONT_URL =
     "https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_Re-Q4nQ.ttf";
@@ -595,15 +597,9 @@ function PosterArtwork({
     );
 }
 
-function TimelinePosterCard({
-    active,
-    count,
-    entry,
-    index,
-    onSelect,
-    selected,
-}: TimelinePosterCardProps) {
+function TimelinePosterCard({ active, entry, onSelect, selected }: TimelinePosterCardProps) {
     const cardRef = useRef(new Group());
+    const cardWorldPosition = useRef(new Vector3());
     const [hovered, setHovered] = useState(false);
     const highlighted = active || hovered || selected;
     const formattedPlacement = formatCardPlacement(entry.placement);
@@ -617,7 +613,7 @@ function TimelinePosterCard({
     const metaTop = posterPositionY - POSTER_HEIGHT / 2 - POSTER_META_GAP;
     const placementTop = metaTop - META_ROW_STEP;
     const titleTop = placementTop - TITLE_ROW_STEP - additionalPlacementHeight;
-    const renderOrder = (selected ? count + 2 : count - index + 1) * 10 + 100;
+    const renderOrder = 100;
     const handleSelect = useCallback(
         (event: { stopPropagation: () => void }) => {
             event.stopPropagation();
@@ -635,7 +631,7 @@ function TimelinePosterCard({
     }, []);
     useCursor(hovered);
 
-    useFrame(({ invalidate }, delta) => {
+    useFrame(({ camera, invalidate }, delta) => {
         const card = cardRef.current;
         let targetScale = 1;
         if (selected) {
@@ -648,6 +644,11 @@ function TimelinePosterCard({
         const nextOffsetY = MathUtils.damp(card.position.y, targetOffsetY, 14, delta);
         card.scale.setScalar(nextScale);
         card.position.y = nextOffsetY;
+        card.getWorldPosition(cardWorldPosition.current);
+        cardWorldPosition.current.applyMatrix4(camera.matrixWorldInverse);
+        card.renderOrder = selected
+            ? SELECTED_CARD_RENDER_ORDER
+            : CARD_RENDER_ORDER_BASE + cardWorldPosition.current.z;
         if (
             Math.abs(nextScale - targetScale) > 0.001 ||
             Math.abs(nextOffsetY - targetOffsetY) > 0.001
@@ -664,6 +665,7 @@ function TimelinePosterCard({
                 onPointerOut={handlePointerOut}
                 onPointerOver={handlePointerOver}
                 ref={cardRef}
+                renderOrder={CARD_RENDER_ORDER_BASE}
             >
                 <mesh
                     frustumCulled={false}
