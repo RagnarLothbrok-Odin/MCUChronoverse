@@ -279,7 +279,7 @@ function TimelineNode({ active, count, entry, index, onSelect, selected }: Timel
             <Html
                 center
                 distanceFactor={10}
-                key={`${entry.slug}-${active ? "active" : "default"}`}
+                key={entry.slug}
                 position={[0, 1.08, 0]}
                 zIndexRange={selected ? [25, 25] : [20, 0]}
             >
