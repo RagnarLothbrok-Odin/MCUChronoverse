@@ -84,11 +84,6 @@ const timelineOrderLabels: Record<TimelineOrder, string> = {
     release: "Release date",
 };
 
-const timelineOrderHeadings: Record<TimelineOrder, string> = {
-    chronology: "Sacred timeline",
-    release: "Release order",
-};
-
 interface TimelineDetailProps {
     entry: TimelineEntry;
     onClose: () => void;
@@ -797,14 +792,9 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                     className="timeline-dock absolute bottom-5 left-1/2 z-[80] w-[min(34rem,calc(100%-3rem))] -translate-x-1/2 sm:bottom-7"
                 >
                     <div className="flex items-end justify-between gap-4">
-                        <div>
-                            <p className="font-mono text-[#ffad55] text-[0.7rem] uppercase tracking-[0.2em]">
-                                {timelineOrderHeadings[filters.order]}
-                            </p>
-                            <p className="mt-1 truncate font-semibold text-sm text-white/78 tracking-[-0.02em]">
-                                {activeEntry?.title ?? "No matching events"}
-                            </p>
-                        </div>
+                        <p className="truncate font-semibold text-sm text-white/78 tracking-[-0.02em]">
+                            {activeEntry?.title ?? "No matching events"}
+                        </p>
                         <p className="shrink-0 font-mono text-[0.7rem] text-white/35 uppercase tracking-[0.13em]">
                             {visibleEntries.length === 0
                                 ? "No events"
