@@ -140,7 +140,6 @@ a {
     background 180ms ease,
     border-color 180ms ease,
     box-shadow 180ms ease,
-    opacity 180ms ease,
     transform 180ms ease;
 }
 
@@ -261,6 +260,10 @@ a {
 .timeline-node-label[data-active="true"]::before,
 .timeline-node-label-selected::before {
   opacity: 1;
+}
+
+.timeline-node-label-selected {
+  pointer-events: none;
 }
 
 .timeline-node-label:focus-visible {

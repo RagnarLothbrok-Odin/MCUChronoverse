@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -107,15 +107,20 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
 
     return (
         <motion.aside
-            animate={{ opacity: 1, x: 0 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
             className="timeline-detail-card absolute bottom-36 left-4 z-30 w-[min(47rem,calc(100%-2rem))] sm:bottom-40 sm:left-7 sm:w-[min(47rem,calc(100%-3.5rem))]"
             data-timeline-detail="true"
-            exit={{ opacity: 0, x: -16 }}
-            initial={{ opacity: 0, x: -16 }}
+            exit={{ opacity: 0, scale: 0.97, y: 10 }}
+            initial={{ opacity: 0, scale: 0.94, y: 18 }}
+            transition={{ damping: 30, stiffness: 280, type: "spring" }}
         >
             <div className="timeline-detail-glow" />
             <div className="timeline-detail-grid">
-                <div className="timeline-detail-poster-shell">
+                <motion.div
+                    className="timeline-detail-poster-shell"
+                    layoutId={`timeline-poster-${entry.slug}`}
+                    transition={{ damping: 30, stiffness: 280, type: "spring" }}
+                >
                     {entry.posterUrl ? (
                         <>
                             <Image
@@ -143,8 +148,13 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
                     <span className="timeline-detail-order">
                         #{String(entry.chronologyOrder / 10).padStart(2, "0")}
                     </span>
-                </div>
-                <div className="timeline-detail-content">
+                </motion.div>
+                <motion.div
+                    animate={{ opacity: 1, x: 0 }}
+                    className="timeline-detail-content"
+                    initial={{ opacity: 0, x: -12 }}
+                    transition={{ delay: 0.12, duration: 0.24 }}
+                >
                     <div className="timeline-detail-heading">
                         <div>
                             <p className="timeline-detail-eyebrow">
@@ -249,7 +259,7 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
                             </a>
                         ) : null}
                     </div>
-                </div>
+                </motion.div>
             </div>
         </motion.aside>
     );
@@ -549,284 +559,289 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     }, [visibleEntries, watchProgressLoaded]);
 
     return (
-        <main
-            className="relative h-dvh min-h-[32rem] overflow-hidden bg-[#020203] text-ink"
-            onPointerDown={handleOutsidePointerDown}
-        >
-            <div className="absolute inset-0">
-                <TimelineOrbit
-                    entries={visibleEntries}
-                    focusIndex={focusRequest.index}
-                    focusKey={focusRequest.key}
-                    onSelect={selectEntry}
-                    selectedSlug={selectedEntry?.slug}
-                />
-            </div>
-            <div className="grain" />
-
-            <div className="pointer-events-none absolute top-0 right-0 left-0 z-20 h-40 bg-gradient-to-b from-black/70 to-transparent" />
-            <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-48 bg-gradient-to-t from-black/75 to-transparent" />
-
-            <header className="absolute top-5 left-5 z-30 sm:top-7 sm:left-7">
-                <div className="flex items-center gap-3">
-                    <span className="grid size-10 place-items-center border border-[#ff9b4a]/60 bg-black/45 font-mono font-semibold text-[#ffb260] text-xs shadow-[0_0_30px_rgb(255_112_35/12%)] backdrop-blur-xl">
-                        616
-                    </span>
-                    <div>
-                        <h1 className="font-semibold text-sm uppercase tracking-[0.22em]">
-                            MCU <span className="text-white/42">Chronoverse</span>
-                            <span className="sr-only"> chronological timeline</span>
-                        </h1>
-                        <nav className="mt-1 flex items-center gap-2 font-mono text-[0.7rem] text-white/30 uppercase tracking-[0.15em]">
-                            <a
-                                className="focus-ring transition-colors hover:text-white/65"
-                                href="/about"
-                            >
-                                About
-                            </a>
-                            <span aria-hidden="true" className="text-white/15">
-                                /
-                            </span>
-                            <a
-                                className="focus-ring transition-colors hover:text-white/65"
-                                href="/contact"
-                            >
-                                Contact
-                            </a>
-                        </nav>
-                    </div>
-                </div>
-            </header>
-
-            <AuthMenu />
-
-            <WatchProgressMenu
-                accountActionLabel={accountActionLabel}
-                accountReady={authReady}
-                containerRef={watchlistRef}
-                nextEntries={nextUnwatchedEntries}
-                onAccountAction={handleWatchMenuAuth}
-                onEntrySelect={handleWatchlistEntrySelect}
-                onEntryToggle={handleWatchlistToggle}
-                onReset={resetWatchStatus}
-                onToggleOpen={toggleWatchlist}
-                open={watchlistOpen}
-                pendingSlug={pendingWatchSlug}
-                signedIn={Boolean(authUser)}
-                syncError={syncError}
-                totalWatchedCount={watchedSlugs.length}
-                visibleEntryCount={watchableVisibleCount}
-                visibleWatchedCount={watchedVisibleCount}
-            />
-
-            <aside
-                className="absolute top-5 right-5 z-40 w-12 sm:top-7 sm:right-7"
-                ref={filtersRef}
+        <LayoutGroup id="timeline-entry-expansion">
+            <main
+                className="relative h-dvh min-h-[32rem] overflow-hidden bg-[#020203] text-ink"
+                onPointerDown={handleOutsidePointerDown}
             >
-                <div className="flex justify-end">
-                    <button
-                        aria-controls="timeline-filters"
-                        aria-expanded={filtersOpen}
-                        aria-label={filtersOpen ? "Close filters" : "Open filters"}
-                        className="focus-ring group grid size-12 place-items-center rounded-full border border-white/15 bg-black/58 shadow-[0_14px_50px_rgb(0_0_0/36%)] backdrop-blur-xl transition-all hover:border-[#ff9b4a]/70 hover:bg-[#171114]/80"
-                        onClick={toggleFilters}
-                        type="button"
-                    >
-                        <span
-                            aria-hidden="true"
-                            className="relative flex size-5 items-center justify-center"
-                        >
-                            <span
-                                className={`absolute h-px w-4 bg-[#ffad55] transition-transform duration-200 ${filtersOpen ? "rotate-45" : "-translate-y-1.5"}`}
-                            />
-                            <span
-                                className={`absolute h-px w-4 bg-[#ffad55] transition-all duration-200 ${filtersOpen ? "opacity-0" : ""}`}
-                            />
-                            <span
-                                className={`absolute h-px w-4 bg-[#ffad55] transition-transform duration-200 ${filtersOpen ? "-rotate-45" : "translate-y-1.5"}`}
-                            />
-                        </span>
-                        {activeFilterCount > 0 ? (
-                            <span className="absolute top-0 right-0 grid size-4 translate-x-1/4 -translate-y-1/4 place-items-center rounded-full bg-[#ff8a3d] font-mono text-[0.625rem] text-black">
-                                {activeFilterCount}
-                            </span>
-                        ) : null}
-                    </button>
+                <div className="absolute inset-0">
+                    <TimelineOrbit
+                        entries={visibleEntries}
+                        focusIndex={focusRequest.index}
+                        focusKey={focusRequest.key}
+                        onSelect={selectEntry}
+                        selectedSlug={selectedEntry?.slug}
+                    />
                 </div>
+                <div className="grain" />
 
-                <AnimatePresence>
-                    {filtersOpen ? (
-                        <motion.div
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            className="timeline-filter-panel"
-                            exit={{ opacity: 0, scale: 0.98, y: -8 }}
-                            id="timeline-filters"
-                            initial={{ opacity: 0, scale: 0.98, y: -8 }}
-                            transition={{ duration: 0.18 }}
+                <div className="pointer-events-none absolute top-0 right-0 left-0 z-20 h-40 bg-gradient-to-b from-black/70 to-transparent" />
+                <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-48 bg-gradient-to-t from-black/75 to-transparent" />
+
+                <header className="absolute top-5 left-5 z-30 sm:top-7 sm:left-7">
+                    <div className="flex items-center gap-3">
+                        <span className="grid size-10 place-items-center border border-[#ff9b4a]/60 bg-black/45 font-mono font-semibold text-[#ffb260] text-xs shadow-[0_0_30px_rgb(255_112_35/12%)] backdrop-blur-xl">
+                            616
+                        </span>
+                        <div>
+                            <h1 className="font-semibold text-sm uppercase tracking-[0.22em]">
+                                MCU <span className="text-white/42">Chronoverse</span>
+                                <span className="sr-only"> chronological timeline</span>
+                            </h1>
+                            <nav className="mt-1 flex items-center gap-2 font-mono text-[0.7rem] text-white/30 uppercase tracking-[0.15em]">
+                                <a
+                                    className="focus-ring transition-colors hover:text-white/65"
+                                    href="/about"
+                                >
+                                    About
+                                </a>
+                                <span aria-hidden="true" className="text-white/15">
+                                    /
+                                </span>
+                                <a
+                                    className="focus-ring transition-colors hover:text-white/65"
+                                    href="/contact"
+                                >
+                                    Contact
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                </header>
+
+                <AuthMenu />
+
+                <WatchProgressMenu
+                    accountActionLabel={accountActionLabel}
+                    accountReady={authReady}
+                    containerRef={watchlistRef}
+                    nextEntries={nextUnwatchedEntries}
+                    onAccountAction={handleWatchMenuAuth}
+                    onEntrySelect={handleWatchlistEntrySelect}
+                    onEntryToggle={handleWatchlistToggle}
+                    onReset={resetWatchStatus}
+                    onToggleOpen={toggleWatchlist}
+                    open={watchlistOpen}
+                    pendingSlug={pendingWatchSlug}
+                    signedIn={Boolean(authUser)}
+                    syncError={syncError}
+                    totalWatchedCount={watchedSlugs.length}
+                    visibleEntryCount={watchableVisibleCount}
+                    visibleWatchedCount={watchedVisibleCount}
+                />
+
+                <aside
+                    className="absolute top-5 right-5 z-40 w-12 sm:top-7 sm:right-7"
+                    ref={filtersRef}
+                >
+                    <div className="flex justify-end">
+                        <button
+                            aria-controls="timeline-filters"
+                            aria-expanded={filtersOpen}
+                            aria-label={filtersOpen ? "Close filters" : "Open filters"}
+                            className="focus-ring group grid size-12 place-items-center rounded-full border border-white/15 bg-black/58 shadow-[0_14px_50px_rgb(0_0_0/36%)] backdrop-blur-xl transition-all hover:border-[#ff9b4a]/70 hover:bg-[#171114]/80"
+                            onClick={toggleFilters}
+                            type="button"
                         >
-                            <div className="timeline-filter-heading">
-                                <div>
-                                    <p>Filter timeline</p>
-                                    <strong>
-                                        {visibleEntries.length} of {entries.length} events visible
-                                    </strong>
-                                </div>
-                                {activeFilterCount > 0 ? (
-                                    <button
-                                        className="focus-ring timeline-filter-reset"
-                                        onClick={resetFilters}
-                                        type="button"
-                                    >
-                                        <UiIcon name="reset" />
-                                        Reset
-                                    </button>
-                                ) : null}
-                            </div>
-
-                            <label className="timeline-filter-search">
-                                <span className="sr-only">Search timeline</span>
-                                <UiIcon name="search" />
-                                <input
-                                    className="focus-ring"
-                                    onChange={handleSearchChange}
-                                    placeholder="Search titles and stories"
-                                    type="search"
-                                    value={filters.query}
+                            <span
+                                aria-hidden="true"
+                                className="relative flex size-5 items-center justify-center"
+                            >
+                                <span
+                                    className={`absolute h-px w-4 bg-[#ffad55] transition-transform duration-200 ${filtersOpen ? "rotate-45" : "-translate-y-1.5"}`}
                                 />
-                            </label>
+                                <span
+                                    className={`absolute h-px w-4 bg-[#ffad55] transition-all duration-200 ${filtersOpen ? "opacity-0" : ""}`}
+                                />
+                                <span
+                                    className={`absolute h-px w-4 bg-[#ffad55] transition-transform duration-200 ${filtersOpen ? "-rotate-45" : "translate-y-1.5"}`}
+                                />
+                            </span>
+                            {activeFilterCount > 0 ? (
+                                <span className="absolute top-0 right-0 grid size-4 translate-x-1/4 -translate-y-1/4 place-items-center rounded-full bg-[#ff8a3d] font-mono text-[0.625rem] text-black">
+                                    {activeFilterCount}
+                                </span>
+                            ) : null}
+                        </button>
+                    </div>
 
-                            <fieldset className="timeline-filter-group">
-                                <legend>Timeline order</legend>
-                                <div className="timeline-filter-order">
-                                    {timelineOrders.map((order) => {
-                                        const active = filters.order === order;
-                                        return (
-                                            <button
-                                                aria-pressed={active}
-                                                className="focus-ring timeline-filter-order-option"
-                                                data-value={order}
-                                                key={order}
-                                                onClick={handleOrderChange}
-                                                type="button"
-                                            >
-                                                {timelineOrderLabels[order]}
-                                            </button>
-                                        );
-                                    })}
+                    <AnimatePresence>
+                        {filtersOpen ? (
+                            <motion.div
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                className="timeline-filter-panel"
+                                exit={{ opacity: 0, scale: 0.98, y: -8 }}
+                                id="timeline-filters"
+                                initial={{ opacity: 0, scale: 0.98, y: -8 }}
+                                transition={{ duration: 0.18 }}
+                            >
+                                <div className="timeline-filter-heading">
+                                    <div>
+                                        <p>Filter timeline</p>
+                                        <strong>
+                                            {visibleEntries.length} of {entries.length} events
+                                            visible
+                                        </strong>
+                                    </div>
+                                    {activeFilterCount > 0 ? (
+                                        <button
+                                            className="focus-ring timeline-filter-reset"
+                                            onClick={resetFilters}
+                                            type="button"
+                                        >
+                                            <UiIcon name="reset" />
+                                            Reset
+                                        </button>
+                                    ) : null}
                                 </div>
-                            </fieldset>
 
-                            <fieldset className="timeline-filter-group">
-                                <legend>Format</legend>
-                                <div className="timeline-filter-formats">
-                                    {contentTypes.map((type) => {
-                                        const active = filters.types.includes(type);
-                                        return (
-                                            <button
-                                                aria-pressed={active}
-                                                className="focus-ring timeline-filter-format-option"
-                                                data-value={type}
-                                                key={type}
-                                                onClick={handleTypeToggle}
-                                                type="button"
-                                            >
-                                                {contentTypeLabels[type]}
-                                                <span aria-hidden="true">
-                                                    <UiIcon name="check" />
-                                                </span>
-                                            </button>
-                                        );
-                                    })}
-                                </div>
-                            </fieldset>
+                                <label className="timeline-filter-search">
+                                    <span className="sr-only">Search timeline</span>
+                                    <UiIcon name="search" />
+                                    <input
+                                        className="focus-ring"
+                                        onChange={handleSearchChange}
+                                        placeholder="Search titles and stories"
+                                        type="search"
+                                        value={filters.query}
+                                    />
+                                </label>
 
-                            <fieldset className="timeline-filter-group">
-                                <legend>Phase</legend>
-                                <div className="timeline-filter-phases">
-                                    {phases.map((phase, index) => {
-                                        const active = filters.phases.includes(phase);
-                                        return (
-                                            <button
-                                                aria-pressed={active}
-                                                className="focus-ring timeline-filter-phase-option"
-                                                data-value={phase}
-                                                key={phase}
-                                                onClick={handlePhaseToggle}
-                                                type="button"
-                                            >
-                                                <span>{String(index + 1).padStart(2, "0")}</span>
-                                                {phase}
-                                            </button>
-                                        );
-                                    })}
-                                </div>
-                            </fieldset>
-                        </motion.div>
+                                <fieldset className="timeline-filter-group">
+                                    <legend>Timeline order</legend>
+                                    <div className="timeline-filter-order">
+                                        {timelineOrders.map((order) => {
+                                            const active = filters.order === order;
+                                            return (
+                                                <button
+                                                    aria-pressed={active}
+                                                    className="focus-ring timeline-filter-order-option"
+                                                    data-value={order}
+                                                    key={order}
+                                                    onClick={handleOrderChange}
+                                                    type="button"
+                                                >
+                                                    {timelineOrderLabels[order]}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </fieldset>
+
+                                <fieldset className="timeline-filter-group">
+                                    <legend>Format</legend>
+                                    <div className="timeline-filter-formats">
+                                        {contentTypes.map((type) => {
+                                            const active = filters.types.includes(type);
+                                            return (
+                                                <button
+                                                    aria-pressed={active}
+                                                    className="focus-ring timeline-filter-format-option"
+                                                    data-value={type}
+                                                    key={type}
+                                                    onClick={handleTypeToggle}
+                                                    type="button"
+                                                >
+                                                    {contentTypeLabels[type]}
+                                                    <span aria-hidden="true">
+                                                        <UiIcon name="check" />
+                                                    </span>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </fieldset>
+
+                                <fieldset className="timeline-filter-group">
+                                    <legend>Phase</legend>
+                                    <div className="timeline-filter-phases">
+                                        {phases.map((phase, index) => {
+                                            const active = filters.phases.includes(phase);
+                                            return (
+                                                <button
+                                                    aria-pressed={active}
+                                                    className="focus-ring timeline-filter-phase-option"
+                                                    data-value={phase}
+                                                    key={phase}
+                                                    onClick={handlePhaseToggle}
+                                                    type="button"
+                                                >
+                                                    <span>
+                                                        {String(index + 1).padStart(2, "0")}
+                                                    </span>
+                                                    {phase}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </fieldset>
+                            </motion.div>
+                        ) : null}
+                    </AnimatePresence>
+                </aside>
+
+                <AnimatePresence mode="wait">
+                    {selectedEntry ? (
+                        <TimelineDetail
+                            entry={selectedEntry}
+                            key={selectedEntry.slug}
+                            onClose={closeDetail}
+                            onToggleWatched={toggleSelectedWatched}
+                            watched={watchedSlugs.includes(selectedEntry.slug)}
+                        />
                     ) : null}
                 </AnimatePresence>
-            </aside>
 
-            <AnimatePresence mode="wait">
-                {selectedEntry ? (
-                    <TimelineDetail
-                        entry={selectedEntry}
-                        key={selectedEntry.slug}
-                        onClose={closeDetail}
-                        onToggleWatched={toggleSelectedWatched}
-                        watched={watchedSlugs.includes(selectedEntry.slug)}
-                    />
-                ) : null}
-            </AnimatePresence>
-
-            <nav
-                aria-label="Scroll through the timeline"
-                className="timeline-dock absolute bottom-5 left-1/2 z-40 w-[min(34rem,calc(100%-3rem))] -translate-x-1/2 sm:bottom-7"
-            >
-                <div className="flex items-end justify-between gap-4">
-                    <div>
-                        <p className="font-mono text-[#ffad55] text-[0.7rem] uppercase tracking-[0.2em]">
-                            {timelineOrderHeadings[filters.order]}
-                        </p>
-                        <p className="mt-1 truncate font-semibold text-sm text-white/78 tracking-[-0.02em]">
-                            {activeEntry?.title ?? "No matching events"}
+                <nav
+                    aria-label="Scroll through the timeline"
+                    className="timeline-dock absolute bottom-5 left-1/2 z-40 w-[min(34rem,calc(100%-3rem))] -translate-x-1/2 sm:bottom-7"
+                >
+                    <div className="flex items-end justify-between gap-4">
+                        <div>
+                            <p className="font-mono text-[#ffad55] text-[0.7rem] uppercase tracking-[0.2em]">
+                                {timelineOrderHeadings[filters.order]}
+                            </p>
+                            <p className="mt-1 truncate font-semibold text-sm text-white/78 tracking-[-0.02em]">
+                                {activeEntry?.title ?? "No matching events"}
+                            </p>
+                        </div>
+                        <p className="shrink-0 font-mono text-[0.7rem] text-white/35 uppercase tracking-[0.13em]">
+                            {visibleEntries.length === 0
+                                ? "No events"
+                                : `${String(safeTimelineIndex + 1).padStart(2, "0")} / ${String(visibleEntries.length).padStart(2, "0")}`}
                         </p>
                     </div>
-                    <p className="shrink-0 font-mono text-[0.7rem] text-white/35 uppercase tracking-[0.13em]">
-                        {visibleEntries.length === 0
-                            ? "No events"
-                            : `${String(safeTimelineIndex + 1).padStart(2, "0")} / ${String(visibleEntries.length).padStart(2, "0")}`}
-                    </p>
-                </div>
 
-                <div className="timeline-scrubber mt-3">
-                    <div
-                        aria-hidden="true"
-                        className="timeline-scrubber-progress"
-                        style={{
-                            width:
-                                visibleEntries.length > 1
-                                    ? `${(safeTimelineIndex / (visibleEntries.length - 1)) * 100}%`
-                                    : "0%",
-                        }}
-                    />
-                    <div aria-hidden="true" className="timeline-scrubber-track" />
-                    <input
-                        aria-label="Timeline position"
-                        className="timeline-scrubber-input"
-                        max={Math.max(visibleEntries.length - 1, 0)}
-                        min="0"
-                        onChange={handleTimelineChange}
-                        step="1"
-                        type="range"
-                        value={visibleEntries.length > 0 ? safeTimelineIndex : 0}
-                    />
-                </div>
-                <div className="mt-2 flex items-center justify-between font-mono text-[0.7rem] text-white/28 uppercase tracking-[0.14em]">
-                    <span>{activeEntry?.placement ?? "Origin"}</span>
-                    <span className="text-[#ffb05e]/65">Drag to travel</span>
-                    <span>{nextEntry?.placement ?? "Destination"}</span>
-                </div>
-            </nav>
-        </main>
+                    <div className="timeline-scrubber mt-3">
+                        <div
+                            aria-hidden="true"
+                            className="timeline-scrubber-progress"
+                            style={{
+                                width:
+                                    visibleEntries.length > 1
+                                        ? `${(safeTimelineIndex / (visibleEntries.length - 1)) * 100}%`
+                                        : "0%",
+                            }}
+                        />
+                        <div aria-hidden="true" className="timeline-scrubber-track" />
+                        <input
+                            aria-label="Timeline position"
+                            className="timeline-scrubber-input"
+                            max={Math.max(visibleEntries.length - 1, 0)}
+                            min="0"
+                            onChange={handleTimelineChange}
+                            step="1"
+                            type="range"
+                            value={visibleEntries.length > 0 ? safeTimelineIndex : 0}
+                        />
+                    </div>
+                    <div className="mt-2 flex items-center justify-between font-mono text-[0.7rem] text-white/28 uppercase tracking-[0.14em]">
+                        <span>{activeEntry?.placement ?? "Origin"}</span>
+                        <span className="text-[#ffb05e]/65">Drag to travel</span>
+                        <span>{nextEntry?.placement ?? "Destination"}</span>
+                    </div>
+                </nav>
+            </main>
+        </LayoutGroup>
     );
 }

@@ -2,6 +2,7 @@
 
 import { Html, OrbitControls, Sparkles, Stars } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { motion } from "motion/react";
 import Image from "next/image";
 import {
     type MouseEvent,
@@ -278,31 +279,48 @@ function TimelineNode({ active, count, entry, index, onSelect, selected }: Timel
             <Html
                 center
                 distanceFactor={10}
-                key={`${entry.slug}-${active ? "active" : "default"}-${selected ? "selected" : "closed"}`}
+                key={`${entry.slug}-${active ? "active" : "default"}`}
                 position={[0, 1.08, 0]}
                 zIndexRange={selected ? [25, 25] : [20, 0]}
             >
-                <button
+                <motion.button
+                    animate={{ opacity: selected ? 0 : 1 }}
                     className={`timeline-node-label ${selected ? "timeline-node-label-selected" : ""}`}
                     data-active={active}
                     data-content-type={entry.contentType}
+                    initial={false}
                     onClick={handleSelect}
+                    transition={{
+                        opacity: {
+                            delay: selected ? 0.08 : 0.12,
+                            duration: selected ? 0.28 : 0.34,
+                            ease: "easeOut",
+                        },
+                    }}
                     type="button"
                 >
-                    <span className="timeline-node-label-poster">
-                        {entry.posterUrl ? (
-                            <Image
-                                alt=""
-                                aria-hidden="true"
-                                className="object-cover"
-                                fill
-                                sizes="72px"
-                                src={entry.posterUrl}
-                            />
-                        ) : (
-                            <span>{entry.title.slice(0, 1)}</span>
-                        )}
-                    </span>
+                    {selected ? (
+                        <span aria-hidden="true" className="timeline-node-label-poster" />
+                    ) : (
+                        <motion.span
+                            className="timeline-node-label-poster"
+                            layoutId={`timeline-poster-${entry.slug}`}
+                            transition={{ damping: 30, stiffness: 280, type: "spring" }}
+                        >
+                            {entry.posterUrl ? (
+                                <Image
+                                    alt=""
+                                    aria-hidden="true"
+                                    className="object-cover"
+                                    fill
+                                    sizes="72px"
+                                    src={entry.posterUrl}
+                                />
+                            ) : (
+                                <span>{entry.title.slice(0, 1)}</span>
+                            )}
+                        </motion.span>
+                    )}
                     <span className="timeline-node-label-meta">
                         <span className="timeline-node-label-type">
                             {contentTypeNames[entry.contentType]}
@@ -310,7 +328,7 @@ function TimelineNode({ active, count, entry, index, onSelect, selected }: Timel
                         <span>{entry.placement}</span>
                     </span>
                     <strong>{entry.title}</strong>
-                </button>
+                </motion.button>
             </Html>
         </group>
     );
