@@ -292,7 +292,7 @@ function TimelineNode({
                     distanceFactor={10}
                     key={entry.slug}
                     position={[0, 0, 0]}
-                    zIndexRange={selected ? [25, 25] : [20, 0]}
+                    zIndexRange={selected ? [count + 1, count + 1] : [count - index, count - index]}
                 >
                     <div className="timeline-node-label-anchor">
                         <motion.button
