@@ -196,6 +196,7 @@ interface TimelineOrbitProps {
 }
 
 interface TimelineNodeProps {
+    active: boolean;
     count: number;
     entry: TimelineEntry;
     index: number;
@@ -203,7 +204,7 @@ interface TimelineNodeProps {
     selected: boolean;
 }
 
-function TimelineNode({ count, entry, index, onSelect, selected }: TimelineNodeProps) {
+function TimelineNode({ active, count, entry, index, onSelect, selected }: TimelineNodeProps) {
     const ringsRef = useRef(new Group());
     const position = timelineNodePosition(index, count);
     const handleSelect = useCallback(
@@ -276,20 +277,25 @@ function TimelineNode({ count, entry, index, onSelect, selected }: TimelineNodeP
             <Html
                 center
                 distanceFactor={10}
-                key={`${entry.slug}-${selected ? "selected" : "default"}`}
+                key={`${entry.slug}-${active ? "active" : "default"}-${selected ? "selected" : "closed"}`}
                 position={[0, 0.68, 0]}
                 zIndexRange={selected ? [25, 25] : [20, 0]}
             >
                 <button
                     className={`timeline-node-label ${selected ? "timeline-node-label-selected" : ""}`}
+                    data-active={active}
+                    data-content-type={entry.contentType}
                     onClick={handleSelect}
                     type="button"
                 >
-                    <span className="timeline-node-label-type">
-                        {contentTypeNames[entry.contentType]}
+                    <span className="timeline-node-label-meta">
+                        <span className="timeline-node-label-type">
+                            {contentTypeNames[entry.contentType]}
+                        </span>
+                        <i aria-hidden="true" />
+                        <span>{entry.placement}</span>
                     </span>
-                    <span>{entry.placement}</span>
-                    {entry.title}
+                    <strong>{entry.title}</strong>
                 </button>
             </Html>
         </group>
@@ -640,6 +646,7 @@ function TimelineEnergy({ compact, curve, eventCount, reducedMotion }: TimelineE
 interface TimelineSceneProps {
     compact: boolean;
     entries: readonly TimelineEntry[];
+    focusIndex: number;
     focusKey: number;
     focusX: number;
     onSelect: (slug: string) => void;
@@ -653,6 +660,7 @@ interface TimelineSceneProps {
 function TimelineScene({
     compact,
     entries,
+    focusIndex,
     focusKey,
     focusX,
     onSelect,
@@ -703,6 +711,7 @@ function TimelineScene({
             />
             {entries.map((entry, index) => (
                 <TimelineNode
+                    active={index === focusIndex}
                     count={entries.length}
                     entry={entry}
                     index={index}
@@ -844,6 +853,7 @@ export function TimelineOrbit({
                     <TimelineScene
                         compact={compact}
                         entries={entries}
+                        focusIndex={safeFocusIndex}
                         focusKey={focusKey}
                         focusX={focusX}
                         onSelect={onSelect}
