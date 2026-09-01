@@ -36,6 +36,7 @@ const coreColours: Record<TimelineEntry["contentType"], string> = {
     short: "#61e4a8",
     special: "#ffe08a",
 };
+const TIMELINE_CARD_FOCUS_OFFSET_Y = 2;
 
 const contentTypeNames: Record<TimelineEntry["contentType"], string> = {
     film: "Film",
@@ -375,32 +376,39 @@ interface MutableNumberRef {
     current: number;
 }
 
+interface MutableVectorRef {
+    current: Vector3;
+}
+
 function updateFocusPosition(
     camera: Camera,
     controls: TargetableControls | null,
-    destination: MutableNumberRef,
+    destination: MutableVectorRef,
     delta: number
 ): boolean {
-    if (!Number.isFinite(destination.current)) {
+    if (!Number.isFinite(destination.current.x)) {
         return false;
     }
 
     if (controls) {
-        const currentTargetX = controls.target.x;
-        const nextTargetX = MathUtils.damp(currentTargetX, destination.current, 7, delta);
-        controls.target.x = nextTargetX;
-        camera.position.x += nextTargetX - currentTargetX;
-        if (Math.abs(nextTargetX - destination.current) < 0.01) {
-            destination.current = Number.NaN;
+        const previousTarget = controls.target.clone();
+        controls.target.x = MathUtils.damp(controls.target.x, destination.current.x, 7, delta);
+        controls.target.y = MathUtils.damp(controls.target.y, destination.current.y, 7, delta);
+        controls.target.z = MathUtils.damp(controls.target.z, destination.current.z, 7, delta);
+        camera.position.add(controls.target.clone().sub(previousTarget));
+        if (controls.target.distanceTo(destination.current) < 0.01) {
+            destination.current.set(Number.NaN, Number.NaN, Number.NaN);
         }
     } else {
-        camera.position.x = MathUtils.damp(camera.position.x, destination.current, 7, delta);
-        if (Math.abs(camera.position.x - destination.current) < 0.01) {
-            destination.current = Number.NaN;
+        camera.position.x = MathUtils.damp(camera.position.x, destination.current.x, 7, delta);
+        camera.position.y = MathUtils.damp(camera.position.y, destination.current.y, 7, delta);
+        camera.position.z = MathUtils.damp(camera.position.z, destination.current.z, 7, delta);
+        if (camera.position.distanceTo(destination.current) < 0.01) {
+            destination.current.set(Number.NaN, Number.NaN, Number.NaN);
         }
     }
 
-    return Number.isFinite(destination.current);
+    return Number.isFinite(destination.current.x);
 }
 
 function updateZoomDistance({
@@ -442,8 +450,8 @@ function updateZoomDistance({
 
 interface CameraRigProps {
     focusKey: number;
-    focusX: number;
-    initialX: number;
+    focusPosition: Vector3;
+    initialPosition: Vector3;
     onZoomDistanceChange: (distance: number) => void;
     sceneKey: string;
     zoomDistance: number;
@@ -451,8 +459,8 @@ interface CameraRigProps {
 
 function CameraRig({
     focusKey,
-    focusX,
-    initialX,
+    focusPosition,
+    initialPosition,
     onZoomDistanceChange,
     sceneKey,
     zoomDistance,
@@ -460,16 +468,16 @@ function CameraRig({
     const camera = useThree((state) => state.camera);
     const controls = useThree((state) => state.controls);
     const invalidate = useThree((state) => state.invalidate);
-    const destination = useRef(Number.NaN);
+    const destination = useRef(new Vector3(Number.NaN, Number.NaN, Number.NaN));
     const targetZoomDistance = useRef(zoomDistance);
     const appliedZoomDistance = useRef(Number.NaN);
     const cameraOffset = useRef(new Vector3());
     const appliedSceneKey = useRef("");
 
     useEffect(() => {
-        destination.current = focusX;
+        destination.current.copy(focusPosition);
         invalidate();
-    }, [focusKey, focusX, invalidate]);
+    }, [focusKey, focusPosition, invalidate]);
 
     useEffect(() => {
         targetZoomDistance.current = zoomDistance;
@@ -484,14 +492,18 @@ function CameraRig({
                 MIN_ZOOM_DISTANCE,
                 MAX_ZOOM_DISTANCE
             );
-            timelineControls.target.set(initialX, 0, 0);
-            camera.position.set(initialX, 0, resetDistance);
+            timelineControls.target.copy(initialPosition);
+            camera.position.set(
+                initialPosition.x,
+                initialPosition.y,
+                initialPosition.z + resetDistance
+            );
             timelineControls.update();
             appliedZoomDistance.current = resetDistance;
             appliedSceneKey.current = sceneKey;
-            destination.current = Number.NaN;
+            destination.current.set(Number.NaN, Number.NaN, Number.NaN);
         }
-        if (!(timelineControls || Number.isFinite(destination.current))) {
+        if (!(timelineControls || Number.isFinite(destination.current.x))) {
             return;
         }
         const focusMoving = updateFocusPosition(camera, timelineControls, destination, delta);
@@ -706,7 +718,7 @@ interface TimelineSceneProps {
     entries: readonly TimelineEntry[];
     focusIndex: number;
     focusKey: number;
-    focusX: number;
+    focusPosition: Vector3;
     onInteractionChange: (interacting: boolean) => void;
     onSelect: (slug: string) => void;
     onZoomDistanceChange: (distance: number) => void;
@@ -721,7 +733,7 @@ function TimelineScene({
     entries,
     focusIndex,
     focusKey,
-    focusX,
+    focusPosition,
     onInteractionChange,
     onSelect,
     reducedMotion,
@@ -807,8 +819,8 @@ function TimelineScene({
             />
             <CameraRig
                 focusKey={focusKey}
-                focusX={focusX}
-                initialX={focusX}
+                focusPosition={focusPosition}
+                initialPosition={focusPosition}
                 onZoomDistanceChange={onZoomDistanceChange}
                 sceneKey={sceneKey}
                 zoomDistance={zoomDistance}
@@ -846,7 +858,14 @@ export function TimelineOrbit({
     );
     const sceneKey = useMemo(() => entries.map((entry) => entry.slug).join("|"), [entries]);
     const safeFocusIndex = Math.min(Math.max(focusIndex, 0), Math.max(entries.length - 1, 0));
-    const focusX = timelineNodePosition(safeFocusIndex, entries.length).x;
+    const focusPosition = useMemo(() => {
+        const nodePosition = timelineNodePosition(safeFocusIndex, entries.length);
+        return new Vector3(
+            nodePosition.x,
+            nodePosition.y + TIMELINE_CARD_FOCUS_OFFSET_Y,
+            nodePosition.z
+        );
+    }, [entries.length, safeFocusIndex]);
     const handleZoomDistanceChange = useCallback((nextDistance: number) => {
         const roundedDistance = Math.round(nextDistance * 10) / 10;
         setZoomDistance((current) =>
@@ -954,7 +973,7 @@ export function TimelineOrbit({
                         entries={entries}
                         focusIndex={safeFocusIndex}
                         focusKey={focusKey}
-                        focusX={focusX}
+                        focusPosition={focusPosition}
                         onInteractionChange={handleInteractionChange}
                         onSelect={onSelect}
                         onZoomDistanceChange={handleZoomDistanceChange}
