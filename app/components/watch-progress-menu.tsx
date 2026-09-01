@@ -160,7 +160,7 @@ export function WatchProgressMenu({
                         <div className="timeline-watchlist-progress">
                             <span style={{ width: progress }} />
                         </div>
-                        <p className="timeline-watchlist-label">Up next in this view</p>
+                        <p className="timeline-watchlist-label">Up next</p>
                         <div className="timeline-watchlist-tiles">
                             {nextEntries.length > 0 ? (
                                 nextEntries.map((entry) => (
