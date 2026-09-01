@@ -559,7 +559,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                 className="relative h-dvh min-h-[32rem] overflow-hidden bg-[#020203] text-ink"
                 onPointerDown={handleOutsidePointerDown}
             >
-                <div className="absolute inset-0 z-0 isolate">
+                <div className="absolute inset-0 isolate z-0">
                     <TimelineOrbit
                         entries={visibleEntries}
                         focusIndex={focusRequest.index}
