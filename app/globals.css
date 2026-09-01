@@ -755,7 +755,7 @@ a {
   position: absolute;
   top: calc(100% + 0.75rem);
   right: 0;
-  width: min(25rem, calc(100vw - 2.5rem));
+  width: min(27rem, calc(100vw - 2.5rem));
   padding: 1.1rem;
   background: rgb(8 8 11 / 92%);
   border: 1px solid rgb(255 255 255 / 12%);
@@ -820,28 +820,43 @@ a {
 
 .timeline-watchlist-tiles {
   display: grid;
-  gap: 0.55rem;
+  gap: 0.5rem;
+  max-height: min(24rem, 48dvh);
+  padding: 0.1rem 0.35rem 0.1rem 0.1rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: rgb(255 173 85 / 28%) transparent;
+  scrollbar-width: thin;
+}
+
+.timeline-watchlist-tiles::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+.timeline-watchlist-tiles::-webkit-scrollbar-thumb {
+  background: rgb(255 173 85 / 28%);
+  border-radius: 9999px;
 }
 
 .timeline-watchlist-tile-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 5.2rem;
+  grid-template-columns: minmax(0, 1fr) 4.6rem;
   gap: 0.45rem;
 }
 
 .timeline-watchlist-tile {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.65rem;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  gap: 0.8rem;
   align-items: center;
   width: 100%;
-  min-height: 3.65rem;
-  padding: 0.78rem 0.85rem;
+  min-height: 5.25rem;
+  padding: 0.55rem 0.7rem 0.55rem 0.55rem;
   text-align: left;
   cursor: pointer;
   background: rgb(255 255 255 / 3%);
   border: 1px solid rgb(255 255 255 / 8%);
-  border-radius: 0.7rem;
+  border-radius: 0.85rem;
   transition:
     background 180ms ease,
     border-color 180ms ease,
@@ -863,28 +878,63 @@ a {
   transform: translateX(2px);
 }
 
+.timeline-watchlist-tile-poster {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 4.25rem;
+  overflow: hidden;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.8rem;
+  color: rgb(255 173 85 / 45%);
+  background:
+    radial-gradient(circle at 50% 30%, rgb(255 173 85 / 12%), transparent 60%),
+    rgb(255 255 255 / 4%);
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 0.4rem;
+  box-shadow: 0 8px 22px rgb(0 0 0 / 32%);
+}
+
 .timeline-watchlist-tile-copy {
   display: flex;
   flex-direction: column;
-  gap: 0.18rem;
+  gap: 0.42rem;
   min-width: 0;
 }
 
 .timeline-watchlist-tile-copy span {
+  display: flex;
+  gap: 0.38rem;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.64rem;
-  color: rgb(244 241 232 / 29%);
+  color: rgb(255 173 85 / 52%);
   text-transform: uppercase;
   letter-spacing: 0.13em;
+  white-space: nowrap;
+}
+
+.timeline-watchlist-tile-copy span i {
+  flex: 0 0 auto;
+  width: 0.18rem;
+  height: 0.18rem;
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.5;
 }
 
 .timeline-watchlist-tile-copy strong {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.76rem;
-  font-weight: 500;
-  color: rgb(244 241 232 / 68%);
-  white-space: nowrap;
+  -webkit-line-clamp: 2;
+  font-size: 0.8rem;
+  font-weight: 550;
+  line-height: 1.35;
+  color: rgb(244 241 232 / 76%);
 }
 
 .timeline-watchlist-tile-arrow {
@@ -915,7 +965,7 @@ a {
   gap: 0.25rem;
   align-items: center;
   justify-content: center;
-  min-height: 3.65rem;
+  min-height: 5.25rem;
   padding: 0.45rem;
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.64rem;
@@ -925,7 +975,7 @@ a {
   cursor: pointer;
   background: transparent;
   border: 1px dashed rgb(255 255 255 / 16%);
-  border-radius: 0.7rem;
+  border-radius: 0.85rem;
   transition:
     color 180ms ease,
     background 180ms ease,

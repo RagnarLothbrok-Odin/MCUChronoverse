@@ -358,9 +358,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
         const upcomingEntries = visibleEntries.filter(
             (entry) => !watchedSlugs.includes(entry.slug) && entry.slug !== pendingWatchSlug
         );
-        return [pendingEntry, ...upcomingEntries]
-            .filter((entry) => entry !== undefined)
-            .slice(0, 3);
+        return [pendingEntry, ...upcomingEntries].filter((entry) => entry !== undefined);
     }, [pendingWatchSlug, visibleEntries, watchedSlugs]);
     const toggleFilters = useCallback(() => {
         setWatchlistOpen(false);

@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
+import Image from "next/image";
 import type { MouseEventHandler, RefObject } from "react";
 import type { TimelineEntry } from "../data/types";
 import { isWatchable } from "../lib/timeline";
@@ -62,8 +63,26 @@ function WatchProgressTile({
                 onClick={onEntrySelect}
                 type="button"
             >
+                <span className="timeline-watchlist-tile-poster">
+                    {entry.posterUrl ? (
+                        <Image
+                            alt=""
+                            aria-hidden="true"
+                            className="object-cover"
+                            fill
+                            sizes="48px"
+                            src={entry.posterUrl}
+                        />
+                    ) : (
+                        <span>{entry.title.slice(0, 1)}</span>
+                    )}
+                </span>
                 <span className="timeline-watchlist-tile-copy">
-                    <span>{entry.contentType.replace("-", " ")}</span>
+                    <span>
+                        {entry.contentType.replace("-", " ")}
+                        <i aria-hidden="true" />
+                        {entry.placement}
+                    </span>
                     <strong>{entry.title}</strong>
                 </span>
                 <span aria-hidden="true" className="timeline-watchlist-tile-arrow">
@@ -164,7 +183,10 @@ export function WatchProgressMenu({
                             <span style={{ width: progress }} />
                         </div>
                         <p className="timeline-watchlist-label">Up next</p>
-                        <div className="timeline-watchlist-tiles">
+                        <section
+                            aria-label="Upcoming timeline entries"
+                            className="timeline-watchlist-tiles"
+                        >
                             {nextEntries.length > 0 ? (
                                 nextEntries.map((entry) => (
                                     <WatchProgressTile
@@ -180,7 +202,7 @@ export function WatchProgressMenu({
                                     Everything in this view is watched.
                                 </p>
                             )}
-                        </div>
+                        </section>
                         {totalWatchedCount > 0 ? (
                             <button
                                 className="focus-ring timeline-watchlist-reset"
