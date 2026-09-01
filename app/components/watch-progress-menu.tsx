@@ -178,20 +178,21 @@ export function WatchProgressMenu({
                                 </p>
                             )}
                         </div>
-                        <button
-                            className="focus-ring timeline-watchlist-reset"
-                            disabled={totalWatchedCount === 0}
-                            onClick={onReset}
-                            type="button"
-                        >
-                            <span aria-hidden="true" className="timeline-watchlist-reset-icon">
-                                ↺
-                            </span>
-                            <span className="timeline-watchlist-reset-copy">
-                                <strong>Reset watch data</strong>
-                                <small>{resetDescription}</small>
-                            </span>
-                        </button>
+                        {totalWatchedCount > 0 ? (
+                            <button
+                                className="focus-ring timeline-watchlist-reset"
+                                onClick={onReset}
+                                type="button"
+                            >
+                                <span aria-hidden="true" className="timeline-watchlist-reset-icon">
+                                    ↺
+                                </span>
+                                <span className="timeline-watchlist-reset-copy">
+                                    <strong>Reset watch data</strong>
+                                    <small>{resetDescription}</small>
+                                </span>
+                            </button>
+                        ) : null}
                         <div className="timeline-watchlist-scope">
                             <span aria-hidden="true">{signedIn ? "☁" : "◇"}</span>
                             <div>
