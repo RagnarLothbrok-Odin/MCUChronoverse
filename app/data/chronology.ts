@@ -1423,7 +1423,7 @@ export const chronology = [
         slug: "avengers-secret-wars",
         status: "announced",
         title: "Avengers: Secret Wars",
-        universe: "Earth-616",
+        universe: "TBD",
     },
 ] satisfies readonly TimelineEntry[];
 
