@@ -618,9 +618,9 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         placement: "Multiverse",
         releaseDate: "2021-08-11",
         saga: "Multiverse Saga",
-        slug: "what-if",
+        slug: "what-if-season-1",
         status: "released",
-        title: "What If...?",
+        title: "What If...? Season 1",
         universe: "Multiverse",
     },
     {
@@ -924,6 +924,18 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
     },
     {
         chronologyOrder: 720,
+        contentType: "series",
+        phase: "Phase Five",
+        placement: "Multiverse",
+        releaseDate: "2023-12-22",
+        saga: "Multiverse Saga",
+        slug: "what-if-season-2",
+        status: "released",
+        title: "What If...? Season 2",
+        universe: "Multiverse",
+    },
+    {
+        chronologyOrder: 730,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Five",
@@ -936,7 +948,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-10005 / Multiverse",
     },
     {
-        chronologyOrder: 730,
+        chronologyOrder: 740,
         contentType: "series",
         phase: "Phase Five",
         placement: "2026",
@@ -948,7 +960,19 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 740,
+        chronologyOrder: 750,
+        contentType: "series",
+        phase: "Phase Five",
+        placement: "Multiverse",
+        releaseDate: "2024-12-22",
+        saga: "Multiverse Saga",
+        slug: "what-if-season-3",
+        status: "released",
+        title: "What If...? Season 3",
+        universe: "Multiverse",
+    },
+    {
+        chronologyOrder: 760,
         contentType: "series",
         phase: "Phase Five",
         placement: "Late 2026 to early 2027",
@@ -960,7 +984,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 750,
+        chronologyOrder: 770,
         contentType: "film",
         creditScenes: { after: true, during: false },
         phase: "Phase Five",
@@ -973,7 +997,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 760,
+        chronologyOrder: 780,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Five",
@@ -986,7 +1010,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 770,
+        chronologyOrder: 790,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Six",
@@ -999,7 +1023,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-828",
     },
     {
-        chronologyOrder: 780,
+        chronologyOrder: 800,
         contentType: "series",
         phase: "Phase Six",
         placement: "2027",
@@ -1011,7 +1035,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 790,
+        chronologyOrder: 810,
         contentType: "series",
         phase: "Phase Six",
         placement: "2027",
@@ -1023,7 +1047,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 800,
+        chronologyOrder: 820,
         contentType: "special",
         phase: "Phase Six",
         placement: "2027",
@@ -1035,7 +1059,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 810,
+        chronologyOrder: 830,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Six",
@@ -1048,7 +1072,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 820,
+        chronologyOrder: 840,
         contentType: "series",
         phase: "Phase Six",
         placement: "TBD",
@@ -1060,7 +1084,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 830,
+        chronologyOrder: 850,
         contentType: "film",
         phase: "Phase Six",
         placement: "TBD",
@@ -1072,7 +1096,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "TBD",
     },
     {
-        chronologyOrder: 840,
+        chronologyOrder: 860,
         contentType: "film",
         phase: "Phase Six",
         placement: "TBD",

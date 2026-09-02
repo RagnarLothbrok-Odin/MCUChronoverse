@@ -767,9 +767,35 @@
     },
     "status": "resolved"
   },
-  "what-if": {
+  "what-if-season-1": {
     "fetchedAt": "2026-09-02T16:56:34.176Z",
-    "requestedTitle": "What If...?",
+    "requestedTitle": "What If...? Season 1",
+    "source": {
+      "description": "Exploring pivotal moments from the Marvel Cinematic Universe and turning them on their head, leading the audience into uncharted territory.",
+      "genres": ["animation", "action", "adventure", "sciFi"],
+      "imdbUrl": "https://www.imdb.com/title/tt10168312/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BYWFiOTcwNzItMTg5Mi00ZTU4LThkZWYtYWNmZWQ1ODE5ZTVmXkEyXkFqcGc@._V1_.jpg",
+      "rating": 7.3,
+      "runtime": "32m"
+    },
+    "status": "resolved"
+  },
+  "what-if-season-2": {
+    "fetchedAt": "2026-09-02T16:56:34.176Z",
+    "requestedTitle": "What If...? Season 2",
+    "source": {
+      "description": "Exploring pivotal moments from the Marvel Cinematic Universe and turning them on their head, leading the audience into uncharted territory.",
+      "genres": ["animation", "action", "adventure", "sciFi"],
+      "imdbUrl": "https://www.imdb.com/title/tt10168312/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BYWFiOTcwNzItMTg5Mi00ZTU4LThkZWYtYWNmZWQ1ODE5ZTVmXkEyXkFqcGc@._V1_.jpg",
+      "rating": 7.3,
+      "runtime": "32m"
+    },
+    "status": "resolved"
+  },
+  "what-if-season-3": {
+    "fetchedAt": "2026-09-02T16:56:34.176Z",
+    "requestedTitle": "What If...? Season 3",
     "source": {
       "description": "Exploring pivotal moments from the Marvel Cinematic Universe and turning them on their head, leading the audience into uncharted territory.",
       "genres": ["animation", "action", "adventure", "sciFi"],
