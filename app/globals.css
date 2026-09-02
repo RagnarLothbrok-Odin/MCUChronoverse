@@ -1284,6 +1284,7 @@ a {
 
 .timeline-detail-footer {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   align-items: flex-end;
   justify-content: space-between;
@@ -1310,6 +1311,13 @@ a {
   font-weight: 500;
   color: rgb(244 241 232 / 58%);
   letter-spacing: 0.1em;
+}
+
+.timeline-detail-links {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-left: auto;
 }
 
 .timeline-detail-imdb {
@@ -1358,6 +1366,17 @@ a {
 
 .timeline-detail-imdb:hover .timeline-detail-arrow {
   transform: translate(2px, -2px);
+}
+
+.timeline-detail-trakt:hover {
+  background: rgb(237 28 36 / 8%);
+  border-color: rgb(237 28 36 / 48%);
+  box-shadow: 0 8px 28px rgb(237 28 36 / 8%);
+}
+
+.timeline-detail-trakt-mark {
+  width: 1.15rem;
+  height: 1.15rem;
 }
 
 .timeline-auth-modal-backdrop {
@@ -2246,9 +2265,14 @@ a {
     display: none;
   }
 
-  .timeline-detail-imdb {
-    justify-content: center;
+  .timeline-detail-links {
     width: 100%;
+  }
+
+  .timeline-detail-imdb {
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
   }
 }
 

@@ -36,6 +36,8 @@ import { AuthMenu } from "./auth-menu";
 import { UiIcon } from "./ui-icon";
 import { WatchProgressMenu } from "./watch-progress-menu";
 
+const imdbIdPattern = /tt\d+/;
+
 const TimelineOrbit = dynamic(
     () => import("./timeline-orbit").then((module) => module.TimelineOrbit),
     {
@@ -247,18 +249,60 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
                             <strong>{entry.universe}</strong>
                         </div>
                         {entry.imdbUrl ? (
-                            <a
-                                className="focus-ring timeline-detail-imdb"
-                                href={entry.imdbUrl}
-                                rel="noreferrer"
-                                target="_blank"
-                            >
-                                <span className="timeline-detail-imdb-mark">IMDb</span>
-                                <span>Open on IMDb</span>
-                                <span aria-hidden="true" className="timeline-detail-arrow">
-                                    <UiIcon name="external-link" />
-                                </span>
-                            </a>
+                            <div className="timeline-detail-links">
+                                <a
+                                    className="focus-ring timeline-detail-imdb"
+                                    href={entry.imdbUrl}
+                                    rel="noreferrer"
+                                    target="_blank"
+                                >
+                                    <span className="timeline-detail-imdb-mark">IMDb</span>
+                                    <span>Open on IMDb</span>
+                                    <span aria-hidden="true" className="timeline-detail-arrow">
+                                        <UiIcon name="external-link" />
+                                    </span>
+                                </a>
+                                <a
+                                    className="focus-ring timeline-detail-imdb timeline-detail-trakt"
+                                    href={`https://app.trakt.tv/search/imdb/${entry.imdbUrl.match(imdbIdPattern)?.[0] ?? ""}`}
+                                    rel="noreferrer"
+                                    target="_blank"
+                                >
+                                    <svg
+                                        aria-label="Trakt"
+                                        className="timeline-detail-trakt-mark"
+                                        role="img"
+                                        viewBox="0 0 48 48"
+                                    >
+                                        <defs>
+                                            <radialGradient
+                                                cx="48.46"
+                                                cy="-.95"
+                                                gradientUnits="userSpaceOnUse"
+                                                id="trakt-logo-gradient"
+                                                r="64.84"
+                                            >
+                                                <stop offset="0" stopColor="#9f42c6" />
+                                                <stop offset=".53" stopColor="#aa39ad" />
+                                                <stop offset=".82" stopColor="#cf2061" />
+                                                <stop offset="1" stopColor="#f50613" />
+                                            </radialGradient>
+                                        </defs>
+                                        <path
+                                            d="M48 11.26v25.47C48 42.95 42.95 48 36.73 48H11.26C5.04 48 0 42.95 0 36.73V11.26C0 5.04 5.04 0 11.26 0h25.47a11.24 11.24 0 0 1 9.62 5.4c1.06 1.72 1.65 3.74 1.65 5.86Z"
+                                            fill="url(#trakt-logo-gradient)"
+                                        />
+                                        <path
+                                            d="m13.62 17.97 7.92 7.92 1.47-1.47-7.92-7.92-1.47 1.47Zm14.39 14.4 1.47-1.46-2.16-2.16L47.64 8.43c-.19-.75-.46-1.46-.79-2.14L24.39 28.75l3.62 3.62Zm-15.09-13.7-1.46 1.46 14.4 14.4 1.46-1.47L23 28.75 46.35 5.4c-.36-.6-.78-1.16-1.25-1.68L21.54 27.28l-8.62-8.61Zm34.95-9.09L28.7 28.75l1.47 1.46L48 12.38v-1.12c0-.57-.04-1.14-.13-1.68ZM25.16 22.27l-7.92-7.92-1.47 1.47 7.92 7.92 1.47-1.47Zm16.16 12.85c0 3.42-2.78 6.2-6.2 6.2H12.88c-3.42 0-6.2-2.78-6.2-6.2V12.88c0-3.42 2.78-6.21 6.2-6.21h20.78V4.6H12.88c-4.56 0-8.28 3.71-8.28 8.28v22.24c0 4.56 3.71 8.28 8.28 8.28h22.24c4.56 0 8.28-3.71 8.28-8.28v-3.51h-2.07v3.51Z"
+                                            fill="#fff"
+                                        />
+                                    </svg>
+                                    <span>Open on Trakt</span>
+                                    <span aria-hidden="true" className="timeline-detail-arrow">
+                                        <UiIcon name="external-link" />
+                                    </span>
+                                </a>
+                            </div>
                         ) : null}
                     </div>
                 </motion.div>
