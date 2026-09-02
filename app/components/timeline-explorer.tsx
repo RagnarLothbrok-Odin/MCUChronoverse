@@ -112,7 +112,7 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
     return (
         <motion.aside
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="timeline-detail-card absolute bottom-36 left-4 z-[100] w-[min(47rem,calc(100%-2rem))] sm:bottom-40 sm:left-7 sm:w-[min(47rem,calc(100%-3.5rem))]"
+            className="timeline-detail-card absolute bottom-36 left-4 z-100 w-[min(47rem,calc(100%-2rem))] sm:bottom-40 sm:left-7 sm:w-[min(47rem,calc(100%-3.5rem))]"
             data-timeline-detail="true"
             exit={{ opacity: 0, scale: 0.97, y: 10 }}
             initial={{ opacity: 0, scale: 0.94, y: 18 }}
@@ -618,7 +618,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
     return (
         <LayoutGroup id="timeline-entry-expansion">
             <main
-                className="relative h-dvh min-h-[32rem] overflow-hidden bg-[#020203] text-ink"
+                className="relative h-dvh min-h-128 overflow-hidden bg-[#020203] text-ink"
                 onPointerDown={handleOutsidePointerDown}
             >
                 <div className="absolute inset-0 isolate z-0">
@@ -632,10 +632,10 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                 </div>
                 <div className="grain" />
 
-                <div className="pointer-events-none absolute top-0 right-0 left-0 z-20 h-40 bg-gradient-to-b from-black/70 to-transparent" />
-                <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-48 bg-gradient-to-t from-black/75 to-transparent" />
+                <div className="pointer-events-none absolute top-0 right-0 left-0 z-20 h-40 bg-linear-to-b from-black/70 to-transparent" />
+                <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-48 bg-linear-to-t from-black/75 to-transparent" />
 
-                <header className="absolute top-5 left-5 z-[80] sm:top-7 sm:left-7">
+                <header className="absolute top-5 left-5 z-80 sm:top-7 sm:left-7">
                     <div className="flex items-center gap-3">
                         <span className="grid size-10 place-items-center border border-[#ff9b4a]/60 bg-black/45 font-mono font-semibold text-[#ffb260] text-xs shadow-[0_0_30px_rgb(255_112_35/12%)] backdrop-blur-xl">
                             616
@@ -688,7 +688,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                 />
 
                 <aside
-                    className="absolute top-5 right-5 z-[110] w-12 sm:top-7 sm:right-7"
+                    className="absolute top-5 right-5 z-110 w-12 sm:top-7 sm:right-7"
                     ref={filtersRef}
                 >
                     <div className="flex justify-end">
@@ -851,7 +851,7 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
 
                 <nav
                     aria-label="Scroll through the timeline"
-                    className="timeline-dock absolute bottom-5 left-1/2 z-[80] w-[min(34rem,calc(100%-3rem))] -translate-x-1/2 sm:bottom-7"
+                    className="timeline-dock absolute bottom-5 left-1/2 z-80 w-[min(34rem,calc(100%-3rem))] -translate-x-1/2 sm:bottom-7"
                 >
                     <div className="flex items-end justify-between gap-4">
                         <p className="truncate font-semibold text-sm text-white/78 tracking-[-0.02em]">

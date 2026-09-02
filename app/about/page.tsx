@@ -151,7 +151,7 @@ export default function AboutPage() {
                             reference one another, so a little variation is reasonable.
                         </p>
 
-                        <details className="group mt-8 border border-white/10 bg-white/[0.025]">
+                        <details className="group mt-8 border border-white/10 bg-white/2.5">
                             <summary className="focus-ring flex cursor-pointer list-none items-center justify-between gap-6 p-5 font-mono text-gold text-xs uppercase tracking-[0.12em] [&::-webkit-details-marker]:hidden">
                                 <span>Spoiler: The Fantastic Four: First Steps</span>
                                 <span

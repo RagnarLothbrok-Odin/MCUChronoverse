@@ -258,7 +258,7 @@ export function ContactForm({ entries, turnstileSiteKey }: ContactFormProps) {
                         </span>
                     </button>
                     {entryError ? (
-                        <p className="font-mono text-[#ff8a6a] text-[0.7rem] uppercase tracking-[0.1em]">
+                        <p className="font-mono text-[#ff8a6a] text-[0.7rem] uppercase tracking-widest">
                             Select the timeline entry this report is about.
                         </p>
                     ) : null}

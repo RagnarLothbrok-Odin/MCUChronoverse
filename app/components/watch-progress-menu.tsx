@@ -138,10 +138,7 @@ export function WatchProgressMenu({
     }
 
     return (
-        <aside
-            className="absolute top-5 right-[4.5rem] z-[110] sm:top-7 sm:right-[5.5rem]"
-            ref={containerRef}
-        >
+        <aside className="absolute top-5 right-18 z-110 sm:top-7 sm:right-22" ref={containerRef}>
             <button
                 aria-controls="timeline-watchlist"
                 aria-expanded={open}

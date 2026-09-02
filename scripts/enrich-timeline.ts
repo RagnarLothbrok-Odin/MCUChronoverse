@@ -100,7 +100,7 @@ let failed = 0;
 
 for (const entry of curatedChronology) {
     const cachedEntry = cache[entry.slug];
-    if (!refresh && !isMetadataCacheRecordStale(cachedEntry)) {
+    if (!(refresh || isMetadataCacheRecordStale(cachedEntry))) {
         skipped += 1;
         log.info(`Skipping ${entry.title}, cached metadata is current.`);
         continue;

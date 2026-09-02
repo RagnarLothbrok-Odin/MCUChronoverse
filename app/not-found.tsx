@@ -7,7 +7,7 @@ export default function NotFound() {
                 <p className="font-mono text-signal text-xs uppercase tracking-[0.28em]">
                     Timeline divergence / 404
                 </p>
-                <h1 className="mt-5 font-semibold text-5xl tracking-[-0.05em]">
+                <h1 className="mt-5 font-semibold text-5xl tracking-tighter">
                     This branch does not exist.
                 </h1>
                 <p className="mx-auto mt-5 max-w-md text-muted leading-7">
