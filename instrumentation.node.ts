@@ -1,4 +1,6 @@
 import { readFileSync } from "node:fs";
+import { isMetadataCacheRecordStale, type MetadataCacheRecord } from "./app/data/metadata-freshness";
+import titleMetadata from "./app/data/title-metadata.json";
 import { log } from "./app/lib/console";
 import { isSupabaseConfigured } from "./app/lib/supabase/config";
 
@@ -7,6 +9,7 @@ const globalForBoot = globalThis as typeof globalThis & { __portalBooted?: boole
 const pkg = JSON.parse(readFileSync(new URL("./package.json", import.meta.url), "utf8")) as {
     version: string;
 };
+const metadataRecords = titleMetadata as Record<string, MetadataCacheRecord>;
 
 function runtimeLabel(): string {
     if (process.versions.bun) {
@@ -38,6 +41,14 @@ export function registerNode(): void {
         runtime: runtimeLabel(),
         version: `v${pkg.version}`,
     });
+    const staleMetadataCount = Object.values(metadataRecords).filter((record) =>
+        isMetadataCacheRecordStale(record)
+    ).length;
+    if (staleMetadataCount > 0) {
+        log.warn(
+            `Timeline metadata is stale for ${staleMetadataCount} ${staleMetadataCount === 1 ? "entry" : "entries"}. Run bun run data:enrich to refresh it.`
+        );
+    }
     if (process.env.NODE_ENV === "development" && !isSupabaseConfigured) {
         log.warn("Supabase is not configured: authentication and synced watch progress are disabled.");
     }
