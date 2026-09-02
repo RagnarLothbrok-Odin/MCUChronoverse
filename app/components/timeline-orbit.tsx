@@ -4,6 +4,7 @@ import {
     Billboard,
     Image as DreiImage,
     OrbitControls,
+    PerformanceMonitor,
     Sparkles,
     Stars,
     Text,
@@ -1091,13 +1092,21 @@ interface TimelineEnergyProps {
     compact: boolean;
     curve: Curve<Vector3>;
     eventCount: number;
+    qualityFactor: number;
     reducedMotion: boolean;
 }
 
-function TimelineEnergy({ compact, curve, eventCount, reducedMotion }: TimelineEnergyProps) {
+function TimelineEnergy({
+    compact,
+    curve,
+    eventCount,
+    qualityFactor,
+    reducedMotion,
+}: TimelineEnergyProps) {
     const moteGeometryRef = useRef<BufferGeometry>(null);
-    const segmentCount = Math.max(eventCount * (compact ? 10 : 16), 96);
-    const moteCount = compact ? 20 : 44;
+    const segmentDensity = compact ? 7 + qualityFactor * 3 : 10 + qualityFactor * 6;
+    const segmentCount = Math.max(Math.round(eventCount * segmentDensity), 96);
+    const moteCount = Math.round(compact ? 12 + qualityFactor * 8 : 20 + qualityFactor * 24);
     const flowMaterial = useMemo(
         () =>
             new ShaderMaterial({
@@ -1263,6 +1272,7 @@ interface TimelineSceneProps {
     onInteractionChange: (interacting: boolean) => void;
     onSelect: (slug: string) => void;
     onZoomDistanceChange: (distance: number) => void;
+    qualityFactor: number;
     reducedMotion: boolean;
     sceneKey: string;
     selectedSlug?: string;
@@ -1277,6 +1287,7 @@ function TimelineScene({
     focusPosition,
     onInteractionChange,
     onSelect,
+    qualityFactor,
     reducedMotion,
     selectedSlug,
     onZoomDistanceChange,
@@ -1293,6 +1304,8 @@ function TimelineScene({
     );
     const curve = useMemo(() => createTimelineCurve(points), [points]);
     const span = Math.max((entries.length - 1) * 2.2, 4);
+    const starCount = Math.round(compact ? 400 + qualityFactor * 250 : 800 + qualityFactor * 800);
+    const sparkleCount = Math.round(compact ? 24 + qualityFactor * 21 : 60 + qualityFactor * 60);
     const handleInteractionStart = useCallback(
         () => onInteractionChange(true),
         [onInteractionChange]
@@ -1309,7 +1322,7 @@ function TimelineScene({
             <pointLight color="#ff782d" intensity={28} position={[0, 4, 6]} />
             <pointLight color="#444cff" intensity={8} position={[0, -5, -3]} />
             <Stars
-                count={compact ? 650 : 1600}
+                count={starCount}
                 depth={40}
                 factor={2.3}
                 fade
@@ -1318,7 +1331,7 @@ function TimelineScene({
             />
             <Sparkles
                 color="#e7a35e"
-                count={compact ? 45 : 120}
+                count={sparkleCount}
                 opacity={0.45}
                 scale={[span + 10, 7, 7]}
                 size={1.3}
@@ -1328,6 +1341,7 @@ function TimelineScene({
                 compact={compact}
                 curve={curve}
                 eventCount={entries.length}
+                qualityFactor={qualityFactor}
                 reducedMotion={reducedMotion}
             />
             {entries.map((entry, index) => (
@@ -1366,6 +1380,30 @@ function TimelineScene({
     );
 }
 
+function DemandFrameLoop({ framesPerSecond }: { framesPerSecond: number }) {
+    const invalidate = useThree((state) => state.invalidate);
+
+    useEffect(() => {
+        if (framesPerSecond <= 0) {
+            return;
+        }
+        const frameInterval = 1000 / framesPerSecond;
+        let animationFrame = 0;
+        let lastFrameTime = 0;
+        const requestFrame = (time: number) => {
+            if (time - lastFrameTime >= frameInterval) {
+                lastFrameTime = time - ((time - lastFrameTime) % frameInterval);
+                invalidate();
+            }
+            animationFrame = window.requestAnimationFrame(requestFrame);
+        };
+        animationFrame = window.requestAnimationFrame(requestFrame);
+        return () => window.cancelAnimationFrame(animationFrame);
+    }, [framesPerSecond, invalidate]);
+
+    return null;
+}
+
 function supportsWebGl(): boolean {
     try {
         const canvas = document.createElement("canvas");
@@ -1386,6 +1424,8 @@ export function TimelineOrbit({
     const [reducedMotion, setReducedMotion] = useState(false);
     const [compact, setCompact] = useState(false);
     const [interacting, setInteracting] = useState(false);
+    const [qualityFactor, setQualityFactor] = useState(1);
+    const [performanceFallback, setPerformanceFallback] = useState(false);
     const [zoomDistance, setZoomDistance] = useState(DEFAULT_ZOOM_DISTANCE);
     const [zoomStorageReady, setZoomStorageReady] = useState(false);
     const interactionEndTimer = useRef<number | null>(null);
@@ -1422,6 +1462,14 @@ export function TimelineOrbit({
             setInteracting(false);
             interactionEndTimer.current = null;
         }, 300);
+    }, []);
+    const handlePerformanceChange = useCallback(({ factor }: { factor: number }) => {
+        const nextFactor = Math.round(factor * 2) / 2;
+        setQualityFactor((current) => (current === nextFactor ? current : nextFactor));
+    }, []);
+    const handlePerformanceFallback = useCallback(() => {
+        setQualityFactor(0);
+        setPerformanceFallback(true);
     }, []);
 
     useEffect(
@@ -1464,9 +1512,13 @@ export function TimelineOrbit({
     useEffect(() => {
         setWebGlSupported(supportsWebGl());
         setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-        setCompact(
-            window.matchMedia("(max-width: 720px)").matches || navigator.hardwareConcurrency <= 4
-        );
+        const compactMediaQuery = window.matchMedia("(max-width: 720px)");
+        const updateCompactMode = () => {
+            setCompact(compactMediaQuery.matches || navigator.hardwareConcurrency <= 4);
+        };
+        updateCompactMode();
+        compactMediaQuery.addEventListener("change", updateCompactMode);
+        return () => compactMediaQuery.removeEventListener("change", updateCompactMode);
     }, []);
 
     if (webGlSupported === null) {
@@ -1501,24 +1553,35 @@ export function TimelineOrbit({
         <div className="relative h-full w-full">
             <Canvas
                 camera={cameraSettings}
-                dpr={compact || interacting ? 1 : [1, 1.5]}
-                frameloop={reducedMotion ? "demand" : "always"}
+                dpr={compact || interacting ? 1 : 1 + qualityFactor * 0.5}
+                frameloop={reducedMotion || performanceFallback ? "demand" : "always"}
+                gl={{ alpha: false, powerPreference: "high-performance", stencil: false }}
             >
                 <Suspense fallback={null}>
-                    <TimelineScene
-                        compact={compact}
-                        entries={entries}
-                        focusIndex={safeFocusIndex}
-                        focusKey={focusKey}
-                        focusPosition={focusPosition}
-                        onInteractionChange={handleInteractionChange}
-                        onSelect={onSelect}
-                        onZoomDistanceChange={handleZoomDistanceChange}
-                        reducedMotion={reducedMotion}
-                        sceneKey={sceneKey}
-                        selectedSlug={selectedSlug}
-                        zoomDistance={zoomDistance}
-                    />
+                    <PerformanceMonitor
+                        flipflops={2}
+                        onChange={handlePerformanceChange}
+                        onFallback={handlePerformanceFallback}
+                    >
+                        <TimelineScene
+                            compact={compact}
+                            entries={entries}
+                            focusIndex={safeFocusIndex}
+                            focusKey={focusKey}
+                            focusPosition={focusPosition}
+                            onInteractionChange={handleInteractionChange}
+                            onSelect={onSelect}
+                            onZoomDistanceChange={handleZoomDistanceChange}
+                            qualityFactor={qualityFactor}
+                            reducedMotion={reducedMotion}
+                            sceneKey={sceneKey}
+                            selectedSlug={selectedSlug}
+                            zoomDistance={zoomDistance}
+                        />
+                        {performanceFallback && !reducedMotion ? (
+                            <DemandFrameLoop framesPerSecond={30} />
+                        ) : null}
+                    </PerformanceMonitor>
                 </Suspense>
             </Canvas>
         </div>
