@@ -1,7 +1,7 @@
-import { createHash, randomUUID } from "node:crypto";
+import { createHmac, randomUUID } from "node:crypto";
 import { type NextRequest, NextResponse } from "next/server";
 import { log } from "../../lib/console";
-import { checkContactRateLimit } from "../../lib/contact-rate-limit";
+import { checkDurableContactRateLimit } from "../../lib/contact-rate-limit";
 import { buildContactIssue, parseContactSubmission } from "../../lib/contact-submission";
 import { siteOrigin } from "../../lib/site-origin";
 
@@ -33,16 +33,36 @@ function response(body: object, status: number, headers?: HeadersInit) {
 }
 
 function clientAddress(request: NextRequest): string {
-    return (
-        request.headers.get("cf-connecting-ip") ??
-        request.headers.get("x-real-ip") ??
-        request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-        "unknown"
-    );
+    if (process.env.NODE_ENV !== "production") {
+        return "development";
+    }
+
+    const headerName = process.env.TRUSTED_CLIENT_IP_HEADER?.toLowerCase();
+    if (
+        !(headerName && ["cf-connecting-ip", "x-forwarded-for", "x-real-ip"].includes(headerName))
+    ) {
+        throw new Error("TRUSTED_CLIENT_IP_HEADER must name a supported proxy header");
+    }
+
+    const headerValue = request.headers.get(headerName);
+    const address =
+        headerName === "x-forwarded-for" ? headerValue?.split(",")[0]?.trim() : headerValue?.trim();
+    if (!address) {
+        throw new Error(`The trusted proxy did not set ${headerName}`);
+    }
+    return address;
 }
 
-function rateLimitKey(request: NextRequest): string {
-    return createHash("sha256").update(clientAddress(request)).digest("hex");
+function rateLimitKey(address: string): string {
+    if (process.env.NODE_ENV !== "production") {
+        return "development";
+    }
+
+    const secret = process.env.CONTACT_RATE_LIMIT_SECRET;
+    if (!secret || secret.length < 32) {
+        throw new Error("CONTACT_RATE_LIMIT_SECRET must contain at least 32 characters");
+    }
+    return createHmac("sha256", secret).update(address).digest("hex");
 }
 
 function hasTrustedOrigin(request: NextRequest): boolean {
@@ -62,7 +82,7 @@ function hasTrustedOrigin(request: NextRequest): boolean {
     }
 }
 
-async function verifyTurnstile(token: string, request: NextRequest): Promise<boolean> {
+async function verifyTurnstile(token: string, address: string): Promise<boolean> {
     const secret =
         process.env.NODE_ENV === "production"
             ? process.env.TURNSTILE_SECRET_KEY
@@ -74,7 +94,7 @@ async function verifyTurnstile(token: string, request: NextRequest): Promise<boo
     const verification = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
         body: JSON.stringify({
             idempotency_key: randomUUID(),
-            remoteip: clientAddress(request),
+            remoteip: address,
             response: token,
             secret,
         }),
@@ -145,12 +165,26 @@ export async function POST(request: NextRequest) {
         return response({ error: "That suggestion is too large to submit." }, 413);
     }
 
-    const addressKey = rateLimitKey(request);
+    let address: string;
+    let addressKey: string;
+    try {
+        address = clientAddress(request);
+        addressKey = rateLimitKey(address);
+    } catch (error) {
+        log.error("Contact protection is not configured", error);
+        return response({ error: "The suggestion service is not configured right now." }, 503);
+    }
     if (process.env.NODE_ENV === "production") {
-        const rateLimit = checkContactRateLimit(`request:${addressKey}`, {
+        const rateLimit = await checkDurableContactRateLimit(`request:${addressKey}`, {
             limit: requestLimit,
             windowMs: requestWindowMs,
+        }).catch((error: unknown) => {
+            log.error("Contact rate limiting is unavailable", error);
+            return null;
         });
+        if (!rateLimit) {
+            return response({ error: "The suggestion service is unavailable right now." }, 503);
+        }
         if (!rateLimit.allowed) {
             return response(
                 {
@@ -175,16 +209,19 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-        const verified = await verifyTurnstile(parsed.submission.turnstileToken, request);
+        const verified = await verifyTurnstile(parsed.submission.turnstileToken, address);
         if (!verified) {
             return response({ error: "Verification expired or failed. Please try again." }, 400);
         }
 
         if (process.env.NODE_ENV === "production") {
-            const submissionRateLimit = checkContactRateLimit(`submission:${addressKey}`, {
-                limit: submissionLimit,
-                windowMs: submissionWindowMs,
-            });
+            const submissionRateLimit = await checkDurableContactRateLimit(
+                `submission:${addressKey}`,
+                {
+                    limit: submissionLimit,
+                    windowMs: submissionWindowMs,
+                }
+            );
             if (!submissionRateLimit.allowed) {
                 return response(
                     {
