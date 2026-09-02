@@ -1057,7 +1057,7 @@ const curatedChronology = [
         slug: "avengers-doomsday",
         status: "announced",
         title: "Avengers: Doomsday",
-        universe: "Earth-616",
+        universe: "TBD",
     },
     {
         chronologyOrder: 830,
