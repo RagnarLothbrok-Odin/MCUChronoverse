@@ -280,9 +280,30 @@
     },
     "status": "resolved"
   },
-  "i-am-groot": {
+  "i-am-groot-season-1": {
     "fetchedAt": "2026-09-02T16:55:30.592Z",
-    "requestedTitle": "I Am Groot",
+    "requestedTitle": "I Am Groot Season 1",
+    "source": {
+      "description": "A series of shorts featuring the seedling Groot along with several new and unusual characters.",
+      "genres": [
+        "animation",
+        "short",
+        "action",
+        "adventure",
+        "comedy",
+        "fantasy",
+        "sciFi"
+      ],
+      "imdbUrl": "https://www.imdb.com/title/tt13623148/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BMzBlODMyZGQtN2QzOS00MDAzLWFjOGQtMGRjN2JmZWM0NWJkXkEyXkFqcGc@._V1_.jpg",
+      "rating": 6.7,
+      "runtime": "4m"
+    },
+    "status": "resolved"
+  },
+  "i-am-groot-season-2": {
+    "fetchedAt": "2026-09-02T16:55:30.592Z",
+    "requestedTitle": "I Am Groot Season 2",
     "source": {
       "description": "A series of shorts featuring the seedling Groot along with several new and unusual characters.",
       "genres": [
