@@ -153,7 +153,7 @@ create or replace function public.check_contact_rate_limit(
 returns table (allowed boolean, retry_after_seconds integer)
 language plpgsql
 security definer
-set search_path = public, pg_temp
+set search_path = ''
 as $$
 declare
     checked_at timestamptz := clock_timestamp();
