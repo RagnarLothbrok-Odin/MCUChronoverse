@@ -3,6 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { log } from "../../lib/console";
 import { checkDurableContactRateLimit } from "../../lib/contact-rate-limit";
 import { buildContactIssue, parseContactSubmission } from "../../lib/contact-submission";
+import { readLimitedJsonBody } from "../../lib/request-body";
 import { siteOrigin } from "../../lib/site-origin";
 
 export const runtime = "nodejs";
@@ -13,6 +14,7 @@ const requestWindowMs = 10 * 60 * 1000;
 const requestLimit = 10;
 const submissionWindowMs = 60 * 60 * 1000;
 const submissionLimit = 3;
+const maximumRequestBytes = 16_384;
 
 interface TurnstileResult {
     action?: string;
@@ -30,6 +32,20 @@ function response(body: object, status: number, headers?: HeadersInit) {
         headers: { "Cache-Control": "no-store", ...headers },
         status,
     });
+}
+
+async function readContactPayload(request: NextRequest) {
+    const result = await readLimitedJsonBody(request, maximumRequestBytes);
+    if (result.ok) {
+        return result;
+    }
+    return {
+        ok: false as const,
+        response:
+            result.reason === "too-large"
+                ? response({ error: "That suggestion is too large to submit." }, 413)
+                : response({ error: "The suggestion could not be read." }, 400),
+    };
 }
 
 function clientAddress(request: NextRequest): string {
@@ -161,7 +177,7 @@ export async function POST(request: NextRequest) {
     }
 
     const contentLength = Number(request.headers.get("content-length") ?? "0");
-    if (contentLength > 16_384) {
+    if (contentLength > maximumRequestBytes) {
         return response({ error: "That suggestion is too large to submit." }, 413);
     }
 
@@ -196,14 +212,12 @@ export async function POST(request: NextRequest) {
         }
     }
 
-    let payload: unknown;
-    try {
-        payload = await request.json();
-    } catch {
-        return response({ error: "The suggestion could not be read." }, 400);
+    const bodyResult = await readContactPayload(request);
+    if (!bodyResult.ok) {
+        return bodyResult.response;
     }
 
-    const parsed = parseContactSubmission(payload);
+    const parsed = parseContactSubmission(bodyResult.value);
     if (!parsed.submission) {
         return response({ error: parsed.error ?? "Check the suggestion and try again." }, 400);
     }
