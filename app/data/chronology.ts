@@ -24,7 +24,7 @@ const requiredMetadataFields = [
     "runtime",
 ] as const satisfies readonly (keyof EnrichedTimelineFields)[];
 
-const curatedChronology = [
+export const curatedChronology: readonly CuratedTimelineEntry[] = [
     {
         chronologyOrder: 10,
         contentType: "series",
@@ -1071,7 +1071,7 @@ const curatedChronology = [
         title: "Avengers: Secret Wars",
         universe: "TBD",
     },
-] satisfies readonly CuratedTimelineEntry[];
+];
 
 export const chronology: readonly TimelineEntry[] = curatedChronology.map((entry) => {
     const metadata = metadataBySlug[entry.slug];

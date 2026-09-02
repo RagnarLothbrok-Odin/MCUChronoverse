@@ -2,7 +2,7 @@
 
 import { resolve } from "node:path";
 import { getTitleDetailsByIMDBId, getTitleDetailsByName, type ITitle } from "@valhalladev/movier";
-import { chronology } from "../app/data/chronology";
+import { curatedChronology } from "../app/data/chronology";
 import { log } from "../app/lib/console";
 
 interface CacheRecord {
@@ -97,7 +97,7 @@ let resolved = 0;
 let skipped = 0;
 let failed = 0;
 
-for (const entry of chronology) {
+for (const entry of curatedChronology) {
     if (!refresh && cache[entry.slug]?.status === "resolved") {
         skipped += 1;
         log.info(`Skipping ${entry.title}, already cached.`);
