@@ -1580,7 +1580,6 @@ interface TimelineSceneProps {
     focusIndex: number;
     focusKey: number;
     focusPosition: Vector3;
-    onInteractionChange: (interacting: boolean) => void;
     onSelect: (slug: string) => void;
     onZoomDistanceChange: (distance: number) => void;
     qualityFactor: number;
@@ -1596,7 +1595,6 @@ function TimelineScene({
     focusIndex,
     focusKey,
     focusPosition,
-    onInteractionChange,
     onSelect,
     qualityFactor,
     reducedMotion,
@@ -1617,15 +1615,6 @@ function TimelineScene({
     const span = Math.max((entries.length - 1) * 2.2, 4);
     const starCount = Math.round(compact ? 400 + qualityFactor * 250 : 800 + qualityFactor * 800);
     const sparkleCount = Math.round(compact ? 24 + qualityFactor * 21 : 60 + qualityFactor * 60);
-    const handleInteractionStart = useCallback(
-        () => onInteractionChange(true),
-        [onInteractionChange]
-    );
-    const handleInteractionEnd = useCallback(
-        () => onInteractionChange(false),
-        [onInteractionChange]
-    );
-
     return (
         <>
             <fog args={["#020203", 12, 35]} attach="fog" />
@@ -1676,8 +1665,6 @@ function TimelineScene({
                 makeDefault
                 maxDistance={MAX_ZOOM_DISTANCE}
                 minDistance={MIN_ZOOM_DISTANCE}
-                onEnd={handleInteractionEnd}
-                onStart={handleInteractionStart}
                 zoomSpeed={0.7}
             />
             <CameraRig
@@ -1735,12 +1722,10 @@ export function TimelineOrbit({
     const [webGlSupported, setWebGlSupported] = useState<boolean | null>(null);
     const [reducedMotion, setReducedMotion] = useState(false);
     const [compact, setCompact] = useState(false);
-    const [interacting, setInteracting] = useState(false);
     const [qualityFactor, setQualityFactor] = useState(1);
     const [performanceFallback, setPerformanceFallback] = useState(false);
     const [zoomDistance, setZoomDistance] = useState(DEFAULT_ZOOM_DISTANCE);
     const [zoomStorageReady, setZoomStorageReady] = useState(false);
-    const interactionEndTimer = useRef<number | null>(null);
     const cameraSettings = useMemo(
         () => ({ fov: 43, position: [0, 0, 10.5] as [number, number, number] }),
         []
@@ -1761,20 +1746,6 @@ export function TimelineOrbit({
             Math.abs(current - roundedDistance) < 0.05 ? current : roundedDistance
         );
     }, []);
-    const handleInteractionChange = useCallback((nextInteracting: boolean) => {
-        if (interactionEndTimer.current !== null) {
-            window.clearTimeout(interactionEndTimer.current);
-            interactionEndTimer.current = null;
-        }
-        if (nextInteracting) {
-            setInteracting(true);
-            return;
-        }
-        interactionEndTimer.current = window.setTimeout(() => {
-            setInteracting(false);
-            interactionEndTimer.current = null;
-        }, 300);
-    }, []);
     const handlePerformanceChange = useCallback(({ factor }: { factor: number }) => {
         const nextFactor = Math.round(factor * 2) / 2;
         setQualityFactor((current) => (current === nextFactor ? current : nextFactor));
@@ -1783,15 +1754,6 @@ export function TimelineOrbit({
         setQualityFactor(0);
         setPerformanceFallback(true);
     }, []);
-
-    useEffect(
-        () => () => {
-            if (interactionEndTimer.current !== null) {
-                window.clearTimeout(interactionEndTimer.current);
-            }
-        },
-        []
-    );
 
     useEffect(() => {
         try {
@@ -1865,7 +1827,7 @@ export function TimelineOrbit({
         <div className="relative h-full w-full">
             <Canvas
                 camera={cameraSettings}
-                dpr={compact || interacting ? 1 : 1 + qualityFactor * 0.5}
+                dpr={2}
                 frameloop={reducedMotion || performanceFallback ? "demand" : "always"}
                 gl={{ alpha: false, powerPreference: "high-performance", stencil: false }}
             >
@@ -1881,7 +1843,6 @@ export function TimelineOrbit({
                             focusIndex={safeFocusIndex}
                             focusKey={focusKey}
                             focusPosition={focusPosition}
-                            onInteractionChange={handleInteractionChange}
                             onSelect={onSelect}
                             onZoomDistanceChange={handleZoomDistanceChange}
                             qualityFactor={qualityFactor}
