@@ -6,28 +6,31 @@ type EnrichedTimelineFields = Pick<
     "description" | "genres" | "imdbUrl" | "posterUrl" | "rating" | "runtime"
 >;
 
+type CuratedTimelineEntry = Omit<TimelineEntry, keyof EnrichedTimelineFields> &
+    Partial<EnrichedTimelineFields>;
+
 interface TitleMetadataRecord {
     source: EnrichedTimelineFields | null;
     status: "failed" | "resolved";
 }
 
 const metadataBySlug = titleMetadata as Record<string, TitleMetadataRecord>;
+const requiredMetadataFields = [
+    "description",
+    "genres",
+    "imdbUrl",
+    "posterUrl",
+    "rating",
+    "runtime",
+] as const satisfies readonly (keyof EnrichedTimelineFields)[];
 
 const curatedChronology = [
     {
         chronologyOrder: 10,
         contentType: "series",
-        description:
-            "Wakandan warriors who, throughout history, have traveled the world to retrieve dangerous vibranium artifacts.",
-        genres: ["animation", "action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt13968252/",
         phase: "Phase Six",
         placement: "1260 BC to 1896 AD",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BZjhhOTE5ODgtNDFjOS00ZTdlLTgzYjAtNGU1NmM4YzkwYWMxXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.2,
         releaseDate: "2025-08-01",
-        runtime: "30m",
         saga: "Multiverse Saga",
         slug: "eyes-of-wakanda",
         status: "released",
@@ -41,17 +44,9 @@ const curatedChronology = [
             after: true,
             during: false,
         },
-        description:
-            'Steve Rogers, a rejected military soldier, transforms into Captain America after taking a dose of a "Super-Soldier serum". But being Captain America comes at a price as he attempts to take down a warmonger and a terrorist organization.',
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt0458339/",
         phase: "Phase One",
         placement: "1943 to 1945",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNzUyM2YyY2MtNzNlMS00MWU5LTgxNjAtNzZlNmI2NjU2NDZlXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.9,
         releaseDate: "2011-07-22",
-        runtime: "2h 4m",
         saga: "Infinity Saga",
         slug: "captain-america-the-first-avenger",
         status: "released",
@@ -61,17 +56,9 @@ const curatedChronology = [
     {
         chronologyOrder: 30,
         contentType: "one-shot",
-        description:
-            'Agent Carter seeks the enigmatic "Zodiac" and also battles her misogynistic, bureaucratic boss. Frustrated at being marginalized at work, Peggy Carter goes on an unauthorized solo field mission.',
-        genres: ["short", "action", "adventure", "comedy", "drama", "sciFi", "thriller"],
-        imdbUrl: "https://www.imdb.com/title/tt3067038/",
         phase: "Phase Two",
         placement: "1946",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNzVmNmUyZTctM2VlNy00M2QzLWIwZmUtMTcxYjRhYjYzMGYxXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.4,
         releaseDate: "2013-09-24",
-        runtime: "15m",
         saga: "Infinity Saga",
         slug: "agent-carter-one-shot",
         status: "released",
@@ -81,17 +68,9 @@ const curatedChronology = [
     {
         chronologyOrder: 40,
         contentType: "series",
-        description:
-            "In 1946, Peggy Carter is relegated to secretarial duties in the Strategic Scientific Reserve (SSR). When Howard Stark is accused of treason, he secretly recruits Peggy to clear his name with the help of his butler, Edwin Jarvis.",
-        genres: ["action", "adventure", "crime", "drama", "mystery", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt3475734/",
         phase: "Phase Two",
         placement: "1946 to 1947",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMzk0MzkxODMwOV5BMl5BanBnXkFtZTgwMjQzODE4NzE@._V1_.jpg",
-        rating: 7.8,
         releaseDate: "2015-01-06",
-        runtime: "45m",
         saga: "Infinity Saga",
         slug: "agent-carter",
         status: "released",
@@ -102,17 +81,9 @@ const curatedChronology = [
         chronologyOrder: 50,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Carol Danvers becomes one of the universe's most powerful heroes when Earth is caught in the middle of a galactic war between two alien races.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt4154664/",
         phase: "Phase Three",
         placement: "1995",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BZDI1NGU2ODAtNzBiNy00MWY5LWIyMGEtZjUxZjUwZmZiNjBlXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.7,
         releaseDate: "2019-03-08",
-        runtime: "2h 3m",
         saga: "Infinity Saga",
         slug: "captain-marvel",
         status: "released",
@@ -123,17 +94,9 @@ const curatedChronology = [
         chronologyOrder: 60,
         contentType: "film",
         creditScenes: { after: true, during: false },
-        description:
-            "After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt0371746/",
         phase: "Phase One",
         placement: "2008",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_.jpg",
-        rating: 7.9,
         releaseDate: "2008-05-02",
-        runtime: "2h 6m",
         saga: "Infinity Saga",
         slug: "iron-man",
         status: "released",
@@ -144,17 +107,9 @@ const curatedChronology = [
         chronologyOrder: 70,
         contentType: "film",
         creditScenes: { after: true, during: false },
-        description:
-            "With the world now aware of his identity as Iron Man, Tony Stark must contend with both his declining health and a vengeful madman with ties to his father's legacy.",
-        genres: ["action", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt1228705/",
         phase: "Phase One",
         placement: "2010",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BYWYyOGQzOGYtMGQ1My00ZWYxLTgzZjktZWYzN2IwYjkxYzM0XkEyXkFqcGc@._V1_.jpg",
-        rating: 6.9,
         releaseDate: "2010-05-07",
-        runtime: "2h 4m",
         saga: "Infinity Saga",
         slug: "iron-man-2",
         status: "released",
@@ -165,17 +120,9 @@ const curatedChronology = [
         chronologyOrder: 80,
         contentType: "film",
         creditScenes: { after: false, during: false },
-        description:
-            "Bruce Banner, a scientist on the run from the U.S. Government, must find a cure for the monster he turns into whenever he loses his temper.",
-        genres: ["action", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt0800080/",
         phase: "Phase One",
         placement: "2010",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMTUyNzk3MjA1OF5BMl5BanBnXkFtZTcwMTE1Njg2MQ@@._V1_.jpg",
-        rating: 6.6,
         releaseDate: "2008-06-13",
-        runtime: "1h 52m",
         saga: "Infinity Saga",
         slug: "the-incredible-hulk",
         status: "released",
@@ -185,17 +132,9 @@ const curatedChronology = [
     {
         chronologyOrder: 90,
         contentType: "one-shot",
-        description:
-            "Agent Coulson stops at a convenience store and deals with a coincidental robbery during his visit.",
-        genres: ["short", "action", "adventure", "comedy"],
-        imdbUrl: "https://www.imdb.com/title/tt2011109/",
         phase: "Phase One",
         placement: "2010",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNGQ4MmMxOTAtZDY5Yi00YjBmLThiMGEtYzc0MDA1YzI2NzI5XkEyXkFqcGc@._V1_.jpg",
-        rating: 7,
         releaseDate: "2011-10-25",
-        runtime: "4m",
         saga: "Infinity Saga",
         slug: "a-funny-thing-happened-on-the-way-to-thors-hammer",
         status: "released",
@@ -206,17 +145,9 @@ const curatedChronology = [
         chronologyOrder: 100,
         contentType: "film",
         creditScenes: { after: true, during: false },
-        description:
-            "The powerful but arrogant god Thor is cast out of Asgard to live amongst humans in Midgard (Earth), where he soon becomes one of their finest defenders.",
-        genres: ["action", "fantasy"],
-        imdbUrl: "https://www.imdb.com/title/tt0800369/",
         phase: "Phase One",
         placement: "2010",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNjRhNGZjZjEtYTQzYS00OWUxLThjNGEtMTIwMTE2ZDFlZTZkXkEyXkFqcGc@._V1_.jpg",
-        rating: 7,
         releaseDate: "2011-05-06",
-        runtime: "1h 55m",
         saga: "Infinity Saga",
         slug: "thor",
         status: "released",
@@ -226,17 +157,9 @@ const curatedChronology = [
     {
         chronologyOrder: 110,
         contentType: "one-shot",
-        description:
-            'Agents Coulson and Sitwell plan to derail General Thaddeus "Thunderbolt" Ross from interfering with S.H.I.E.L.D. affairs with a very special person.',
-        genres: ["short", "comedy", "drama", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt2011118/",
         phase: "Phase One",
         placement: "2010",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BZGMxYzBkMTEtZDljYi00YjM2LTgxMTMtNjFiOWQwMTg0NjhmXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.3,
         releaseDate: "2011-09-13",
-        runtime: "4m",
         saga: "Infinity Saga",
         slug: "the-consultant",
         status: "released",
@@ -247,17 +170,9 @@ const curatedChronology = [
         chronologyOrder: 120,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
-        genres: ["action", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt0848228/",
         phase: "Phase One",
         placement: "2012",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNGE0YTVjNzUtNzJjOS00NGNlLTgxMzctZTY4YTE1Y2Y1ZTU4XkEyXkFqcGc@._V1_.jpg",
-        rating: 8,
         releaseDate: "2012-05-04",
-        runtime: "2h 23m",
         saga: "Infinity Saga",
         slug: "the-avengers",
         status: "released",
@@ -267,17 +182,9 @@ const curatedChronology = [
     {
         chronologyOrder: 130,
         contentType: "one-shot",
-        description:
-            "S.H.I.E.L.D. agent Sitwell is assigned to recover an abandoned Chitauri weapon being used by a young couple robbing a bank.",
-        genres: ["short", "action", "adventure", "crime", "drama", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt2247732/",
         phase: "Phase One",
         placement: "2012",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMTI2NDI2MzgtNTMzNi00MmEyLWE0ZDYtZmQ2NjJjMjUyYzMzXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.6,
         releaseDate: "2012-09-25",
-        runtime: "12m",
         saga: "Infinity Saga",
         slug: "item-47",
         status: "released",
@@ -288,17 +195,9 @@ const curatedChronology = [
         chronologyOrder: 140,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "When the Dark Elves attempt to plunge the universe into darkness, Thor must embark on a perilous and personal journey that will reunite him with doctor Jane Foster.",
-        genres: ["action", "adventure", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt1981115/",
         phase: "Phase Two",
         placement: "2013",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMTQyNzAwOTUxOF5BMl5BanBnXkFtZTcwMTE0OTc5OQ@@._V1_.jpg",
-        rating: 6.7,
         releaseDate: "2013-11-08",
-        runtime: "1h 52m",
         saga: "Infinity Saga",
         slug: "thor-the-dark-world",
         status: "released",
@@ -309,17 +208,9 @@ const curatedChronology = [
         chronologyOrder: 150,
         contentType: "film",
         creditScenes: { after: true, during: false },
-        description:
-            "When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt1300854/",
         phase: "Phase Two",
         placement: "Christmas 2013",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMjIzMzAzMjQyM15BMl5BanBnXkFtZTcwNzM2NjcyOQ@@._V1_.jpg",
-        rating: 7.1,
         releaseDate: "2013-05-03",
-        runtime: "2h 10m",
         saga: "Infinity Saga",
         slug: "iron-man-3",
         status: "released",
@@ -329,17 +220,9 @@ const curatedChronology = [
     {
         chronologyOrder: 160,
         contentType: "one-shot",
-        description:
-            "A documentary filmmaker interviews the now-famous Trevor Slattery from behind bars.",
-        genres: ["short", "comedy", "drama", "thriller"],
-        imdbUrl: "https://www.imdb.com/title/tt3438640/",
         phase: "Phase Two",
         placement: "Early 2014",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNDBiYzBhMTktMTM1Mi00NGE1LTg3NTUtZTNhYzNmYmJkOGJkXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.2,
         releaseDate: "2014-02-25",
-        runtime: "14m",
         saga: "Infinity Saga",
         slug: "all-hail-the-king",
         status: "released",
@@ -350,17 +233,9 @@ const curatedChronology = [
         chronologyOrder: 170,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat from history: an assassin known as the Winter Soldier.",
-        genres: ["action", "adventure", "sciFi", "thriller"],
-        imdbUrl: "https://www.imdb.com/title/tt1843866/",
         phase: "Phase Two",
         placement: "2014",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNWY1NjFmNDItZDhmOC00NjI1LWE0ZDItMTM0MjBjZThiOTQ2XkEyXkFqcGc@._V1_.jpg",
-        rating: 7.7,
         releaseDate: "2014-04-04",
-        runtime: "2h 16m",
         saga: "Infinity Saga",
         slug: "captain-america-the-winter-soldier",
         status: "released",
@@ -371,17 +246,9 @@ const curatedChronology = [
         chronologyOrder: 180,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "A group of intergalactic criminals must pull together to stop a fanatical warrior with plans to purge the universe.",
-        genres: ["action", "adventure", "comedy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt2015381/",
         phase: "Phase Two",
         placement: "2014",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BM2ZmNjQ2MzAtNDlhNi00MmQyLWJhZDMtNmJiMjFlOWY4MzcxXkEyXkFqcGc@._V1_.jpg",
-        rating: 8,
         releaseDate: "2014-08-01",
-        runtime: "2h 1m",
         saga: "Infinity Saga",
         slug: "guardians-of-the-galaxy",
         status: "released",
@@ -392,17 +259,9 @@ const curatedChronology = [
         chronologyOrder: 190,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's encounter with his father, the ambitious celestial being Ego.",
-        genres: ["action", "adventure", "comedy", "fantasy", "music", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt3896198/",
         phase: "Phase Three",
         placement: "2014",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNWE5MGI3MDctMmU5Ni00YzI2LWEzMTQtZGIyZDA5MzQzNDBhXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.6,
         releaseDate: "2017-05-05",
-        runtime: "2h 16m",
         saga: "Infinity Saga",
         slug: "guardians-of-the-galaxy-vol-2",
         status: "released",
@@ -412,17 +271,9 @@ const curatedChronology = [
     {
         chronologyOrder: 200,
         contentType: "short",
-        description:
-            "A series of shorts featuring the seedling Groot along with several new and unusual characters.",
-        genres: ["animation", "short", "action", "adventure", "comedy", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt13623148/",
         phase: "Phase Four",
         placement: "2014",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMzBlODMyZGQtN2QzOS00MDAzLWFjOGQtMGRjN2JmZWM0NWJkXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.7,
         releaseDate: "2022-08-10",
-        runtime: "4m",
         saga: "Multiverse Saga",
         slug: "i-am-groot",
         status: "released",
@@ -433,12 +284,9 @@ const curatedChronology = [
     {
         chronologyOrder: 210,
         contentType: "series",
-        description: "Matt Murdock protects Hell's Kitchen as Daredevil.",
-        imdbUrl: "https://www.imdb.com/title/tt3322312/",
         phase: "Phase Two",
         placement: "2014",
         releaseDate: "2015-04-10",
-        runtime: "Season 1",
         saga: "Infinity Saga",
         slug: "daredevil-season-1",
         status: "released",
@@ -448,12 +296,9 @@ const curatedChronology = [
     {
         chronologyOrder: 220,
         contentType: "series",
-        description: "Jessica Jones works as a private investigator in New York.",
-        imdbUrl: "https://www.imdb.com/title/tt2357547/",
         phase: "Phase Two",
         placement: "2015",
         releaseDate: "2015-11-20",
-        runtime: "Season 1",
         saga: "Infinity Saga",
         slug: "jessica-jones-season-1",
         status: "released",
@@ -464,17 +309,9 @@ const curatedChronology = [
         chronologyOrder: 230,
         contentType: "film",
         creditScenes: { after: false, during: true },
-        description:
-            "When Tony Stark and Bruce Banner try to jump-start a dormant peacekeeping program called Ultron, things go horribly wrong and it's up to Earth's mightiest heroes to stop the villainous Ultron from enacting his terrible plan.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt2395427/",
         phase: "Phase Two",
         placement: "2015",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BODBhYTg1NGQtNGVmNS00ZTdiLThjYTYtZDFkNzRiNTZmNDZjXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.3,
         releaseDate: "2015-05-01",
-        runtime: "2h 21m",
         saga: "Infinity Saga",
         slug: "avengers-age-of-ultron",
         status: "released",
@@ -485,17 +322,9 @@ const curatedChronology = [
         chronologyOrder: 240,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Armed with a super-suit with the astonishing ability to shrink in scale but increase in strength, cat burglar Scott Lang must embrace his inner hero and help his mentor, Dr. Hank Pym, pull off a plan that will save the world.",
-        genres: ["action", "comedy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt0478970/",
         phase: "Phase Two",
         placement: "2015",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMjM2NTQ5Mzc2M15BMl5BanBnXkFtZTgwNTcxMDI2NTE@._V1_.jpg",
-        rating: 7.2,
         releaseDate: "2015-07-17",
-        runtime: "1h 57m",
         saga: "Infinity Saga",
         slug: "ant-man",
         status: "released",
@@ -506,12 +335,9 @@ const curatedChronology = [
     {
         chronologyOrder: 250,
         contentType: "series",
-        description: "Daredevil faces new threats and an old enemy.",
-        imdbUrl: "https://www.imdb.com/title/tt3322312/",
         phase: "Phase Three",
         placement: "2015",
         releaseDate: "2016-03-18",
-        runtime: "Season 2",
         saga: "Infinity Saga",
         slug: "daredevil-season-2",
         status: "released",
@@ -521,12 +347,9 @@ const curatedChronology = [
     {
         chronologyOrder: 260,
         contentType: "series",
-        description: "Luke Cage uses his unbreakable strength to protect Harlem.",
-        imdbUrl: "https://www.imdb.com/title/tt3322314/",
         phase: "Phase Three",
         placement: "2015",
         releaseDate: "2016-09-30",
-        runtime: "Season 1",
         saga: "Infinity Saga",
         slug: "luke-cage-season-1",
         status: "released",
@@ -536,12 +359,9 @@ const curatedChronology = [
     {
         chronologyOrder: 270,
         contentType: "series",
-        description: "Danny Rand returns to New York as the Immortal Iron Fist.",
-        imdbUrl: "https://www.imdb.com/title/tt3322310/",
         phase: "Phase Three",
         placement: "2016",
         releaseDate: "2017-03-17",
-        runtime: "Season 1",
         saga: "Infinity Saga",
         slug: "iron-fist-season-1",
         status: "released",
@@ -552,12 +372,9 @@ const curatedChronology = [
     {
         chronologyOrder: 280,
         contentType: "series",
-        description: "Four heroes unite against a common enemy in New York.",
-        imdbUrl: "https://www.imdb.com/title/tt4230076/",
         phase: "Phase Three",
         placement: "2016",
         releaseDate: "2017-08-18",
-        runtime: "Limited series",
         saga: "Infinity Saga",
         slug: "the-defenders",
         status: "released",
@@ -568,17 +385,9 @@ const curatedChronology = [
         chronologyOrder: 290,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Political involvement in the Avengers' affairs causes a rift between Captain America and Iron Man.",
-        genres: ["action", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt3498820/",
         phase: "Phase Three",
         placement: "2016",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_.jpg",
-        rating: 7.8,
         releaseDate: "2016-05-06",
-        runtime: "2h 27m",
         saga: "Infinity Saga",
         slug: "captain-america-civil-war",
         status: "released",
@@ -589,17 +398,9 @@ const curatedChronology = [
         chronologyOrder: 300,
         contentType: "film",
         creditScenes: { after: true, during: false },
-        description:
-            "Natasha Romanoff confronts the darker parts of her ledger when a dangerous conspiracy with ties to her past arises.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt3480822/",
         phase: "Phase Four",
         placement: "2016",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BZTMyZTA0ZTItYjY3Yi00ODNjLWExYTgtYzgxZTk0NTg0Y2FlXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.6,
         releaseDate: "2021-07-09",
-        runtime: "2h 14m",
         saga: "Multiverse Saga",
         slug: "black-widow",
         status: "released",
@@ -610,17 +411,9 @@ const curatedChronology = [
         chronologyOrder: 310,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "T'Challa, heir to the hidden but advanced kingdom of Wakanda, must step forward to lead his people into a new future and must confront a challenger from his country's past.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt1825683/",
         phase: "Phase Three",
         placement: "2016",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMTg1MTY2MjYzNV5BMl5BanBnXkFtZTgwMTc4NTMwNDI@._V1_.jpg",
-        rating: 7.3,
         releaseDate: "2018-02-16",
-        runtime: "2h 14m",
         saga: "Infinity Saga",
         slug: "black-panther",
         status: "released",
@@ -632,17 +425,9 @@ const curatedChronology = [
         chronologyOrder: 320,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Peter Parker tries to stop Adrian 'The Vulture' Toomes from selling weapons made with advanced Chitauri technology while trying to balance his life as an ordinary high school student.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt2250912/",
         phase: "Phase Three",
         placement: "2016",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BODY2MTAzOTQ4M15BMl5BanBnXkFtZTgwNzg5MTE0MjI@._V1_.jpg",
-        rating: 7.4,
         releaseDate: "2017-07-07",
-        runtime: "2h 13m",
         saga: "Infinity Saga",
         slug: "spider-man-homecoming",
         status: "released",
@@ -653,12 +438,9 @@ const curatedChronology = [
     {
         chronologyOrder: 330,
         contentType: "series",
-        description: "Frank Castle wages a one-man war against a criminal conspiracy.",
-        imdbUrl: "https://www.imdb.com/title/tt5675620/",
         phase: "Phase Three",
         placement: "2016",
         releaseDate: "2017-11-17",
-        runtime: "Season 1",
         saga: "Infinity Saga",
         slug: "the-punisher-season-1",
         status: "released",
@@ -669,17 +451,9 @@ const curatedChronology = [
         chronologyOrder: 340,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "While on a journey of physical and spiritual healing, a brilliant neurosurgeon is drawn into the world of the mystic arts.",
-        genres: ["action", "adventure", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt1211837/",
         phase: "Phase Three",
         placement: "2016 to 2017",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNjgwNzAzNjk1Nl5BMl5BanBnXkFtZTgwMzQ2NjI1OTE@._V1_.jpg",
-        rating: 7.5,
         releaseDate: "2016-11-04",
-        runtime: "1h 55m",
         saga: "Infinity Saga",
         slug: "doctor-strange",
         status: "released",
@@ -690,12 +464,9 @@ const curatedChronology = [
     {
         chronologyOrder: 350,
         contentType: "series",
-        description: "Jessica Jones confronts a case tied to her past.",
-        imdbUrl: "https://www.imdb.com/title/tt2357547/",
         phase: "Phase Three",
         placement: "2017",
         releaseDate: "2018-03-08",
-        runtime: "Season 2",
         saga: "Infinity Saga",
         slug: "jessica-jones-season-2",
         status: "released",
@@ -705,12 +476,9 @@ const curatedChronology = [
     {
         chronologyOrder: 360,
         contentType: "series",
-        description: "Luke Cage protects Harlem from a new generation of criminals.",
-        imdbUrl: "https://www.imdb.com/title/tt3322314/",
         phase: "Phase Three",
         placement: "2017",
         releaseDate: "2018-06-22",
-        runtime: "Season 2",
         saga: "Infinity Saga",
         slug: "luke-cage-season-2",
         status: "released",
@@ -720,12 +488,9 @@ const curatedChronology = [
     {
         chronologyOrder: 370,
         contentType: "series",
-        description: "Danny Rand embraces his destiny as the Iron Fist.",
-        imdbUrl: "https://www.imdb.com/title/tt3322310/",
         phase: "Phase Three",
         placement: "2017",
         releaseDate: "2018-09-07",
-        runtime: "Season 2",
         saga: "Infinity Saga",
         slug: "iron-fist-season-2",
         status: "released",
@@ -735,12 +500,9 @@ const curatedChronology = [
     {
         chronologyOrder: 380,
         contentType: "series",
-        description: "Daredevil returns to protect Hell's Kitchen.",
-        imdbUrl: "https://www.imdb.com/title/tt3322312/",
         phase: "Phase Three",
         placement: "2017",
         releaseDate: "2018-10-19",
-        runtime: "Season 3",
         saga: "Infinity Saga",
         slug: "daredevil-season-3",
         status: "released",
@@ -751,17 +513,9 @@ const curatedChronology = [
         chronologyOrder: 390,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Imprisoned on the planet Sakaar, Thor must race against time to return to Asgard and stop Ragnarök, the destruction of his world, at the hands of the powerful and ruthless villain Hela.",
-        genres: ["action", "adventure", "comedy", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt3501632/",
         phase: "Phase Three",
         placement: "2017",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMjMyNDkzMzI1OF5BMl5BanBnXkFtZTgwODcxODg5MjI@._V1_.jpg",
-        rating: 7.9,
         releaseDate: "2017-11-03",
-        runtime: "2h 10m",
         saga: "Infinity Saga",
         slug: "thor-ragnarok",
         status: "released",
@@ -772,12 +526,9 @@ const curatedChronology = [
     {
         chronologyOrder: 400,
         contentType: "series",
-        description: "Frank Castle continues his brutal fight against a conspiracy.",
-        imdbUrl: "https://www.imdb.com/title/tt5675620/",
         phase: "Phase Three",
         placement: "2018",
         releaseDate: "2019-01-18",
-        runtime: "Season 2",
         saga: "Infinity Saga",
         slug: "the-punisher-season-2",
         status: "released",
@@ -788,13 +539,9 @@ const curatedChronology = [
     {
         chronologyOrder: 410,
         contentType: "series",
-        description:
-            "Jessica Jones faces a calculating psychopath and confronts the cost of being a hero.",
-        imdbUrl: "https://www.imdb.com/title/tt2357547/",
         phase: "Phase Three",
         placement: "2018",
         releaseDate: "2019-06-14",
-        runtime: "Season 3",
         saga: "Infinity Saga",
         slug: "jessica-jones-season-3",
         status: "released",
@@ -805,16 +552,9 @@ const curatedChronology = [
         chronologyOrder: 420,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description: "Scott Lang and Hope Van Dyne uncover secrets from the past.",
-        genres: ["action", "adventure", "comedy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt5095030/",
         phase: "Phase Three",
         placement: "2018",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BODVkY2ZmZTAtYzFhMi00YzZlLWE2YWMtMDBiYjY2OTU4ZWM0XkEyXkFqcGc@._V1_.jpg",
-        rating: 7,
         releaseDate: "2018-07-06",
-        runtime: "1h 58m",
         saga: "Infinity Saga",
         slug: "ant-man-and-the-wasp",
         status: "released",
@@ -825,17 +565,9 @@ const curatedChronology = [
         chronologyOrder: 430,
         contentType: "film",
         creditScenes: { after: true, during: false },
-        description:
-            "The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt4154756/",
         phase: "Phase Three",
         placement: "2018",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_.jpg",
-        rating: 8.4,
         releaseDate: "2018-04-27",
-        runtime: "2h 29m",
         saga: "Infinity Saga",
         slug: "avengers-infinity-war",
         status: "released",
@@ -846,17 +578,9 @@ const curatedChronology = [
         chronologyOrder: 440,
         contentType: "film",
         creditScenes: { after: true, during: false },
-        description:
-            "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt4154796/",
         phase: "Phase Three",
         placement: "2018 and 2023",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMWEyNDM2ZmQtMmFkNi00MTQ1LTk1MjItMzdlZGJlYmIyYzZlXkEyXkFqcGc@._V1_.jpg",
-        rating: 8.4,
         releaseDate: "2019-04-26",
-        runtime: "3h 1m",
         saga: "Infinity Saga",
         slug: "avengers-endgame",
         status: "released",
@@ -866,17 +590,9 @@ const curatedChronology = [
     {
         chronologyOrder: 450,
         contentType: "series",
-        description:
-            "The mercurial villain Loki resumes his role as the God of Mischief in a new series that takes place after the events of “Avengers: Endgame.”",
-        genres: ["action", "adventure", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt9140554/",
         phase: "Phase Four",
         placement: "Outside linear time",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BYzA2YjM2ZWQtYTZhMS00OTI3LTlhYzQtZjBiZWZkMDdlNjA5XkEyXkFqcGc@._V1_.jpg",
-        rating: 8.2,
         releaseDate: "2021-06-09",
-        runtime: "50m",
         saga: "Multiverse Saga",
         slug: "loki-season-1",
         status: "released",
@@ -886,17 +602,9 @@ const curatedChronology = [
     {
         chronologyOrder: 460,
         contentType: "series",
-        description:
-            "Exploring pivotal moments from the Marvel Cinematic Universe and turning them on their head, leading the audience into uncharted territory.",
-        genres: ["animation", "action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt10168312/",
         phase: "Phase Four",
         placement: "Multiverse",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BYWFiOTcwNzItMTg5Mi00ZTU4LThkZWYtYWNmZWQ1ODE5ZTVmXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.3,
         releaseDate: "2021-08-11",
-        runtime: "32m",
         saga: "Multiverse Saga",
         slug: "what-if",
         status: "released",
@@ -906,17 +614,9 @@ const curatedChronology = [
     {
         chronologyOrder: 470,
         contentType: "series",
-        description:
-            "After the Avengers are overtaken by a zombie plague, a group of survivors discover the key to bringing an end to the super-powered undead, racing across a dystopian landscape and risking their lives to save their world.",
-        genres: ["animation", "action", "adventure", "drama", "fantasy", "horror", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt16027014/",
         phase: "Phase Six",
         placement: "Multiverse",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNGNkYjI3ZWUtN2MzMS00NDg5LWE5MmYtZGE4Zjc0OGVhODM4XkEyXkFqcGc@._V1_.jpg",
-        rating: 7,
         releaseDate: "2025-09-24",
-        runtime: "32m",
         saga: "Multiverse Saga",
         slug: "marvel-zombies",
         status: "released",
@@ -926,17 +626,9 @@ const curatedChronology = [
     {
         chronologyOrder: 480,
         contentType: "series",
-        description:
-            "Blends the style of classic sitcoms with the MCU, in which Wanda Maximoff and Vision - two super-powered beings living their ideal suburban lives - begin to suspect that everything is not as it seems.",
-        genres: ["action", "comedy", "drama", "fantasy", "mystery", "romance", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt9140560/",
         phase: "Phase Four",
         placement: "2023",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BZTMxMmM1ODItMTZiMS00NjI1LWEwODctMjQ4ZjY4ODliNDI0XkEyXkFqcGc@._V1_.jpg",
-        rating: 7.9,
         releaseDate: "2021-01-15",
-        runtime: "40m",
         saga: "Multiverse Saga",
         slug: "wandavision",
         status: "released",
@@ -947,17 +639,9 @@ const curatedChronology = [
         chronologyOrder: 490,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Shang-Chi, the master of weaponry-based Kung Fu, is forced to confront his past after being drawn into the Ten Rings organization.",
-        genres: ["action", "adventure", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt9376612/",
         phase: "Phase Four",
         placement: "2024",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BZmY5MDcyNzAtYzg3MC00MGNlLTg3OGItNmRjYThkZGVlNzAyXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.3,
         releaseDate: "2021-09-03",
-        runtime: "2h 12m",
         saga: "Multiverse Saga",
         slug: "shang-chi-and-the-legend-of-the-ten-rings",
         status: "released",
@@ -967,17 +651,9 @@ const curatedChronology = [
     {
         chronologyOrder: 500,
         contentType: "series",
-        description:
-            "Following the events of 'Avengers: Endgame,' Sam Wilson/Falcon and Bucky Barnes/Winter Soldier team up in a global adventure that tests their abilities -- and their patience.",
-        genres: ["action", "adventure", "drama", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt9208876/",
         phase: "Phase Four",
         placement: "2024",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BYmJkOGNlNmEtMmQyOS00YjZiLTgxM2EtNmEzNzUzNTU5ODYwXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.1,
         releaseDate: "2021-03-19",
-        runtime: "50m",
         saga: "Multiverse Saga",
         slug: "the-falcon-and-the-winter-soldier",
         status: "released",
@@ -987,17 +663,9 @@ const curatedChronology = [
     {
         chronologyOrder: 510,
         contentType: "short",
-        description:
-            "On the eve of his departure to Europe, Peter Parker tells Ned Leeds that he has several things to do before they leave.",
-        genres: ["short", "action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt11107678/",
         phase: "Phase Three",
         placement: "Summer 2024",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BY2MyMzFlYmMtYWEyZC00MjExLTk2ODItODEzZmQ1ZGUyNGQwXkEyXkFqcGc@._V1_.jpg",
-        rating: 7,
         releaseDate: "2019-09-17",
-        runtime: "3m",
         saga: "Infinity Saga",
         slug: "peters-to-do-list",
         status: "released",
@@ -1008,17 +676,9 @@ const curatedChronology = [
         chronologyOrder: 520,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Peter Parker heads to Europe hoping for a normal summer, but elemental attacks and a mysterious new hero pull him back into a dangerous fight he isn't ready to embrace.",
-        genres: ["action", "adventure", "comedy", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt6320628/",
         phase: "Phase Three",
         placement: "2024",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMzNhNTE0NWQtN2E1Ny00NjcwLTg1YTctMGY1NmMwODJmY2NmXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.3,
         releaseDate: "2019-07-02",
-        runtime: "2h 9m",
         saga: "Infinity Saga",
         slug: "spider-man-far-from-home",
         status: "released",
@@ -1029,17 +689,9 @@ const curatedChronology = [
         chronologyOrder: 530,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "The Eternals, an immortal race, have shaped Earth's history and civilizations.",
-        genres: ["action", "adventure", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt9032400/",
         phase: "Phase Four",
         placement: "2024",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BZTBiZjI2M2UtZTNiNy00NmU4LWJiMjYtZjk4MDIzMzhlMjFlXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.2,
         releaseDate: "2021-11-05",
-        runtime: "2h 36m",
         saga: "Multiverse Saga",
         slug: "eternals",
         status: "released",
@@ -1050,17 +702,9 @@ const curatedChronology = [
         chronologyOrder: 540,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Peter Parker turns to Doctor Strange after his identity destroys the life he knows, but a magical mistake draws powerful outsiders into his world and forces him to confront what being Spider Man really means.",
-        genres: ["action", "adventure", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt10872600/",
         phase: "Phase Four",
         placement: "Late 2024",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMmFiZGZjMmEtMTA0Ni00MzA2LTljMTYtZGI2MGJmZWYzZTQ2XkEyXkFqcGc@._V1_.jpg",
-        rating: 8.1,
         releaseDate: "2021-12-17",
-        runtime: "2h 28m",
         saga: "Multiverse Saga",
         slug: "spider-man-no-way-home",
         status: "released",
@@ -1071,17 +715,9 @@ const curatedChronology = [
         chronologyOrder: 550,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Doctor Strange teams up with a mysterious teenage girl who can travel across multiverses, to battle other-universe versions of himself which threaten to wipe out the multiverse. They seek help from the Scarlet Witch, Wong and others.",
-        genres: ["action", "adventure", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt9419884/",
         phase: "Phase Four",
         placement: "2024",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BN2YxZGRjMzYtZjE1ZC00MDI0LThjZmQtZTZmMzVmMmQ2NzBmXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.8,
         releaseDate: "2022-05-06",
-        runtime: "2h 6m",
         saga: "Multiverse Saga",
         slug: "doctor-strange-in-the-multiverse-of-madness",
         status: "released",
@@ -1091,17 +727,9 @@ const curatedChronology = [
     {
         chronologyOrder: 560,
         contentType: "series",
-        description:
-            "Clint Barton aka Hawkeye has the mission to get back to his family for Christmas. But when a threat from his past shows up, Hawkeye reluctantly teams up with Kate Bishop, a skilled archer and his biggest fan, to unravel a conspiracy.",
-        genres: ["action", "adventure", "crime", "drama", "mystery", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt10160804/",
         phase: "Phase Four",
         placement: "Christmas 2024",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BOGU5ZDBlOTAtOTZmYS00MWE0LTg0NzktNDcxZGJhN2FhZmM2XkEyXkFqcGc@._V1_.jpg",
-        rating: 7.4,
         releaseDate: "2021-11-24",
-        runtime: "1h",
         saga: "Multiverse Saga",
         slug: "hawkeye",
         status: "released",
@@ -1111,17 +739,9 @@ const curatedChronology = [
     {
         chronologyOrder: 570,
         contentType: "series",
-        description:
-            "Steven Grant discovers he's been granted the powers of an Egyptian moon god. But he soon finds out that these newfound powers can be both a blessing and a curse to his troubled life.",
-        genres: ["action", "adventure", "fantasy"],
-        imdbUrl: "https://www.imdb.com/title/tt10234724/",
         phase: "Phase Four",
         placement: "2025",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNDAzNmYwZjgtNDc3YS00ZDMyLTk0MjktMTg4MGNmNGU3MjlhXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.3,
         releaseDate: "2022-03-30",
-        runtime: "50m",
         saga: "Multiverse Saga",
         slug: "moon-knight",
         status: "released",
@@ -1132,16 +752,9 @@ const curatedChronology = [
         chronologyOrder: 580,
         contentType: "film",
         creditScenes: { after: false, during: true },
-        description: "Wakanda fights to protect its home as it mourns King T'Challa.",
-        genres: ["action", "adventure", "drama", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt9114286/",
         phase: "Phase Four",
         placement: "2025",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BYWY5NDY1ZjItZDQxMy00MTAzLTgyOGQtNTQxYjFiMzZjMjUyXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.6,
         releaseDate: "2022-11-11",
-        runtime: "2h 41m",
         saga: "Multiverse Saga",
         slug: "black-panther-wakanda-forever",
         status: "released",
@@ -1151,17 +764,9 @@ const curatedChronology = [
     {
         chronologyOrder: 590,
         contentType: "series",
-        description:
-            "Maya Lopez must face her past, reconnect with her Native American roots, and embrace the meaning of family and community if she ever hopes to move forward.",
-        genres: ["action", "adventure", "crime", "drama", "mystery", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt13966962/",
         phase: "Phase Five",
         placement: "2025",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BOGFiYzI1ZDctM2U1Zi00ZWI5LWFiMmQtNGU0NTU5MTg3OWM3XkEyXkFqcGc@._V1_.jpg",
-        rating: 5.9,
         releaseDate: "2024-01-09",
-        runtime: "45m",
         saga: "Multiverse Saga",
         slug: "echo",
         status: "released",
@@ -1171,17 +776,9 @@ const curatedChronology = [
     {
         chronologyOrder: 600,
         contentType: "series",
-        description:
-            "Jennifer Walters navigates the complicated life of a single, 30-something attorney who also happens to be a green 6-foot-7-inch superpowered Hulk.",
-        genres: ["action", "adventure", "comedy", "drama", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt10857160/",
         phase: "Phase Four",
         placement: "2025",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNjg4ZTQ1MjctNzEyMS00YWM2LTk1ZTQtNDU3ZDJjNjhhMDhkXkEyXkFqcGc@._V1_.jpg",
-        rating: 5.2,
         releaseDate: "2022-08-18",
-        runtime: "35m",
         saga: "Multiverse Saga",
         slug: "she-hulk-attorney-at-law",
         status: "released",
@@ -1191,17 +788,9 @@ const curatedChronology = [
     {
         chronologyOrder: 610,
         contentType: "series",
-        description:
-            "Kamala, a superhero fan with an imagination--particularly when it comes to Captain Marvel--feels like she doesn't fit in at school and sometimes even at home, that is until she gets superpowers like the heroes she admires.",
-        genres: ["action", "adventure", "comedy", "family", "fantasy", "mystery", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt10857164/",
         phase: "Phase Four",
         placement: "2025",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNzlkNjBmOWUtOTgzZS00OWIzLThkNWEtZTg5MGY2ODAyYzZjXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.2,
         releaseDate: "2022-06-08",
-        runtime: "50m",
         saga: "Multiverse Saga",
         slug: "ms-marvel",
         status: "released",
@@ -1212,17 +801,9 @@ const curatedChronology = [
         chronologyOrder: 620,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
-        genres: ["action", "adventure", "comedy", "romance", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt10648342/",
         phase: "Phase Four",
         placement: "2025",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BZjRiMDhiZjQtNjk5Yi00ZDcwLTkyYTEtMDc1NjdmNjFhNGIzXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.1,
         releaseDate: "2022-07-08",
-        runtime: "1h 58m",
         saga: "Multiverse Saga",
         slug: "thor-love-and-thunder",
         status: "released",
@@ -1232,17 +813,9 @@ const curatedChronology = [
     {
         chronologyOrder: 630,
         contentType: "series",
-        description:
-            "Genius teenage inventor Riri Williams creates the most advanced suit of armor since Iron Man.",
-        genres: ["action", "adventure", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt13623126/",
         phase: "Phase Five",
         placement: "2025",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BN2EzMGZhOTktYjVhZi00NmIwLWIxZDEtNWUxZTQyNjhkYWQ4XkEyXkFqcGc@._V1_.jpg",
-        rating: 4.5,
         releaseDate: "2025-06-24",
-        runtime: "50m",
         saga: "Multiverse Saga",
         slug: "ironheart",
         status: "released",
@@ -1253,17 +826,9 @@ const curatedChronology = [
     {
         chronologyOrder: 640,
         contentType: "special",
-        description:
-            "Follows a lycanthrope superhero who fights evil using the abilities given to him by a curse brought on by his bloodline.",
-        genres: ["action", "drama", "fantasy", "horror", "mystery", "thriller"],
-        imdbUrl: "https://www.imdb.com/title/tt15318872/",
         phase: "Phase Four",
         placement: "Late 2025",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BODUzMGFkYzgtYzhjNC00ZmFjLTg3ZTYtYWJkMWRjMzJmYTQ2XkEyXkFqcGc@._V1_.jpg",
-        rating: 7.1,
         releaseDate: "2022-10-07",
-        runtime: "52m",
         saga: "Multiverse Saga",
         slug: "werewolf-by-night",
         status: "released",
@@ -1273,17 +838,9 @@ const curatedChronology = [
     {
         chronologyOrder: 650,
         contentType: "special",
-        description:
-            "Star-Lord, Drax, Rocket, Mantis, and Groot engage in some spirited shenanigans in an all-new original special created for Disney+.",
-        genres: ["action", "adventure", "comedy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt13623136/",
         phase: "Phase Four",
         placement: "Christmas 2025",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BZDA3MzdlYTQtMTUxNi00ZjJmLTkyOTYtNDkzYmIzYTJkZjMzXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.9,
         releaseDate: "2022-11-25",
-        runtime: "42m",
         saga: "Multiverse Saga",
         slug: "the-guardians-of-the-galaxy-holiday-special",
         status: "released",
@@ -1294,17 +851,9 @@ const curatedChronology = [
         chronologyOrder: 660,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Scott Lang and Hope Van Dyne are dragged into the Quantum Realm, along with Hope's parents and Scott's daughter Cassie. Together they must find a way to escape, but what secrets is Hope's mother hiding? And who is the mysterious Kang?",
-        genres: ["action", "adventure", "comedy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt10954600/",
         phase: "Phase Five",
         placement: "2026",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMThkYWY5ZjQtYjJlMS00MDFmLWFkYzEtODEzZjg5YWFmMGY4XkEyXkFqcGc@._V1_.jpg",
-        rating: 6,
         releaseDate: "2023-02-17",
-        runtime: "2h 4m",
         saga: "Multiverse Saga",
         slug: "ant-man-and-the-wasp-quantumania",
         status: "released",
@@ -1315,17 +864,9 @@ const curatedChronology = [
         chronologyOrder: 670,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Still reeling from the loss of Gamora, Peter Quill rallies his team to defend the universe and one of their own - a mission that could mean the end of the Guardians if not successful.",
-        genres: ["action", "adventure", "comedy", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt6791350/",
         phase: "Phase Five",
         placement: "2026",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BOTJhOTMxMmItZmE0Ny00MDc3LWEzOGEtOGFkMzY4MWYyZDQ0XkEyXkFqcGc@._V1_.jpg",
-        rating: 7.9,
         releaseDate: "2023-05-05",
-        runtime: "2h 30m",
         saga: "Multiverse Saga",
         slug: "the-guardians-of-the-galaxy-vol-3",
         status: "released",
@@ -1335,17 +876,9 @@ const curatedChronology = [
     {
         chronologyOrder: 680,
         contentType: "series",
-        description:
-            "Fury and Talos try to stop the Skrulls who have infiltrated the highest spheres of the Marvel Universe.",
-        genres: ["action", "adventure", "mystery", "sciFi", "thriller"],
-        imdbUrl: "https://www.imdb.com/title/tt13157618/",
         phase: "Phase Five",
         placement: "2026",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNmYzYzA2NzMtOTVmMC00ZDY4LThlMDctZmUyN2NlMjQ2ODViXkEyXkFqcGc@._V1_.jpg",
-        rating: 5.8,
         releaseDate: "2023-06-21",
-        runtime: "45m",
         saga: "Multiverse Saga",
         slug: "secret-invasion",
         status: "released",
@@ -1356,17 +889,9 @@ const curatedChronology = [
         chronologyOrder: 690,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Carol Danvers, Kamala Khan, and Monica Rambeau must work together to save the universe.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt10676048/",
         phase: "Phase Five",
         placement: "2026",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BYzczOWM4MzItMWMyOS00ZDczLWIxMzctNzBmYTgzOTI1MzI3XkEyXkFqcGc@._V1_.jpg",
-        rating: 5.4,
         releaseDate: "2023-11-10",
-        runtime: "1h 45m",
         saga: "Multiverse Saga",
         slug: "the-marvels",
         status: "released",
@@ -1376,17 +901,9 @@ const curatedChronology = [
     {
         chronologyOrder: 700,
         contentType: "series",
-        description:
-            "The cast and crew of Loki: Season 2 pull back the curtain on Loki's latest MCU adventure.",
-        genres: ["documentary"],
-        imdbUrl: "https://www.imdb.com/title/tt28889780/",
         phase: "Phase Five",
         placement: "Outside linear time",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNTliODE5MmEtMjRmMi00N2Y3LTgwNzgtNjI2YjM4MGVjZjdmXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.6,
         releaseDate: "2023-10-05",
-        runtime: "58m",
         saga: "Multiverse Saga",
         slug: "loki-season-2",
         status: "released",
@@ -1397,16 +914,9 @@ const curatedChronology = [
         chronologyOrder: 710,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description: "Deadpool recruits Wolverine to save his universe from extinction.",
-        genres: ["action", "adventure", "comedy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt6263850/",
         phase: "Phase Five",
         placement: "2024 and outside linear time",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BZTk5ODY0MmQtMzA3Ni00NGY1LThiYzItZThiNjFiNDM4MTM3XkEyXkFqcGc@._V1_.jpg",
-        rating: 7.5,
         releaseDate: "2024-07-26",
-        runtime: "2h 8m",
         saga: "Multiverse Saga",
         slug: "deadpool-and-wolverine",
         status: "released",
@@ -1416,17 +926,9 @@ const curatedChronology = [
     {
         chronologyOrder: 720,
         contentType: "series",
-        description:
-            "A spell-bound Agatha Harkness regains freedom thanks to a teen's help. Intrigued by his plea, she embarks on the Witches' Road trials to reclaim her powers and discover the teen's motivations.",
-        genres: ["action", "adventure", "comedy", "drama", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt15571732/",
         phase: "Phase Five",
         placement: "2026",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMDcyZTNjOTEtNzc5Yy00Y2UzLThkMWYtNTY4YmM4OWI5OTMzXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.2,
         releaseDate: "2024-09-18",
-        runtime: "40m",
         saga: "Multiverse Saga",
         slug: "agatha-all-along",
         status: "released",
@@ -1436,17 +938,9 @@ const curatedChronology = [
     {
         chronologyOrder: 730,
         contentType: "series",
-        description:
-            "Matt Murdock finds himself on a collision course with Wilson Fisk when their past identities begin to emerge.",
-        genres: ["action", "crime", "drama", "fantasy", "sciFi", "thriller"],
-        imdbUrl: "https://www.imdb.com/title/tt18923754/",
         phase: "Phase Five",
         placement: "Late 2026 to early 2027",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNDBkMWRhMzEtM2M0Ny00OGZhLThkZGMtMTY1NWUwZWNhODdiXkEyXkFqcGc@._V1_.jpg",
-        rating: 8.1,
         releaseDate: "2025-03-04",
-        runtime: "1h",
         saga: "Multiverse Saga",
         slug: "daredevil-born-again-season-1",
         status: "released",
@@ -1457,17 +951,9 @@ const curatedChronology = [
         chronologyOrder: 740,
         contentType: "film",
         creditScenes: { after: true, during: false },
-        description:
-            "Sam Wilson, the new Captain America, finds himself in the middle of an international incident and must discover the motive behind a nefarious global plan.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt14513804/",
         phase: "Phase Five",
         placement: "2027",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNDRjY2E0ZmEtN2QwNi00NTEwLWI3MWItODNkMGYwYWFjNGE0XkEyXkFqcGc@._V1_.jpg",
-        rating: 5.6,
         releaseDate: "2025-02-14",
-        runtime: "1h 58m",
         saga: "Multiverse Saga",
         slug: "captain-america-brave-new-world",
         status: "released",
@@ -1478,17 +964,9 @@ const curatedChronology = [
         chronologyOrder: 750,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "After finding themselves ensnared in a death trap, an unconventional team of antiheroes must go on a dangerous mission that will force them to confront the darkest corners of their pasts.",
-        genres: ["action", "adventure", "crime", "drama", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt20969586/",
         phase: "Phase Five",
         placement: "2027",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNDIzNGUwZmYtODM0Yy00NjA3LTgxOGUtOTY0ZGM5MjBkM2I3XkEyXkFqcGc@._V1_.jpg",
-        rating: 7.1,
         releaseDate: "2025-05-02",
-        runtime: "2h 7m",
         saga: "Multiverse Saga",
         slug: "thunderbolts",
         status: "released",
@@ -1499,17 +977,9 @@ const curatedChronology = [
         chronologyOrder: 760,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "Forced to balance their roles as heroes with the strength of their family bond, the Fantastic Four must defend Earth from a ravenous space god called Galactus and his enigmatic herald, the Silver Surfer.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt10676052/",
         phase: "Phase Six",
         placement: "1960s alternate universe",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BOGM5MzA3MDAtYmEwMi00ZDNiLTg4MDgtMTZjOTc0ZGMyNTIwXkEyXkFqcGc@._V1_.jpg",
-        rating: 6.8,
         releaseDate: "2025-07-25",
-        runtime: "1h 55m",
         saga: "Multiverse Saga",
         slug: "the-fantastic-four-first-steps",
         status: "released",
@@ -1519,17 +989,9 @@ const curatedChronology = [
     {
         chronologyOrder: 770,
         contentType: "series",
-        description:
-            "Small-time actor Simon Williams struggles to reckon with his personal life while hiding his super-powers as he tries to land his dream role. Meanwhile, a shady government agent leverages a new friendship in order to save his own job.",
-        genres: ["action", "adventure", "comedy", "drama", "fantasy", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt21066182/",
         phase: "Phase Six",
         placement: "2027",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BMDk5YzQ3NjQtNzY3MC00NzM3LWE4NzYtZGRkNDQxYjdiZDkyXkEyXkFqcGc@._V1_.jpg",
-        rating: 7.4,
         releaseDate: "2026-01-27",
-        runtime: "30m",
         saga: "Multiverse Saga",
         slug: "wonder-man",
         status: "released",
@@ -1539,17 +1001,9 @@ const curatedChronology = [
     {
         chronologyOrder: 780,
         contentType: "series",
-        description:
-            "Matt Murdock finds himself on a collision course with Wilson Fisk when their past identities begin to emerge.",
-        genres: ["action", "crime", "drama", "fantasy", "sciFi", "thriller"],
-        imdbUrl: "https://www.imdb.com/title/tt18923754/",
         phase: "Phase Six",
         placement: "2027",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNDBkMWRhMzEtM2M0Ny00OGZhLThkZGMtMTY1NWUwZWNhODdiXkEyXkFqcGc@._V1_.jpg",
-        rating: 8.1,
         releaseDate: "2026-03-24",
-        runtime: "1h",
         saga: "Multiverse Saga",
         slug: "daredevil-born-again-season-2",
         status: "released",
@@ -1559,17 +1013,9 @@ const curatedChronology = [
     {
         chronologyOrder: 790,
         contentType: "special",
-        description:
-            "Frank Castle is drawn back into a brutal fight after years away from violence.",
-        genres: ["action", "adventure", "crime", "drama", "thriller"],
-        imdbUrl: "https://www.imdb.com/title/tt36042156/",
         phase: "Phase Six",
         placement: "2027",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BZGJlZWJhYmYtNjcwOS00OGMxLWJhODMtMGQ5ODQ5MDE0OTFmXkEyXkFqcGc@._V1_.jpg",
-        rating: 7,
         releaseDate: "2026-05-12",
-        runtime: "Special",
         saga: "Multiverse Saga",
         slug: "the-punisher-one-last-kill",
         status: "released",
@@ -1580,17 +1026,9 @@ const curatedChronology = [
         chronologyOrder: 800,
         contentType: "film",
         creditScenes: { after: true, during: true },
-        description:
-            "A forgotten Peter Parker lives alone as a full-time Spider-Man until mounting pressure triggers a dangerous change and a powerful new enemy emerges.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt22084616/",
         phase: "Phase Six",
         placement: "2028",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BOWNjYWM3NWItOGE0ZS00MWRjLThiZWEtYjc4ZmNmMmU5ZTVmXkEyXkFqcGc@._V1_.jpg",
-        rating: 8,
         releaseDate: "2026-07-31",
-        runtime: "2h 25m",
         saga: "Multiverse Saga",
         slug: "spider-man-brand-new-day",
         status: "released",
@@ -1600,17 +1038,9 @@ const curatedChronology = [
     {
         chronologyOrder: 810,
         contentType: "series",
-        description:
-            "Vision is faced with many challenges while trying to regain his memory and humanity.",
-        genres: ["action", "adventure", "drama", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt23112594/",
         phase: "Phase Six",
         placement: "TBD",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BY2FlNjIxMDktMGYyZi00NjY3LWI4YjctYTcxNzc2MDUwYjZmXkEyXkFqcGc@._V1_.jpg",
-        rating: 0,
         releaseDate: "2026-10-14",
-        runtime: "Limited series",
         saga: "Multiverse Saga",
         slug: "visionquest",
         status: "announced",
@@ -1620,17 +1050,9 @@ const curatedChronology = [
     {
         chronologyOrder: 820,
         contentType: "film",
-        description:
-            "Heroes from three different worlds must unite when they're thrust together to confront a catastrophic danger that could destroy everything they know.",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt21357150/",
         phase: "Phase Six",
         placement: "TBD",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BNGEwYWZkN2UtOTQ5Mi00MGQzLWEzNjYtMWMyNDBkMTkzMWNkXkEyXkFqcGc@._V1_.jpg",
-        rating: 0,
         releaseDate: "2026-12-18",
-        runtime: "2h 45m",
         saga: "Multiverse Saga",
         slug: "avengers-doomsday",
         status: "announced",
@@ -1640,34 +1062,32 @@ const curatedChronology = [
     {
         chronologyOrder: 830,
         contentType: "film",
-        description: "Plot Under Wraps",
-        genres: ["action", "adventure", "sciFi"],
-        imdbUrl: "https://www.imdb.com/title/tt21361444/",
         phase: "Phase Six",
         placement: "TBD",
-        posterUrl:
-            "https://m.media-amazon.com/images/M/MV5BYTQyZTQ5MWQtN2M4NC00YWQwLTg3ZTctM2JiZDE4NDBkZDJkXkEyXkFqcGc@._V1_.jpg",
-        rating: 0,
         releaseDate: "2027-12-17",
-        runtime: "Feature",
         saga: "Multiverse Saga",
         slug: "avengers-secret-wars",
         status: "announced",
         title: "Avengers: Secret Wars",
         universe: "TBD",
     },
-] satisfies readonly TimelineEntry[];
+] satisfies readonly CuratedTimelineEntry[];
 
 export const chronology: readonly TimelineEntry[] = curatedChronology.map((entry) => {
     const metadata = metadataBySlug[entry.slug];
-    if (metadata?.status !== "resolved" || !metadata.source) {
-        return entry;
-    }
-
-    return {
-        ...metadata.source,
+    const mergedEntry = {
+        ...(metadata?.status === "resolved" ? metadata.source : null),
         ...entry,
     };
+
+    const missingFields = requiredMetadataFields.filter(
+        (field) => mergedEntry[field] === undefined
+    );
+    if (missingFields.length > 0) {
+        throw new Error(`Missing enriched metadata for ${entry.slug}: ${missingFields.join(", ")}`);
+    }
+
+    return mergedEntry as TimelineEntry;
 });
 
 export interface ChronologyIssue {
