@@ -23,6 +23,7 @@ import {
     type Material,
     MathUtils,
     type Mesh,
+    MeshBasicMaterial,
     PlaneGeometry,
     ShaderMaterial,
     Vector3,
@@ -65,10 +66,14 @@ const CARD_TEXT_WIDTH = CARD_WIDTH - (CARD_PADDING + 0.05) * 2;
 const CARD_RENDER_ORDER_BASE = 1000;
 const SELECTED_CARD_RENDER_ORDER = 2000;
 const CARD_PLANE_GEOMETRY = new PlaneGeometry(1, 1);
+const CARD_HIT_MATERIAL = new MeshBasicMaterial({ visible: false });
 const GEIST_FONT_URL =
     "https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_Re-Q4nQ.ttf";
 const GEIST_MONO_FONT_URL =
     "https://fonts.gstatic.com/s/geistmono/v6/or3yQ6H-1_WfwkMZI_qYPLs1a-t7PU0AbeE9KJ5T.ttf";
+const CARD_TITLE_CHARACTERS =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&'*():-.,/!? ";
+const CARD_META_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&'():-.,/ ";
 const NARROW_TITLE_CHARACTER_PATTERN = /[ilI1'.,:]/;
 const WIDE_TITLE_CHARACTER_PATTERN = /[MW@%]/;
 const WHITESPACE_CHARACTER_PATTERN = /\s/;
@@ -581,9 +586,24 @@ function PosterArtwork({
     }
 
     return (
+        <PosterFallback entry={entry} posterPositionY={posterPositionY} renderOrder={renderOrder} />
+    );
+}
+
+function PosterFallback({
+    entry,
+    posterPositionY,
+    renderOrder,
+}: {
+    entry: TimelineEntry;
+    posterPositionY: number;
+    renderOrder: number;
+}) {
+    return (
         <Text
             anchorX="center"
             anchorY="middle"
+            characters={CARD_META_CHARACTERS}
             color={cardAccentColours[entry.contentType]}
             font={GEIST_MONO_FONT_URL}
             fontSize={0.4}
@@ -659,14 +679,19 @@ function TimelinePosterCard({ active, entry, onSelect, selected }: TimelinePoste
 
     return (
         <Billboard position={[0, cardHeight / 2 + CARD_GAP_FROM_ORB, 0]}>
-            {/* biome-ignore lint/a11y/noStaticElementInteractions: The card is an interactive scene control. */}
-            <group
-                onClick={handleSelect}
-                onPointerOut={handlePointerOut}
-                onPointerOver={handlePointerOver}
-                ref={cardRef}
-                renderOrder={CARD_RENDER_ORDER_BASE}
-            >
+            <group ref={cardRef} renderOrder={CARD_RENDER_ORDER_BASE}>
+                {/* biome-ignore lint/a11y/noStaticElementInteractions: The hidden mesh is the card's scene hit target. */}
+                <mesh
+                    onClick={handleSelect}
+                    onPointerOut={handlePointerOut}
+                    onPointerOver={handlePointerOver}
+                    position={[0, 0, 0.04]}
+                    scale={[CARD_WIDTH, cardHeight, 1]}
+                    visible={false}
+                >
+                    <primitive attach="geometry" object={CARD_PLANE_GEOMETRY} />
+                    <primitive attach="material" object={CARD_HIT_MATERIAL} />
+                </mesh>
                 <mesh
                     frustumCulled={false}
                     position={[0, -0.055, -0.014]}
@@ -714,11 +739,21 @@ function TimelinePosterCard({ active, entry, onSelect, selected }: TimelinePoste
                     <primitive attach="geometry" object={CARD_PLANE_GEOMETRY} />
                     <primitive attach="material" object={posterFrameMaterial} />
                 </mesh>
-                <PosterArtwork
-                    entry={entry}
-                    posterPositionY={posterPositionY}
-                    renderOrder={renderOrder + 5}
-                />
+                <Suspense
+                    fallback={
+                        <PosterFallback
+                            entry={entry}
+                            posterPositionY={posterPositionY}
+                            renderOrder={renderOrder + 5}
+                        />
+                    }
+                >
+                    <PosterArtwork
+                        entry={entry}
+                        posterPositionY={posterPositionY}
+                        renderOrder={renderOrder + 5}
+                    />
+                </Suspense>
                 <mesh
                     frustumCulled={false}
                     position={[0, posterPositionY, 0.022]}
@@ -731,6 +766,7 @@ function TimelinePosterCard({ active, entry, onSelect, selected }: TimelinePoste
                 <Text
                     anchorX="left"
                     anchorY="top"
+                    characters={CARD_META_CHARACTERS}
                     color={cardAccentColours[entry.contentType]}
                     fillOpacity={highlighted ? 1 : 0.9}
                     font={GEIST_MONO_FONT_URL}
@@ -748,6 +784,7 @@ function TimelinePosterCard({ active, entry, onSelect, selected }: TimelinePoste
                 <Text
                     anchorX="left"
                     anchorY="top"
+                    characters={CARD_META_CHARACTERS}
                     color="#f4f1e8"
                     fillOpacity={0.34}
                     font={GEIST_MONO_FONT_URL}
@@ -766,6 +803,7 @@ function TimelinePosterCard({ active, entry, onSelect, selected }: TimelinePoste
                 <Text
                     anchorX="left"
                     anchorY="top"
+                    characters={CARD_TITLE_CHARACTERS}
                     color="#f4f1e8"
                     fillOpacity={highlighted ? 1 : 0.7}
                     font={GEIST_FONT_URL}
