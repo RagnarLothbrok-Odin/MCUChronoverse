@@ -10,8 +10,16 @@ import {
     Text,
     useCursor,
 } from "@react-three/drei";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Canvas, type ThreeEvent, useFrame, useThree } from "@react-three/fiber";
+import {
+    Suspense,
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 import {
     AdditiveBlending,
     type BufferGeometry,
@@ -19,14 +27,22 @@ import {
     CatmullRomCurve3,
     Color,
     type Curve,
+    DynamicDrawUsage,
+    Euler,
     Group,
+    type InstancedMesh,
     LineCurve3,
     type Material,
     MathUtils,
+    Matrix4,
     type Mesh,
     MeshBasicMaterial,
+    MeshStandardMaterial,
     PlaneGeometry,
+    Quaternion,
     ShaderMaterial,
+    SphereGeometry,
+    TorusGeometry,
     Vector3,
 } from "three";
 import type { TimelineEntry } from "../data/types";
@@ -68,6 +84,55 @@ const CARD_RENDER_ORDER_BASE = 1000;
 const SELECTED_CARD_RENDER_ORDER = 2000;
 const CARD_PLANE_GEOMETRY = new PlaneGeometry(1, 1);
 const CARD_HIT_MATERIAL = new MeshBasicMaterial({ visible: false });
+const CONTENT_TYPES = ["film", "one-shot", "series", "short", "special"] as const;
+const NODE_SPHERE_GEOMETRY = new SphereGeometry(0.11, 24, 24);
+const NORMAL_OUTER_RING_GEOMETRY = new TorusGeometry(0.32, 0.012, 8, 48);
+const SELECTED_OUTER_RING_GEOMETRY = new TorusGeometry(0.45, 0.012, 8, 48);
+const NORMAL_INNER_RING_GEOMETRY = new TorusGeometry(0.24, 0.008, 8, 40);
+const SELECTED_INNER_RING_GEOMETRY = new TorusGeometry(0.34, 0.008, 8, 40);
+const NORMAL_OUTER_RING_MATERIAL = new MeshBasicMaterial({
+    blending: AdditiveBlending,
+    color: "#ffad52",
+    depthWrite: false,
+    opacity: 0.45,
+    transparent: true,
+});
+const SELECTED_OUTER_RING_MATERIAL = new MeshBasicMaterial({
+    blending: AdditiveBlending,
+    color: "#ffad52",
+    depthWrite: false,
+    opacity: 0.9,
+    transparent: true,
+});
+const INNER_RING_MATERIAL = new MeshBasicMaterial({
+    blending: AdditiveBlending,
+    color: "#ffe0a3",
+    depthWrite: false,
+    opacity: 0.32,
+    transparent: true,
+});
+const NODE_SPHERE_MATERIALS = Object.fromEntries(
+    CONTENT_TYPES.map((contentType) => [
+        contentType,
+        new MeshStandardMaterial({
+            color: coreColours[contentType],
+            emissive: coreColours[contentType],
+            emissiveIntensity: 2.8,
+            roughness: 0.2,
+        }),
+    ])
+) as Record<TimelineEntry["contentType"], MeshStandardMaterial>;
+const SELECTED_NODE_SPHERE_MATERIALS = Object.fromEntries(
+    CONTENT_TYPES.map((contentType) => [
+        contentType,
+        new MeshStandardMaterial({
+            color: coreColours[contentType],
+            emissive: coreColours[contentType],
+            emissiveIntensity: 5,
+            roughness: 0.2,
+        }),
+    ])
+) as Record<TimelineEntry["contentType"], MeshStandardMaterial>;
 const GEIST_FONT_URL =
     "https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_Re-Q4nQ.ttf";
 const GEIST_MONO_FONT_URL =
@@ -827,70 +892,271 @@ function TimelinePosterCard({ active, entry, onSelect, selected }: TimelinePoste
     );
 }
 
-// The node keeps its orb and GPU card together so their interactions select the same entry.
-function TimelineNode({ active, count, entry, index, onSelect, selected }: TimelineNodeProps) {
-    const ringsRef = useRef(new Group());
-    const position = timelineNodePosition(index, count);
-    const handleOrbSelect = useCallback(
-        (event: { stopPropagation: () => void }) => {
+interface TimelineNodeInstance {
+    entry: TimelineEntry;
+    position: Vector3;
+}
+
+interface InstancedNodeSphereGroupProps {
+    instances: readonly TimelineNodeInstance[];
+    material: MeshStandardMaterial;
+    onHoverChange: (hovered: boolean) => void;
+    onSelect: (slug: string) => void;
+}
+
+function InstancedNodeSphereGroup({
+    instances,
+    material,
+    onHoverChange,
+    onSelect,
+}: InstancedNodeSphereGroupProps) {
+    const meshRef = useRef<InstancedMesh>(null);
+    const matrix = useMemo(() => new Matrix4(), []);
+
+    useLayoutEffect(() => {
+        const mesh = meshRef.current as InstancedMesh;
+        instances.forEach(({ position }, instanceId) => {
+            matrix.makeTranslation(position.x, position.y, position.z);
+            mesh.setMatrixAt(instanceId, matrix);
+        });
+        mesh.instanceMatrix.needsUpdate = true;
+    }, [instances, matrix]);
+
+    const handleSelect = useCallback(
+        (event: ThreeEvent<MouseEvent>) => {
+            const instance = instances[event.instanceId ?? -1];
+            if (!instance) {
+                return;
+            }
             event.stopPropagation();
-            onSelect(entry.slug);
+            onSelect(instance.entry.slug);
         },
-        [entry.slug, onSelect]
+        [instances, onSelect]
     );
-    const handleOrbPointerOver = useCallback((event: { stopPropagation: () => void }) => {
-        event.stopPropagation();
-        document.body.style.cursor = "pointer";
-    }, []);
-    const handleOrbPointerOut = useCallback((event: { stopPropagation: () => void }) => {
-        event.stopPropagation();
-        document.body.style.cursor = "default";
+    const handlePointerOver = useCallback(
+        (event: ThreeEvent<PointerEvent>) => {
+            event.stopPropagation();
+            onHoverChange(true);
+        },
+        [onHoverChange]
+    );
+    const handlePointerOut = useCallback(
+        (event: ThreeEvent<PointerEvent>) => {
+            event.stopPropagation();
+            onHoverChange(false);
+        },
+        [onHoverChange]
+    );
+
+    return (
+        // biome-ignore lint/a11y/noStaticElementInteractions: The instanced orbs are scene controls.
+        <instancedMesh
+            args={[NODE_SPHERE_GEOMETRY, material, instances.length]}
+            frustumCulled={false}
+            onClick={handleSelect}
+            onPointerOut={handlePointerOut}
+            onPointerOver={handlePointerOver}
+            ref={meshRef}
+        />
+    );
+}
+
+interface InstancedTimelineRingsProps {
+    instances: readonly TimelineNodeInstance[];
+    selected?: TimelineNodeInstance;
+}
+
+function InstancedTimelineRings({ instances, selected }: InstancedTimelineRingsProps) {
+    const normalOuterRef = useRef<InstancedMesh>(null);
+    const normalInnerRef = useRef<InstancedMesh>(null);
+    const selectedOuterRef = useRef<InstancedMesh>(null);
+    const selectedInnerRef = useRef<InstancedMesh>(null);
+    const matrix = useMemo(() => new Matrix4(), []);
+    const groupEuler = useMemo(() => new Euler(), []);
+    const groupQuaternion = useMemo(() => new Quaternion(), []);
+    const innerQuaternion = useMemo(() => new Quaternion().setFromEuler(new Euler(0.8, 0, 0)), []);
+    const ringQuaternion = useMemo(() => new Quaternion(), []);
+    const scale = useMemo(() => new Vector3(1, 1, 1), []);
+
+    useLayoutEffect(() => {
+        for (const mesh of [
+            normalOuterRef.current,
+            normalInnerRef.current,
+            selectedOuterRef.current,
+            selectedInnerRef.current,
+        ]) {
+            mesh?.instanceMatrix.setUsage(DynamicDrawUsage);
+        }
     }, []);
 
-    useFrame((_, delta) => {
-        ringsRef.current.rotation.x += delta * 0.11;
+    useFrame(({ clock }) => {
+        groupEuler.set(clock.elapsedTime * 0.11, Math.PI / 2, 0);
+        groupQuaternion.setFromEuler(groupEuler);
+
+        const writeInstances = (mesh: InstancedMesh | null, inner: boolean) => {
+            if (!mesh) {
+                return;
+            }
+            const quaternion = inner
+                ? ringQuaternion.copy(groupQuaternion).multiply(innerQuaternion)
+                : groupQuaternion;
+            instances.forEach(({ position }, instanceId) => {
+                matrix.compose(position, quaternion, scale);
+                mesh.setMatrixAt(instanceId, matrix);
+            });
+            mesh.instanceMatrix.needsUpdate = true;
+        };
+        writeInstances(normalOuterRef.current, false);
+        writeInstances(normalInnerRef.current, true);
+
+        const writeSelected = (mesh: InstancedMesh | null, inner: boolean) => {
+            if (!(mesh && selected)) {
+                return;
+            }
+            const quaternion = inner
+                ? ringQuaternion.copy(groupQuaternion).multiply(innerQuaternion)
+                : groupQuaternion;
+            matrix.compose(selected.position, quaternion, scale);
+            mesh.setMatrixAt(0, matrix);
+            mesh.instanceMatrix.needsUpdate = true;
+        };
+        writeSelected(selectedOuterRef.current, false);
+        writeSelected(selectedInnerRef.current, true);
     });
 
     return (
+        <>
+            <instancedMesh
+                args={[NORMAL_OUTER_RING_GEOMETRY, NORMAL_OUTER_RING_MATERIAL, instances.length]}
+                frustumCulled={false}
+                ref={normalOuterRef}
+            />
+            <instancedMesh
+                args={[NORMAL_INNER_RING_GEOMETRY, INNER_RING_MATERIAL, instances.length]}
+                frustumCulled={false}
+                ref={normalInnerRef}
+            />
+            {selected ? (
+                <>
+                    <instancedMesh
+                        args={[SELECTED_OUTER_RING_GEOMETRY, SELECTED_OUTER_RING_MATERIAL, 1]}
+                        frustumCulled={false}
+                        ref={selectedOuterRef}
+                    />
+                    <instancedMesh
+                        args={[SELECTED_INNER_RING_GEOMETRY, INNER_RING_MATERIAL, 1]}
+                        frustumCulled={false}
+                        ref={selectedInnerRef}
+                    />
+                </>
+            ) : null}
+        </>
+    );
+}
+
+interface InstancedTimelineNodesProps {
+    count: number;
+    entries: readonly TimelineEntry[];
+    onSelect: (slug: string) => void;
+    selectedSlug?: string;
+}
+
+function InstancedTimelineNodes({
+    count,
+    entries,
+    onSelect,
+    selectedSlug,
+}: InstancedTimelineNodesProps) {
+    const [hovered, setHovered] = useState(false);
+    useCursor(hovered);
+    const instances = useMemo(
+        () =>
+            entries.map((entry, index) => {
+                const position = timelineNodePosition(index, count);
+                return {
+                    entry,
+                    position: new Vector3(position.x, position.y, position.z),
+                };
+            }),
+        [count, entries]
+    );
+    const selected = instances.find(({ entry }) => entry.slug === selectedSlug);
+    const normalInstances = useMemo(
+        () =>
+            selectedSlug ? instances.filter(({ entry }) => entry.slug !== selectedSlug) : instances,
+        [instances, selectedSlug]
+    );
+    const instancesByContentType = useMemo(
+        () => ({
+            film: normalInstances.filter(({ entry }) => entry.contentType === "film"),
+            "one-shot": normalInstances.filter(({ entry }) => entry.contentType === "one-shot"),
+            series: normalInstances.filter(({ entry }) => entry.contentType === "series"),
+            short: normalInstances.filter(({ entry }) => entry.contentType === "short"),
+            special: normalInstances.filter(({ entry }) => entry.contentType === "special"),
+        }),
+        [normalInstances]
+    );
+    const handleSelectedSelect = useCallback(
+        (event: ThreeEvent<MouseEvent>) => {
+            if (!selectedSlug) {
+                return;
+            }
+            event.stopPropagation();
+            onSelect(selectedSlug);
+        },
+        [onSelect, selectedSlug]
+    );
+    const handleSelectedPointerOut = useCallback((event: ThreeEvent<PointerEvent>) => {
+        event.stopPropagation();
+        setHovered(false);
+    }, []);
+    const handleSelectedPointerOver = useCallback((event: ThreeEvent<PointerEvent>) => {
+        event.stopPropagation();
+        setHovered(true);
+    }, []);
+
+    return (
+        <>
+            <InstancedTimelineRings instances={normalInstances} selected={selected} />
+            {CONTENT_TYPES.map((contentType) => {
+                const contentInstances = instancesByContentType[contentType];
+                return contentInstances.length > 0 ? (
+                    <InstancedNodeSphereGroup
+                        instances={contentInstances}
+                        key={contentType}
+                        material={NODE_SPHERE_MATERIALS[contentType]}
+                        onHoverChange={setHovered}
+                        onSelect={onSelect}
+                    />
+                ) : null;
+            })}
+            {selected ? (
+                // biome-ignore lint/a11y/noStaticElementInteractions: The selected orb is a scene control.
+                <mesh
+                    frustumCulled={false}
+                    onClick={handleSelectedSelect}
+                    onPointerOut={handleSelectedPointerOut}
+                    onPointerOver={handleSelectedPointerOver}
+                    position={selected.position}
+                    scale={1.55}
+                >
+                    <primitive attach="geometry" object={NODE_SPHERE_GEOMETRY} />
+                    <primitive
+                        attach="material"
+                        object={SELECTED_NODE_SPHERE_MATERIALS[selected.entry.contentType]}
+                    />
+                </mesh>
+            ) : null}
+        </>
+    );
+}
+
+// Cards remain individual billboards while their orbs and rings are rendered in shared batches.
+function TimelineNode({ active, count, entry, index, onSelect, selected }: TimelineNodeProps) {
+    const position = timelineNodePosition(index, count);
+
+    return (
         <group position={[position.x, position.y, position.z]}>
-            <group ref={ringsRef} rotation={[0, Math.PI / 2, 0]}>
-                <mesh>
-                    <torusGeometry args={[selected ? 0.45 : 0.32, 0.012, 8, 48]} />
-                    <meshBasicMaterial
-                        blending={AdditiveBlending}
-                        color="#ffad52"
-                        depthWrite={false}
-                        opacity={selected ? 0.9 : 0.45}
-                        transparent
-                    />
-                </mesh>
-                <mesh rotation={[0.8, 0, 0]}>
-                    <torusGeometry args={[selected ? 0.34 : 0.24, 0.008, 8, 40]} />
-                    <meshBasicMaterial
-                        blending={AdditiveBlending}
-                        color="#ffe0a3"
-                        depthWrite={false}
-                        opacity={0.32}
-                        transparent
-                    />
-                </mesh>
-            </group>
-            {/* Three.js meshes are interactive scene targets, even though they are not DOM controls. */}
-            {/* biome-ignore lint/a11y/noStaticElementInteractions: The orb is the scene's interactive control. */}
-            <mesh
-                onClick={handleOrbSelect}
-                onPointerOut={handleOrbPointerOut}
-                onPointerOver={handleOrbPointerOver}
-                scale={selected ? 1.55 : 1}
-            >
-                <sphereGeometry args={[0.11, 24, 24]} />
-                <meshStandardMaterial
-                    color={coreColours[entry.contentType]}
-                    emissive={coreColours[entry.contentType]}
-                    emissiveIntensity={selected ? 5 : 2.8}
-                    roughness={0.2}
-                />
-            </mesh>
             <TimelinePosterCard
                 active={active}
                 count={count}
@@ -1343,6 +1609,12 @@ function TimelineScene({
                 eventCount={entries.length}
                 qualityFactor={qualityFactor}
                 reducedMotion={reducedMotion}
+            />
+            <InstancedTimelineNodes
+                count={entries.length}
+                entries={entries}
+                onSelect={onSelect}
+                selectedSlug={selectedSlug}
             />
             {entries.map((entry, index) => (
                 <TimelineNode
