@@ -22,9 +22,6 @@ tsconfig.tsbuildinfo
 # Dependency management
 # ========================
 
-# Bun: lock file and error log
-bun.lock
-
 # Dependencies
 node_modules
 
