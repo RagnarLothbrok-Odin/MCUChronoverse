@@ -84,6 +84,7 @@ const CARD_RENDER_ORDER_BASE = 1000;
 const SELECTED_CARD_RENDER_ORDER = 2000;
 const CARD_PLANE_GEOMETRY = new PlaneGeometry(1, 1);
 const CARD_HIT_MATERIAL = new MeshBasicMaterial({ visible: false });
+const POSTER_TEXTURE_WIDTH = 384;
 const CONTENT_TYPES = ["film", "one-shot", "series", "short", "special"] as const;
 const NODE_SPHERE_GEOMETRY = new SphereGeometry(0.11, 24, 24);
 const NORMAL_OUTER_RING_GEOMETRY = new TorusGeometry(0.32, 0.012, 8, 48);
@@ -516,7 +517,7 @@ function configureOverlayMesh(mesh: Mesh | null): void {
 }
 
 function getPosterTextureUrl(url: string): string {
-    return `/_next/image?url=${encodeURIComponent(url)}&w=256&q=75`;
+    return `/_next/image?url=${encodeURIComponent(url)}&w=${POSTER_TEXTURE_WIDTH}&q=75`;
 }
 
 function formatCardPlacement(placement: string): string {
