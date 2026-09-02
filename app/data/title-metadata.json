@@ -935,5 +935,187 @@
       "runtime": "1h 58m"
     },
     "status": "resolved"
+  },
+  "daredevil-season-1": {
+    "fetchedAt": "2026-09-02T16:37:08.626Z",
+    "requestedTitle": "Marvel's Daredevil Season 1",
+    "source": {
+      "description": "A blind lawyer by day, vigilante by night. Matt Murdock fights the crime of New York as Daredevil.",
+      "genres": ["action", "crime", "drama", "sciFi", "thriller"],
+      "imdbUrl": "https://www.imdb.com/title/tt3322312/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BODcwOTg2MDE3NF5BMl5BanBnXkFtZTgwNTUyNTY1NjM@._V1_.jpg",
+      "rating": 8.6,
+      "runtime": "1h"
+    },
+    "status": "resolved"
+  },
+  "jessica-jones-season-1": {
+    "fetchedAt": "2026-09-02T16:37:11.268Z",
+    "requestedTitle": "Marvel's Jessica Jones Season 1",
+    "source": {
+      "description": "Following the tragic end of her brief superhero career, Jessica Jones tries to rebuild her life as a private investigator, dealing with cases involving people with remarkable abilities in New York City.",
+      "genres": ["action", "crime", "drama", "sciFi", "thriller"],
+      "imdbUrl": "https://www.imdb.com/title/tt2357547/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BMDhhY2VlMWItMjM3Yi00MDc1LTlmYjctNjMzNDIxZjc5NGEwXkEyXkFqcGc@._V1_.jpg",
+      "rating": 7.8,
+      "runtime": "56m"
+    },
+    "status": "resolved"
+  },
+  "daredevil-season-2": {
+    "fetchedAt": "2026-09-02T16:37:12.839Z",
+    "requestedTitle": "Marvel's Daredevil Season 2",
+    "source": {
+      "description": "A blind lawyer by day, vigilante by night. Matt Murdock fights the crime of New York as Daredevil.",
+      "genres": ["action", "crime", "drama", "sciFi", "thriller"],
+      "imdbUrl": "https://www.imdb.com/title/tt3322312/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BODcwOTg2MDE3NF5BMl5BanBnXkFtZTgwNTUyNTY1NjM@._V1_.jpg",
+      "rating": 8.6,
+      "runtime": "1h"
+    },
+    "status": "resolved"
+  },
+  "luke-cage-season-1": {
+    "fetchedAt": "2026-09-02T16:37:15.100Z",
+    "requestedTitle": "Marvel's Luke Cage Season 1",
+    "source": {
+      "description": "When a sabotaged experiment gives him super strength and unbreakable skin, Luke Cage becomes a fugitive attempting to rebuild his life in Harlem and must confront his past and fight a battle for the heart of his city.",
+      "genres": ["action", "crime", "drama", "sciFi", "thriller"],
+      "imdbUrl": "https://www.imdb.com/title/tt3322314/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTcyMzc1MjI5MF5BMl5BanBnXkFtZTgwMzE4ODY2OTE@._V1_.jpg",
+      "rating": 7.2,
+      "runtime": "1h"
+    },
+    "status": "resolved"
+  },
+  "iron-fist-season-1": {
+    "fetchedAt": "2026-09-02T16:37:17.474Z",
+    "requestedTitle": "Marvel's Iron Fist Season 1",
+    "source": {
+      "description": "A young man is bestowed with incredible martial arts skills and a mystical force known as the Iron Fist.",
+      "genres": ["action", "adventure", "crime", "fantasy", "sciFi"],
+      "imdbUrl": "https://www.imdb.com/title/tt3322310/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BMjI5Mjg1NDcyOV5BMl5BanBnXkFtZTgwMjAxOTQ5MTI@._V1_.jpg",
+      "rating": 6.4,
+      "runtime": "1h"
+    },
+    "status": "resolved"
+  },
+  "the-defenders": {
+    "fetchedAt": "2026-09-02T16:37:19.431Z",
+    "requestedTitle": "Marvel's The Defenders",
+    "source": {
+      "description": "Set a few months after the events of the second season of Daredevil, and a month after the events of Iron Fist, the vigilantes Daredevil, Jessica Jones, Luke Cage, and Iron Fist team up in New York City to fight a common enemy: The Hand.",
+      "genres": ["action", "adventure", "crime", "fantasy", "sciFi"],
+      "imdbUrl": "https://www.imdb.com/title/tt4230076/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTUwMjA5NTg4MF5BMl5BanBnXkFtZTgwODUyODkwMzI@._V1_.jpg",
+      "rating": 7.2,
+      "runtime": "50m"
+    },
+    "status": "resolved"
+  },
+  "the-punisher-season-1": {
+    "fetchedAt": "2026-09-02T16:37:21.914Z",
+    "requestedTitle": "Marvel's The Punisher Season 1",
+    "source": {
+      "description": "After his revenge on those who murdered his family, aimless Marine veteran Frank Castle finds a new meaning in life as a vigilante known as \"The Punisher\".",
+      "genres": ["action", "crime", "drama", "thriller"],
+      "imdbUrl": "https://www.imdb.com/title/tt5675620/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BZTI2NDllMjgtOWEyYi00Y2YxLThhYjQtNTQ0NTgwNDE1YmYzXkEyXkFqcGc@._V1_.jpg",
+      "rating": 8.4,
+      "runtime": "1h"
+    },
+    "status": "resolved"
+  },
+  "jessica-jones-season-2": {
+    "fetchedAt": "2026-09-02T16:37:23.702Z",
+    "requestedTitle": "Marvel's Jessica Jones Season 2",
+    "source": {
+      "description": "Following the tragic end of her brief superhero career, Jessica Jones tries to rebuild her life as a private investigator, dealing with cases involving people with remarkable abilities in New York City.",
+      "genres": ["action", "crime", "drama", "sciFi", "thriller"],
+      "imdbUrl": "https://www.imdb.com/title/tt2357547/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BMDhhY2VlMWItMjM3Yi00MDc1LTlmYjctNjMzNDIxZjc5NGEwXkEyXkFqcGc@._V1_.jpg",
+      "rating": 7.8,
+      "runtime": "56m"
+    },
+    "status": "resolved"
+  },
+  "luke-cage-season-2": {
+    "fetchedAt": "2026-09-02T16:37:25.265Z",
+    "requestedTitle": "Marvel's Luke Cage Season 2",
+    "source": {
+      "description": "When a sabotaged experiment gives him super strength and unbreakable skin, Luke Cage becomes a fugitive attempting to rebuild his life in Harlem and must confront his past and fight a battle for the heart of his city.",
+      "genres": ["action", "crime", "drama", "sciFi", "thriller"],
+      "imdbUrl": "https://www.imdb.com/title/tt3322314/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTcyMzc1MjI5MF5BMl5BanBnXkFtZTgwMzE4ODY2OTE@._V1_.jpg",
+      "rating": 7.2,
+      "runtime": "1h"
+    },
+    "status": "resolved"
+  },
+  "iron-fist-season-2": {
+    "fetchedAt": "2026-09-02T16:37:26.837Z",
+    "requestedTitle": "Marvel's Iron Fist Season 2",
+    "source": {
+      "description": "A young man is bestowed with incredible martial arts skills and a mystical force known as the Iron Fist.",
+      "genres": ["action", "adventure", "crime", "fantasy", "sciFi"],
+      "imdbUrl": "https://www.imdb.com/title/tt3322310/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BMjI5Mjg1NDcyOV5BMl5BanBnXkFtZTgwMjAxOTQ5MTI@._V1_.jpg",
+      "rating": 6.4,
+      "runtime": "1h"
+    },
+    "status": "resolved"
+  },
+  "daredevil-season-3": {
+    "fetchedAt": "2026-09-02T16:37:28.448Z",
+    "requestedTitle": "Marvel's Daredevil Season 3",
+    "source": {
+      "description": "A blind lawyer by day, vigilante by night. Matt Murdock fights the crime of New York as Daredevil.",
+      "genres": ["action", "crime", "drama", "sciFi", "thriller"],
+      "imdbUrl": "https://www.imdb.com/title/tt3322312/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BODcwOTg2MDE3NF5BMl5BanBnXkFtZTgwNTUyNTY1NjM@._V1_.jpg",
+      "rating": 8.6,
+      "runtime": "1h"
+    },
+    "status": "resolved"
+  },
+  "the-punisher-season-2": {
+    "fetchedAt": "2026-09-02T16:37:30.156Z",
+    "requestedTitle": "Marvel's The Punisher Season 2",
+    "source": {
+      "description": "After his revenge on those who murdered his family, aimless Marine veteran Frank Castle finds a new meaning in life as a vigilante known as \"The Punisher\".",
+      "genres": ["action", "crime", "drama", "thriller"],
+      "imdbUrl": "https://www.imdb.com/title/tt5675620/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BZTI2NDllMjgtOWEyYi00Y2YxLThhYjQtNTQ0NTgwNDE1YmYzXkEyXkFqcGc@._V1_.jpg",
+      "rating": 8.4,
+      "runtime": "1h"
+    },
+    "status": "resolved"
+  },
+  "jessica-jones-season-3": {
+    "fetchedAt": "2026-09-02T16:37:31.709Z",
+    "requestedTitle": "Marvel's Jessica Jones Season 3",
+    "source": {
+      "description": "Following the tragic end of her brief superhero career, Jessica Jones tries to rebuild her life as a private investigator, dealing with cases involving people with remarkable abilities in New York City.",
+      "genres": ["action", "crime", "drama", "sciFi", "thriller"],
+      "imdbUrl": "https://www.imdb.com/title/tt2357547/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BMDhhY2VlMWItMjM3Yi00MDc1LTlmYjctNjMzNDIxZjc5NGEwXkEyXkFqcGc@._V1_.jpg",
+      "rating": 7.8,
+      "runtime": "56m"
+    },
+    "status": "resolved"
+  },
+  "werewolf-by-night": {
+    "fetchedAt": "2026-09-02T16:37:33.226Z",
+    "requestedTitle": "Werewolf by Night",
+    "source": {
+      "description": "Follows a lycanthrope superhero who fights evil using the abilities given to him by a curse brought on by his bloodline.",
+      "genres": ["action", "drama", "fantasy", "horror", "mystery", "thriller"],
+      "imdbUrl": "https://www.imdb.com/title/tt15318872/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BODUzMGFkYzgtYzhjNC00ZmFjLTg3ZTYtYWJkMWRjMzJmYTQ2XkEyXkFqcGc@._V1_.jpg",
+      "rating": 7.1,
+      "runtime": "52m"
+    },
+    "status": "resolved"
   }
 }
