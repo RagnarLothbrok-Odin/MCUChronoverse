@@ -12,13 +12,6 @@
 tsconfig.tsbuildinfo
 
 # ========================
-# IDEs and editors
-# ========================
-
-# JetBrains IDEs (e.g., WebStorm, IntelliJ)
-.idea/
-
-# ========================
 # Dependency management
 # ========================
 
@@ -30,3 +23,4 @@ node_modules
 # ========================
 
 .next
+next-env.d.ts
