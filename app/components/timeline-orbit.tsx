@@ -45,8 +45,13 @@ import {
     TorusGeometry,
     Vector3,
 } from "three";
+import { configureTextBuilder } from "troika-three-text";
 import type { TimelineEntry } from "../data/types";
 import { timelineNodePosition } from "../lib/timeline";
+
+// Troika's worker hydrates functions from strings, which strict production CSP deliberately blocks.
+// Main-thread typesetting remains asynchronous and only runs when card text changes.
+configureTextBuilder({ useWorker: false });
 
 const coreColours: Record<TimelineEntry["contentType"], string> = {
     film: "#ff5a4f",
