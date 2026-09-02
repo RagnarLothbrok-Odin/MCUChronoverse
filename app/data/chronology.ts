@@ -1,6 +1,19 @@
+import titleMetadata from "./title-metadata.json";
 import type { TimelineEntry } from "./types";
 
-export const chronology = [
+type EnrichedTimelineFields = Pick<
+    TimelineEntry,
+    "description" | "genres" | "imdbUrl" | "posterUrl" | "rating" | "runtime"
+>;
+
+interface TitleMetadataRecord {
+    source: EnrichedTimelineFields | null;
+    status: "failed" | "resolved";
+}
+
+const metadataBySlug = titleMetadata as Record<string, TitleMetadataRecord>;
+
+const curatedChronology = [
     {
         chronologyOrder: 10,
         contentType: "series",
@@ -1644,6 +1657,18 @@ export const chronology = [
         universe: "TBD",
     },
 ] satisfies readonly TimelineEntry[];
+
+export const chronology: readonly TimelineEntry[] = curatedChronology.map((entry) => {
+    const metadata = metadataBySlug[entry.slug];
+    if (metadata?.status !== "resolved" || !metadata.source) {
+        return entry;
+    }
+
+    return {
+        ...metadata.source,
+        ...entry,
+    };
+});
 
 export interface ChronologyIssue {
     message: string;
