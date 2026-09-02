@@ -44,6 +44,7 @@ values
     ('daredevil-season-3'),
     ('thor-ragnarok'),
     ('the-punisher-season-2'),
+    ('jessica-jones-season-3'),
     ('ant-man-and-the-wasp'),
     ('avengers-infinity-war'),
     ('avengers-endgame'),

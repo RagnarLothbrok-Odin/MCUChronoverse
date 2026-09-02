@@ -769,8 +769,25 @@ export const chronology = [
         title: "Marvel's The Punisher Season 2",
         universe: "Earth-616",
     },
+
     {
         chronologyOrder: 410,
+        contentType: "series",
+        description:
+            "Jessica Jones faces a calculating psychopath and confronts the cost of being a hero.",
+        imdbUrl: "https://www.imdb.com/title/tt2357547/",
+        phase: "Phase Three",
+        placement: "2018",
+        releaseDate: "2019-06-14",
+        runtime: "Season 3",
+        saga: "Infinity Saga",
+        slug: "jessica-jones-season-3",
+        status: "released",
+        title: "Marvel's Jessica Jones Season 3",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 420,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description: "Scott Lang and Hope Van Dyne uncover secrets from the past.",
@@ -790,7 +807,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 420,
+        chronologyOrder: 430,
         contentType: "film",
         creditScenes: { after: true, during: false },
         description:
@@ -811,7 +828,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 430,
+        chronologyOrder: 440,
         contentType: "film",
         creditScenes: { after: true, during: false },
         description:
@@ -832,7 +849,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 440,
+        chronologyOrder: 450,
         contentType: "series",
         description:
             "The mercurial villain Loki resumes his role as the God of Mischief in a new series that takes place after the events of “Avengers: Endgame.”",
@@ -852,7 +869,7 @@ export const chronology = [
         universe: "TVA / Multiverse",
     },
     {
-        chronologyOrder: 450,
+        chronologyOrder: 460,
         contentType: "series",
         description:
             "Exploring pivotal moments from the Marvel Cinematic Universe and turning them on their head, leading the audience into uncharted territory.",
@@ -872,7 +889,7 @@ export const chronology = [
         universe: "Multiverse",
     },
     {
-        chronologyOrder: 460,
+        chronologyOrder: 470,
         contentType: "series",
         description:
             "After the Avengers are overtaken by a zombie plague, a group of survivors discover the key to bringing an end to the super-powered undead, racing across a dystopian landscape and risking their lives to save their world.",
@@ -892,7 +909,7 @@ export const chronology = [
         universe: "Earth-89521",
     },
     {
-        chronologyOrder: 470,
+        chronologyOrder: 480,
         contentType: "series",
         description:
             "Blends the style of classic sitcoms with the MCU, in which Wanda Maximoff and Vision - two super-powered beings living their ideal suburban lives - begin to suspect that everything is not as it seems.",
@@ -912,7 +929,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 480,
+        chronologyOrder: 490,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -933,7 +950,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 490,
+        chronologyOrder: 500,
         contentType: "series",
         description:
             "Following the events of 'Avengers: Endgame,' Sam Wilson/Falcon and Bucky Barnes/Winter Soldier team up in a global adventure that tests their abilities -- and their patience.",
@@ -953,7 +970,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 500,
+        chronologyOrder: 510,
         contentType: "short",
         description:
             "On the eve of his departure to Europe, Peter Parker tells Ned Leeds that he has several things to do before they leave.",
@@ -973,7 +990,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 510,
+        chronologyOrder: 520,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -994,7 +1011,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 520,
+        chronologyOrder: 530,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1015,7 +1032,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 530,
+        chronologyOrder: 540,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1036,7 +1053,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 540,
+        chronologyOrder: 550,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1057,7 +1074,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 550,
+        chronologyOrder: 560,
         contentType: "series",
         description:
             "Clint Barton aka Hawkeye has the mission to get back to his family for Christmas. But when a threat from his past shows up, Hawkeye reluctantly teams up with Kate Bishop, a skilled archer and his biggest fan, to unravel a conspiracy.",
@@ -1077,7 +1094,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 560,
+        chronologyOrder: 570,
         contentType: "series",
         description:
             "Steven Grant discovers he's been granted the powers of an Egyptian moon god. But he soon finds out that these newfound powers can be both a blessing and a curse to his troubled life.",
@@ -1097,7 +1114,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 570,
+        chronologyOrder: 580,
         contentType: "film",
         creditScenes: { after: false, during: true },
         description: "Wakanda fights to protect its home as it mourns King T'Challa.",
@@ -1117,7 +1134,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 580,
+        chronologyOrder: 590,
         contentType: "series",
         description:
             "Maya Lopez must face her past, reconnect with her Native American roots, and embrace the meaning of family and community if she ever hopes to move forward.",
@@ -1137,7 +1154,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 590,
+        chronologyOrder: 600,
         contentType: "series",
         description:
             "Jennifer Walters navigates the complicated life of a single, 30-something attorney who also happens to be a green 6-foot-7-inch superpowered Hulk.",
@@ -1157,7 +1174,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 600,
+        chronologyOrder: 610,
         contentType: "series",
         description:
             "Kamala, a superhero fan with an imagination--particularly when it comes to Captain Marvel--feels like she doesn't fit in at school and sometimes even at home, that is until she gets superpowers like the heroes she admires.",
@@ -1177,7 +1194,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 610,
+        chronologyOrder: 620,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1198,7 +1215,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 620,
+        chronologyOrder: 630,
         contentType: "series",
         description:
             "Genius teenage inventor Riri Williams creates the most advanced suit of armor since Iron Man.",
@@ -1218,7 +1235,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 630,
+        chronologyOrder: 640,
         contentType: "special",
         description:
             "Star-Lord, Drax, Rocket, Mantis, and Groot engage in some spirited shenanigans in an all-new original special created for Disney+.",
@@ -1238,7 +1255,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 640,
+        chronologyOrder: 650,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1259,7 +1276,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 650,
+        chronologyOrder: 660,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1280,7 +1297,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 660,
+        chronologyOrder: 670,
         contentType: "series",
         description:
             "Fury and Talos try to stop the Skrulls who have infiltrated the highest spheres of the Marvel Universe.",
@@ -1300,7 +1317,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 670,
+        chronologyOrder: 680,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1321,7 +1338,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 680,
+        chronologyOrder: 690,
         contentType: "series",
         description:
             "The cast and crew of Loki: Season 2 pull back the curtain on Loki's latest MCU adventure.",
@@ -1341,7 +1358,7 @@ export const chronology = [
         universe: "TVA / Multiverse",
     },
     {
-        chronologyOrder: 690,
+        chronologyOrder: 700,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description: "Deadpool recruits Wolverine to save his universe from extinction.",
@@ -1361,7 +1378,7 @@ export const chronology = [
         universe: "Earth-10005 / Multiverse",
     },
     {
-        chronologyOrder: 700,
+        chronologyOrder: 710,
         contentType: "series",
         description:
             "A spell-bound Agatha Harkness regains freedom thanks to a teen's help. Intrigued by his plea, she embarks on the Witches' Road trials to reclaim her powers and discover the teen's motivations.",
@@ -1381,7 +1398,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 710,
+        chronologyOrder: 720,
         contentType: "series",
         description:
             "Matt Murdock finds himself on a collision course with Wilson Fisk when their past identities begin to emerge.",
@@ -1401,7 +1418,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 720,
+        chronologyOrder: 730,
         contentType: "film",
         creditScenes: { after: true, during: false },
         description:
@@ -1422,7 +1439,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 730,
+        chronologyOrder: 740,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1443,7 +1460,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 740,
+        chronologyOrder: 750,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1464,7 +1481,7 @@ export const chronology = [
         universe: "Earth-828",
     },
     {
-        chronologyOrder: 750,
+        chronologyOrder: 760,
         contentType: "series",
         description:
             "Small-time actor Simon Williams struggles to reckon with his personal life while hiding his super-powers as he tries to land his dream role. Meanwhile, a shady government agent leverages a new friendship in order to save his own job.",
@@ -1484,7 +1501,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 760,
+        chronologyOrder: 770,
         contentType: "series",
         description:
             "Matt Murdock finds himself on a collision course with Wilson Fisk when their past identities begin to emerge.",
@@ -1504,7 +1521,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 770,
+        chronologyOrder: 780,
         contentType: "special",
         description:
             "Frank Castle is drawn back into a brutal fight after years away from violence.",
@@ -1524,7 +1541,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 780,
+        chronologyOrder: 790,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1545,7 +1562,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 790,
+        chronologyOrder: 800,
         contentType: "series",
         description:
             "Vision is faced with many challenges while trying to regain his memory and humanity.",
@@ -1565,7 +1582,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 800,
+        chronologyOrder: 810,
         contentType: "film",
         description:
             "Heroes from three different worlds must unite when they're thrust together to confront a catastrophic danger that could destroy everything they know.",
@@ -1585,7 +1602,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 810,
+        chronologyOrder: 820,
         contentType: "film",
         description: "Plot Under Wraps",
         genres: ["action", "adventure", "sciFi"],
