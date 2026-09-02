@@ -1,101 +1,3 @@
-create table if not exists public.timeline_entries (
-    slug text primary key check (char_length(slug) between 1 and 160)
-);
-
-insert into public.timeline_entries (slug)
-values
-    ('eyes-of-wakanda'),
-    ('captain-america-the-first-avenger'),
-    ('agent-carter-one-shot'),
-    ('agent-carter'),
-    ('captain-marvel'),
-    ('iron-man'),
-    ('iron-man-2'),
-    ('the-incredible-hulk'),
-    ('a-funny-thing-happened-on-the-way-to-thors-hammer'),
-    ('thor'),
-    ('the-consultant'),
-    ('the-avengers'),
-    ('item-47'),
-    ('thor-the-dark-world'),
-    ('iron-man-3'),
-    ('all-hail-the-king'),
-    ('captain-america-the-winter-soldier'),
-    ('guardians-of-the-galaxy'),
-    ('guardians-of-the-galaxy-vol-2'),
-    ('i-am-groot-season-1'),
-    ('i-am-groot-season-2'),
-    ('daredevil-season-1'),
-    ('jessica-jones-season-1'),
-    ('avengers-age-of-ultron'),
-    ('ant-man'),
-    ('daredevil-season-2'),
-    ('luke-cage-season-1'),
-    ('iron-fist-season-1'),
-    ('captain-america-civil-war'),
-    ('black-widow'),
-    ('black-panther'),
-    ('the-defenders'),
-    ('spider-man-homecoming'),
-    ('doctor-strange'),
-    ('the-punisher-season-1'),
-    ('jessica-jones-season-2'),
-    ('luke-cage-season-2'),
-    ('iron-fist-season-2'),
-    ('daredevil-season-3'),
-    ('thor-ragnarok'),
-    ('the-punisher-season-2'),
-    ('jessica-jones-season-3'),
-    ('ant-man-and-the-wasp'),
-    ('avengers-infinity-war'),
-    ('avengers-endgame'),
-    ('loki-season-1'),
-    ('what-if-season-1'),
-    ('marvel-zombies'),
-    ('wandavision'),
-    ('shang-chi-and-the-legend-of-the-ten-rings'),
-    ('the-falcon-and-the-winter-soldier'),
-    ('peters-to-do-list'),
-    ('spider-man-far-from-home'),
-    ('eternals'),
-    ('spider-man-no-way-home'),
-    ('doctor-strange-in-the-multiverse-of-madness'),
-    ('hawkeye'),
-    ('moon-knight'),
-    ('black-panther-wakanda-forever'),
-    ('echo'),
-    ('she-hulk-attorney-at-law'),
-    ('ms-marvel'),
-    ('thor-love-and-thunder'),
-    ('ironheart'),
-    ('werewolf-by-night'),
-    ('the-guardians-of-the-galaxy-holiday-special'),
-    ('ant-man-and-the-wasp-quantumania'),
-    ('the-guardians-of-the-galaxy-vol-3'),
-    ('secret-invasion'),
-    ('the-marvels'),
-    ('loki-season-2'),
-    ('what-if-season-2'),
-    ('deadpool-and-wolverine'),
-    ('agatha-all-along'),
-    ('what-if-season-3'),
-    ('daredevil-born-again-season-1'),
-    ('captain-america-brave-new-world'),
-    ('thunderbolts'),
-    ('the-fantastic-four-first-steps'),
-    ('wonder-man'),
-    ('daredevil-born-again-season-2'),
-    ('the-punisher-one-last-kill'),
-    ('spider-man-brand-new-day'),
-    ('visionquest'),
-    ('avengers-doomsday'),
-    ('avengers-secret-wars')
-on conflict (slug) do nothing;
-
-alter table public.timeline_entries enable row level security;
-
-revoke all on table public.timeline_entries from public, anon, authenticated;
-
 create table if not exists public.watch_progress (
     user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
     entry_slug text not null check (char_length(entry_slug) between 1 and 160),
@@ -105,24 +7,10 @@ create table if not exists public.watch_progress (
 
 alter table public.watch_progress alter column user_id set default auth.uid();
 
-do $$
-begin
-    if not exists (
-        select 1
-        from pg_constraint
-        where conname = 'watch_progress_entry_slug_fkey'
-            and conrelid = 'public.watch_progress'::regclass
-    ) then
-        alter table public.watch_progress
-            add constraint watch_progress_entry_slug_fkey
-            foreign key (entry_slug)
-            references public.timeline_entries(slug)
-            on update cascade
-            on delete restrict
-            not valid;
-    end if;
-end
-$$;
+alter table public.watch_progress
+    drop constraint if exists watch_progress_entry_slug_fkey;
+
+drop table if exists public.timeline_entries;
 
 with split_entry_slugs (old_slug, new_slug) as (
     select *

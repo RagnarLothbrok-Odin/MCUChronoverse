@@ -1,16 +1,15 @@
 import { describe, expect, test } from "bun:test";
 import { readFile } from "node:fs/promises";
-import { chronology } from "../data/chronology";
-
-const timelineValuePattern = /^\s*\('([^']+)'\),?$/gm;
 
 describe("database schema", () => {
-    test("keeps the timeline entry allowlist synchronized with chronology", async () => {
+    test("stores watch progress without duplicating the chronology catalogue", async () => {
         const schemaUrl = new URL("../../supabase/schema.sql", import.meta.url);
         const schema = await readFile(schemaUrl, "utf8");
-        const databaseSlugs = [...schema.matchAll(timelineValuePattern)].map((match) => match[1]);
-        const chronologySlugs = chronology.map((entry) => entry.slug);
 
-        expect(databaseSlugs.sort()).toEqual(chronologySlugs.sort());
+        expect(schema).not.toContain("create table if not exists public.timeline_entries");
+        expect(schema).toContain(
+            "entry_slug text not null check (char_length(entry_slug) between 1 and 160)"
+        );
+        expect(schema).toContain("drop constraint if exists watch_progress_entry_slug_fkey");
     });
 });
