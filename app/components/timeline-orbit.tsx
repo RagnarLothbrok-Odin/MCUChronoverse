@@ -1,7 +1,6 @@
 "use client";
 
 import {
-    Billboard,
     Image as DreiImage,
     OrbitControls,
     PerformanceMonitor,
@@ -12,6 +11,7 @@ import {
 } from "@react-three/drei";
 import { Canvas, type ThreeEvent, useFrame, useThree } from "@react-three/fiber";
 import {
+    type RefCallback,
     Suspense,
     useCallback,
     useEffect,
@@ -29,7 +29,7 @@ import {
     type Curve,
     DynamicDrawUsage,
     Euler,
-    Group,
+    type Group,
     type InstancedMesh,
     LineCurve3,
     type Material,
@@ -588,15 +588,26 @@ interface TimelineOrbitProps {
 }
 
 interface TimelineNodeProps {
-    active: boolean;
+    billboardRef: RefCallback<Group>;
+    cardRef: RefCallback<Group>;
     count: number;
     entry: TimelineEntry;
+    highlighted: boolean;
     index: number;
-    onSelect: (slug: string) => void;
-    selected: boolean;
+    onCardPointerOut: (event: ThreeEvent<PointerEvent>) => void;
+    onCardPointerOver: (event: ThreeEvent<PointerEvent>) => void;
+    onCardSelect: (event: ThreeEvent<MouseEvent>) => void;
 }
 
-interface TimelinePosterCardProps extends TimelineNodeProps {}
+interface TimelinePosterCardProps {
+    billboardRef: RefCallback<Group>;
+    cardRef: RefCallback<Group>;
+    entry: TimelineEntry;
+    highlighted: boolean;
+    onPointerOut: (event: ThreeEvent<PointerEvent>) => void;
+    onPointerOver: (event: ThreeEvent<PointerEvent>) => void;
+    onSelect: (event: ThreeEvent<MouseEvent>) => void;
+}
 
 function PosterArtwork({
     entry,
@@ -655,11 +666,15 @@ function PosterFallback({
     );
 }
 
-function TimelinePosterCard({ active, entry, onSelect, selected }: TimelinePosterCardProps) {
-    const cardRef = useRef(new Group());
-    const cardWorldPosition = useRef(new Vector3());
-    const [hovered, setHovered] = useState(false);
-    const highlighted = active || hovered || selected;
+function TimelinePosterCard({
+    billboardRef,
+    cardRef,
+    entry,
+    highlighted,
+    onPointerOut,
+    onPointerOver,
+    onSelect,
+}: TimelinePosterCardProps) {
     const formattedPlacement = formatCardPlacement(entry.placement);
     const formattedTitle = formatCardTitle(entry.title);
     const placementLineCount = formattedPlacement.split("\n").length;
@@ -672,59 +687,17 @@ function TimelinePosterCard({ active, entry, onSelect, selected }: TimelinePoste
     const placementTop = metaTop - META_ROW_STEP;
     const titleTop = placementTop - TITLE_ROW_STEP - additionalPlacementHeight;
     const renderOrder = 100;
-    const handleSelect = useCallback(
-        (event: { stopPropagation: () => void }) => {
-            event.stopPropagation();
-            onSelect(entry.slug);
-        },
-        [entry.slug, onSelect]
-    );
-    const handlePointerOver = useCallback((event: { stopPropagation: () => void }) => {
-        event.stopPropagation();
-        setHovered(true);
-    }, []);
-    const handlePointerOut = useCallback((event: { stopPropagation: () => void }) => {
-        event.stopPropagation();
-        setHovered(false);
-    }, []);
-    useCursor(hovered);
-
-    useFrame(({ camera, invalidate }, delta) => {
-        const card = cardRef.current;
-        let targetScale = 1;
-        if (selected) {
-            targetScale = 1.07;
-        } else if (highlighted) {
-            targetScale = 1.04;
-        }
-        const targetOffsetY = highlighted ? 0.04 : 0;
-        const nextScale = MathUtils.damp(card.scale.x, targetScale, 14, delta);
-        const nextOffsetY = MathUtils.damp(card.position.y, targetOffsetY, 14, delta);
-        card.scale.setScalar(nextScale);
-        card.position.y = nextOffsetY;
-        card.getWorldPosition(cardWorldPosition.current);
-        cardWorldPosition.current.applyMatrix4(camera.matrixWorldInverse);
-        card.renderOrder = selected
-            ? SELECTED_CARD_RENDER_ORDER
-            : CARD_RENDER_ORDER_BASE + cardWorldPosition.current.z;
-        if (
-            Math.abs(nextScale - targetScale) > 0.001 ||
-            Math.abs(nextOffsetY - targetOffsetY) > 0.001
-        ) {
-            invalidate();
-        }
-    });
-
     return (
-        <Billboard position={[0, cardHeight / 2 + CARD_GAP_FROM_ORB, 0]}>
+        <group position={[0, cardHeight / 2 + CARD_GAP_FROM_ORB, 0]} ref={billboardRef}>
             <group ref={cardRef} renderOrder={CARD_RENDER_ORDER_BASE}>
                 {/* biome-ignore lint/a11y/noStaticElementInteractions: The hidden mesh is the card's scene hit target. */}
                 <mesh
-                    onClick={handleSelect}
-                    onPointerOut={handlePointerOut}
-                    onPointerOver={handlePointerOver}
+                    onClick={onSelect}
+                    onPointerOut={onPointerOut}
+                    onPointerOver={onPointerOver}
                     position={[0, 0, 0.04]}
                     scale={[CARD_WIDTH, cardHeight, 1]}
+                    userData={{ timelineSlug: entry.slug }}
                     visible={false}
                 >
                     <primitive attach="geometry" object={CARD_PLANE_GEOMETRY} />
@@ -828,7 +801,7 @@ function TimelinePosterCard({ active, entry, onSelect, selected }: TimelinePoste
                     {formattedTitle}
                 </Text>
             </group>
-        </Billboard>
+        </group>
     );
 }
 
@@ -1091,22 +1064,148 @@ function InstancedTimelineNodes({
     );
 }
 
-// Cards remain individual billboards while their orbs and rings are rendered in shared batches.
-function TimelineNode({ active, count, entry, index, onSelect, selected }: TimelineNodeProps) {
+// Cards remain individual GPU layers while one controller batches their billboard transforms.
+function TimelineNode({
+    billboardRef,
+    cardRef,
+    count,
+    entry,
+    highlighted,
+    index,
+    onCardPointerOut,
+    onCardPointerOver,
+    onCardSelect,
+}: TimelineNodeProps) {
     const position = timelineNodePosition(index, count);
 
     return (
         <group position={[position.x, position.y, position.z]}>
             <TimelinePosterCard
-                active={active}
-                count={count}
+                billboardRef={billboardRef}
+                cardRef={cardRef}
                 entry={entry}
-                index={index}
-                onSelect={onSelect}
-                selected={selected}
+                highlighted={highlighted}
+                onPointerOut={onCardPointerOut}
+                onPointerOver={onCardPointerOver}
+                onSelect={onCardSelect}
             />
         </group>
     );
+}
+
+interface TimelineCardRegistration {
+    billboardRef: RefCallback<Group>;
+    cardRef: RefCallback<Group>;
+    worldPosition: Vector3;
+}
+
+interface TimelineCardsProps {
+    entries: readonly TimelineEntry[];
+    focusIndex: number;
+    onSelect: (slug: string) => void;
+    selectedSlug?: string;
+}
+
+function TimelineCards({ entries, focusIndex, onSelect, selectedSlug }: TimelineCardsProps) {
+    const [hoveredSlug, setHoveredSlug] = useState<string>();
+    const billboardRefs = useRef<Array<Group | null>>([]);
+    const cardRefs = useRef<Array<Group | null>>([]);
+    useCursor(Boolean(hoveredSlug));
+    const registrations = useMemo<TimelineCardRegistration[]>(
+        () =>
+            Array.from({ length: entries.length }, (_, index) => ({
+                billboardRef: (group) => {
+                    billboardRefs.current[index] = group;
+                },
+                cardRef: (group) => {
+                    cardRefs.current[index] = group;
+                },
+                worldPosition: new Vector3(),
+            })),
+        [entries.length]
+    );
+    const handleSelect = useCallback(
+        (event: ThreeEvent<MouseEvent>) => {
+            const slug = event.object.userData.timelineSlug;
+            if (typeof slug !== "string") {
+                return;
+            }
+            event.stopPropagation();
+            onSelect(slug);
+        },
+        [onSelect]
+    );
+    const handlePointerOver = useCallback((event: ThreeEvent<PointerEvent>) => {
+        const slug = event.object.userData.timelineSlug;
+        if (typeof slug !== "string") {
+            return;
+        }
+        event.stopPropagation();
+        setHoveredSlug(slug);
+    }, []);
+    const handlePointerOut = useCallback((event: ThreeEvent<PointerEvent>) => {
+        const slug = event.object.userData.timelineSlug;
+        if (typeof slug !== "string") {
+            return;
+        }
+        event.stopPropagation();
+        setHoveredSlug((current) => (current === slug ? undefined : current));
+    }, []);
+
+    useFrame(({ camera, invalidate }, delta) => {
+        let animationMoving = false;
+        entries.forEach((entry, index) => {
+            const billboard = billboardRefs.current[index];
+            const card = cardRefs.current[index];
+            if (!(billboard && card)) {
+                return;
+            }
+            billboard.quaternion.copy(camera.quaternion);
+            const selected = selectedSlug === entry.slug;
+            const highlighted = selected || focusIndex === index || hoveredSlug === entry.slug;
+            let targetScale = 1;
+            if (selected) {
+                targetScale = 1.07;
+            } else if (highlighted) {
+                targetScale = 1.04;
+            }
+            const targetOffsetY = highlighted ? 0.04 : 0;
+            const nextScale = MathUtils.damp(card.scale.x, targetScale, 14, delta);
+            const nextOffsetY = MathUtils.damp(card.position.y, targetOffsetY, 14, delta);
+            card.scale.setScalar(nextScale);
+            card.position.y = nextOffsetY;
+            card.getWorldPosition(registrations[index].worldPosition);
+            registrations[index].worldPosition.applyMatrix4(camera.matrixWorldInverse);
+            card.renderOrder = selected
+                ? SELECTED_CARD_RENDER_ORDER
+                : CARD_RENDER_ORDER_BASE + registrations[index].worldPosition.z;
+            animationMoving ||=
+                Math.abs(nextScale - targetScale) > 0.001 ||
+                Math.abs(nextOffsetY - targetOffsetY) > 0.001;
+        });
+        if (animationMoving) {
+            invalidate();
+        }
+    });
+
+    return entries.map((entry, index) => {
+        const selected = selectedSlug === entry.slug;
+        const highlighted = selected || focusIndex === index || hoveredSlug === entry.slug;
+        return (
+            <TimelineNode
+                billboardRef={registrations[index].billboardRef}
+                cardRef={registrations[index].cardRef}
+                count={entries.length}
+                entry={entry}
+                highlighted={highlighted}
+                index={index}
+                key={entry.slug}
+                onCardPointerOut={handlePointerOut}
+                onCardPointerOver={handlePointerOver}
+                onCardSelect={handleSelect}
+            />
+        );
+    });
 }
 
 interface TargetableControls {
@@ -1556,17 +1655,12 @@ function TimelineScene({
                 onSelect={onSelect}
                 selectedSlug={selectedSlug}
             />
-            {entries.map((entry, index) => (
-                <TimelineNode
-                    active={index === focusIndex}
-                    count={entries.length}
-                    entry={entry}
-                    index={index}
-                    key={entry.slug}
-                    onSelect={onSelect}
-                    selected={selectedSlug === entry.slug}
-                />
-            ))}
+            <TimelineCards
+                entries={entries}
+                focusIndex={focusIndex}
+                onSelect={onSelect}
+                selectedSlug={selectedSlug}
+            />
             <OrbitControls
                 dampingFactor={0.075}
                 enableDamping
