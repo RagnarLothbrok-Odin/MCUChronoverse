@@ -3,6 +3,7 @@
 import { resolve } from "node:path";
 import { getTitleDetailsByIMDBId, getTitleDetailsByName, type ITitle } from "@valhalladev/movier";
 import { curatedChronology } from "../app/data/chronology";
+import { isMetadataCacheRecordStale } from "../app/data/metadata-freshness";
 import { log } from "../app/lib/console";
 
 interface CacheRecord {
@@ -98,10 +99,15 @@ let skipped = 0;
 let failed = 0;
 
 for (const entry of curatedChronology) {
-    if (!refresh && cache[entry.slug]?.status === "resolved") {
+    const cachedEntry = cache[entry.slug];
+    if (!refresh && !isMetadataCacheRecordStale(cachedEntry)) {
         skipped += 1;
-        log.info(`Skipping ${entry.title}, already cached.`);
+        log.info(`Skipping ${entry.title}, cached metadata is current.`);
         continue;
+    }
+
+    if (!refresh && cachedEntry) {
+        log.info(`Refreshing ${entry.title}, cached metadata is stale or unresolved.`);
     }
 
     try {
