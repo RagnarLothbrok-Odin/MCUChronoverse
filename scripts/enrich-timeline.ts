@@ -135,3 +135,15 @@ for (const entry of chronology) {
 
 log.info(`Finished. Resolved: ${resolved}, skipped: ${skipped}, failed: ${failed}.`);
 log.info(`Cached metadata: ${cachePath}`);
+
+log.info("Checking enriched data with the project lint command.");
+// biome-ignore lint/correctness/noUndeclaredVariables: This script runs in the Bun runtime.
+const lintProcess = Bun.spawn(["bun", "run", "lint:fix"], {
+    stderr: "inherit",
+    stdin: "inherit",
+    stdout: "inherit",
+});
+const lintExitCode = await lintProcess.exited;
+if (lintExitCode !== 0) {
+    process.exit(lintExitCode);
+}
