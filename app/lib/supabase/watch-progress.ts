@@ -14,9 +14,13 @@ export async function readRemoteWatchProgress(userId: string) {
 
 export async function setRemoteWatchStatus(userId: string, slug: string, watched: boolean) {
     const query = watched
-        ? createClient()
-              .from("watch_progress")
-              .upsert({ entry_slug: slug, user_id: userId }, { onConflict: "user_id,entry_slug" })
+        ? createClient().from("watch_progress").upsert(
+              { entry_slug: slug },
+              {
+                  ignoreDuplicates: true,
+                  onConflict: "user_id,entry_slug",
+              }
+          )
         : createClient()
               .from("watch_progress")
               .delete()
