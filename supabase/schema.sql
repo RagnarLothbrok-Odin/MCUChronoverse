@@ -124,6 +124,29 @@ begin
 end
 $$;
 
+with split_entry_slugs (old_slug, new_slug) as (
+    select *
+    from unnest(
+        array['i-am-groot', 'i-am-groot', 'what-if', 'what-if'],
+        array[
+            'i-am-groot-season-1',
+            'i-am-groot-season-2',
+            'what-if-season-1',
+            'what-if-season-2'
+        ]
+    )
+    union all
+    select 'what-if', 'what-if-season-3'
+)
+insert into public.watch_progress (user_id, entry_slug, watched_at)
+select progress.user_id, split_entry_slugs.new_slug, progress.watched_at
+from public.watch_progress as progress
+join split_entry_slugs on split_entry_slugs.old_slug = progress.entry_slug
+on conflict (user_id, entry_slug) do nothing;
+
+delete from public.watch_progress
+where entry_slug = any (array['i-am-groot', 'what-if']);
+
 alter table public.watch_progress enable row level security;
 
 revoke all on table public.watch_progress from public, anon, authenticated;

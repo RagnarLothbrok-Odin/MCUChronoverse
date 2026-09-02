@@ -13,11 +13,16 @@ interface LegacyOwnedSnapshot {
     version: 1;
 }
 
+const splitEntrySlugs: Record<string, readonly string[]> = {
+    "i-am-groot": ["i-am-groot-season-1", "i-am-groot-season-2"],
+    "what-if": ["what-if-season-1", "what-if-season-2", "what-if-season-3"],
+};
+
 function uniqueStrings(value: unknown) {
     if (!(Array.isArray(value) && value.every((item) => typeof item === "string"))) {
         return null;
     }
-    return [...new Set(value)];
+    return [...new Set(value.flatMap((slug) => splitEntrySlugs[slug] ?? slug))];
 }
 
 function parseAccounts(value: unknown) {

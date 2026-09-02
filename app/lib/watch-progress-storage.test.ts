@@ -16,6 +16,26 @@ describe("watch progress storage", () => {
         });
     });
 
+    test("expands watched entries that were split into seasons", () => {
+        const store = parseWatchProgressStore(
+            JSON.stringify({
+                accounts: { "user-a": ["what-if"] },
+                anonymousSlugs: ["i-am-groot"],
+                version: 2,
+            })
+        );
+
+        expect(readScopedProgress(store, null)).toEqual([
+            "i-am-groot-season-1",
+            "i-am-groot-season-2",
+        ]);
+        expect(readScopedProgress(store, "user-a")).toEqual([
+            "what-if-season-1",
+            "what-if-season-2",
+            "what-if-season-3",
+        ]);
+    });
+
     test("migrates the owner snapshot without exposing it while signed out", () => {
         const store = parseWatchProgressStore(
             JSON.stringify({ ownerId: "user-a", slugs: ["iron-man", "thor"], version: 1 })
