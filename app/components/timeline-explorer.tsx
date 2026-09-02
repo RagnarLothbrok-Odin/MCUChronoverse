@@ -36,8 +36,6 @@ import { AuthMenu } from "./auth-menu";
 import { UiIcon } from "./ui-icon";
 import { WatchProgressMenu } from "./watch-progress-menu";
 
-const imdbIdPattern = /tt\d+/;
-
 const TimelineOrbit = dynamic(
     () => import("./timeline-orbit").then((module) => module.TimelineOrbit),
     {
@@ -264,7 +262,7 @@ function TimelineDetail({ entry, onClose, onToggleWatched, watched }: TimelineDe
                                 </a>
                                 <a
                                     className="focus-ring timeline-detail-imdb timeline-detail-trakt"
-                                    href={`https://app.trakt.tv/search/imdb/${entry.imdbUrl.match(imdbIdPattern)?.[0] ?? ""}`}
+                                    href={entry.traktUrl ?? "#"}
                                     rel="noreferrer"
                                     target="_blank"
                                 >

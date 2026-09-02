@@ -1,6 +1,6 @@
 {
   "eyes-of-wakanda": {
-    "fetchedAt": "2026-09-02T16:54:44.317Z",
+    "fetchedAt": "2026-09-02T19:01:12.463Z",
     "requestedTitle": "Eyes of Wakanda",
     "source": {
       "description": "Wakandan warriors who, throughout history, have traveled the world to retrieve dangerous vibranium artifacts.",
@@ -8,12 +8,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt13968252/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BZjhhOTE5ODgtNDFjOS00ZTdlLTgzYjAtNGU1NmM4YzkwYWMxXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.2,
-      "runtime": "30m"
+      "runtime": "30m",
+      "traktUrl": "https://app.trakt.tv/shows/eyes-of-wakanda"
     },
     "status": "resolved"
   },
   "captain-america-the-first-avenger": {
-    "fetchedAt": "2026-09-02T16:54:47.191Z",
+    "fetchedAt": "2026-09-02T19:01:15.570Z",
     "requestedTitle": "Captain America: The First Avenger",
     "source": {
       "description": "Steve Rogers, a rejected military soldier, transforms into Captain America after taking a dose of a \"Super-Soldier serum\". But being Captain America comes at a price as he attempts to take down a warmonger and a terrorist organization.",
@@ -21,12 +22,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt0458339/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNzUyM2YyY2MtNzNlMS00MWU5LTgxNjAtNzZlNmI2NjU2NDZlXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.9,
-      "runtime": "2h 4m"
+      "runtime": "2h 4m",
+      "traktUrl": "https://app.trakt.tv/movies/captain-america-the-first-avenger-2011"
     },
     "status": "resolved"
   },
   "agent-carter-one-shot": {
-    "fetchedAt": "2026-09-02T16:54:48.465Z",
+    "fetchedAt": "2026-09-02T19:01:17.932Z",
     "requestedTitle": "Agent Carter",
     "source": {
       "description": "Agent Carter seeks the enigmatic \"Zodiac\" and also battles her misogynistic, bureaucratic boss. Frustrated at being marginalized at work, Peggy Carter goes on an unauthorized solo field mission.",
@@ -42,12 +44,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3067038/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNzVmNmUyZTctM2VlNy00M2QzLWIwZmUtMTcxYjRhYjYzMGYxXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.4,
-      "runtime": "15m"
+      "runtime": "15m",
+      "traktUrl": "https://app.trakt.tv/movies/marvel-one-shot-agent-carter-2013"
     },
     "status": "resolved"
   },
   "agent-carter": {
-    "fetchedAt": "2026-09-02T16:54:50.574Z",
+    "fetchedAt": "2026-09-02T19:01:21.212Z",
     "requestedTitle": "Marvel's Agent Carter",
     "source": {
       "description": "In 1946, Peggy Carter is relegated to secretarial duties in the Strategic Scientific Reserve (SSR). When Howard Stark is accused of treason, he secretly recruits Peggy to clear his name with the help of his butler, Edwin Jarvis.",
@@ -55,12 +58,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3475734/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMzk0MzkxODMwOV5BMl5BanBnXkFtZTgwMjQzODE4NzE@._V1_.jpg",
       "rating": 7.8,
-      "runtime": "45m"
+      "runtime": "45m",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-agent-carter"
     },
     "status": "resolved"
   },
   "the-fantastic-four-first-steps": {
-    "fetchedAt": "2026-09-02T16:57:38.811Z",
+    "fetchedAt": "2026-09-02T19:05:10.829Z",
     "requestedTitle": "The Fantastic Four: First Steps",
     "source": {
       "description": "Forced to balance their roles as heroes with the strength of their family bond, the Fantastic Four must defend Earth from a ravenous space god called Galactus and his enigmatic herald, the Silver Surfer.",
@@ -68,12 +72,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt10676052/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BOGM5MzA3MDAtYmEwMi00ZDNiLTg4MDgtMTZjOTc0ZGMyNTIwXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.8,
-      "runtime": "1h 55m"
+      "runtime": "1h 55m",
+      "traktUrl": "https://app.trakt.tv/movies/the-fantastic-4-first-steps-2025"
     },
     "status": "resolved"
   },
   "captain-marvel": {
-    "fetchedAt": "2026-09-02T16:54:53.317Z",
+    "fetchedAt": "2026-09-02T19:01:24.883Z",
     "requestedTitle": "Captain Marvel",
     "source": {
       "description": "Carol Danvers becomes one of the universe's most powerful heroes when Earth is caught in the middle of a galactic war between two alien races.",
@@ -81,12 +86,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt4154664/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BZDI1NGU2ODAtNzBiNy00MWY5LWIyMGEtZjUxZjUwZmZiNjBlXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.7,
-      "runtime": "2h 3m"
+      "runtime": "2h 3m",
+      "traktUrl": "https://app.trakt.tv/movies/captain-marvel-2019"
     },
     "status": "resolved"
   },
   "iron-man": {
-    "fetchedAt": "2026-09-02T16:54:56.354Z",
+    "fetchedAt": "2026-09-02T19:01:29.226Z",
     "requestedTitle": "Iron Man",
     "source": {
       "description": "After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.",
@@ -94,12 +100,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt0371746/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_.jpg",
       "rating": 7.9,
-      "runtime": "2h 6m"
+      "runtime": "2h 6m",
+      "traktUrl": "https://app.trakt.tv/movies/iron-man-2008"
     },
     "status": "resolved"
   },
   "iron-man-2": {
-    "fetchedAt": "2026-09-02T16:54:59.689Z",
+    "fetchedAt": "2026-09-02T19:01:33.189Z",
     "requestedTitle": "Iron Man 2",
     "source": {
       "description": "With the world now aware of his identity as Iron Man, Tony Stark must contend with both his declining health and a vengeful madman with ties to his father's legacy.",
@@ -107,12 +114,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt1228705/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BYWYyOGQzOGYtMGQ1My00ZWYxLTgzZjktZWYzN2IwYjkxYzM0XkEyXkFqcGc@._V1_.jpg",
       "rating": 6.9,
-      "runtime": "2h 4m"
+      "runtime": "2h 4m",
+      "traktUrl": "https://app.trakt.tv/movies/iron-man-2-2010"
     },
     "status": "resolved"
   },
   "the-incredible-hulk": {
-    "fetchedAt": "2026-09-02T16:55:02.630Z",
+    "fetchedAt": "2026-09-02T19:01:37.201Z",
     "requestedTitle": "The Incredible Hulk",
     "source": {
       "description": "Bruce Banner, a scientist on the run from the U.S. Government, must find a cure for the monster he turns into whenever he loses his temper.",
@@ -120,12 +128,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt0800080/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTUyNzk3MjA1OF5BMl5BanBnXkFtZTcwMTE1Njg2MQ@@._V1_.jpg",
       "rating": 6.6,
-      "runtime": "1h 52m"
+      "runtime": "1h 52m",
+      "traktUrl": "https://app.trakt.tv/movies/the-incredible-hulk-2008"
     },
     "status": "resolved"
   },
   "a-funny-thing-happened-on-the-way-to-thors-hammer": {
-    "fetchedAt": "2026-09-02T16:55:03.674Z",
+    "fetchedAt": "2026-09-02T19:01:39.139Z",
     "requestedTitle": "A Funny Thing Happened on the Way to Thor's Hammer",
     "source": {
       "description": "Agent Coulson stops at a convenience store and deals with a coincidental robbery during his visit.",
@@ -133,12 +142,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt2011109/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNGQ4MmMxOTAtZDY5Yi00YjBmLThiMGEtYzc0MDA1YzI2NzI5XkEyXkFqcGc@._V1_.jpg",
       "rating": 7,
-      "runtime": "4m"
+      "runtime": "4m",
+      "traktUrl": "https://app.trakt.tv/movies/marvel-one-shot-a-funny-thing-happened-on-the-way-to-thor-s-hammer-2011"
     },
     "status": "resolved"
   },
   "thor": {
-    "fetchedAt": "2026-09-02T16:55:06.412Z",
+    "fetchedAt": "2026-09-02T19:01:43.078Z",
     "requestedTitle": "Thor",
     "source": {
       "description": "The powerful but arrogant god Thor is cast out of Asgard to live amongst humans in Midgard (Earth), where he soon becomes one of their finest defenders.",
@@ -146,25 +156,27 @@
       "imdbUrl": "https://www.imdb.com/title/tt0800369/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNjRhNGZjZjEtYTQzYS00OWUxLThjNGEtMTIwMTE2ZDFlZTZkXkEyXkFqcGc@._V1_.jpg",
       "rating": 7,
-      "runtime": "1h 55m"
+      "runtime": "1h 55m",
+      "traktUrl": "https://app.trakt.tv/movies/thor-2011"
     },
     "status": "resolved"
   },
   "the-consultant": {
-    "fetchedAt": "2026-09-02T16:55:07.813Z",
+    "fetchedAt": "2026-09-02T19:01:45.562Z",
     "requestedTitle": "The Consultant",
     "source": {
-      "description": "Agents Coulson and Sitwell plan to derail General Thaddeus \"Thunderbolt\" Ross from interfering with S.H.I.E.L.D. affairs with a very special person.",
-      "genres": ["short", "comedy", "drama", "sciFi"],
-      "imdbUrl": "https://www.imdb.com/title/tt2011118/",
-      "posterUrl": "https://m.media-amazon.com/images/M/MV5BZGMxYzBkMTEtZDljYi00YjM2LTgxMTMtNjFiOWQwMTg0NjhmXkEyXkFqcGc@._V1_.jpg",
-      "rating": 6.3,
-      "runtime": "4m"
+      "description": "Follows a relationship between employee and boss, asking how far we will go to get ahead, and to survive.",
+      "genres": ["comedy", "drama", "thriller"],
+      "imdbUrl": "https://www.imdb.com/title/tt16152716/",
+      "posterUrl": "https://m.media-amazon.com/images/M/MV5BNzEwMWZmZTQtNzdlOC00MDFkLWE5ZWQtYWYxMTA3OWZkNzM5XkEyXkFqcGc@._V1_.jpg",
+      "rating": 6.5,
+      "runtime": "33m",
+      "traktUrl": "https://app.trakt.tv/shows/the-consultant-2023"
     },
     "status": "resolved"
   },
   "the-avengers": {
-    "fetchedAt": "2026-09-02T16:55:11.468Z",
+    "fetchedAt": "2026-09-02T19:01:49.996Z",
     "requestedTitle": "The Avengers",
     "source": {
       "description": "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
@@ -172,12 +184,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt0848228/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNGE0YTVjNzUtNzJjOS00NGNlLTgxMzctZTY4YTE1Y2Y1ZTU4XkEyXkFqcGc@._V1_.jpg",
       "rating": 8,
-      "runtime": "2h 23m"
+      "runtime": "2h 23m",
+      "traktUrl": "https://app.trakt.tv/movies/the-avengers-2012"
     },
     "status": "resolved"
   },
   "item-47": {
-    "fetchedAt": "2026-09-02T16:55:12.741Z",
+    "fetchedAt": "2026-09-02T19:01:52.300Z",
     "requestedTitle": "Item 47",
     "source": {
       "description": "S.H.I.E.L.D. agent Sitwell is assigned to recover an abandoned Chitauri weapon being used by a young couple robbing a bank.",
@@ -185,12 +198,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt2247732/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTI2NDI2MzgtNTMzNi00MmEyLWE0ZDYtZmQ2NjJjMjUyYzMzXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.6,
-      "runtime": "12m"
+      "runtime": "12m",
+      "traktUrl": "https://app.trakt.tv/movies/marvel-one-shot-item-47-2012"
     },
     "status": "resolved"
   },
   "iron-man-3": {
-    "fetchedAt": "2026-09-02T16:55:18.383Z",
+    "fetchedAt": "2026-09-02T19:01:59.644Z",
     "requestedTitle": "Iron Man 3",
     "source": {
       "description": "When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.",
@@ -198,12 +212,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt1300854/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMjIzMzAzMjQyM15BMl5BanBnXkFtZTcwNzM2NjcyOQ@@._V1_.jpg",
       "rating": 7.1,
-      "runtime": "2h 10m"
+      "runtime": "2h 10m",
+      "traktUrl": "https://app.trakt.tv/movies/iron-man-3-2013"
     },
     "status": "resolved"
   },
   "all-hail-the-king": {
-    "fetchedAt": "2026-09-02T16:55:19.645Z",
+    "fetchedAt": "2026-09-02T19:02:01.822Z",
     "requestedTitle": "All Hail the King",
     "source": {
       "description": "A documentary filmmaker interviews the now-famous Trevor Slattery from behind bars.",
@@ -211,12 +226,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3438640/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNDBiYzBhMTktMTM1Mi00NGE1LTg3NTUtZTNhYzNmYmJkOGJkXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.2,
-      "runtime": "14m"
+      "runtime": "14m",
+      "traktUrl": "https://app.trakt.tv/movies/marvel-one-shot-all-hail-the-king-2014"
     },
     "status": "resolved"
   },
   "thor-the-dark-world": {
-    "fetchedAt": "2026-09-02T16:55:15.490Z",
+    "fetchedAt": "2026-09-02T19:01:55.544Z",
     "requestedTitle": "Thor: The Dark World",
     "source": {
       "description": "When the Dark Elves attempt to plunge the universe into darkness, Thor must embark on a perilous and personal journey that will reunite him with doctor Jane Foster.",
@@ -224,12 +240,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt1981115/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTQyNzAwOTUxOF5BMl5BanBnXkFtZTcwMTE0OTc5OQ@@._V1_.jpg",
       "rating": 6.7,
-      "runtime": "1h 52m"
+      "runtime": "1h 52m",
+      "traktUrl": "https://app.trakt.tv/movies/thor-the-dark-world-2013"
     },
     "status": "resolved"
   },
   "the-punisher-one-last-kill": {
-    "fetchedAt": "2026-09-02T16:57:43.655Z",
+    "fetchedAt": "2026-09-02T19:05:17.411Z",
     "requestedTitle": "The Punisher: One Last Kill",
     "source": {
       "description": "Frank Castle retreats from violence after years of loss, but a criminal bounty drags him back into a brutal fight that forces him to confront what remains of his purpose.",
@@ -237,12 +254,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt36042156/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BZGJlZWJhYmYtNjcwOS00OGMxLWJhODMtMGQ5ODQ5MDE0OTFmXkEyXkFqcGc@._V1_.jpg",
       "rating": 7,
-      "runtime": "48m"
+      "runtime": "48m",
+      "traktUrl": "https://app.trakt.tv/movies/the-punisher-one-last-kill-2026"
     },
     "status": "resolved"
   },
   "captain-america-the-winter-soldier": {
-    "fetchedAt": "2026-09-02T16:55:22.651Z",
+    "fetchedAt": "2026-09-02T19:02:04.937Z",
     "requestedTitle": "Captain America: The Winter Soldier",
     "source": {
       "description": "As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat from history: an assassin known as the Winter Soldier.",
@@ -250,12 +268,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt1843866/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNWY1NjFmNDItZDhmOC00NjI1LWE0ZDItMTM0MjBjZThiOTQ2XkEyXkFqcGc@._V1_.jpg",
       "rating": 7.7,
-      "runtime": "2h 16m"
+      "runtime": "2h 16m",
+      "traktUrl": "https://app.trakt.tv/movies/captain-america-the-winter-soldier-2014"
     },
     "status": "resolved"
   },
   "guardians-of-the-galaxy": {
-    "fetchedAt": "2026-09-02T16:55:25.822Z",
+    "fetchedAt": "2026-09-02T19:02:08.176Z",
     "requestedTitle": "Guardians of the Galaxy",
     "source": {
       "description": "A group of intergalactic criminals must pull together to stop a fanatical warrior with plans to purge the universe.",
@@ -263,12 +282,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt2015381/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BM2ZmNjQ2MzAtNDlhNi00MmQyLWJhZDMtNmJiMjFlOWY4MzcxXkEyXkFqcGc@._V1_.jpg",
       "rating": 8,
-      "runtime": "2h 1m"
+      "runtime": "2h 1m",
+      "traktUrl": "https://app.trakt.tv/movies/guardians-of-the-galaxy-2014"
     },
     "status": "resolved"
   },
   "guardians-of-the-galaxy-vol-2": {
-    "fetchedAt": "2026-09-02T16:55:29.454Z",
+    "fetchedAt": "2026-09-02T19:02:11.543Z",
     "requestedTitle": "Guardians of the Galaxy Vol. 2",
     "source": {
       "description": "The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's encounter with his father, the ambitious celestial being Ego.",
@@ -276,12 +296,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3896198/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNWE5MGI3MDctMmU5Ni00YzI2LWEzMTQtZGIyZDA5MzQzNDBhXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.6,
-      "runtime": "2h 16m"
+      "runtime": "2h 16m",
+      "traktUrl": "https://app.trakt.tv/movies/guardians-of-the-galaxy-vol-2-2017"
     },
     "status": "resolved"
   },
   "i-am-groot-season-1": {
-    "fetchedAt": "2026-09-02T16:55:30.592Z",
+    "fetchedAt": "2026-09-02T19:02:13.818Z",
     "requestedTitle": "I Am Groot Season 1",
     "source": {
       "description": "A series of shorts featuring the seedling Groot along with several new and unusual characters.",
@@ -297,12 +318,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt13623148/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMzBlODMyZGQtN2QzOS00MDAzLWFjOGQtMGRjN2JmZWM0NWJkXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.7,
-      "runtime": "4m"
+      "runtime": "4m",
+      "traktUrl": "https://app.trakt.tv/shows/i-am-groot"
     },
     "status": "resolved"
   },
   "i-am-groot-season-2": {
-    "fetchedAt": "2026-09-02T16:55:30.592Z",
+    "fetchedAt": "2026-09-02T19:02:15.645Z",
     "requestedTitle": "I Am Groot Season 2",
     "source": {
       "description": "A series of shorts featuring the seedling Groot along with several new and unusual characters.",
@@ -318,12 +340,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt13623148/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMzBlODMyZGQtN2QzOS00MDAzLWFjOGQtMGRjN2JmZWM0NWJkXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.7,
-      "runtime": "4m"
+      "runtime": "4m",
+      "traktUrl": "https://app.trakt.tv/shows/i-am-groot"
     },
     "status": "resolved"
   },
   "avengers-age-of-ultron": {
-    "fetchedAt": "2026-09-02T16:55:38.819Z",
+    "fetchedAt": "2026-09-02T19:02:26.233Z",
     "requestedTitle": "Avengers: Age of Ultron",
     "source": {
       "description": "When Tony Stark and Bruce Banner try to jump-start a dormant peacekeeping program called Ultron, things go horribly wrong and it's up to Earth's mightiest heroes to stop the villainous Ultron from enacting his terrible plan.",
@@ -331,12 +354,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt2395427/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BODBhYTg1NGQtNGVmNS00ZTdiLThjYTYtZDFkNzRiNTZmNDZjXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.3,
-      "runtime": "2h 21m"
+      "runtime": "2h 21m",
+      "traktUrl": "https://app.trakt.tv/movies/avengers-age-of-ultron-2015"
     },
     "status": "resolved"
   },
   "ant-man": {
-    "fetchedAt": "2026-09-02T16:55:40.474Z",
+    "fetchedAt": "2026-09-02T19:02:29.804Z",
     "requestedTitle": "Ant-Man",
     "source": {
       "description": "Armed with a super-suit with the astonishing ability to shrink in scale but increase in strength, cat burglar Scott Lang must embrace his inner hero and help his mentor, Dr. Hank Pym, pull off a plan that will save the world.",
@@ -344,12 +368,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt0478970/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMjM2NTQ5Mzc2M15BMl5BanBnXkFtZTgwNTcxMDI2NTE@._V1_.jpg",
       "rating": 7.2,
-      "runtime": "1h 57m"
+      "runtime": "1h 57m",
+      "traktUrl": "https://app.trakt.tv/movies/ant-man-2015"
     },
     "status": "resolved"
   },
   "captain-america-civil-war": {
-    "fetchedAt": "2026-09-02T16:55:53.524Z",
+    "fetchedAt": "2026-09-02T19:02:44.781Z",
     "requestedTitle": "Captain America: Civil War",
     "source": {
       "description": "Political involvement in the Avengers' affairs causes a rift between Captain America and Iron Man.",
@@ -357,12 +382,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3498820/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_.jpg",
       "rating": 7.8,
-      "runtime": "2h 27m"
+      "runtime": "2h 27m",
+      "traktUrl": "https://app.trakt.tv/movies/captain-america-civil-war-2016"
     },
     "status": "resolved"
   },
   "black-widow": {
-    "fetchedAt": "2026-09-02T16:55:56.113Z",
+    "fetchedAt": "2026-09-02T19:02:47.905Z",
     "requestedTitle": "Black Widow",
     "source": {
       "description": "Natasha Romanoff confronts the darker parts of her ledger when a dangerous conspiracy with ties to her past arises.",
@@ -370,12 +396,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3480822/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BZTMyZTA0ZTItYjY3Yi00ODNjLWExYTgtYzgxZTk0NTg0Y2FlXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.6,
-      "runtime": "2h 14m"
+      "runtime": "2h 14m",
+      "traktUrl": "https://app.trakt.tv/movies/black-widow-2021"
     },
     "status": "resolved"
   },
   "black-panther": {
-    "fetchedAt": "2026-09-02T16:55:58.818Z",
+    "fetchedAt": "2026-09-02T19:02:51.788Z",
     "requestedTitle": "Black Panther",
     "source": {
       "description": "T'Challa, heir to the hidden but advanced kingdom of Wakanda, must step forward to lead his people into a new future and must confront a challenger from his country's past.",
@@ -383,12 +410,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt1825683/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTg1MTY2MjYzNV5BMl5BanBnXkFtZTgwMTc4NTMwNDI@._V1_.jpg",
       "rating": 7.3,
-      "runtime": "2h 14m"
+      "runtime": "2h 14m",
+      "traktUrl": "https://app.trakt.tv/movies/black-panther-2018"
     },
     "status": "resolved"
   },
   "spider-man-homecoming": {
-    "fetchedAt": "2026-09-02T16:56:01.391Z",
+    "fetchedAt": "2026-09-02T19:02:55.030Z",
     "requestedTitle": "Spider-Man: Homecoming",
     "source": {
       "description": "Peter Parker tries to stop Adrian 'The Vulture' Toomes from selling weapons made with advanced Chitauri technology while trying to balance his life as an ordinary high school student.",
@@ -396,12 +424,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt2250912/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BODY2MTAzOTQ4M15BMl5BanBnXkFtZTgwNzg5MTE0MjI@._V1_.jpg",
       "rating": 7.4,
-      "runtime": "2h 13m"
+      "runtime": "2h 13m",
+      "traktUrl": "https://app.trakt.tv/movies/spider-man-homecoming-2017"
     },
     "status": "resolved"
   },
   "doctor-strange": {
-    "fetchedAt": "2026-09-02T16:56:06.558Z",
+    "fetchedAt": "2026-09-02T19:03:02.658Z",
     "requestedTitle": "Doctor Strange",
     "source": {
       "description": "While on a journey of physical and spiritual healing, a brilliant neurosurgeon is drawn into the world of the mystic arts.",
@@ -409,12 +438,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt1211837/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNjgwNzAzNjk1Nl5BMl5BanBnXkFtZTgwMzQ2NjI1OTE@._V1_.jpg",
       "rating": 7.5,
-      "runtime": "1h 55m"
+      "runtime": "1h 55m",
+      "traktUrl": "https://app.trakt.tv/movies/doctor-strange-2016"
     },
     "status": "resolved"
   },
   "thor-ragnarok": {
-    "fetchedAt": "2026-09-02T16:56:16.097Z",
+    "fetchedAt": "2026-09-02T19:03:14.964Z",
     "requestedTitle": "Thor: Ragnarok",
     "source": {
       "description": "Imprisoned on the planet Sakaar, Thor must race against time to return to Asgard and stop Ragnarök, the destruction of his world, at the hands of the powerful and ruthless villain Hela.",
@@ -422,12 +452,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3501632/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMjMyNDkzMzI1OF5BMl5BanBnXkFtZTgwODcxODg5MjI@._V1_.jpg",
       "rating": 7.9,
-      "runtime": "2h 10m"
+      "runtime": "2h 10m",
+      "traktUrl": "https://app.trakt.tv/movies/thor-ragnarok-2017"
     },
     "status": "resolved"
   },
   "avengers-infinity-war": {
-    "fetchedAt": "2026-09-02T16:56:24.519Z",
+    "fetchedAt": "2026-09-02T19:03:26.791Z",
     "requestedTitle": "Avengers: Infinity War",
     "source": {
       "description": "The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.",
@@ -435,12 +466,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt4154756/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_.jpg",
       "rating": 8.4,
-      "runtime": "2h 29m"
+      "runtime": "2h 29m",
+      "traktUrl": "https://app.trakt.tv/movies/avengers-infinity-war-2018"
     },
     "status": "resolved"
   },
   "avengers-endgame": {
-    "fetchedAt": "2026-09-02T16:56:29.126Z",
+    "fetchedAt": "2026-09-02T19:03:31.202Z",
     "requestedTitle": "Avengers: Endgame",
     "source": {
       "description": "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
@@ -448,12 +480,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt4154796/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMWEyNDM2ZmQtMmFkNi00MTQ1LTk1MjItMzdlZGJlYmIyYzZlXkEyXkFqcGc@._V1_.jpg",
       "rating": 8.4,
-      "runtime": "3h 1m"
+      "runtime": "3h 1m",
+      "traktUrl": "https://app.trakt.tv/movies/avengers-endgame-2019"
     },
     "status": "resolved"
   },
   "the-falcon-and-the-winter-soldier": {
-    "fetchedAt": "2026-09-02T16:56:43.388Z",
+    "fetchedAt": "2026-09-02T19:03:49.734Z",
     "requestedTitle": "The Falcon and the Winter Soldier",
     "source": {
       "description": "Following the events of 'Avengers: Endgame,' Sam Wilson/Falcon and Bucky Barnes/Winter Soldier team up in a global adventure that tests their abilities -- and their patience.",
@@ -461,12 +494,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt9208876/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BYmJkOGNlNmEtMmQyOS00YjZiLTgxM2EtNmEzNzUzNTU5ODYwXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.1,
-      "runtime": "50m"
+      "runtime": "50m",
+      "traktUrl": "https://app.trakt.tv/shows/the-falcon-and-the-winter-soldier"
     },
     "status": "resolved"
   },
   "loki-season-1": {
-    "fetchedAt": "2026-09-02T16:56:31.318Z",
+    "fetchedAt": "2026-09-02T19:03:34.737Z",
     "requestedTitle": "Loki Season 1",
     "source": {
       "description": "The mercurial villain Loki resumes his role as the God of Mischief in a new series that takes place after the events of “Avengers: Endgame.”",
@@ -474,12 +508,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt9140554/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BYzA2YjM2ZWQtYTZhMS00OTI3LTlhYzQtZjBiZWZkMDdlNjA5XkEyXkFqcGc@._V1_.jpg",
       "rating": 8.2,
-      "runtime": "50m"
+      "runtime": "50m",
+      "traktUrl": "https://app.trakt.tv/shows/loki"
     },
     "status": "resolved"
   },
   "wandavision": {
-    "fetchedAt": "2026-09-02T16:56:38.663Z",
+    "fetchedAt": "2026-09-02T19:03:43.578Z",
     "requestedTitle": "WandaVision",
     "source": {
       "description": "Blends the style of classic sitcoms with the MCU, in which Wanda Maximoff and Vision - two super-powered beings living their ideal suburban lives - begin to suspect that everything is not as it seems.",
@@ -495,12 +530,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt9140560/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BZTMxMmM1ODItMTZiMS00NjI1LWEwODctMjQ4ZjY4ODliNDI0XkEyXkFqcGc@._V1_.jpg",
       "rating": 7.9,
-      "runtime": "40m"
+      "runtime": "40m",
+      "traktUrl": "https://app.trakt.tv/shows/wandavision"
     },
     "status": "resolved"
   },
   "peters-to-do-list": {
-    "fetchedAt": "2026-09-02T16:56:44.750Z",
+    "fetchedAt": "2026-09-02T19:03:51.605Z",
     "requestedTitle": "Peter's To-Do List",
     "source": {
       "description": "On the eve of his departure to Europe, Peter Parker tells Ned Leeds that he has several things to do before they leave.",
@@ -508,12 +544,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt11107678/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BY2MyMzFlYmMtYWEyZC00MjExLTk2ODItODEzZmQ1ZGUyNGQwXkEyXkFqcGc@._V1_.jpg",
       "rating": 7,
-      "runtime": "3m"
+      "runtime": "3m",
+      "traktUrl": "https://app.trakt.tv/movies/peter-s-to-do-list-2019"
     },
     "status": "resolved"
   },
   "spider-man-far-from-home": {
-    "fetchedAt": "2026-09-02T16:56:47.463Z",
+    "fetchedAt": "2026-09-02T19:03:54.801Z",
     "requestedTitle": "Spider-Man: Far From Home",
     "source": {
       "description": "Peter Parker heads to Europe hoping for a normal summer, but elemental attacks and a mysterious new hero pull him back into a dangerous fight he isn't ready to embrace.",
@@ -521,12 +558,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt6320628/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMzNhNTE0NWQtN2E1Ny00NjcwLTg1YTctMGY1NmMwODJmY2NmXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.3,
-      "runtime": "2h 9m"
+      "runtime": "2h 9m",
+      "traktUrl": "https://app.trakt.tv/movies/spider-man-far-from-home-2019"
     },
     "status": "resolved"
   },
   "shang-chi-and-the-legend-of-the-ten-rings": {
-    "fetchedAt": "2026-09-02T16:56:41.302Z",
+    "fetchedAt": "2026-09-02T19:03:46.910Z",
     "requestedTitle": "Shang-Chi and the Legend of the Ten Rings",
     "source": {
       "description": "Shang-Chi, the master of weaponry-based Kung Fu, is forced to confront his past after being drawn into the Ten Rings organization.",
@@ -534,12 +572,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt9376612/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BZmY5MDcyNzAtYzg3MC00MGNlLTg3OGItNmRjYThkZGVlNzAyXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.3,
-      "runtime": "2h 12m"
+      "runtime": "2h 12m",
+      "traktUrl": "https://app.trakt.tv/movies/shang-chi-and-the-legend-of-the-ten-rings-2021"
     },
     "status": "resolved"
   },
   "eternals": {
-    "fetchedAt": "2026-09-02T16:56:49.063Z",
+    "fetchedAt": "2026-09-02T19:03:58.204Z",
     "requestedTitle": "Eternals",
     "source": {
       "description": "The saga of the Eternals, a race of immortal beings who lived on Earth and shaped its history and civilizations.",
@@ -547,12 +586,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt9032400/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BZTBiZjI2M2UtZTNiNy00NmU4LWJiMjYtZjk4MDIzMzhlMjFlXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.2,
-      "runtime": "2h 36m"
+      "runtime": "2h 36m",
+      "traktUrl": "https://app.trakt.tv/movies/eternals-2021"
     },
     "status": "resolved"
   },
   "hawkeye": {
-    "fetchedAt": "2026-09-02T16:56:56.477Z",
+    "fetchedAt": "2026-09-02T19:04:08.312Z",
     "requestedTitle": "Hawkeye",
     "source": {
       "description": "Clint Barton aka Hawkeye has the mission to get back to his family for Christmas. But when a threat from his past shows up, Hawkeye reluctantly teams up with Kate Bishop, a skilled archer and his biggest fan, to unravel a conspiracy.",
@@ -560,12 +600,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt10160804/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BOGU5ZDBlOTAtOTZmYS00MWE0LTg0NzktNDcxZGJhN2FhZmM2XkEyXkFqcGc@._V1_.jpg",
       "rating": 7.4,
-      "runtime": "1h"
+      "runtime": "1h",
+      "traktUrl": "https://app.trakt.tv/shows/hawkeye-2021"
     },
     "status": "resolved"
   },
   "spider-man-no-way-home": {
-    "fetchedAt": "2026-09-02T16:56:51.857Z",
+    "fetchedAt": "2026-09-02T19:04:02.070Z",
     "requestedTitle": "Spider-Man: No Way Home",
     "source": {
       "description": "Peter Parker turns to Doctor Strange after his identity destroys the life he knows, but a magical mistake draws powerful outsiders into his world and forces him to confront what being Spider Man really means.",
@@ -573,12 +614,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt10872600/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMmFiZGZjMmEtMTA0Ni00MzA2LTljMTYtZGI2MGJmZWYzZTQ2XkEyXkFqcGc@._V1_.jpg",
       "rating": 8.1,
-      "runtime": "2h 28m"
+      "runtime": "2h 28m",
+      "traktUrl": "https://app.trakt.tv/movies/spider-man-no-way-home-2021"
     },
     "status": "resolved"
   },
   "doctor-strange-in-the-multiverse-of-madness": {
-    "fetchedAt": "2026-09-02T16:56:54.323Z",
+    "fetchedAt": "2026-09-02T19:04:05.285Z",
     "requestedTitle": "Doctor Strange in the Multiverse of Madness",
     "source": {
       "description": "Doctor Strange teams up with a mysterious teenage girl who can travel across multiverses, to battle other-universe versions of himself which threaten to wipe out the multiverse. They seek help from the Scarlet Witch, Wong and others.",
@@ -586,12 +628,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt9419884/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BN2YxZGRjMzYtZjE1ZC00MDI0LThjZmQtZTZmMzVmMmQ2NzBmXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.8,
-      "runtime": "2h 6m"
+      "runtime": "2h 6m",
+      "traktUrl": "https://app.trakt.tv/movies/doctor-strange-in-the-multiverse-of-madness-2022"
     },
     "status": "resolved"
   },
   "moon-knight": {
-    "fetchedAt": "2026-09-02T16:56:58.032Z",
+    "fetchedAt": "2026-09-02T19:04:11.080Z",
     "requestedTitle": "Moon Knight",
     "source": {
       "description": "Steven Grant discovers he's been granted the powers of an Egyptian moon god. But he soon finds out that these newfound powers can be both a blessing and a curse to his troubled life.",
@@ -599,12 +642,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt10234724/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNDAzNmYwZjgtNDc3YS00ZDMyLTk0MjktMTg4MGNmNGU3MjlhXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.3,
-      "runtime": "50m"
+      "runtime": "50m",
+      "traktUrl": "https://app.trakt.tv/shows/moon-knight"
     },
     "status": "resolved"
   },
   "black-panther-wakanda-forever": {
-    "fetchedAt": "2026-09-02T16:57:01.194Z",
+    "fetchedAt": "2026-09-02T19:04:14.490Z",
     "requestedTitle": "Black Panther: Wakanda Forever",
     "source": {
       "description": "The people of Wakanda fight to protect their home from intervening world powers as they mourn the death of King T'Challa.",
@@ -612,12 +656,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt9114286/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BYWY5NDY1ZjItZDQxMy00MTAzLTgyOGQtNTQxYjFiMzZjMjUyXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.6,
-      "runtime": "2h 41m"
+      "runtime": "2h 41m",
+      "traktUrl": "https://app.trakt.tv/movies/black-panther-wakanda-forever-2022"
     },
     "status": "resolved"
   },
   "echo": {
-    "fetchedAt": "2026-09-02T16:57:02.889Z",
+    "fetchedAt": "2026-09-02T19:04:16.687Z",
     "requestedTitle": "Echo",
     "source": {
       "description": "Maya Lopez must face her past, reconnect with her Native American roots, and embrace the meaning of family and community if she ever hopes to move forward.",
@@ -625,12 +670,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt13966962/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BOGFiYzI1ZDctM2U1Zi00ZWI5LWFiMmQtNGU0NTU5MTg3OWM3XkEyXkFqcGc@._V1_.jpg",
       "rating": 5.9,
-      "runtime": "45m"
+      "runtime": "45m",
+      "traktUrl": "https://app.trakt.tv/shows/echo"
     },
     "status": "resolved"
   },
   "she-hulk-attorney-at-law": {
-    "fetchedAt": "2026-09-02T16:57:05.047Z",
+    "fetchedAt": "2026-09-02T19:04:19.704Z",
     "requestedTitle": "She-Hulk: Attorney at Law",
     "source": {
       "description": "Jennifer Walters navigates the complicated life of a single, 30-something attorney who also happens to be a green 6-foot-7-inch superpowered Hulk.",
@@ -638,12 +684,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt10857160/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNjg4ZTQ1MjctNzEyMS00YWM2LTk1ZTQtNDU3ZDJjNjhhMDhkXkEyXkFqcGc@._V1_.jpg",
       "rating": 5.2,
-      "runtime": "35m"
+      "runtime": "35m",
+      "traktUrl": "https://app.trakt.tv/shows/she-hulk-attorney-at-law"
     },
     "status": "resolved"
   },
   "ms-marvel": {
-    "fetchedAt": "2026-09-02T16:57:06.429Z",
+    "fetchedAt": "2026-09-02T19:04:22.534Z",
     "requestedTitle": "Ms. Marvel",
     "source": {
       "description": "Kamala, a superhero fan with an imagination--particularly when it comes to Captain Marvel--feels like she doesn't fit in at school and sometimes even at home, that is until she gets superpowers like the heroes she admires.",
@@ -659,12 +706,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt10857164/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNzlkNjBmOWUtOTgzZS00OWIzLThkNWEtZTg5MGY2ODAyYzZjXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.2,
-      "runtime": "50m"
+      "runtime": "50m",
+      "traktUrl": "https://app.trakt.tv/shows/ms-marvel"
     },
     "status": "resolved"
   },
   "thor-love-and-thunder": {
-    "fetchedAt": "2026-09-02T16:57:09.085Z",
+    "fetchedAt": "2026-09-02T19:04:25.751Z",
     "requestedTitle": "Thor: Love and Thunder",
     "source": {
       "description": "Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
@@ -672,12 +720,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt10648342/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BZjRiMDhiZjQtNjk5Yi00ZDcwLTkyYTEtMDc1NjdmNjFhNGIzXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.1,
-      "runtime": "1h 58m"
+      "runtime": "1h 58m",
+      "traktUrl": "https://app.trakt.tv/movies/thor-love-and-thunder-2022"
     },
     "status": "resolved"
   },
   "the-guardians-of-the-galaxy-holiday-special": {
-    "fetchedAt": "2026-09-02T16:57:13.794Z",
+    "fetchedAt": "2026-09-02T19:04:32.280Z",
     "requestedTitle": "The Guardians of the Galaxy Holiday Special",
     "source": {
       "description": "Star-Lord, Drax, Rocket, Mantis, and Groot engage in some spirited shenanigans in an all-new original special created for Disney+.",
@@ -685,12 +734,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt13623136/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BZDA3MzdlYTQtMTUxNi00ZjJmLTkyOTYtNDkzYmIzYTJkZjMzXkEyXkFqcGc@._V1_.jpg",
       "rating": 6.9,
-      "runtime": "42m"
+      "runtime": "42m",
+      "traktUrl": "https://app.trakt.tv/movies/the-guardians-of-the-galaxy-holiday-special-2022"
     },
     "status": "resolved"
   },
   "the-guardians-of-the-galaxy-vol-3": {
-    "fetchedAt": "2026-09-02T16:57:19.620Z",
+    "fetchedAt": "2026-09-02T19:04:38.616Z",
     "requestedTitle": "The Guardians of the Galaxy Vol. 3",
     "source": {
       "description": "Still reeling from the loss of Gamora, Peter Quill rallies his team to defend the universe and one of their own - a mission that could mean the end of the Guardians if not successful.",
@@ -698,12 +748,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt6791350/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BOTJhOTMxMmItZmE0Ny00MDc3LWEzOGEtOGFkMzY4MWYyZDQ0XkEyXkFqcGc@._V1_.jpg",
       "rating": 7.9,
-      "runtime": "2h 30m"
+      "runtime": "2h 30m",
+      "traktUrl": "https://app.trakt.tv/movies/guardians-of-the-galaxy-volume-3-2023"
     },
     "status": "resolved"
   },
   "secret-invasion": {
-    "fetchedAt": "2026-09-02T16:57:21.466Z",
+    "fetchedAt": "2026-09-02T19:04:41.238Z",
     "requestedTitle": "Secret Invasion",
     "source": {
       "description": "Fury and Talos try to stop the Skrulls who have infiltrated the highest spheres of the Marvel Universe.",
@@ -711,12 +762,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt13157618/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNmYzYzA2NzMtOTVmMC00ZDY4LThlMDctZmUyN2NlMjQ2ODViXkEyXkFqcGc@._V1_.jpg",
       "rating": 5.8,
-      "runtime": "45m"
+      "runtime": "45m",
+      "traktUrl": "https://app.trakt.tv/shows/secret-invasion"
     },
     "status": "resolved"
   },
   "the-marvels": {
-    "fetchedAt": "2026-09-02T16:57:23.293Z",
+    "fetchedAt": "2026-09-02T19:04:44.736Z",
     "requestedTitle": "The Marvels",
     "source": {
       "description": "Carol Danvers gets her powers entangled with those of Kamala Khan and Monica Rambeau, forcing them to work together to save the universe.",
@@ -724,12 +776,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt10676048/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BYzczOWM4MzItMWMyOS00ZDczLWIxMzctNzBmYTgzOTI1MzI3XkEyXkFqcGc@._V1_.jpg",
       "rating": 5.4,
-      "runtime": "1h 45m"
+      "runtime": "1h 45m",
+      "traktUrl": "https://app.trakt.tv/movies/the-marvels-2023"
     },
     "status": "resolved"
   },
   "ant-man-and-the-wasp-quantumania": {
-    "fetchedAt": "2026-09-02T16:57:16.859Z",
+    "fetchedAt": "2026-09-02T19:04:34.898Z",
     "requestedTitle": "Ant-Man and the Wasp: Quantumania",
     "source": {
       "description": "Scott Lang and Hope Van Dyne are dragged into the Quantum Realm, along with Hope's parents and Scott's daughter Cassie. Together they must find a way to escape, but what secrets is Hope's mother hiding? And who is the mysterious Kang?",
@@ -737,12 +790,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt10954600/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMThkYWY5ZjQtYjJlMS00MDFmLWFkYzEtODEzZjg5YWFmMGY4XkEyXkFqcGc@._V1_.jpg",
       "rating": 6,
-      "runtime": "2h 4m"
+      "runtime": "2h 4m",
+      "traktUrl": "https://app.trakt.tv/movies/ant-man-and-the-wasp-quantumania-2023"
     },
     "status": "resolved"
   },
   "deadpool-and-wolverine": {
-    "fetchedAt": "2026-09-02T16:57:27.411Z",
+    "fetchedAt": "2026-09-02T19:04:53.744Z",
     "requestedTitle": "Deadpool & Wolverine",
     "source": {
       "description": "Deadpool is offered a place in the Marvel Cinematic Universe by the Time Variance Authority, but instead recruits a variant of Wolverine to save his universe from extinction.",
@@ -750,12 +804,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt6263850/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BZTk5ODY0MmQtMzA3Ni00NGY1LThiYzItZThiNjFiNDM4MTM3XkEyXkFqcGc@._V1_.jpg",
       "rating": 7.5,
-      "runtime": "2h 8m"
+      "runtime": "2h 8m",
+      "traktUrl": "https://app.trakt.tv/movies/deadpool-wolverine-2024"
     },
     "status": "resolved"
   },
   "loki-season-2": {
-    "fetchedAt": "2026-09-02T16:57:24.484Z",
+    "fetchedAt": "2026-09-02T19:04:46.828Z",
     "requestedTitle": "Loki Season 2",
     "source": {
       "description": "The cast and crew of Loki: Season 2 pull back the curtain on Loki's latest MCU adventure.",
@@ -763,12 +818,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt28889780/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNTliODE5MmEtMjRmMi00N2Y3LTgwNzgtNjI2YjM4MGVjZjdmXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.6,
-      "runtime": "58m"
+      "runtime": "58m",
+      "traktUrl": "https://app.trakt.tv/movies/marvel-studios-assembled-the-making-of-loki-season-2-2023"
     },
     "status": "resolved"
   },
   "what-if-season-1": {
-    "fetchedAt": "2026-09-02T16:56:34.176Z",
+    "fetchedAt": "2026-09-02T19:03:38.490Z",
     "requestedTitle": "What If...? Season 1",
     "source": {
       "description": "Exploring pivotal moments from the Marvel Cinematic Universe and turning them on their head, leading the audience into uncharted territory.",
@@ -776,12 +832,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt10168312/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BYWFiOTcwNzItMTg5Mi00ZTU4LThkZWYtYWNmZWQ1ODE5ZTVmXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.3,
-      "runtime": "32m"
+      "runtime": "32m",
+      "traktUrl": "https://app.trakt.tv/shows/what-if-2021"
     },
     "status": "resolved"
   },
   "what-if-season-2": {
-    "fetchedAt": "2026-09-02T16:56:34.176Z",
+    "fetchedAt": "2026-09-02T19:04:50.267Z",
     "requestedTitle": "What If...? Season 2",
     "source": {
       "description": "Exploring pivotal moments from the Marvel Cinematic Universe and turning them on their head, leading the audience into uncharted territory.",
@@ -789,12 +846,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt10168312/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BYWFiOTcwNzItMTg5Mi00ZTU4LThkZWYtYWNmZWQ1ODE5ZTVmXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.3,
-      "runtime": "32m"
+      "runtime": "32m",
+      "traktUrl": "https://app.trakt.tv/shows/what-if-2021"
     },
     "status": "resolved"
   },
   "what-if-season-3": {
-    "fetchedAt": "2026-09-02T16:56:34.176Z",
+    "fetchedAt": "2026-09-02T19:04:58.493Z",
     "requestedTitle": "What If...? Season 3",
     "source": {
       "description": "Exploring pivotal moments from the Marvel Cinematic Universe and turning them on their head, leading the audience into uncharted territory.",
@@ -802,12 +860,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt10168312/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BYWFiOTcwNzItMTg5Mi00ZTU4LThkZWYtYWNmZWQ1ODE5ZTVmXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.3,
-      "runtime": "32m"
+      "runtime": "32m",
+      "traktUrl": "https://app.trakt.tv/shows/what-if-2021"
     },
     "status": "resolved"
   },
   "marvel-zombies": {
-    "fetchedAt": "2026-09-02T16:56:35.580Z",
+    "fetchedAt": "2026-09-02T19:03:40.658Z",
     "requestedTitle": "Marvel Zombies",
     "source": {
       "description": "After the Avengers are overtaken by a zombie plague, a group of survivors discover the key to bringing an end to the super-powered undead, racing across a dystopian landscape and risking their lives to save their world.",
@@ -823,12 +882,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt16027014/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNGNkYjI3ZWUtN2MzMS00NDg5LWE5MmYtZGE4Zjc0OGVhODM4XkEyXkFqcGc@._V1_.jpg",
       "rating": 7,
-      "runtime": "32m"
+      "runtime": "32m",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-zombies"
     },
     "status": "resolved"
   },
   "agatha-all-along": {
-    "fetchedAt": "2026-09-02T16:57:29.468Z",
+    "fetchedAt": "2026-09-02T19:04:56.449Z",
     "requestedTitle": "Agatha All Along",
     "source": {
       "description": "A spell-bound Agatha Harkness regains freedom thanks to a teen's help. Intrigued by his plea, she embarks on the Witches' Road trials to reclaim her powers and discover the teen's motivations.",
@@ -836,12 +896,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt15571732/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMDcyZTNjOTEtNzc5Yy00Y2UzLThkMWYtNTY4YmM4OWI5OTMzXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.2,
-      "runtime": "40m"
+      "runtime": "40m",
+      "traktUrl": "https://app.trakt.tv/shows/agatha-all-along"
     },
     "status": "resolved"
   },
   "ironheart": {
-    "fetchedAt": "2026-09-02T16:57:11.027Z",
+    "fetchedAt": "2026-09-02T19:04:28.109Z",
     "requestedTitle": "Ironheart",
     "source": {
       "description": "Genius teenage inventor Riri Williams creates the most advanced suit of armor since Iron Man.",
@@ -849,12 +910,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt13623126/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BN2EzMGZhOTktYjVhZi00NmIwLWIxZDEtNWUxZTQyNjhkYWQ4XkEyXkFqcGc@._V1_.jpg",
       "rating": 4.5,
-      "runtime": "50m"
+      "runtime": "50m",
+      "traktUrl": "https://app.trakt.tv/shows/ironheart"
     },
     "status": "resolved"
   },
   "daredevil-born-again-season-1": {
-    "fetchedAt": "2026-09-02T16:57:31.824Z",
+    "fetchedAt": "2026-09-02T19:05:01.683Z",
     "requestedTitle": "Daredevil: Born Again Season 1",
     "source": {
       "description": "Matt Murdock finds himself on a collision course with Wilson Fisk when their past identities begin to emerge.",
@@ -862,12 +924,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt18923754/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNDBkMWRhMzEtM2M0Ny00OGZhLThkZGMtMTY1NWUwZWNhODdiXkEyXkFqcGc@._V1_.jpg",
       "rating": 8.1,
-      "runtime": "1h"
+      "runtime": "1h",
+      "traktUrl": "https://app.trakt.tv/shows/daredevil-born-again"
     },
     "status": "resolved"
   },
   "wonder-man": {
-    "fetchedAt": "2026-09-02T16:57:40.630Z",
+    "fetchedAt": "2026-09-02T19:05:13.241Z",
     "requestedTitle": "Wonder Man",
     "source": {
       "description": "Small-time actor Simon Williams struggles to reckon with his personal life while hiding his super-powers as he tries to land his dream role. Meanwhile, a shady government agent leverages a new friendship in order to save his own job.",
@@ -875,12 +938,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt21066182/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMDk5YzQ3NjQtNzY3MC00NzM3LWE4NzYtZGRkNDQxYjdiZDkyXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.4,
-      "runtime": "30m"
+      "runtime": "30m",
+      "traktUrl": "https://app.trakt.tv/shows/wonder-man"
     },
     "status": "resolved"
   },
   "captain-america-brave-new-world": {
-    "fetchedAt": "2026-09-02T16:57:33.931Z",
+    "fetchedAt": "2026-09-02T19:05:04.434Z",
     "requestedTitle": "Captain America: Brave New World",
     "source": {
       "description": "Sam Wilson, the new Captain America, finds himself in the middle of an international incident and must discover the motive behind a nefarious global plan.",
@@ -888,12 +952,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt14513804/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNDRjY2E0ZmEtN2QwNi00NTEwLWI3MWItODNkMGYwYWFjNGE0XkEyXkFqcGc@._V1_.jpg",
       "rating": 5.6,
-      "runtime": "1h 58m"
+      "runtime": "1h 58m",
+      "traktUrl": "https://app.trakt.tv/movies/captain-america-brave-new-world-2025"
     },
     "status": "resolved"
   },
   "thunderbolts": {
-    "fetchedAt": "2026-09-02T16:57:36.300Z",
+    "fetchedAt": "2026-09-02T19:05:07.418Z",
     "requestedTitle": "Thunderbolts*",
     "source": {
       "description": "After finding themselves ensnared in a death trap, an unconventional team of antiheroes must go on a dangerous mission that will force them to confront the darkest corners of their pasts.",
@@ -901,12 +966,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt20969586/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNDIzNGUwZmYtODM0Yy00NjA3LTgxOGUtOTY0ZGM5MjBkM2I3XkEyXkFqcGc@._V1_.jpg",
       "rating": 7.1,
-      "runtime": "2h 7m"
+      "runtime": "2h 7m",
+      "traktUrl": "https://app.trakt.tv/movies/thunderbolts-2025"
     },
     "status": "resolved"
   },
   "daredevil-born-again-season-2": {
-    "fetchedAt": "2026-09-02T16:57:42.079Z",
+    "fetchedAt": "2026-09-02T19:05:15.352Z",
     "requestedTitle": "Daredevil: Born Again Season 2",
     "source": {
       "description": "Matt Murdock finds himself on a collision course with Wilson Fisk when their past identities begin to emerge.",
@@ -914,12 +980,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt18923754/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNDBkMWRhMzEtM2M0Ny00OGZhLThkZGMtMTY1NWUwZWNhODdiXkEyXkFqcGc@._V1_.jpg",
       "rating": 8.1,
-      "runtime": "1h"
+      "runtime": "1h",
+      "traktUrl": "https://app.trakt.tv/shows/daredevil-born-again"
     },
     "status": "resolved"
   },
   "visionquest": {
-    "fetchedAt": "2026-09-02T16:57:45.962Z",
+    "fetchedAt": "2026-09-02T19:05:22.362Z",
     "requestedTitle": "VisionQuest",
     "source": {
       "description": "Vision is faced with many challenges while trying to regain his memory and humanity.",
@@ -927,12 +994,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt23112594/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BY2FlNjIxMDktMGYyZi00NjY3LWI4YjctYTcxNzc2MDUwYjZmXkEyXkFqcGc@._V1_.jpg",
       "rating": 0,
-      "runtime": ""
+      "runtime": "",
+      "traktUrl": "https://app.trakt.tv/shows/visionquest"
     },
     "status": "resolved"
   },
   "spider-man-brand-new-day": {
-    "fetchedAt": "2026-09-02T16:57:44.921Z",
+    "fetchedAt": "2026-09-02T19:05:20.386Z",
     "requestedTitle": "Spider-Man: Brand New Day",
     "source": {
       "description": "A forgotten Peter Parker lives alone as a full-time Spider-Man until mounting pressure triggers a dangerous change and a powerful new enemy emerges.",
@@ -940,12 +1008,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt22084616/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BOWNjYWM3NWItOGE0ZS00MWRjLThiZWEtYjc4ZmNmMmU5ZTVmXkEyXkFqcGc@._V1_.jpg",
       "rating": 8,
-      "runtime": "2h 25m"
+      "runtime": "2h 25m",
+      "traktUrl": "https://app.trakt.tv/movies/spider-man-brand-new-day-2026"
     },
     "status": "resolved"
   },
   "avengers-doomsday": {
-    "fetchedAt": "2026-09-02T16:57:47.271Z",
+    "fetchedAt": "2026-09-02T19:05:24.728Z",
     "requestedTitle": "Avengers: Doomsday",
     "source": {
       "description": "Heroes from three different worlds must unite when they're thrust together to confront a catastrophic danger that could destroy everything they know.",
@@ -953,12 +1022,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt21357150/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BNGEwYWZkN2UtOTQ5Mi00MGQzLWEzNjYtMWMyNDBkMTkzMWNkXkEyXkFqcGc@._V1_.jpg",
       "rating": 0,
-      "runtime": "2h 45m"
+      "runtime": "2h 45m",
+      "traktUrl": "https://app.trakt.tv/movies/avengers-doomsday-2026"
     },
     "status": "resolved"
   },
   "avengers-secret-wars": {
-    "fetchedAt": "2026-09-02T16:57:48.495Z",
+    "fetchedAt": "2026-09-02T19:05:26.505Z",
     "requestedTitle": "Avengers: Secret Wars",
     "source": {
       "description": "Plot Under Wraps",
@@ -966,12 +1036,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt21361444/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BYTQyZTQ5MWQtN2M4NC00YWQwLTg3ZTctM2JiZDE4NDBkZDJkXkEyXkFqcGc@._V1_.jpg",
       "rating": 0,
-      "runtime": ""
+      "runtime": "",
+      "traktUrl": "https://app.trakt.tv/movies/avengers-secret-wars-2027"
     },
     "status": "resolved"
   },
   "ant-man-and-the-wasp": {
-    "fetchedAt": "2026-09-02T16:56:20.804Z",
+    "fetchedAt": "2026-09-02T19:03:22.528Z",
     "requestedTitle": "Ant-Man and the Wasp",
     "source": {
       "description": "As Scott Lang balances being both a superhero and a father, Hope van Dyne and Dr. Hank Pym present an urgent new mission that finds the Ant-Man fighting alongside The Wasp to uncover secrets from their past.",
@@ -979,12 +1050,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt5095030/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BODVkY2ZmZTAtYzFhMi00YzZlLWE2YWMtMDBiYjY2OTU4ZWM0XkEyXkFqcGc@._V1_.jpg",
       "rating": 7,
-      "runtime": "1h 58m"
+      "runtime": "1h 58m",
+      "traktUrl": "https://app.trakt.tv/movies/ant-man-and-the-wasp-2018"
     },
     "status": "resolved"
   },
   "daredevil-season-1": {
-    "fetchedAt": "2026-09-02T16:55:33.044Z",
+    "fetchedAt": "2026-09-02T19:02:19.295Z",
     "requestedTitle": "Marvel's Daredevil Season 1",
     "source": {
       "description": "A blind lawyer by day, vigilante by night. Matt Murdock fights the crime of New York as Daredevil.",
@@ -992,12 +1064,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3322312/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BODcwOTg2MDE3NF5BMl5BanBnXkFtZTgwNTUyNTY1NjM@._V1_.jpg",
       "rating": 8.6,
-      "runtime": "1h"
+      "runtime": "1h",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-daredevil"
     },
     "status": "resolved"
   },
   "jessica-jones-season-1": {
-    "fetchedAt": "2026-09-02T16:55:35.754Z",
+    "fetchedAt": "2026-09-02T19:02:22.446Z",
     "requestedTitle": "Marvel's Jessica Jones Season 1",
     "source": {
       "description": "Following the tragic end of her brief superhero career, Jessica Jones tries to rebuild her life as a private investigator, dealing with cases involving people with remarkable abilities in New York City.",
@@ -1005,12 +1078,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt2357547/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMDhhY2VlMWItMjM3Yi00MDc1LTlmYjctNjMzNDIxZjc5NGEwXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.8,
-      "runtime": "56m"
+      "runtime": "56m",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-jessica-jones"
     },
     "status": "resolved"
   },
   "daredevil-season-2": {
-    "fetchedAt": "2026-09-02T16:55:42.405Z",
+    "fetchedAt": "2026-09-02T19:02:31.869Z",
     "requestedTitle": "Marvel's Daredevil Season 2",
     "source": {
       "description": "A blind lawyer by day, vigilante by night. Matt Murdock fights the crime of New York as Daredevil.",
@@ -1018,12 +1092,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3322312/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BODcwOTg2MDE3NF5BMl5BanBnXkFtZTgwNTUyNTY1NjM@._V1_.jpg",
       "rating": 8.6,
-      "runtime": "1h"
+      "runtime": "1h",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-daredevil"
     },
     "status": "resolved"
   },
   "luke-cage-season-1": {
-    "fetchedAt": "2026-09-02T16:55:44.980Z",
+    "fetchedAt": "2026-09-02T19:02:34.960Z",
     "requestedTitle": "Marvel's Luke Cage Season 1",
     "source": {
       "description": "When a sabotaged experiment gives him super strength and unbreakable skin, Luke Cage becomes a fugitive attempting to rebuild his life in Harlem and must confront his past and fight a battle for the heart of his city.",
@@ -1031,12 +1106,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3322314/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTcyMzc1MjI5MF5BMl5BanBnXkFtZTgwMzE4ODY2OTE@._V1_.jpg",
       "rating": 7.2,
-      "runtime": "1h"
+      "runtime": "1h",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-luke-cage"
     },
     "status": "resolved"
   },
   "iron-fist-season-1": {
-    "fetchedAt": "2026-09-02T16:55:47.441Z",
+    "fetchedAt": "2026-09-02T19:02:37.996Z",
     "requestedTitle": "Marvel's Iron Fist Season 1",
     "source": {
       "description": "A young man is bestowed with incredible martial arts skills and a mystical force known as the Iron Fist.",
@@ -1044,12 +1120,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3322310/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMjI5Mjg1NDcyOV5BMl5BanBnXkFtZTgwMjAxOTQ5MTI@._V1_.jpg",
       "rating": 6.4,
-      "runtime": "1h"
+      "runtime": "1h",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-iron-fist"
     },
     "status": "resolved"
   },
   "the-defenders": {
-    "fetchedAt": "2026-09-02T16:55:49.412Z",
+    "fetchedAt": "2026-09-02T19:02:40.638Z",
     "requestedTitle": "Marvel's The Defenders",
     "source": {
       "description": "Set a few months after the events of the second season of Daredevil, and a month after the events of Iron Fist, the vigilantes Daredevil, Jessica Jones, Luke Cage, and Iron Fist team up in New York City to fight a common enemy: The Hand.",
@@ -1057,12 +1134,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt4230076/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTUwMjA5NTg4MF5BMl5BanBnXkFtZTgwODUyODkwMzI@._V1_.jpg",
       "rating": 7.2,
-      "runtime": "50m"
+      "runtime": "50m",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-the-defenders"
     },
     "status": "resolved"
   },
   "the-punisher-season-1": {
-    "fetchedAt": "2026-09-02T16:56:04.065Z",
+    "fetchedAt": "2026-09-02T19:02:58.057Z",
     "requestedTitle": "Marvel's The Punisher Season 1",
     "source": {
       "description": "After his revenge on those who murdered his family, aimless Marine veteran Frank Castle finds a new meaning in life as a vigilante known as \"The Punisher\".",
@@ -1070,12 +1148,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt5675620/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BZTI2NDllMjgtOWEyYi00Y2YxLThhYjQtNTQ0NTgwNDE1YmYzXkEyXkFqcGc@._V1_.jpg",
       "rating": 8.4,
-      "runtime": "1h"
+      "runtime": "1h",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-the-punisher"
     },
     "status": "resolved"
   },
   "jessica-jones-season-2": {
-    "fetchedAt": "2026-09-02T16:56:08.132Z",
+    "fetchedAt": "2026-09-02T19:03:04.721Z",
     "requestedTitle": "Marvel's Jessica Jones Season 2",
     "source": {
       "description": "Following the tragic end of her brief superhero career, Jessica Jones tries to rebuild her life as a private investigator, dealing with cases involving people with remarkable abilities in New York City.",
@@ -1083,12 +1162,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt2357547/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMDhhY2VlMWItMjM3Yi00MDc1LTlmYjctNjMzNDIxZjc5NGEwXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.8,
-      "runtime": "56m"
+      "runtime": "56m",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-jessica-jones"
     },
     "status": "resolved"
   },
   "luke-cage-season-2": {
-    "fetchedAt": "2026-09-02T16:56:09.739Z",
+    "fetchedAt": "2026-09-02T19:03:06.823Z",
     "requestedTitle": "Marvel's Luke Cage Season 2",
     "source": {
       "description": "When a sabotaged experiment gives him super strength and unbreakable skin, Luke Cage becomes a fugitive attempting to rebuild his life in Harlem and must confront his past and fight a battle for the heart of his city.",
@@ -1096,12 +1176,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3322314/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTcyMzc1MjI5MF5BMl5BanBnXkFtZTgwMzE4ODY2OTE@._V1_.jpg",
       "rating": 7.2,
-      "runtime": "1h"
+      "runtime": "1h",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-luke-cage"
     },
     "status": "resolved"
   },
   "iron-fist-season-2": {
-    "fetchedAt": "2026-09-02T16:56:11.014Z",
+    "fetchedAt": "2026-09-02T19:03:08.944Z",
     "requestedTitle": "Marvel's Iron Fist Season 2",
     "source": {
       "description": "A young man is bestowed with incredible martial arts skills and a mystical force known as the Iron Fist.",
@@ -1109,12 +1190,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3322310/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMjI5Mjg1NDcyOV5BMl5BanBnXkFtZTgwMjAxOTQ5MTI@._V1_.jpg",
       "rating": 6.4,
-      "runtime": "1h"
+      "runtime": "1h",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-iron-fist"
     },
     "status": "resolved"
   },
   "daredevil-season-3": {
-    "fetchedAt": "2026-09-02T16:56:12.661Z",
+    "fetchedAt": "2026-09-02T19:03:11.131Z",
     "requestedTitle": "Marvel's Daredevil Season 3",
     "source": {
       "description": "A blind lawyer by day, vigilante by night. Matt Murdock fights the crime of New York as Daredevil.",
@@ -1122,12 +1204,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt3322312/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BODcwOTg2MDE3NF5BMl5BanBnXkFtZTgwNTUyNTY1NjM@._V1_.jpg",
       "rating": 8.6,
-      "runtime": "1h"
+      "runtime": "1h",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-daredevil"
     },
     "status": "resolved"
   },
   "the-punisher-season-2": {
-    "fetchedAt": "2026-09-02T16:56:17.758Z",
+    "fetchedAt": "2026-09-02T19:03:17.205Z",
     "requestedTitle": "Marvel's The Punisher Season 2",
     "source": {
       "description": "After his revenge on those who murdered his family, aimless Marine veteran Frank Castle finds a new meaning in life as a vigilante known as \"The Punisher\".",
@@ -1135,12 +1218,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt5675620/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BZTI2NDllMjgtOWEyYi00Y2YxLThhYjQtNTQ0NTgwNDE1YmYzXkEyXkFqcGc@._V1_.jpg",
       "rating": 8.4,
-      "runtime": "1h"
+      "runtime": "1h",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-the-punisher"
     },
     "status": "resolved"
   },
   "jessica-jones-season-3": {
-    "fetchedAt": "2026-09-02T16:56:19.372Z",
+    "fetchedAt": "2026-09-02T19:03:18.996Z",
     "requestedTitle": "Marvel's Jessica Jones Season 3",
     "source": {
       "description": "Following the tragic end of her brief superhero career, Jessica Jones tries to rebuild her life as a private investigator, dealing with cases involving people with remarkable abilities in New York City.",
@@ -1148,12 +1232,13 @@
       "imdbUrl": "https://www.imdb.com/title/tt2357547/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BMDhhY2VlMWItMjM3Yi00MDc1LTlmYjctNjMzNDIxZjc5NGEwXkEyXkFqcGc@._V1_.jpg",
       "rating": 7.8,
-      "runtime": "56m"
+      "runtime": "56m",
+      "traktUrl": "https://app.trakt.tv/shows/marvel-s-jessica-jones"
     },
     "status": "resolved"
   },
   "werewolf-by-night": {
-    "fetchedAt": "2026-09-02T16:57:12.155Z",
+    "fetchedAt": "2026-09-02T19:04:30.090Z",
     "requestedTitle": "Werewolf by Night",
     "source": {
       "description": "Follows a lycanthrope superhero who fights evil using the abilities given to him by a curse brought on by his bloodline.",
@@ -1161,7 +1246,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt15318872/",
       "posterUrl": "https://m.media-amazon.com/images/M/MV5BODUzMGFkYzgtYzhjNC00ZmFjLTg3ZTYtYWJkMWRjMzJmYTQ2XkEyXkFqcGc@._V1_.jpg",
       "rating": 7.1,
-      "runtime": "52m"
+      "runtime": "52m",
+      "traktUrl": "https://app.trakt.tv/movies/werewolf-by-night-2022"
     },
     "status": "resolved"
   }
