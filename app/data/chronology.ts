@@ -54,7 +54,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 30,
+        chronologyOrder: 40,
         contentType: "one-shot",
         phase: "Phase Two",
         placement: "1946",
@@ -66,7 +66,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 40,
+        chronologyOrder: 30,
         contentType: "series",
         phase: "Phase Two",
         placement: "1946 to 1947",
@@ -382,7 +382,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
     },
 
     {
-        chronologyOrder: 290,
+        chronologyOrder: 320,
         contentType: "series",
         phase: "Phase Three",
         placement: "2016",
@@ -394,7 +394,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 300,
+        chronologyOrder: 290,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Three",
@@ -407,7 +407,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 310,
+        chronologyOrder: 300,
         contentType: "film",
         creditScenes: { after: true, during: false },
         phase: "Phase Four",
@@ -420,7 +420,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 320,
+        chronologyOrder: 310,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Three",
@@ -673,7 +673,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 520,
+        chronologyOrder: 530,
         contentType: "short",
         phase: "Phase Three",
         placement: "Summer 2024",
@@ -685,7 +685,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 530,
+        chronologyOrder: 540,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Three",
@@ -698,7 +698,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 540,
+        chronologyOrder: 550,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Four",
@@ -711,7 +711,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 550,
+        chronologyOrder: 560,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Four",
@@ -724,7 +724,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 560,
+        chronologyOrder: 570,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Four",
@@ -737,7 +737,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 570,
+        chronologyOrder: 580,
         contentType: "series",
         phase: "Phase Four",
         placement: "Christmas 2024",
@@ -749,7 +749,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 580,
+        chronologyOrder: 590,
         contentType: "series",
         phase: "Phase Four",
         placement: "2025",
@@ -761,7 +761,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 590,
+        chronologyOrder: 600,
         contentType: "film",
         creditScenes: { after: false, during: true },
         phase: "Phase Four",
@@ -774,7 +774,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 600,
+        chronologyOrder: 610,
         contentType: "series",
         phase: "Phase Five",
         placement: "2025",
@@ -786,7 +786,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 610,
+        chronologyOrder: 620,
         contentType: "series",
         phase: "Phase Four",
         placement: "2025",
@@ -798,7 +798,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 620,
+        chronologyOrder: 630,
         contentType: "series",
         phase: "Phase Four",
         placement: "2025",
@@ -810,7 +810,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 630,
+        chronologyOrder: 520,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Four",
@@ -848,7 +848,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 660,
+        chronologyOrder: 680,
         contentType: "special",
         phase: "Phase Four",
         placement: "Christmas 2025",
@@ -860,7 +860,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 670,
+        chronologyOrder: 700,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Five",
@@ -873,7 +873,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 680,
+        chronologyOrder: 690,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Five",
@@ -886,7 +886,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 690,
+        chronologyOrder: 660,
         contentType: "series",
         phase: "Phase Five",
         placement: "2026",
@@ -898,7 +898,7 @@ export const curatedChronology: readonly CuratedTimelineEntry[] = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 700,
+        chronologyOrder: 670,
         contentType: "film",
         creditScenes: { after: true, during: true },
         phase: "Phase Five",
