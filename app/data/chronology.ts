@@ -1236,8 +1236,29 @@ export const chronology = [
         title: "Ironheart",
         universe: "Earth-616",
     },
+
     {
         chronologyOrder: 640,
+        contentType: "special",
+        description:
+            "Follows a lycanthrope superhero who fights evil using the abilities given to him by a curse brought on by his bloodline.",
+        genres: ["action", "drama", "fantasy", "horror", "mystery", "thriller"],
+        imdbUrl: "https://www.imdb.com/title/tt15318872/",
+        phase: "Phase Four",
+        placement: "Late 2025",
+        posterUrl:
+            "https://m.media-amazon.com/images/M/MV5BODUzMGFkYzgtYzhjNC00ZmFjLTg3ZTYtYWJkMWRjMzJmYTQ2XkEyXkFqcGc@._V1_.jpg",
+        rating: 7.1,
+        releaseDate: "2022-10-07",
+        runtime: "52m",
+        saga: "Multiverse Saga",
+        slug: "werewolf-by-night",
+        status: "released",
+        title: "Werewolf by Night",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 650,
         contentType: "special",
         description:
             "Star-Lord, Drax, Rocket, Mantis, and Groot engage in some spirited shenanigans in an all-new original special created for Disney+.",
@@ -1257,7 +1278,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 650,
+        chronologyOrder: 660,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1278,7 +1299,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 660,
+        chronologyOrder: 670,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1299,7 +1320,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 670,
+        chronologyOrder: 680,
         contentType: "series",
         description:
             "Fury and Talos try to stop the Skrulls who have infiltrated the highest spheres of the Marvel Universe.",
@@ -1319,7 +1340,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 680,
+        chronologyOrder: 690,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1340,7 +1361,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 690,
+        chronologyOrder: 700,
         contentType: "series",
         description:
             "The cast and crew of Loki: Season 2 pull back the curtain on Loki's latest MCU adventure.",
@@ -1360,7 +1381,7 @@ export const chronology = [
         universe: "TVA / Multiverse",
     },
     {
-        chronologyOrder: 700,
+        chronologyOrder: 710,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description: "Deadpool recruits Wolverine to save his universe from extinction.",
@@ -1380,7 +1401,7 @@ export const chronology = [
         universe: "Earth-10005 / Multiverse",
     },
     {
-        chronologyOrder: 710,
+        chronologyOrder: 720,
         contentType: "series",
         description:
             "A spell-bound Agatha Harkness regains freedom thanks to a teen's help. Intrigued by his plea, she embarks on the Witches' Road trials to reclaim her powers and discover the teen's motivations.",
@@ -1400,7 +1421,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 720,
+        chronologyOrder: 730,
         contentType: "series",
         description:
             "Matt Murdock finds himself on a collision course with Wilson Fisk when their past identities begin to emerge.",
@@ -1420,7 +1441,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 730,
+        chronologyOrder: 740,
         contentType: "film",
         creditScenes: { after: true, during: false },
         description:
@@ -1441,7 +1462,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 740,
+        chronologyOrder: 750,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1462,7 +1483,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 750,
+        chronologyOrder: 760,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1483,7 +1504,7 @@ export const chronology = [
         universe: "Earth-828",
     },
     {
-        chronologyOrder: 760,
+        chronologyOrder: 770,
         contentType: "series",
         description:
             "Small-time actor Simon Williams struggles to reckon with his personal life while hiding his super-powers as he tries to land his dream role. Meanwhile, a shady government agent leverages a new friendship in order to save his own job.",
@@ -1503,7 +1524,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 770,
+        chronologyOrder: 780,
         contentType: "series",
         description:
             "Matt Murdock finds himself on a collision course with Wilson Fisk when their past identities begin to emerge.",
@@ -1523,7 +1544,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 780,
+        chronologyOrder: 790,
         contentType: "special",
         description:
             "Frank Castle is drawn back into a brutal fight after years away from violence.",
@@ -1543,7 +1564,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 790,
+        chronologyOrder: 800,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -1564,7 +1585,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 800,
+        chronologyOrder: 810,
         contentType: "series",
         description:
             "Vision is faced with many challenges while trying to regain his memory and humanity.",
@@ -1584,7 +1605,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 810,
+        chronologyOrder: 820,
         contentType: "film",
         description:
             "Heroes from three different worlds must unite when they're thrust together to confront a catastrophic danger that could destroy everything they know.",
@@ -1604,7 +1625,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 820,
+        chronologyOrder: 830,
         contentType: "film",
         description: "Plot Under Wraps",
         genres: ["action", "adventure", "sciFi"],

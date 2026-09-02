@@ -67,6 +67,7 @@ values
     ('ms-marvel'),
     ('thor-love-and-thunder'),
     ('ironheart'),
+    ('werewolf-by-night'),
     ('the-guardians-of-the-galaxy-holiday-special'),
     ('ant-man-and-the-wasp-quantumania'),
     ('the-guardians-of-the-galaxy-vol-3'),
