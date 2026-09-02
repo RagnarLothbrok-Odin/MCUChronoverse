@@ -535,8 +535,24 @@ export const chronology = [
         title: "Marvel's Iron Fist Season 1",
         universe: "Earth-616",
     },
+
     {
         chronologyOrder: 280,
+        contentType: "series",
+        description: "Four heroes unite against a common enemy in New York.",
+        imdbUrl: "https://www.imdb.com/title/tt4230076/",
+        phase: "Phase Three",
+        placement: "2016",
+        releaseDate: "2017-08-18",
+        runtime: "Limited series",
+        saga: "Infinity Saga",
+        slug: "the-defenders",
+        status: "released",
+        title: "Marvel's The Defenders",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 290,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -557,7 +573,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 290,
+        chronologyOrder: 300,
         contentType: "film",
         creditScenes: { after: true, during: false },
         description:
@@ -578,7 +594,7 @@ export const chronology = [
         universe: "Earth-616",
     },
     {
-        chronologyOrder: 300,
+        chronologyOrder: 310,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -600,21 +616,6 @@ export const chronology = [
     },
 
     {
-        chronologyOrder: 310,
-        contentType: "series",
-        description: "Four heroes unite against a common enemy in New York.",
-        imdbUrl: "https://www.imdb.com/title/tt4230076/",
-        phase: "Phase Three",
-        placement: "2016",
-        releaseDate: "2017-08-18",
-        runtime: "Limited series",
-        saga: "Infinity Saga",
-        slug: "the-defenders",
-        status: "released",
-        title: "Marvel's The Defenders",
-        universe: "Earth-616",
-    },
-    {
         chronologyOrder: 320,
         contentType: "film",
         creditScenes: { after: true, during: true },
@@ -635,8 +636,24 @@ export const chronology = [
         title: "Spider-Man: Homecoming",
         universe: "Earth-616",
     },
+
     {
         chronologyOrder: 330,
+        contentType: "series",
+        description: "Frank Castle wages a one-man war against a criminal conspiracy.",
+        imdbUrl: "https://www.imdb.com/title/tt5675620/",
+        phase: "Phase Three",
+        placement: "2016",
+        releaseDate: "2017-11-17",
+        runtime: "Season 1",
+        saga: "Infinity Saga",
+        slug: "the-punisher-season-1",
+        status: "released",
+        title: "Marvel's The Punisher Season 1",
+        universe: "Earth-616",
+    },
+    {
+        chronologyOrder: 340,
         contentType: "film",
         creditScenes: { after: true, during: true },
         description:
@@ -657,21 +674,6 @@ export const chronology = [
         universe: "Earth-616",
     },
 
-    {
-        chronologyOrder: 340,
-        contentType: "series",
-        description: "Frank Castle wages a one-man war against a criminal conspiracy.",
-        imdbUrl: "https://www.imdb.com/title/tt5675620/",
-        phase: "Phase Three",
-        placement: "2016",
-        releaseDate: "2017-11-17",
-        runtime: "Season 1",
-        saga: "Infinity Saga",
-        slug: "the-punisher-season-1",
-        status: "released",
-        title: "Marvel's The Punisher Season 1",
-        universe: "Earth-616",
-    },
     {
         chronologyOrder: 350,
         contentType: "series",
