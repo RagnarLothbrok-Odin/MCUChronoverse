@@ -173,15 +173,14 @@ const panelVertexShader = /* glsl */ `
     }
 `;
 
-const panelFragmentShader = /* glsl */ `
+const cardPanelFragmentShader = /* glsl */ `
     uniform vec3 uAccentColour;
     uniform vec3 uBorderColour;
     uniform vec3 uSurfaceColour;
     uniform float uAccentStrength;
     uniform float uBorderOpacity;
-    uniform float uBorderWidth;
     uniform float uEdgeAccentOpacity;
-    uniform float uRadius;
+    uniform float uHighlighted;
     uniform float uSurfaceOpacity;
     varying vec2 vPanelUv;
     varying vec2 vPanelSize;
@@ -191,37 +190,77 @@ const panelFragmentShader = /* glsl */ `
         return length(max(offset, 0.0)) + min(max(offset.x, offset.y), 0.0) - radius;
     }
 
+    float shapeMask(float distanceToEdge, float antialiasWidth) {
+        return 1.0 - smoothstep(-antialiasWidth, antialiasWidth, distanceToEdge);
+    }
+
+    vec4 composite(vec4 below, vec4 above) {
+        float alpha = above.a + below.a * (1.0 - above.a);
+        vec3 colour = alpha > 0.0001
+            ? (above.rgb * above.a + below.rgb * below.a * (1.0 - above.a)) / alpha
+            : vec3(0.0);
+        return vec4(colour, alpha);
+    }
+
     void main() {
         vec2 panelSize = max(vPanelSize, vec2(0.0001));
         vec2 point = (vPanelUv - 0.5) * panelSize;
-        float distanceToEdge = roundedBoxDistance(point, panelSize * 0.5, uRadius);
-        float antialiasWidth = max(fwidth(distanceToEdge), 0.0008);
-        float outerMask = 1.0 - smoothstep(-antialiasWidth, antialiasWidth, distanceToEdge);
-        float innerMask = 1.0 - smoothstep(
-            -uBorderWidth - antialiasWidth,
-            -uBorderWidth + antialiasWidth,
-            distanceToEdge
+        float unitScale = panelSize.x / ${CARD_WIDTH + 0.12};
+        vec2 cardSize = panelSize - vec2(0.12, 0.22) * unitScale;
+        vec2 cardBounds = cardSize * 0.5;
+        float cardRadius = ${CARD_RADIUS} * unitScale;
+        float borderWidth = 0.011 * unitScale;
+
+        float shadowDistance = roundedBoxDistance(
+            point - vec2(0.0, -0.055 * unitScale),
+            cardBounds + vec2(0.04) * unitScale,
+            (${CARD_RADIUS} + 0.04) * unitScale
         );
+        float shadowAntialias = max(fwidth(shadowDistance), 0.0008);
+        vec4 result = vec4(
+            0.0,
+            0.0,
+            0.0,
+            shapeMask(shadowDistance, shadowAntialias) * 0.32
+        );
+
+        float glowDistance = roundedBoxDistance(
+            point,
+            cardBounds + vec2(0.03) * unitScale,
+            (${CARD_RADIUS} + 0.04) * unitScale
+        );
+        float glowAntialias = max(fwidth(glowDistance), 0.0008);
+        float glowOuter = shapeMask(glowDistance, glowAntialias);
+        float glowInner = shapeMask(glowDistance + 0.028 * unitScale, glowAntialias);
+        float glowBorder = max(glowOuter - glowInner, 0.0);
+        float glowAlpha = (glowInner * 0.025 + glowBorder * 0.14) * uHighlighted;
+        result = composite(result, vec4(uAccentColour, glowAlpha));
+
+        float distanceToEdge = roundedBoxDistance(point, cardBounds, cardRadius);
+        float antialiasWidth = max(fwidth(distanceToEdge), 0.0008);
+        float outerMask = shapeMask(distanceToEdge, antialiasWidth);
+        float innerMask = shapeMask(distanceToEdge + borderWidth, antialiasWidth);
         float borderMask = max(outerMask - innerMask, 0.0);
-        float topEdgeWidth = max(uBorderWidth * 2.5, 0.001);
+        float topEdgeWidth = max(borderWidth * 2.5, 0.001);
         float topEdgeMask = smoothstep(
-            panelSize.y * 0.5 - topEdgeWidth,
-            panelSize.y * 0.5 + antialiasWidth,
+            cardBounds.y - topEdgeWidth,
+            cardBounds.y + antialiasWidth,
             point.y
         );
         float horizontalEdgeFade = 1.0 - smoothstep(
-            -panelSize.x * 0.48,
-            panelSize.x * 0.32,
+            -cardSize.x * 0.48,
+            cardSize.x * 0.32,
             point.x
         );
         float edgeAccentMask = borderMask
             * topEdgeMask
             * horizontalEdgeFade
             * uEdgeAccentOpacity;
+        vec2 cardUv = point / cardSize + 0.5;
         float accentGlow = 1.0 - smoothstep(
             0.0,
             0.92,
-            distance(vPanelUv, vec2(0.04, 0.98))
+            distance(cardUv, vec2(0.04, 0.98))
         );
         vec3 surfaceColour = mix(
             uSurfaceColour,
@@ -232,8 +271,26 @@ const panelFragmentShader = /* glsl */ `
         colour = mix(colour, uAccentColour, edgeAccentMask);
         float alpha = innerMask * uSurfaceOpacity + borderMask * uBorderOpacity;
         alpha = min(1.0, alpha + edgeAccentMask * (1.0 - alpha));
+        result = composite(result, vec4(colour, alpha * outerMask));
 
-        gl_FragColor = vec4(colour, alpha * outerMask);
+        vec2 posterSize = vec2(${POSTER_WIDTH}, ${POSTER_HEIGHT}) * unitScale;
+        vec2 posterCentre = vec2(
+            0.0,
+            cardBounds.y - (${CARD_PADDING} + ${POSTER_HEIGHT / 2}) * unitScale
+        );
+        float posterDistance = roundedBoxDistance(
+            point - posterCentre,
+            posterSize * 0.5,
+            0.058 * unitScale
+        );
+        float posterAntialias = max(fwidth(posterDistance), 0.0008);
+        float posterOuter = shapeMask(posterDistance, posterAntialias);
+        float posterInner = shapeMask(posterDistance + 0.012 * unitScale, posterAntialias);
+        float posterBorder = max(posterOuter - posterInner, 0.0);
+        float posterAlpha = posterInner * 0.03 + posterBorder * 0.08;
+        result = composite(result, vec4(vec3(1.0), posterAlpha));
+
+        gl_FragColor = result;
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
     }
@@ -388,78 +445,25 @@ function createAuraMaterial({
     });
 }
 
-interface PanelMaterialOptions {
-    accentColour: string;
-    accentStrength: number;
-    borderColour: string;
-    borderOpacity: number;
-    borderWidth: number;
-    edgeAccentOpacity: number;
-    radius: number;
-    surfaceColour: string;
-    surfaceOpacity: number;
-}
-
-function createPanelMaterial({
-    accentColour,
-    accentStrength,
-    borderColour,
-    borderOpacity,
-    borderWidth,
-    edgeAccentOpacity,
-    radius,
-    surfaceColour,
-    surfaceOpacity,
-}: PanelMaterialOptions): ShaderMaterial {
+function createCardSurfaceMaterial(accentColour: string, highlighted: boolean): ShaderMaterial {
     return new ShaderMaterial({
         depthTest: false,
         depthWrite: false,
-        fragmentShader: panelFragmentShader,
+        fragmentShader: cardPanelFragmentShader,
         toneMapped: false,
         transparent: true,
         uniforms: {
             uAccentColour: { value: new Color(accentColour) },
-            uAccentStrength: { value: accentStrength },
-            uBorderColour: { value: new Color(borderColour) },
-            uBorderOpacity: { value: borderOpacity },
-            uBorderWidth: { value: borderWidth },
-            uEdgeAccentOpacity: { value: edgeAccentOpacity },
-            uRadius: { value: radius },
-            uSurfaceColour: { value: new Color(surfaceColour) },
-            uSurfaceOpacity: { value: surfaceOpacity },
+            uAccentStrength: { value: highlighted ? 0.13 : 0.07 },
+            uBorderColour: { value: new Color(highlighted ? accentColour : "#ffffff") },
+            uBorderOpacity: { value: highlighted ? 0.42 : 0.11 },
+            uEdgeAccentOpacity: { value: highlighted ? 1 : 0.65 },
+            uHighlighted: { value: highlighted ? 1 : 0 },
+            uSurfaceColour: { value: new Color(highlighted ? "#08080b" : "#060709") },
+            uSurfaceOpacity: { value: highlighted ? 0.92 : 0.82 },
         },
         vertexShader: panelVertexShader,
     });
-}
-
-function createCardSurfaceMaterial(accentColour: string, highlighted: boolean): ShaderMaterial {
-    return createPanelMaterial({
-        accentColour,
-        accentStrength: highlighted ? 0.13 : 0.07,
-        borderColour: highlighted ? accentColour : "#ffffff",
-        borderOpacity: highlighted ? 0.42 : 0.11,
-        borderWidth: 0.011,
-        edgeAccentOpacity: highlighted ? 1 : 0.65,
-        radius: CARD_RADIUS,
-        surfaceColour: highlighted ? "#08080b" : "#060709",
-        surfaceOpacity: highlighted ? 0.92 : 0.82,
-    });
-}
-
-function createCardGlowMaterial(colour: string): ShaderMaterial {
-    const material = createPanelMaterial({
-        accentColour: colour,
-        accentStrength: 0.24,
-        borderColour: colour,
-        borderOpacity: 0.14,
-        borderWidth: 0.028,
-        edgeAccentOpacity: 0,
-        radius: CARD_RADIUS + 0.04,
-        surfaceColour: "#000000",
-        surfaceOpacity: 0.025,
-    });
-    material.blending = AdditiveBlending;
-    return material;
 }
 
 type CardSurfaceMaterialSet = Record<
@@ -489,38 +493,6 @@ const cardSurfaceMaterials = {
         idle: createCardSurfaceMaterial(cardAccentColours.special, false),
     },
 } satisfies CardSurfaceMaterialSet;
-
-const cardGlowMaterials = {
-    film: createCardGlowMaterial(cardAccentColours.film),
-    "one-shot": createCardGlowMaterial(cardAccentColours["one-shot"]),
-    series: createCardGlowMaterial(cardAccentColours.series),
-    short: createCardGlowMaterial(cardAccentColours.short),
-    special: createCardGlowMaterial(cardAccentColours.special),
-} satisfies Record<TimelineEntry["contentType"], ShaderMaterial>;
-
-const cardShadowMaterial = createPanelMaterial({
-    accentColour: "#000000",
-    accentStrength: 0,
-    borderColour: "#000000",
-    borderOpacity: 0,
-    borderWidth: 0,
-    edgeAccentOpacity: 0,
-    radius: CARD_RADIUS,
-    surfaceColour: "#000000",
-    surfaceOpacity: 0.32,
-});
-
-const posterFrameMaterial = createPanelMaterial({
-    accentColour: "#ffffff",
-    accentStrength: 0.02,
-    borderColour: "#ffffff",
-    borderOpacity: 0.08,
-    borderWidth: 0.012,
-    edgeAccentOpacity: 0,
-    radius: 0.058,
-    surfaceColour: "#ffffff",
-    surfaceOpacity: 0.03,
-});
 
 const posterShadeMaterial = new ShaderMaterial({
     depthTest: false,
@@ -760,31 +732,8 @@ function TimelinePosterCard({ active, entry, onSelect, selected }: TimelinePoste
                 </mesh>
                 <mesh
                     frustumCulled={false}
-                    position={[0, -0.055, -0.014]}
-                    renderOrder={renderOrder}
-                    scale={[CARD_WIDTH + 0.08, cardHeight + 0.08, 1]}
-                >
-                    <primitive attach="geometry" object={CARD_PLANE_GEOMETRY} />
-                    <primitive attach="material" object={cardShadowMaterial} />
-                </mesh>
-                {highlighted ? (
-                    <mesh
-                        frustumCulled={false}
-                        position={[0, 0, -0.008]}
-                        renderOrder={renderOrder + 1}
-                        scale={[CARD_WIDTH + 0.06, cardHeight + 0.06, 1]}
-                    >
-                        <primitive attach="geometry" object={CARD_PLANE_GEOMETRY} />
-                        <primitive
-                            attach="material"
-                            object={cardGlowMaterials[entry.contentType]}
-                        />
-                    </mesh>
-                ) : null}
-                <mesh
-                    frustumCulled={false}
                     renderOrder={renderOrder + 2}
-                    scale={[CARD_WIDTH, cardHeight, 1]}
+                    scale={[CARD_WIDTH + 0.12, cardHeight + 0.22, 1]}
                 >
                     <primitive attach="geometry" object={CARD_PLANE_GEOMETRY} />
                     <primitive
@@ -795,15 +744,6 @@ function TimelinePosterCard({ active, entry, onSelect, selected }: TimelinePoste
                             ]
                         }
                     />
-                </mesh>
-                <mesh
-                    frustumCulled={false}
-                    position={[0, posterPositionY, 0.012]}
-                    renderOrder={renderOrder + 4}
-                    scale={[POSTER_WIDTH, POSTER_HEIGHT, 1]}
-                >
-                    <primitive attach="geometry" object={CARD_PLANE_GEOMETRY} />
-                    <primitive attach="material" object={posterFrameMaterial} />
                 </mesh>
                 <Suspense
                     fallback={
