@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 type UiIconName =
     | "check"
     | "chevron-down"
+    | "chevron-left"
+    | "chevron-right"
     | "close"
     | "cloud-sync"
     | "diamond"
@@ -23,6 +25,8 @@ interface UiIconProps {
 const iconPaths: Record<UiIconName, ReactNode> = {
     check: <path d="m3.5 8.25 3 3 6-7" />,
     "chevron-down": <path d="m3 5.5 5 5 5-5" />,
+    "chevron-left": <path d="m10.25 3.25-4.75 4.75 4.75 4.75" />,
+    "chevron-right": <path d="m5.75 3.25 4.75 4.75-4.75 4.75" />,
     close: <path d="m4 4 8 8m0-8-8 8" />,
     "cloud-sync": (
         <>

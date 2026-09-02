@@ -63,6 +63,13 @@ function toggleValue<T extends string>(values: T[], value: T): T[] {
     return values.includes(value) ? values.filter((item) => item !== value) : [...values, value];
 }
 
+function timelineStepDisabled(index: number, count: number, direction: -1 | 1): boolean {
+    if (count === 0) {
+        return true;
+    }
+    return direction === -1 ? index === 0 : index === count - 1;
+}
+
 function isContentType(value: string | undefined): value is ContentType {
     return contentTypes.some((type) => type === value);
 }
@@ -472,6 +479,17 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
         setTimelineIndex(index);
         setFocusRequest((current) => ({ index, key: current.key + 1 }));
     }, []);
+    const handleTimelineStep = useCallback(
+        (event: MouseEvent<HTMLButtonElement>) => {
+            const direction = Number(event.currentTarget.dataset.direction);
+            const nextIndex = Math.min(
+                Math.max(safeTimelineIndex + direction, 0),
+                Math.max(visibleEntries.length - 1, 0)
+            );
+            focusTimelineAt(nextIndex);
+        },
+        [focusTimelineAt, safeTimelineIndex, visibleEntries.length]
+    );
     const undoPendingWatch = useCallback(
         (entryIndex: number) => {
             setPendingWatchSlug(null);
@@ -802,28 +820,61 @@ export function TimelineExplorer({ entries }: TimelineExplorerProps) {
                         </p>
                     </div>
 
-                    <div className="timeline-scrubber mt-3">
-                        <div
-                            aria-hidden="true"
-                            className="timeline-scrubber-progress"
-                            style={{
-                                width:
-                                    visibleEntries.length > 1
-                                        ? `${(safeTimelineIndex / (visibleEntries.length - 1)) * 100}%`
-                                        : "0%",
-                            }}
-                        />
-                        <div aria-hidden="true" className="timeline-scrubber-track" />
-                        <input
-                            aria-label="Timeline position"
-                            className="timeline-scrubber-input"
-                            max={Math.max(visibleEntries.length - 1, 0)}
-                            min="0"
-                            onChange={handleTimelineChange}
-                            step="1"
-                            type="range"
-                            value={visibleEntries.length > 0 ? safeTimelineIndex : 0}
-                        />
+                    <div className="timeline-scrubber-controls mt-3">
+                        <button
+                            aria-controls="timeline-position"
+                            aria-label="Previous timeline entry"
+                            className="focus-ring timeline-scrubber-step"
+                            data-direction="-1"
+                            disabled={timelineStepDisabled(
+                                safeTimelineIndex,
+                                visibleEntries.length,
+                                -1
+                            )}
+                            onClick={handleTimelineStep}
+                            type="button"
+                        >
+                            <UiIcon name="chevron-left" />
+                        </button>
+                        <div className="timeline-scrubber">
+                            <div
+                                aria-hidden="true"
+                                className="timeline-scrubber-progress"
+                                style={{
+                                    width:
+                                        visibleEntries.length > 1
+                                            ? `${(safeTimelineIndex / (visibleEntries.length - 1)) * 100}%`
+                                            : "0%",
+                                }}
+                            />
+                            <div aria-hidden="true" className="timeline-scrubber-track" />
+                            <input
+                                aria-label="Timeline position"
+                                className="timeline-scrubber-input"
+                                id="timeline-position"
+                                max={Math.max(visibleEntries.length - 1, 0)}
+                                min="0"
+                                onChange={handleTimelineChange}
+                                step="1"
+                                type="range"
+                                value={visibleEntries.length > 0 ? safeTimelineIndex : 0}
+                            />
+                        </div>
+                        <button
+                            aria-controls="timeline-position"
+                            aria-label="Next timeline entry"
+                            className="focus-ring timeline-scrubber-step"
+                            data-direction="1"
+                            disabled={timelineStepDisabled(
+                                safeTimelineIndex,
+                                visibleEntries.length,
+                                1
+                            )}
+                            onClick={handleTimelineStep}
+                            type="button"
+                        >
+                            <UiIcon name="chevron-right" />
+                        </button>
                     </div>
                     <div className="mt-2 flex items-center justify-between font-mono text-[0.7rem] text-white/28 uppercase tracking-[0.14em]">
                         <span>{activeEntry?.placement ?? "Origin"}</span>
